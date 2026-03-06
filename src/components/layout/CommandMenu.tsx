@@ -45,6 +45,10 @@ export default function CommandMenu() {
   const [view, setView] = React.useState<View>('root');
   const [selectedColor, setSelectedColor] = React.useState<ColorScheme | null>(null);
   
+  // Storage for reverting if user cancels/goes back
+  const initialColorScheme = React.useRef<ColorScheme | null>(null);
+  const initialTheme = React.useRef<any>(null);
+
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
   const colorOptions: { id: ColorScheme; name: string; category: string; icon: string }[] = [
@@ -111,27 +115,39 @@ export default function CommandMenu() {
 
   const handleSelect = (item: any) => {
     if (item.isBack) {
-      if (view === 'color-modes') setView('colors');
-      else setView('root');
+      if (view === 'color-modes') {
+        // Revert color to what it was when we started picking colors
+        if (initialColorScheme.current) setColorScheme(initialColorScheme.current);
+        if (initialTheme.current) setTheme(initialTheme.current);
+        setView('colors');
+      } else {
+        // Revert all
+        if (initialColorScheme.current) setColorScheme(initialColorScheme.current);
+        if (initialTheme.current) setTheme(initialTheme.current);
+        setView('root');
+      }
       setQuery('');
       return;
     }
 
     if (item.type === 'nav') {
+      // Capture state before we start making experimental changes
+      initialColorScheme.current = colorScheme;
+      initialTheme.current = theme;
       setView(item.target);
       setQuery('');
     } else if (item.type === 'color') {
-      // Apply color instantly
+      // Preview color immediately
       setColorScheme(item.id);
       setSelectedColor(item.id);
       setView('color-modes');
       setQuery('');
     } else if (item.type === 'mode') {
-      // Apply mode instantly and close
+      // Apply mode immediately and close (Final action)
       setTheme(item.id);
       setOpen(false);
     } else if (item.type === 'apply-all') {
-      // Finalize mode for the selected color and close
+      // Finalize mode for the selected color and close (Final action)
       setTheme(item.id as any);
       setOpen(false);
     } else if (item.href) {
@@ -153,6 +169,11 @@ export default function CommandMenu() {
 
   React.useEffect(() => {
     if (!open) {
+      // Revert if closed without finalizing via terminal action
+      if (view !== 'root') {
+        if (initialColorScheme.current) setColorScheme(initialColorScheme.current);
+        if (initialTheme.current) setTheme(initialTheme.current);
+      }
       setView('root');
       setQuery('');
       setSelectedColor(null);
@@ -175,8 +196,8 @@ export default function CommandMenu() {
       if (filteredItems[selectedIndex]) handleSelect(filteredItems[selectedIndex]);
     } else if (e.key === 'Backspace' && query === '' && view !== 'root') {
       e.preventDefault();
-      if (view === 'color-modes') setView('colors');
-      else setView('root');
+      // Use the logic in handleSelect for 'back'
+      handleSelect({ isBack: true });
     }
   };
 
@@ -187,7 +208,7 @@ export default function CommandMenu() {
           <DialogTitle className="sr-only">Spotlight</DialogTitle>
           <div className="flex items-center gap-4 px-6 h-16">
             {view !== 'root' ? (
-              <Button variant="ghost" size="icon" onClick={() => setView('root')} className="h-8 w-8">
+              <Button variant="ghost" size="icon" onClick={() => handleSelect({ isBack: true })} className="h-8 w-8">
                 <ArrowLeft className="h-4 w-4" />
               </Button>
             ) : (
