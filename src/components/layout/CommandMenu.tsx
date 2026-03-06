@@ -121,14 +121,17 @@ export default function CommandMenu() {
       setView(item.target);
       setQuery('');
     } else if (item.type === 'color') {
+      // Apply color instantly
+      setColorScheme(item.id);
       setSelectedColor(item.id);
       setView('color-modes');
       setQuery('');
     } else if (item.type === 'mode') {
+      // Apply mode instantly and close
       setTheme(item.id);
       setOpen(false);
     } else if (item.type === 'apply-all') {
-      setColorScheme(selectedColor!);
+      // Finalize mode for the selected color and close
       setTheme(item.id as any);
       setOpen(false);
     } else if (item.href) {
@@ -213,7 +216,6 @@ export default function CommandMenu() {
                 const Icon = iconMap[item.icon] || Terminal;
                 const isCurrentItem = index === selectedIndex;
                 
-                // Robust naming logic
                 const name = item.isBack ? item.name : (item.isAction ? (item.nameKey || item.name) : t(item.nameKey || ''));
                 const desc = item.isBack ? '' : (item.isAction ? (item.descriptionKey || item.category) : t(item.descriptionKey || ''));
 
