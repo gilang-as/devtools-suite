@@ -19,7 +19,8 @@ import {
   Search, Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, 
   LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, 
   Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, 
-  ChevronRight, FileBadge, Type, Network, Sun, Moon, Monitor, Sparkles
+  ChevronRight, FileBadge, Type, Network, Sun, Moon, Monitor, Sparkles,
+  ArrowLeft, Laptop
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -27,65 +28,113 @@ const iconMap: Record<string, any> = {
   Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, 
   Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, 
   FileKey, Lock, ShieldAlert, Zap, FileBadge, Type, Network, Sun, Moon, 
-  Monitor, Sparkles
+  Monitor, Sparkles, Laptop
 };
+
+type View = 'root' | 'colors' | 'modes' | 'color-modes';
 
 export default function CommandMenu() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { setTheme, setColorScheme } = useTheme();
+  const { theme, setTheme, colorScheme, setColorScheme } = useTheme();
+  
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState('');
   const [selectedIndex, setSelectedIndex] = React.useState(0);
-  const [category, setCategory] = React.useState<string | null>(null);
+  const [view, setView] = React.useState<View>('root');
+  const [selectedColor, setSelectedColor] = React.useState<ColorScheme | null>(null);
   
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
-  // Appearance Actions
-  const appearanceActions = [
-    { id: 'mode-light', name: 'Switch to Light Mode', desc: 'Change appearance to light', icon: 'Sun', category: 'Appearance', action: () => setTheme('light') },
-    { id: 'mode-dark', name: 'Switch to Dark Mode', desc: 'Change appearance to dark', icon: 'Moon', category: 'Appearance', action: () => setTheme('dark') },
-    { id: 'mode-system', name: 'Switch to System Mode', desc: 'Follow system appearance settings', icon: 'Monitor', category: 'Appearance', action: () => setTheme('system') },
+  const colorOptions: { id: ColorScheme; name: string; category: string; icon: string }[] = [
+    { id: 'default', name: 'Default Blue', category: 'Standard', icon: 'Palette' },
+    { id: 'latte', name: 'Catppuccin Latte', category: 'Catppuccin', icon: 'Sparkles' },
+    { id: 'frappe', name: 'Catppuccin Frappé', category: 'Catppuccin', icon: 'Sparkles' },
+    { id: 'macchiato', name: 'Catppuccin Macchiato', category: 'Catppuccin', icon: 'Sparkles' },
+    { id: 'mocha', name: 'Catppuccin Mocha', category: 'Catppuccin', icon: 'Sparkles' },
+    { id: 'spring', name: 'Spring Theme', category: 'Seasonal', icon: 'Palette' },
+    { id: 'summer', name: 'Summer Theme', category: 'Seasonal', icon: 'Palette' },
+    { id: 'fall', name: 'Fall Theme', category: 'Seasonal', icon: 'Palette' },
+    { id: 'winter', name: 'Winter Theme', category: 'Seasonal', icon: 'Palette' },
+    { id: 'sakura', name: 'Sakura Theme', category: 'Cultural', icon: 'Palette' },
+    { id: 'china', name: 'China Theme', category: 'Cultural', icon: 'Palette' },
   ];
 
-  // Color Scheme Actions
-  const colorActions = [
-    { id: 'theme-default', name: 'Default Blue Theme', desc: 'Classic professional blue', icon: 'Palette', category: 'Theme', action: () => setColorScheme('default') },
-    { id: 'theme-latte', name: 'Catppuccin Latte', desc: 'Light and airy palette', icon: 'Sparkles', category: 'Theme', action: () => setColorScheme('latte') },
-    { id: 'theme-frappe', name: 'Catppuccin Frappé', desc: 'Low-contrast dark theme', icon: 'Sparkles', category: 'Theme', action: () => setColorScheme('frappe') },
-    { id: 'theme-macchiato', name: 'Catppuccin Macchiato', desc: 'Medium-contrast dark theme', icon: 'Sparkles', category: 'Theme', action: () => setColorScheme('macchiato') },
-    { id: 'theme-mocha', name: 'Catppuccin Mocha', desc: 'High-contrast dark theme', icon: 'Sparkles', category: 'Theme', action: () => setColorScheme('mocha') },
-    { id: 'theme-spring', name: 'Spring Theme', desc: 'Fresh greens and pinks', icon: 'Palette', category: 'Theme', action: () => setColorScheme('spring') },
-    { id: 'theme-summer', name: 'Summer Theme', desc: 'Vibrant blues and yellows', icon: 'Palette', category: 'Theme', action: () => setColorScheme('summer') },
-    { id: 'theme-fall', name: 'Fall Theme', desc: 'Warm oranges and browns', icon: 'Palette', category: 'Theme', action: () => setColorScheme('fall') },
-    { id: 'theme-winter', name: 'Winter Theme', desc: 'Cool icy blues and greys', icon: 'Palette', category: 'Theme', action: () => setColorScheme('winter') },
-    { id: 'theme-sakura', name: 'Sakura Theme', desc: 'Japanese cherry blossom pinks', icon: 'Palette', category: 'Theme', action: () => setColorScheme('sakura') },
-    { id: 'theme-china', name: 'China Theme', desc: 'Imperial red and gold', icon: 'Palette', category: 'Theme', action: () => setColorScheme('china') },
+  const modeOptions = [
+    { id: 'light', name: 'Light Mode', icon: 'Sun' },
+    { id: 'dark', name: 'Dark Mode', icon: 'Moon' },
+    { id: 'system', name: 'System Default', icon: 'Monitor' },
   ];
-
-  const categories = React.useMemo(() => {
-    const cats = new Set([...TOOLS.map(t => t.category), 'Appearance', 'Theme']);
-    return Array.from(cats).sort();
-  }, []);
 
   const filteredItems = React.useMemo(() => {
-    const allItems = [
-      ...appearanceActions.map(a => ({ ...a, nameKey: a.name, descriptionKey: a.desc, isAction: true })),
-      ...colorActions.map(c => ({ ...c, nameKey: c.name, descriptionKey: c.desc, isAction: true })),
-      ...TOOLS.map(t => ({ ...t, isAction: false }))
-    ];
-
-    return allItems.filter(item => {
-      const name = item.isAction ? item.nameKey : t(item.nameKey);
-      const desc = item.isAction ? item.descriptionKey : t(item.descriptionKey);
+    if (view === 'root') {
+      const tools = TOOLS.map(t => ({ ...t, isAction: false, type: 'tool' }));
+      const settings = [
+        { id: 'nav-colors', nameKey: 'Change Color Scheme', descriptionKey: 'Browse seasonal, cultural and Catppuccin themes', icon: 'Palette', category: 'Appearance', isAction: true, type: 'nav', target: 'colors' },
+        { id: 'nav-modes', nameKey: 'Change Appearance Mode', descriptionKey: 'Toggle between Light, Dark, and System', icon: 'Sun', category: 'Appearance', isAction: true, type: 'nav', target: 'modes' },
+      ];
       
-      const matchesQuery = 
-        name.toLowerCase().includes(query.toLowerCase()) ||
-        desc.toLowerCase().includes(query.toLowerCase());
-      const matchesCategory = !category || item.category === category;
-      return matchesQuery && matchesCategory;
-    });
-  }, [query, category, t]);
+      const all = [...settings, ...tools];
+      return all.filter(item => {
+        const name = item.isAction ? item.nameKey : t(item.nameKey);
+        const desc = item.isAction ? item.descriptionKey : t(item.descriptionKey);
+        return name.toLowerCase().includes(query.toLowerCase()) || desc.toLowerCase().includes(query.toLowerCase());
+      });
+    }
+
+    if (view === 'colors') {
+      const items = [
+        { id: 'back', name: 'Back to Search', icon: 'ArrowLeft', isBack: true },
+        ...colorOptions.map(c => ({ ...c, isAction: true, type: 'color' }))
+      ];
+      return items.filter(item => item.name.toLowerCase().includes(query.toLowerCase()));
+    }
+
+    if (view === 'modes') {
+      return [
+        { id: 'back', name: 'Back to Search', icon: 'ArrowLeft', isBack: true },
+        ...modeOptions.map(m => ({ ...m, isAction: true, type: 'mode' }))
+      ];
+    }
+
+    if (view === 'color-modes') {
+      const colorName = colorOptions.find(c => c.id === selectedColor)?.name || 'Theme';
+      return [
+        { id: 'back', name: `Back to Colors`, icon: 'ArrowLeft', isBack: true },
+        ...modeOptions.map(m => ({ ...m, id: m.id, name: `${colorName} (${m.name})`, isAction: true, type: 'apply-all' }))
+      ];
+    }
+
+    return [];
+  }, [view, query, selectedColor, t]);
+
+  const handleSelect = (item: any) => {
+    if (item.isBack) {
+      if (view === 'color-modes') setView('colors');
+      else setView('root');
+      setQuery('');
+      return;
+    }
+
+    if (item.type === 'nav') {
+      setView(item.target);
+      setQuery('');
+    } else if (item.type === 'color') {
+      setSelectedColor(item.id);
+      setView('color-modes');
+      setQuery('');
+    } else if (item.type === 'mode') {
+      setTheme(item.id);
+      setOpen(false);
+    } else if (item.type === 'apply-all') {
+      setColorScheme(selectedColor!);
+      setTheme(item.id as any);
+      setOpen(false);
+    } else if (item.href) {
+      router.push(item.href);
+      setOpen(false);
+    }
+  };
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -99,31 +148,18 @@ export default function CommandMenu() {
   }, []);
 
   React.useEffect(() => {
-    setSelectedIndex(0);
-  }, [query, category]);
+    if (!open) {
+      setView('root');
+      setQuery('');
+      setSelectedColor(null);
+    }
+  }, [open]);
 
   React.useEffect(() => {
-    if (itemRefs.current[selectedIndex]) {
-      itemRefs.current[selectedIndex]?.scrollIntoView({
-        block: 'nearest',
-        behavior: 'smooth'
-      });
-    }
-  }, [selectedIndex]);
-
-  const handleSelect = (item: any) => {
-    if (item.isAction && item.action) {
-      item.action();
-    } else if (item.href) {
-      router.push(item.href);
-    }
-    setOpen(false);
-    setQuery('');
-  };
+    setSelectedIndex(0);
+  }, [query, view]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (filteredItems.length === 0) return;
-
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       setSelectedIndex((prev) => (prev + 1) % filteredItems.length);
@@ -132,9 +168,11 @@ export default function CommandMenu() {
       setSelectedIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length);
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      if (filteredItems[selectedIndex]) {
-        handleSelect(filteredItems[selectedIndex]);
-      }
+      if (filteredItems[selectedIndex]) handleSelect(filteredItems[selectedIndex]);
+    } else if (e.key === 'Backspace' && query === '' && view !== 'root') {
+      e.preventDefault();
+      if (view === 'color-modes') setView('colors');
+      else setView('root');
     }
   };
 
@@ -142,60 +180,46 @@ export default function CommandMenu() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden flex flex-col">
         <DialogHeader className="p-0 border-b shrink-0">
-          <DialogTitle className="sr-only">{t('home.spotlight_title')}</DialogTitle>
+          <DialogTitle className="sr-only">Spotlight</DialogTitle>
           <div className="flex items-center gap-4 px-6 h-16">
-            <Search className="h-6 w-6 text-muted-foreground shrink-0" />
+            {view !== 'root' ? (
+              <Button variant="ghost" size="icon" onClick={() => setView('root')} className="h-8 w-8">
+                <ArrowLeft className="h-4 w-4" />
+              </Button>
+            ) : (
+              <Search className="h-6 w-6 text-muted-foreground shrink-0" />
+            )}
             <Input
-              placeholder={t('home.search_placeholder')}
+              placeholder={
+                view === 'root' ? t('home.search_placeholder') :
+                view === 'colors' ? 'Select color scheme...' :
+                view === 'modes' ? 'Select appearance mode...' :
+                'Confirm mode for theme...'
+              }
               className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 ring-0 focus:ring-0 outline-none text-lg p-0 h-full bg-transparent placeholder:text-muted-foreground/40 shadow-none hover:bg-transparent focus:bg-transparent flex-1"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
               autoFocus
             />
-            <div className="flex items-center gap-1.5 ml-auto shrink-0">
-              <kbd className="pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
-                <span className="text-xs">ESC</span>
-              </kbd>
-            </div>
           </div>
         </DialogHeader>
 
-        <div className="flex p-2 bg-muted/30 gap-1 overflow-x-auto border-b shrink-0 scrollbar-hide">
-          <Badge 
-            variant={category === null ? 'default' : 'outline'} 
-            className="cursor-pointer whitespace-nowrap px-3"
-            onClick={() => setCategory(null)}
-          >
-            {t('home.all')}
-          </Badge>
-          {categories.map((cat) => (
-            <Badge 
-              key={cat} 
-              variant={category === cat ? 'default' : 'outline'} 
-              className="cursor-pointer whitespace-nowrap px-3"
-              onClick={() => setCategory(cat)}
-            >
-              {cat}
-            </Badge>
-          ))}
-        </div>
-
-        <ScrollArea className="max-h-[400px] w-full overflow-hidden flex-1">
+        <ScrollArea className="max-h-[450px] w-full overflow-hidden flex-1">
           <div className="p-2 flex flex-col gap-1 w-full overflow-hidden">
             {filteredItems.length > 0 ? (
-              filteredItems.map((item, index) => {
+              filteredItems.map((item: any, index) => {
                 const Icon = iconMap[item.icon] || Terminal;
                 const isCurrentItem = index === selectedIndex;
-                const name = item.isAction ? item.nameKey : t(item.nameKey);
-                const desc = item.isAction ? item.descriptionKey : t(item.descriptionKey);
+                const name = item.isAction ? (item.nameKey || item.name) : t(item.nameKey);
+                const desc = item.isAction ? (item.descriptionKey || item.category) : t(item.descriptionKey);
 
                 return (
                   <div
                     key={item.id}
                     ref={(el) => { itemRefs.current[index] = el; }}
                     className={cn(
-                      "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer transition-all w-full overflow-hidden",
+                      "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer transition-all w-full overflow-hidden animate-in fade-in slide-in-from-right-2 duration-200",
                       isCurrentItem ? "bg-primary text-primary-foreground shadow-lg" : "hover:bg-accent hover:text-accent-foreground"
                     )}
                     onClick={() => handleSelect(item)}
@@ -216,32 +240,38 @@ export default function CommandMenu() {
                         {desc}
                       </p>
                     </div>
-                    <div className="flex items-center gap-2 shrink-0 ml-2">
-                      <Badge variant="secondary" className={cn(
-                        "text-[10px] uppercase font-black",
-                        isCurrentItem && "bg-white/20 text-white border-transparent"
-                      )}>
+                    {item.type === 'nav' || item.type === 'color' ? (
+                      <ChevronRight className={cn("h-4 w-4 shrink-0", isCurrentItem ? "text-white" : "text-muted-foreground")} />
+                    ) : item.category && (
+                      <Badge variant="secondary" className={cn("text-[10px] uppercase font-black", isCurrentItem && "bg-white/20 text-white")}>
                         {item.category}
                       </Badge>
-                      {isCurrentItem && <ChevronRight className="h-4 w-4 shrink-0" />}
-                    </div>
+                    )}
                   </div>
                 );
               })
             ) : (
               <div className="py-12 text-center text-muted-foreground w-full">
                 <Search className="h-10 w-10 mx-auto mb-3 opacity-20" />
-                <p>{t('home.no_results_title')} "{query}"</p>
+                <p>No results for "{query}"</p>
               </div>
             )}
           </div>
         </ScrollArea>
+        
         <div className="p-3 border-t bg-muted/20 flex items-center justify-between text-[10px] text-muted-foreground uppercase font-bold tracking-widest shrink-0">
           <div className="flex gap-4">
             <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">↑↓</kbd> {t('home.navigate')}</span>
             <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">Enter</kbd> {t('home.select')}</span>
+            {view !== 'root' && (
+              <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">BS</kbd> Back</span>
+            )}
           </div>
-          <span>{t('home.spotlight_title')}</span>
+          <div className="flex items-center gap-2">
+            <Badge variant="outline" className="text-[9px] border-primary/20 text-primary">
+              {view.toUpperCase()} VIEW
+            </Badge>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
