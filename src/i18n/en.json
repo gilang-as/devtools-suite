@@ -35,7 +35,8 @@
     "asc": "Ascending",
     "desc": "Descending",
     "wordWrap": "Word Wrap",
-    "preview": "Preview"
+    "preview": "Preview",
+    "inspect": "Inspect"
   },
   "home": {
     "heading": "Developer Tools",
@@ -155,6 +156,26 @@
     "pkcs_x509": {
       "name": "X.509 Certificate",
       "description": "Generate a self-signed X.509 certificate."
+    },
+    "asn1": {
+      "name": "ASN.1 Inspector",
+      "description": "Decode and visualize ASN.1 structures from DER or Base64."
+    },
+    "jose": {
+      "name": "JOSE (JWT/JWK)",
+      "description": "Generate and verify JSON Web Tokens and Keys."
+    },
+    "openpgp": {
+      "name": "OpenPGP Key Gen",
+      "description": "Generate OpenPGP public/private key pairs."
+    },
+    "cose": {
+      "name": "COSE (CBOR)",
+      "description": "Encode and sign CBOR Object Signing and Encryption structures."
+    },
+    "spki": {
+      "name": "SPKI Formatter",
+      "description": "Convert and format Subject Public Key Info structures."
     }
   }
 }

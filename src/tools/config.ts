@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -200,6 +200,46 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.pkcs_x509.description',
     href: '/pkcs/x509',
     icon: 'ShieldCheck',
+    category: 'Security',
+  },
+  {
+    id: 'asn1-decoder',
+    nameKey: 'tools.asn1.name',
+    descriptionKey: 'tools.asn1.description',
+    href: '/security/asn1',
+    icon: 'FileKey',
+    category: 'Security',
+  },
+  {
+    id: 'jose-generator',
+    nameKey: 'tools.jose.name',
+    descriptionKey: 'tools.jose.description',
+    href: '/security/jose',
+    icon: 'KeyRound',
+    category: 'Security',
+  },
+  {
+    id: 'openpgp-generator',
+    nameKey: 'tools.openpgp.name',
+    descriptionKey: 'tools.openpgp.description',
+    href: '/security/openpgp',
+    icon: 'Lock',
+    category: 'Security',
+  },
+  {
+    id: 'cose-generator',
+    nameKey: 'tools.cose.name',
+    descriptionKey: 'tools.cose.description',
+    href: '/security/cose',
+    icon: 'ShieldAlert',
+    category: 'Security',
+  },
+  {
+    id: 'spki-formatter',
+    nameKey: 'tools.spki.name',
+    descriptionKey: 'tools.spki.description',
+    href: '/security/spki',
+    icon: 'Fingerprint',
     category: 'Security',
   }
 ];
