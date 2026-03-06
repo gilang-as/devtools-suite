@@ -121,7 +121,7 @@ export default function DnsLookupPage() {
                 <Turnstile
                   ref={turnstileRef}
                   sitekey="1x00000000000000000000AA"
-                  onVerify={(token) => setCaptchaToken(token)}
+                  onSuccess={(token) => setCaptchaToken(token)}
                   onError={() => {
                     setCaptchaToken(null);
                     toast({
