@@ -1,4 +1,5 @@
-import { Hash, KeyRound, Fingerprint, Braces } from 'lucide-react';
+
+import { Hash, KeyRound, Fingerprint, Braces, Terminal } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -6,7 +7,7 @@ export interface Tool {
   descriptionKey: string;
   href: string;
   icon: string;
-  category: 'Encoding' | 'Security' | 'Formatting' | 'Generators';
+  category: 'Encoding' | 'Security' | 'Formatting' | 'Generators' | 'Conversion';
 }
 
 export const TOOLS: Tool[] = [
@@ -33,6 +34,14 @@ export const TOOLS: Tool[] = [
     href: '/json/formatter',
     icon: 'Braces',
     category: 'Formatting',
+  },
+  {
+    id: 'json-to-go',
+    nameKey: 'tools.json_to_go.name',
+    descriptionKey: 'tools.json_to_go.description',
+    href: '/json/to-golang-struct',
+    icon: 'Terminal',
+    category: 'Conversion',
   },
   {
     id: 'uuid-v4',

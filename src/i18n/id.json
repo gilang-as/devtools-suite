@@ -1,3 +1,4 @@
+
 {
   "common": {
     "title": "DevTools Suite",
@@ -49,6 +50,10 @@
     "json_formatter": {
       "name": "Format JSON",
       "description": "Bersihkan, format, dan minifikasi data JSON Anda dengan mudah."
+    },
+    "json_to_go": {
+      "name": "JSON ke Go Struct",
+      "description": "Konversi objek JSON ke definisi struct Go secara instan."
     },
     "uuid_v4": {
       "name": "Generator UUID v4",
