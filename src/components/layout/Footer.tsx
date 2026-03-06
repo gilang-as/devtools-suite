@@ -29,7 +29,7 @@ export default function Footer() {
 
   const categories = Array.from(new Set(TOOLS.map(tool => tool.category))).sort();
 
-  const schemes: { id: ColorScheme; name: string; group: 'standard' | 'catppuccin' | 'seasonal' }[] = [
+  const schemes: { id: ColorScheme; name: string; group: 'standard' | 'catppuccin' | 'seasonal' | 'cultural' }[] = [
     { id: 'default', name: 'Default Blue', group: 'standard' },
     { id: 'latte', name: 'Catppuccin Latte', group: 'catppuccin' },
     { id: 'frappe', name: 'Catppuccin Frappé', group: 'catppuccin' },
@@ -39,12 +39,13 @@ export default function Footer() {
     { id: 'summer', name: 'Summer Solstice', group: 'seasonal' },
     { id: 'fall', name: 'Autumn Harvest', group: 'seasonal' },
     { id: 'winter', name: 'Winter Frost', group: 'seasonal' },
+    { id: 'sakura', name: 'Sakura (Japan)', group: 'cultural' },
+    { id: 'china', name: 'China (Imperial)', group: 'cultural' },
   ];
 
   return (
     <footer className="w-full border-t bg-card mt-auto pt-12 pb-8">
       <div className="container mx-auto max-w-7xl px-4">
-        {/* Mega Footer Content - Optimized Column Layout */}
         <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-12 mb-12">
           {categories.map((category) => (
             <div key={category} className="break-inside-avoid mb-10 group">
@@ -129,6 +130,19 @@ export default function Footer() {
                   <DropdownMenuSeparator />
                   <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Seasonal Themes</DropdownMenuLabel>
                   {schemes.filter(s => s.group === 'seasonal').map((s) => (
+                    <DropdownMenuItem 
+                      key={s.id}
+                      onClick={() => setColorScheme(s.id)} 
+                      className="justify-between cursor-pointer"
+                    >
+                      {s.name}
+                      {colorScheme === s.id && <Check className="h-3.5 w-3.5 text-primary" />}
+                    </DropdownMenuItem>
+                  ))}
+
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Cultural Themes</DropdownMenuLabel>
+                  {schemes.filter(s => s.group === 'cultural').map((s) => (
                     <DropdownMenuItem 
                       key={s.id}
                       onClick={() => setColorScheme(s.id)} 

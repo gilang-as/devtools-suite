@@ -3,7 +3,7 @@
 import * as React from "react"
 
 type Theme = "dark" | "light" | "system"
-export type ColorScheme = "default" | "latte" | "frappe" | "macchiato" | "mocha" | "spring" | "summer" | "fall" | "winter"
+export type ColorScheme = "default" | "latte" | "frappe" | "macchiato" | "mocha" | "spring" | "summer" | "fall" | "winter" | "sakura" | "china"
 
 type ThemeProviderProps = {
   children: React.ReactNode
