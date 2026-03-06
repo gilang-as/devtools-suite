@@ -54,6 +54,10 @@
       "name": "Format XML",
       "description": "Bersihkan, format, dan minifikasi dokumen XML Anda."
     },
+    "html_formatter": {
+      "name": "Format HTML",
+      "description": "Bersihkan, format, dan minifikasi kode HTML Anda."
+    },
     "json_to_go": {
       "name": "JSON ke Go Struct",
       "description": "Konversi objek JSON ke definisi struct Go secara instan.",

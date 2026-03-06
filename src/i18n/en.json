@@ -54,6 +54,10 @@
       "name": "XML Formatter",
       "description": "Clean, format, and minify your XML documents."
     },
+    "html_formatter": {
+      "name": "HTML Formatter",
+      "description": "Clean, format, and minify your HTML code."
+    },
     "json_to_go": {
       "name": "JSON to Go Struct",
       "description": "Convert JSON objects into Go struct definitions instantly.",
