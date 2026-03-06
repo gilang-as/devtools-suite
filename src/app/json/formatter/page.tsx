@@ -68,15 +68,18 @@ const LineNumbers = ({ text }: { text: string }) => {
   );
 };
 
-const JsonTreeNode = ({ label, value, isLast = true, depth = 0 }: { label?: string; value: any; isLast?: boolean; depth?: number }) => {
+const JsonTreeNode = ({ label, value, isLast = true, depth = 0, wordWrap }: { label?: string; value: any; isLast?: boolean; depth?: number; wordWrap: boolean }) => {
   const [isOpen, setIsOpen] = useState(true);
   const isObject = value !== null && typeof value === 'object';
   const isArray = Array.isArray(value);
 
   if (!isObject) {
     return (
-      <div className="flex items-start gap-1 font-code text-sm py-0.5 ml-6">
-        {label && <span className="text-primary/80">"{label}": </span>}
+      <div className={cn(
+        "flex items-start gap-1 font-code text-sm py-0.5 ml-6",
+        wordWrap ? "whitespace-pre-wrap" : "whitespace-nowrap"
+      )}>
+        {label && <span className="text-primary/80 shrink-0">"{label}": </span>}
         <span className={cn(
           typeof value === 'string' ? 'text-green-600 dark:text-green-400' : 
           typeof value === 'number' ? 'text-blue-600 dark:text-blue-400' :
@@ -97,7 +100,7 @@ const JsonTreeNode = ({ label, value, isLast = true, depth = 0 }: { label?: stri
   return (
     <div className="font-code text-sm py-0.5">
       <div 
-        className="flex items-center gap-1 cursor-pointer hover:bg-muted/50 rounded px-1 transition-colors w-fit"
+        className="flex items-center gap-1 cursor-pointer hover:bg-muted/50 rounded px-1 transition-colors w-fit whitespace-nowrap"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="w-4 h-4 flex items-center justify-center text-muted-foreground">
@@ -118,13 +121,14 @@ const JsonTreeNode = ({ label, value, isLast = true, depth = 0 }: { label?: stri
               value={value[key]} 
               isLast={index === keys.length - 1}
               depth={depth + 1}
+              wordWrap={wordWrap}
             />
           ))}
         </div>
       )}
       
       {isOpen && (
-        <div className="ml-4 text-muted-foreground">
+        <div className="ml-4 text-muted-foreground whitespace-nowrap">
           {bracketClose}{!isLast && ','}
         </div>
       )}
@@ -421,8 +425,11 @@ export default function JsonFormatterPage() {
                   </div>
                 </>
               ) : (
-                <div className="flex-1 overflow-auto p-4 bg-transparent font-code">
-                  {parsedOutput && <JsonTreeNode value={parsedOutput} />}
+                <div className={cn(
+                  "flex-1 overflow-auto p-4 bg-transparent font-code",
+                  !wordWrap && "overflow-x-auto"
+                )}>
+                  {parsedOutput && <JsonTreeNode value={parsedOutput} wordWrap={wordWrap} />}
                 </div>
               )}
             </div>
