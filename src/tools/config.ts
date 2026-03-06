@@ -1,5 +1,4 @@
-
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -601,6 +600,14 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.json_to_go.description',
     href: '/json/to-golang-struct',
     icon: 'Terminal',
+    category: 'Conversion',
+  },
+  {
+    id: 'json-to-rust',
+    nameKey: 'tools.json_to_rust.name',
+    descriptionKey: 'tools.json_to_rust.description',
+    href: '/json/to-rust-struct',
+    icon: 'Cpu',
     category: 'Conversion',
   },
   {
