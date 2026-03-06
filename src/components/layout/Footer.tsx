@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { TOOLS } from '@/tools/config';
 import { useTranslation } from '@/components/providers/i18n-provider';
-import { useTheme } from '@/components/providers/theme-provider';
+import { useTheme, type ColorScheme } from '@/components/providers/theme-provider';
 import { Terminal, Palette, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,6 +13,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 
 export default function Footer() {
@@ -27,6 +29,14 @@ export default function Footer() {
   }, []);
 
   const categories = Array.from(new Set(TOOLS.map(tool => tool.category))).sort();
+
+  const schemes: { id: ColorScheme; name: string }[] = [
+    { id: 'default', name: 'Default Blue' },
+    { id: 'latte', name: 'Catppuccin Latte' },
+    { id: 'frappe', name: 'Catppuccin Frappé' },
+    { id: 'macchiato', name: 'Catppuccin Macchiato' },
+    { id: 'mocha', name: 'Catppuccin Mocha' },
+  ];
 
   return (
     <footer className="w-full border-t bg-card mt-auto pt-12 pb-8">
@@ -80,17 +90,23 @@ export default function Footer() {
                   <Button variant="outline" size="sm" className="h-8 gap-2 rounded-full border-dashed px-4">
                     <Palette className="h-3.5 w-3.5" />
                     <span className="text-[10px] font-bold uppercase tracking-widest">
-                      {colorScheme === 'catppuccin' ? 'Catppuccin' : 'Default'}
+                      {schemes.find(s => s.id === colorScheme)?.name || 'Theme'}
                     </span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-40">
-                  <DropdownMenuItem onClick={() => setColorScheme('default')} className="justify-between">
-                    Default {colorScheme === 'default' && <Check className="h-3.5 w-3.5" />}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setColorScheme('catppuccin')} className="justify-between">
-                    Catppuccin {colorScheme === 'catppuccin' && <Check className="h-3.5 w-3.5" />}
-                  </DropdownMenuItem>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel className="text-xs font-bold uppercase tracking-wider opacity-50">Choose Scheme</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  {schemes.map((s) => (
+                    <DropdownMenuItem 
+                      key={s.id}
+                      onClick={() => setColorScheme(s.id)} 
+                      className="justify-between cursor-pointer"
+                    >
+                      {s.name}
+                      {colorScheme === s.id && <Check className="h-3.5 w-3.5 text-primary" />}
+                    </DropdownMenuItem>
+                  ))}
                 </DropdownMenuContent>
               </DropdownMenu>
             )}

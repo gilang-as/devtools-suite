@@ -68,7 +68,6 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     
-    /* Dark mode accent - Deep blue tint */
     --accent: 217.2 91.2% 15%;
     --accent-foreground: 217.2 91.2% 90%;
     
@@ -79,7 +78,6 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
 
-    /* Sidebar specifics */
     --sidebar-background: 222 47% 4%;
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 217.2 91.2% 59.8%;
@@ -90,49 +88,90 @@
     --sidebar-ring: 224.3 76.3% 48%;
   }
 
-  /* Catppuccin Scheme */
-  [data-color-scheme="catppuccin"] {
-    /* Latte (Light) */
-    --background: 220 23% 95%; /* base */
-    --foreground: 231 11% 35%; /* text */
-    --card: 220 23% 98%; /* mantle */
+  /* Catppuccin Latte (Light) */
+  [data-color-scheme="latte"] {
+    --background: 220 23% 95%;
+    --foreground: 231 11% 35%;
+    --card: 220 23% 98%;
     --card-foreground: 231 11% 35%;
     --popover: 220 23% 98%;
     --popover-foreground: 231 11% 35%;
-    --primary: 220 91% 54%; /* blue */
+    --primary: 220 91% 54%;
     --primary-foreground: 220 23% 98%;
-    --secondary: 220 23% 92%; /* surface0 */
+    --secondary: 220 23% 92%;
     --secondary-foreground: 231 11% 35%;
     --muted: 220 23% 92%;
-    --muted-foreground: 231 10% 45%; /* subtext0 */
-    --accent: 267 84% 58%; /* mauve */
+    --muted-foreground: 231 10% 45%;
+    --accent: 267 84% 58%;
     --accent-foreground: 220 23% 98%;
-    --destructive: 0 68% 51%; /* red */
-    --destructive-foreground: 220 23% 98%;
-    --border: 220 23% 88%; /* surface1 */
+    --destructive: 0 68% 51%;
+    --border: 220 23% 88%;
     --input: 220 23% 88%;
     --ring: 220 91% 54%;
   }
 
-  [data-color-scheme="catppuccin"].dark {
-    /* Mocha (Dark) */
-    --background: 240 21% 12%; /* base */
-    --foreground: 226 64% 88%; /* text */
-    --card: 240 21% 15%; /* mantle */
+  /* Catppuccin Frappé (Dark - Low Contrast) */
+  [data-color-scheme="frappe"] {
+    --background: 229 21% 23%;
+    --foreground: 227 70% 87%;
+    --card: 229 21% 28%;
+    --card-foreground: 227 70% 87%;
+    --popover: 229 21% 28%;
+    --popover-foreground: 227 70% 87%;
+    --primary: 222 74% 74%;
+    --primary-foreground: 229 21% 23%;
+    --secondary: 229 21% 33%;
+    --secondary-foreground: 227 70% 87%;
+    --muted: 229 21% 33%;
+    --muted-foreground: 228 24% 72%;
+    --accent: 266 65% 77%;
+    --accent-foreground: 229 21% 23%;
+    --destructive: 0 84% 71%;
+    --border: 229 21% 38%;
+    --input: 229 21% 38%;
+    --ring: 222 74% 74%;
+  }
+
+  /* Catppuccin Macchiato (Dark - Medium Contrast) */
+  [data-color-scheme="macchiato"] {
+    --background: 233 24% 19%;
+    --foreground: 227 70% 87%;
+    --card: 233 24% 24%;
+    --card-foreground: 227 70% 87%;
+    --popover: 233 24% 24%;
+    --popover-foreground: 227 70% 87%;
+    --primary: 222 74% 74%;
+    --primary-foreground: 233 24% 19%;
+    --secondary: 233 24% 29%;
+    --secondary-foreground: 227 70% 87%;
+    --muted: 233 24% 29%;
+    --muted-foreground: 228 24% 72%;
+    --accent: 266 65% 77%;
+    --accent-foreground: 233 24% 19%;
+    --destructive: 0 84% 71%;
+    --border: 233 24% 34%;
+    --input: 233 24% 34%;
+    --ring: 222 74% 74%;
+  }
+
+  /* Catppuccin Mocha (Dark - High Contrast) */
+  [data-color-scheme="mocha"] {
+    --background: 240 21% 12%;
+    --foreground: 226 64% 88%;
+    --card: 240 21% 15%;
     --card-foreground: 226 64% 88%;
     --popover: 240 21% 15%;
     --popover-foreground: 226 64% 88%;
-    --primary: 217 92% 76%; /* blue */
+    --primary: 217 92% 76%;
     --primary-foreground: 240 21% 12%;
-    --secondary: 240 21% 19%; /* surface0 */
+    --secondary: 240 21% 19%;
     --secondary-foreground: 226 64% 88%;
     --muted: 240 21% 19%;
-    --muted-foreground: 228 24% 72%; /* subtext0 */
-    --accent: 267 84% 81%; /* mauve */
+    --muted-foreground: 228 24% 72%;
+    --accent: 267 84% 81%;
     --accent-foreground: 240 21% 12%;
-    --destructive: 0 84% 71%; /* red */
-    --destructive-foreground: 240 21% 12%;
-    --border: 240 21% 22%; /* surface1 */
+    --destructive: 0 84% 71%;
+    --border: 240 21% 22%;
     --input: 240 21% 22%;
     --ring: 217 92% 76%;
   }

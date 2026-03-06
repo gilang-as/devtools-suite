@@ -4,7 +4,7 @@
 import * as React from "react"
 
 type Theme = "dark" | "light" | "system"
-type ColorScheme = "default" | "catppuccin"
+export type ColorScheme = "default" | "latte" | "frappe" | "macchiato" | "mocha"
 
 type ThemeProviderProps = {
   children: React.ReactNode
