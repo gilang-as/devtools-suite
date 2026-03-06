@@ -8,7 +8,7 @@ import { decodeBase64 } from '@/lib/base64';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Copy, Trash2, KeyRound } from 'lucide-react';
+import { Copy, Trash2, Hash } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
@@ -39,7 +39,7 @@ export default function Base64DecodePage() {
     <div className="max-w-4xl mx-auto space-y-8 py-6">
       <div className="flex items-center gap-4 mb-4">
         <div className="bg-primary/10 p-2 rounded-xl text-primary">
-          <KeyRound className="h-8 w-8" />
+          <Hash className="h-8 w-8" />
         </div>
         <div>
           <h1 className="text-3xl font-headline font-bold">{t('tools.base64_decode.name')}</h1>

@@ -1,4 +1,3 @@
-
 import { Hash, KeyRound } from 'lucide-react';
 
 export interface Tool {
@@ -24,7 +23,7 @@ export const TOOLS: Tool[] = [
     nameKey: 'tools.base64_decode.name',
     descriptionKey: 'tools.base64_decode.description',
     href: '/base64/decode',
-    icon: 'KeyRound',
+    icon: 'Hash',
     category: 'Encoding',
   }
 ];
