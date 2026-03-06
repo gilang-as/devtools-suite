@@ -102,7 +102,7 @@ export default function CommandMenu() {
             <Search className="h-6 w-6 text-muted-foreground shrink-0" />
             <Input
               placeholder="Type to search tools... (e.g. 'jwt', 'base64')"
-              className="border-0 focus-visible:ring-0 ring-0 focus:ring-0 outline-none text-lg p-0 h-full bg-transparent placeholder:text-muted-foreground/40 shadow-none hover:bg-transparent focus:bg-transparent"
+              className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 ring-0 focus:ring-0 outline-none text-lg p-0 h-full bg-transparent placeholder:text-muted-foreground/40 shadow-none hover:bg-transparent focus:bg-transparent"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
