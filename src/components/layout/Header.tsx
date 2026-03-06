@@ -37,6 +37,12 @@ export default function Header() {
     setMounted(true);
   }, []);
 
+  const toggleTheme = () => {
+    if (theme === 'light') setTheme('dark');
+    else if (theme === 'dark') setTheme('system');
+    else setTheme('light');
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4">
@@ -85,33 +91,24 @@ export default function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-9 w-9">
-                {!mounted ? (
-                  <Monitor className="h-[1.2rem] w-[1.2rem]" />
-                ) : (
-                  <>
-                    {theme === 'light' && <Sun className="h-[1.2rem] w-[1.2rem]" />}
-                    {theme === 'dark' && <Moon className="h-[1.2rem] w-[1.2rem]" />}
-                    {theme === 'system' && <Monitor className="h-[1.2rem] w-[1.2rem]" />}
-                  </>
-                )}
-                <span className="sr-only">Toggle theme</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setTheme('light')}>
-                <Sun className="mr-2 h-4 w-4" /> {t('common.light')}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme('dark')}>
-                <Moon className="mr-2 h-4 w-4" /> {t('common.dark')}
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme('system')}>
-                <Monitor className="mr-2 h-4 w-4" /> {t('common.system')}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-9 w-9" 
+            onClick={toggleTheme}
+            title={mounted ? `Current: ${theme.charAt(0).toUpperCase() + theme.slice(1)}` : 'Toggle theme'}
+          >
+            {!mounted ? (
+              <Monitor className="h-[1.2rem] w-[1.2rem]" />
+            ) : (
+              <>
+                {theme === 'light' && <Sun className="h-[1.2rem] w-[1.2rem]" />}
+                {theme === 'dark' && <Moon className="h-[1.2rem] w-[1.2rem]" />}
+                {theme === 'system' && <Monitor className="h-[1.2rem] w-[1.2rem]" />}
+              </>
+            )}
+            <span className="sr-only">Toggle theme</span>
+          </Button>
           
           <Button 
             variant="ghost" 
