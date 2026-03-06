@@ -1,14 +1,16 @@
+
 "use client"
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { dnsLookup, DnsLookupResult, DnsRecordType } from '@/lib/networking';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Globe2, Network } from 'lucide-react';
+import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Globe2, Network, Lock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 
 type RecordGroup = {
   title: string;
@@ -28,9 +30,11 @@ export default function DnsLookupPage() {
   const [domain, setDomain] = useState('gilang.dev');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Record<string, DnsLookupResult>>({});
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileInstance>(null);
 
   const handleLookup = async () => {
-    if (!domain.trim()) return;
+    if (!domain.trim() || !captchaToken) return;
     setLoading(true);
     setResults({});
     
@@ -52,6 +56,10 @@ export default function DnsLookupPage() {
 
     setResults(newResults);
     setLoading(false);
+    
+    // Reset captcha for next request
+    setCaptchaToken(null);
+    turnstileRef.current?.reset();
     
     if (Object.keys(newResults).length === 0) {
       toast({
@@ -85,20 +93,59 @@ export default function DnsLookupPage() {
             <CardTitle className="text-lg">Domain Input</CardTitle>
             <CardDescription>Enter a domain to inspect its DNS landscape</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="relative">
-              <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input 
-                value={domain}
-                onChange={(e) => setDomain(e.target.value)}
-                placeholder="example.com"
-                className="pl-10 h-12 text-lg font-code"
-                onKeyDown={(e) => e.key === 'Enter' && handleLookup()}
-              />
+          <CardContent className="space-y-6">
+            <div className="space-y-4">
+              <div className="relative">
+                <Globe className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input 
+                  value={domain}
+                  onChange={(e) => {
+                    setDomain(e.target.value);
+                    // Force re-verification if domain changes
+                    if (captchaToken) {
+                      setCaptchaToken(null);
+                      turnstileRef.current?.reset();
+                    }
+                  }}
+                  placeholder="example.com"
+                  className="pl-10 h-12 text-lg font-code"
+                  onKeyDown={(e) => e.key === 'Enter' && captchaToken && handleLookup()}
+                />
+              </div>
+
+              <div className="flex flex-col items-center justify-center p-4 bg-secondary/20 rounded-xl border border-dashed border-primary/20">
+                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-3 flex items-center gap-1.5">
+                  <Lock className="h-3 w-3" />
+                  Security Verification Required
+                </p>
+                <Turnstile
+                  ref={turnstileRef}
+                  sitekey="1x00000000000000000000AA"
+                  onVerify={(token) => setCaptchaToken(token)}
+                  onError={() => {
+                    setCaptchaToken(null);
+                    toast({
+                      variant: 'destructive',
+                      title: 'Captcha Error',
+                      description: 'Verification failed. Please try again.'
+                    });
+                  }}
+                  onExpire={() => setCaptchaToken(null)}
+                />
+              </div>
             </div>
-            <Button onClick={handleLookup} className="w-full h-12 shadow-md" disabled={loading}>
-              {loading ? <Loader2 className="h-5 w-5 mr-2 animate-spin" /> : <Search className="h-5 w-5 mr-2" />}
-              {t('common.inspect')} DNS
+
+            <Button 
+              onClick={handleLookup} 
+              className="w-full h-12 shadow-md" 
+              disabled={loading || !captchaToken}
+            >
+              {loading ? (
+                <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+              ) : (
+                <Search className="h-5 w-5 mr-2" />
+              )}
+              {loading ? 'Inspecting...' : `${t('common.inspect')} DNS`}
             </Button>
             
             <div className="bg-primary/5 p-4 rounded-lg border border-primary/10 space-y-2">
@@ -127,7 +174,6 @@ export default function DnsLookupPage() {
           ) : (
             <div className="space-y-8 animate-in fade-in duration-500">
               {GROUPS.map((group) => {
-                // Check if this group has ANY types with results to show
                 const hasVisibleTypes = group.types.some(type => results[type]?.Answer && results[type].Answer!.length > 0);
                 
                 if (!hasVisibleTypes) return null;
@@ -144,7 +190,6 @@ export default function DnsLookupPage() {
                     <div className="grid grid-cols-1 gap-4">
                       {group.types.map((type) => {
                         const res = results[type];
-                        // Hide the type card if it has no Answer records
                         if (!res || !res.Answer || res.Answer.length === 0) return null;
                         
                         return (
