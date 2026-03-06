@@ -87,11 +87,14 @@
     "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
-    "color_converter": { "name": "Konverter Warna", "description": "Konversi antara format warna HEX, RGB, dan HSL dengan pratinjau langsung." },
+    "color_converter": { "name": "Konverter Warna", "description": "Konversi antara format warna HEX, RGB, and HSL dengan pratinjau langsung." },
     "color_palette": { "name": "Generator Palet Warna", "description": "Hasilkan skema warna profesional berdasarkan logika harmoni warna." },
     "regex_tester": { "name": "Regex Tester", "description": "Uji dan debug ekspresi reguler dengan penyorotan langsung dan info kecocokan mendetail." },
     "regex_generator": { "name": "Generator AI Regex", "description": "Hasilkan ekspresi reguler yang kompleks dari deskripsi bahasa alami menggunakan AI." },
     "text_diff": { "name": "Text Diff Checker", "description": "Bandingkan dua blok teks untuk menemukan perbedaan, penambahan, dan penghapusan." },
+    "line_sorter": { "name": "Line Sorter", "description": "Urutkan daftar teks secara alfabetis atau numerik dalam urutan menaik atau menurun." },
+    "duplicate_remover": { "name": "Duplicate Line Remover", "description": "Hapus baris duplikat dari blok teks untuk membersihkan daftar dan data." },
+    "http_header_parser": { "name": "HTTP Header Parser", "description": "Konversi blok header HTTP mentah menjadi objek JSON terstruktur untuk analisis yang lebih mudah." },
     "case_converter": { "name": "Konverter Case", "description": "Konversi teks di antara berbagai format huruf seperti camelCase, snake_case, PascalCase, dll." },
     "slug_generator": { "name": "Generator Slug URL", "description": "Ubah judul dan teks menjadi slug URL yang ramah mesin pencari (SEO)." },
     "word_counter": { "name": "Penghitung Kata", "description": "Hitung kata, karakter, baris, dan estimasi waktu baca untuk teks Anda." },
