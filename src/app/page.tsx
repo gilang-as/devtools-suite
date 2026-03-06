@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useMemo } from 'react';
@@ -49,12 +48,12 @@ export default function Home() {
         </p>
       </section>
 
-      <section className="max-w-4xl mx-auto space-y-6">
+      <section className="max-w-4xl mx-auto space-y-8">
         <div className="relative group">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground group-focus-within:text-primary transition-colors" />
           <Input
             placeholder={t('home.search_placeholder') || 'Search tools...'}
-            className="pl-10 h-12 text-lg bg-card border-border shadow-sm focus-visible:ring-primary"
+            className="pl-12 h-14 text-xl bg-card border-border shadow-md focus-visible:ring-primary rounded-2xl"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -62,15 +61,15 @@ export default function Home() {
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground hover:text-foreground"
+              className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 text-muted-foreground hover:text-foreground"
               onClick={() => setSearchQuery('')}
             >
-              <X className="h-4 w-4" />
+              <X className="h-5 w-5" />
             </Button>
           )}
         </div>
 
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap justify-center gap-2">
             <Button
               variant={selectedCategory === null ? 'default' : 'outline'}
@@ -93,10 +92,20 @@ export default function Home() {
             ))}
           </div>
           
-          <div className="flex items-center gap-2 text-xs text-muted-foreground/60 font-medium bg-muted/30 px-3 py-1.5 rounded-full border border-border/50">
-            <Command className="h-3 w-3" />
-            <span>{t('home.shortcut_hint')}</span>
-            <kbd className="bg-background border px-1.5 py-0.5 rounded text-[10px] font-bold">⌘K</kbd>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-xs font-bold text-muted-foreground/40 uppercase tracking-[0.2em]">Quick Access</p>
+            <div 
+              className="flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-primary/[0.03] border border-primary/10 shadow-sm cursor-pointer hover:bg-primary/[0.05] transition-all"
+              onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))}
+            >
+              <div className="flex items-center gap-1.5">
+                <kbd className="bg-background border-2 border-primary/20 shadow-sm px-2 py-1 rounded-lg text-sm font-bold text-primary min-w-[32px] text-center">⌘</kbd>
+                <span className="text-muted-foreground/40 font-bold">+</span>
+                <kbd className="bg-background border-2 border-primary/20 shadow-sm px-2 py-1 rounded-lg text-sm font-bold text-primary min-w-[32px] text-center">K</kbd>
+              </div>
+              <div className="h-4 w-px bg-primary/10 mx-1" />
+              <span className="text-sm font-medium text-muted-foreground">{t('home.shortcut_hint')}</span>
+            </div>
           </div>
         </div>
       </section>
