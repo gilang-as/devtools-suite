@@ -63,7 +63,13 @@
     "compare": "Bandingkan",
     "separator": "Pemisah",
     "lowercase": "Huruf Kecil",
-    "remove_numbers": "Hapus Angka"
+    "remove_numbers": "Hapus Angka",
+    "words": "Kata",
+    "characters": "Karakter",
+    "lines": "Baris",
+    "paragraphs": "Paragraf",
+    "readingTime": "Waktu Baca",
+    "minutes": "menit"
   },
   "home": {
     "heading": "Alat Pengembang",
@@ -88,6 +94,7 @@
     "text_diff": { "name": "Text Diff Checker", "description": "Bandingkan dua blok teks untuk menemukan perbedaan, penambahan, dan penghapusan." },
     "case_converter": { "name": "Konverter Case", "description": "Konversi teks di antara berbagai format huruf seperti camelCase, snake_case, PascalCase, dll." },
     "slug_generator": { "name": "Generator Slug URL", "description": "Ubah judul dan teks menjadi slug URL yang ramah mesin pencari (SEO)." },
+    "word_counter": { "name": "Penghitung Kata", "description": "Hitung kata, karakter, baris, dan estimasi waktu baca untuk teks Anda." },
     "unix_timestamp_converter": { "name": "Konverter Unix Timestamp", "description": "Konversi detik/milidetik Unix ke tanggal yang dapat dibaca manusia." },
     "unix_timestamp_generator": { "name": "Generator Unix Timestamp", "description": "Hasilkan timestamp Unix saat ini dan masa depan secara instan." },
     "cron_parser": { "name": "Parser Ekspresi Cron", "description": "Terjemahkan string cron yang kompleks ke dalam bahasa manusia yang mudah dibaca." },

@@ -63,7 +63,13 @@
     "compare": "Compare",
     "separator": "Separator",
     "lowercase": "Lowercase",
-    "remove_numbers": "Remove Numbers"
+    "remove_numbers": "Remove Numbers",
+    "words": "Words",
+    "characters": "Characters",
+    "lines": "Lines",
+    "paragraphs": "Paragraphs",
+    "readingTime": "Reading Time",
+    "minutes": "min"
   },
   "home": {
     "heading": "Developer Tools",
@@ -88,6 +94,7 @@
     "text_diff": { "name": "Text Diff Checker", "description": "Compare two text blocks to find differences, additions, and deletions." },
     "case_converter": { "name": "Case Converter", "description": "Convert text between various letter cases like camelCase, snake_case, PascalCase, etc." },
     "slug_generator": { "name": "URL Slug Generator", "description": "Convert titles and text into search-engine-friendly URL slugs." },
+    "word_counter": { "name": "Word Counter", "description": "Count words, characters, lines, and estimate reading time for your text." },
     "unix_timestamp_converter": { "name": "Unix Timestamp Converter", "description": "Convert Unix seconds/milliseconds to human-readable dates." },
     "unix_timestamp_generator": { "name": "Unix Timestamp Generator", "description": "Generate current and future Unix timestamps instantly." },
     "cron_parser": { "name": "Cron Expression Parser", "description": "Translate complex cron strings into readable human language." },

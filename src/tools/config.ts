@@ -115,6 +115,14 @@ export const TOOLS: Tool[] = [
     category: 'Programming',
   },
   {
+    id: 'word-counter',
+    nameKey: 'tools.word_counter.name',
+    descriptionKey: 'tools.word_counter.description',
+    href: '/programming/word-counter',
+    icon: 'FileText',
+    category: 'Programming',
+  },
+  {
     id: 'password-generator',
     nameKey: 'tools.password_generator.name',
     descriptionKey: 'tools.password_generator.description',
