@@ -1,4 +1,5 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2 } from 'lucide-react';
+
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -608,6 +609,14 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.json_to_ts.description',
     href: '/json/to-typescript',
     icon: 'Code2',
+    category: 'Conversion',
+  },
+  {
+    id: 'json-to-yaml',
+    nameKey: 'tools.json_to_yaml.name',
+    descriptionKey: 'tools.json_to_yaml.description',
+    href: '/json/to-yaml',
+    icon: 'FileJson',
     category: 'Conversion',
   },
   {
