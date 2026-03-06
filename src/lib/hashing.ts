@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import { argon2id } from 'hash-wasm';
 
 export type HashType = 'md5' | 'sha1' | 'sha256' | 'sha512' | 'sha3';
+export type HmacType = 'sha1' | 'sha256' | 'sha512';
 
 export function computeHash(text: string, type: HashType): string {
   if (!text) return '';
@@ -17,6 +18,20 @@ export function computeHash(text: string, type: HashType): string {
       return CryptoJS.SHA512(text).toString();
     case 'sha3':
       return CryptoJS.SHA3(text).toString();
+    default:
+      return '';
+  }
+}
+
+export function computeHmac(text: string, key: string, type: HmacType): string {
+  if (!text || !key) return '';
+  switch (type) {
+    case 'sha1':
+      return CryptoJS.HmacSHA1(text, key).toString();
+    case 'sha256':
+      return CryptoJS.HmacSHA256(text, key).toString();
+    case 'sha512':
+      return CryptoJS.HmacSHA512(text, key).toString();
     default:
       return '';
   }
@@ -39,7 +54,6 @@ export function computeBcrypt(password: string, rounds: number = 10): string {
 
 export async function computeArgon2(password: string, salt: string, iterations: number = 10, memory: number = 1024, parallelism: number = 1): Promise<string> {
   try {
-    // hash-wasm is much more compatible with Turbopack than argon2-browser
     const hash = await argon2id({
       password: password,
       salt: new TextEncoder().encode(salt),

@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, ShieldEllipsis } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -152,6 +152,30 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.pbkdf2.description',
     href: '/hashing/pbkdf2',
     icon: 'Lock',
+    category: 'Hashing',
+  },
+  {
+    id: 'hmac-sha1',
+    nameKey: 'tools.hmac_sha1.name',
+    descriptionKey: 'tools.hmac_sha1.description',
+    href: '/hashing/hmac-sha1',
+    icon: 'KeyRound',
+    category: 'Hashing',
+  },
+  {
+    id: 'hmac-sha256',
+    nameKey: 'tools.hmac_sha256.name',
+    descriptionKey: 'tools.hmac_sha256.description',
+    href: '/hashing/hmac-sha256',
+    icon: 'KeyRound',
+    category: 'Hashing',
+  },
+  {
+    id: 'hmac-sha512',
+    nameKey: 'tools.hmac_sha512.name',
+    descriptionKey: 'tools.hmac_sha512.description',
+    href: '/hashing/hmac-sha512',
+    icon: 'KeyRound',
     category: 'Hashing',
   },
   {

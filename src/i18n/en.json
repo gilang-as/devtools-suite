@@ -40,7 +40,8 @@
     "hash": "Hash",
     "password": "Password",
     "salt": "Salt",
-    "iterations": "Iterations"
+    "iterations": "Iterations",
+    "secret_key": "Secret Key"
   },
   "home": {
     "heading": "Developer Tools",
@@ -123,6 +124,18 @@
     "pbkdf2": {
       "name": "PBKDF2 Hash",
       "description": "Key derivation function using multiple HMAC iterations."
+    },
+    "hmac_sha1": {
+      "name": "HMAC SHA1",
+      "description": "Generate a Hash-based Message Authentication Code using SHA1."
+    },
+    "hmac_sha256": {
+      "name": "HMAC SHA256",
+      "description": "Generate a Hash-based Message Authentication Code using SHA256."
+    },
+    "hmac_sha512": {
+      "name": "HMAC SHA512",
+      "description": "Generate a Hash-based Message Authentication Code using SHA512."
     },
     "json_formatter": {
       "name": "JSON Formatter",

@@ -40,7 +40,8 @@
     "hash": "Hash",
     "password": "Kata Sandi",
     "salt": "Salt",
-    "iterations": "Iterasi"
+    "iterations": "Iterasi",
+    "secret_key": "Kunci Rahasia"
   },
   "home": {
     "heading": "Alat Pengembang",
@@ -123,6 +124,18 @@
     "pbkdf2": {
       "name": "Hash PBKDF2",
       "description": "Fungsi derivasi kunci menggunakan banyak iterasi HMAC."
+    },
+    "hmac_sha1": {
+      "name": "HMAC SHA1",
+      "description": "Hasilkan Hash-based Message Authentication Code menggunakan SHA1."
+    },
+    "hmac_sha256": {
+      "name": "HMAC SHA256",
+      "description": "Hasilkan Hash-based Message Authentication Code menggunakan SHA256."
+    },
+    "hmac_sha512": {
+      "name": "HMAC SHA512",
+      "description": "Hasilkan Hash-based Message Authentication Code menggunakan SHA512."
     },
     "json_formatter": {
       "name": "Format JSON",
