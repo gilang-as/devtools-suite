@@ -96,20 +96,20 @@ export default function CommandMenu() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden">
-        <DialogHeader className="p-0 border-b">
+      <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden flex flex-col">
+        <DialogHeader className="p-0 border-b shrink-0">
           <DialogTitle className="sr-only">{t('home.spotlight_title')}</DialogTitle>
           <div className="flex items-center gap-4 px-6 h-16">
             <Search className="h-6 w-6 text-muted-foreground shrink-0" />
             <Input
               placeholder={t('home.search_placeholder')}
-              className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 ring-0 focus:ring-0 outline-none text-lg p-0 h-full bg-transparent placeholder:text-muted-foreground/40 shadow-none hover:bg-transparent focus:bg-transparent"
+              className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 ring-0 focus:ring-0 outline-none text-lg p-0 h-full bg-transparent placeholder:text-muted-foreground/40 shadow-none hover:bg-transparent focus:bg-transparent flex-1"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
               autoFocus
             />
-            <div className="flex items-center gap-1.5 ml-auto">
+            <div className="flex items-center gap-1.5 ml-auto shrink-0">
               <kbd className="pointer-events-none hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
                 <span className="text-xs">ESC</span>
               </kbd>
@@ -117,7 +117,7 @@ export default function CommandMenu() {
           </div>
         </DialogHeader>
 
-        <div className="flex p-2 bg-muted/30 gap-1 overflow-x-auto border-b scrollbar-hide">
+        <div className="flex p-2 bg-muted/30 gap-1 overflow-x-auto border-b shrink-0 scrollbar-hide">
           <Badge 
             variant={category === null ? 'default' : 'outline'} 
             className="cursor-pointer whitespace-nowrap px-3"
@@ -137,8 +137,8 @@ export default function CommandMenu() {
           ))}
         </div>
 
-        <ScrollArea className="max-h-[400px]">
-          <div className="p-2 space-y-1">
+        <ScrollArea className="max-h-[400px] w-full overflow-hidden flex-1">
+          <div className="p-2 flex flex-col gap-1 w-full overflow-hidden">
             {filteredTools.length > 0 ? (
               filteredTools.map((tool, index) => {
                 const Icon = iconMap[tool.icon] || Terminal;
@@ -147,8 +147,8 @@ export default function CommandMenu() {
                     key={tool.id}
                     ref={(el) => { itemRefs.current[index] = el; }}
                     className={cn(
-                      "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer transition-all",
-                      index === selectedIndex ? "bg-primary text-primary-foreground shadow-lg scale-[1.01]" : "hover:bg-accent hover:text-accent-foreground"
+                      "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer transition-all w-full overflow-hidden",
+                      index === selectedIndex ? "bg-primary text-primary-foreground shadow-lg" : "hover:bg-accent hover:text-accent-foreground"
                     )}
                     onClick={() => handleSelect(tool)}
                     onMouseEnter={() => setSelectedIndex(index)}
@@ -159,36 +159,36 @@ export default function CommandMenu() {
                     )}>
                       <Icon className="h-5 w-5" />
                     </div>
-                    <div className="flex-1 min-w-0 overflow-hidden">
-                      <p className="font-bold text-sm truncate">{t(tool.nameKey)}</p>
+                    <div className="flex-1 min-w-0 overflow-hidden text-left">
+                      <p className="font-bold text-sm truncate w-full">{t(tool.nameKey)}</p>
                       <p className={cn(
-                        "text-xs truncate",
+                        "text-xs truncate w-full",
                         index === selectedIndex ? "text-primary-foreground/80" : "text-muted-foreground"
                       )}>
                         {t(tool.descriptionKey)}
                       </p>
                     </div>
-                    <div className="flex items-center gap-2 shrink-0">
+                    <div className="flex items-center gap-2 shrink-0 ml-2">
                       <Badge variant="secondary" className={cn(
                         "text-[10px] uppercase font-black",
                         index === selectedIndex && "bg-white/20 text-white border-transparent"
                       )}>
                         {tool.category}
                       </Badge>
-                      {index === selectedIndex && <ChevronRight className="h-4 w-4" />}
+                      {index === selectedIndex && <ChevronRight className="h-4 w-4 shrink-0" />}
                     </div>
                   </div>
                 );
               })
             ) : (
-              <div className="py-12 text-center text-muted-foreground">
+              <div className="py-12 text-center text-muted-foreground w-full">
                 <Search className="h-10 w-10 mx-auto mb-3 opacity-20" />
                 <p>{t('home.no_results_title')} "{query}"</p>
               </div>
             )}
           </div>
         </ScrollArea>
-        <div className="p-3 border-t bg-muted/20 flex items-center justify-between text-[10px] text-muted-foreground uppercase font-bold tracking-widest">
+        <div className="p-3 border-t bg-muted/20 flex items-center justify-between text-[10px] text-muted-foreground uppercase font-bold tracking-widest shrink-0">
           <div className="flex gap-4">
             <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">↑↓</kbd> {t('home.navigate')}</span>
             <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">Enter</kbd> {t('home.select')}</span>
