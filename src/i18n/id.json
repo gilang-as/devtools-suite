@@ -215,7 +215,8 @@
     "adler32": { "name": "Adler32 Checksum", "description": "Hasilkan checksum Adler-32 cepat untuk verifikasi data." },
     "subnet_calculator": { "name": "Kalkulator Subnet", "description": "Hitung parameter jaringan detail berdasarkan IP dan Subnet Mask." },
     "cidr_calculator": { "name": "Kalkulator CIDR", "description": "Hitung rentang jaringan dan kapasitas host menggunakan notasi CIDR." },
-    "ipv6_calculator": { "name": "Kalkulator IPv6", "description": "Hitung rentang jaringan IPv6, prefix, dan jumlah alamat." }
+    "ipv6_calculator": { "name": "Kalkulator IPv6", "description": "Hitung rentang jaringan IPv6, prefix, dan jumlah alamat." },
+    "dns_lookup": { "name": "DNS Lookup", "description": "Ambil dan analisis rekaman DNS menggunakan beberapa penyedia cadangan." }
   },
   "kb": {
     "aes": {

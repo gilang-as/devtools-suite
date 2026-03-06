@@ -134,7 +134,7 @@
     "aes_decrypt": { "name": "AES Decrypt", "description": "Decrypt AES-encrypted strings back into readable text." },
     "des_encrypt": { "name": "DES Encrypt", "description": "Encrypt text using the legacy DES algorithm (64-bit key)." },
     "des_decrypt": { "name": "DES Decrypt", "description": "Decrypt strings encrypted with the Data Encryption Standard (DES)." },
-    "3des_encrypt": { "name": "3DES Encrypt", "description": "Encrypt text using Triple DES (192-bit key)." },
+    "3des_encrypt": { "name": "3DES Enkrypt", "description": "Encrypt text using Triple DES (192-bit key)." },
     "3des_decrypt": { "name": "3DES Decrypt", "description": "Decrypt strings encrypted with Triple DES (TDEA)." },
     "chacha20_encrypt": { "name": "ChaCha20 Encrypt", "description": "Modern stream encryption using ChaCha20 algorithm." },
     "chacha20_decrypt": { "name": "ChaCha20 Decrypt", "description": "Decrypt strings secured with ChaCha20 stream cipher." },
@@ -215,7 +215,8 @@
     "adler32": { "name": "Adler32 Checksum", "description": "Generate a fast Adler-32 checksum for data verification." },
     "subnet_calculator": { "name": "Subnet Calculator", "description": "Calculate detailed network parameters based on an IP and Subnet Mask." },
     "cidr_calculator": { "name": "CIDR Calculator", "description": "Calculate network ranges and host capacities using CIDR notation." },
-    "ipv6_calculator": { "name": "IPv6 Calculator", "description": "Calculate IPv6 network ranges, prefixes, and address counts." }
+    "ipv6_calculator": { "name": "IPv6 Calculator", "description": "Calculate IPv6 network ranges, prefixes, and address counts." },
+    "dns_lookup": { "name": "DNS Lookup", "description": "Fetch and analyze DNS records using multiple fallback providers." }
   },
   "kb": {
     "aes": {

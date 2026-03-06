@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe, SearchCode, Sparkles, Diff, Type, Link2, ListOrdered, Rows, Network } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe, SearchCode, Sparkles, Diff, Type, Link2, ListOrdered, Rows, Network, Globe2 } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -145,6 +145,14 @@ export const TOOLS: Tool[] = [
     href: '/programming/word-counter',
     icon: 'FileText',
     category: 'Programming',
+  },
+  {
+    id: 'dns-lookup',
+    nameKey: 'tools.dns_lookup.name',
+    descriptionKey: 'tools.dns_lookup.description',
+    href: '/networking/dns-lookup',
+    icon: 'Globe2',
+    category: 'Networking',
   },
   {
     id: 'subnet-calculator',

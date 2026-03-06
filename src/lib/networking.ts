@@ -1,5 +1,5 @@
 /**
- * Utility for networking operations: IP Subnet, CIDR, and IPv6 calculations.
+ * Utility for networking operations: IP Subnet, CIDR, IPv6, and DNS lookups.
  */
 
 export interface NetworkDetails {
@@ -25,6 +25,68 @@ export interface IPv6Details {
   firstAddress: string;
   lastAddress: string;
   totalAddresses: string;
+}
+
+/**
+ * DNS Lookup Types
+ */
+export type DnsRecordType = 'A' | 'AAAA' | 'MX' | 'TXT' | 'NS' | 'CNAME' | 'SOA' | 'SRV' | 'CAA' | 'DNSKEY' | 'DS' | 'RRSIG' | 'ANY';
+
+export interface DnsAnswer {
+  name: string;
+  type: number;
+  TTL: number;
+  data: string;
+}
+
+export interface DnsLookupResult {
+  Status: number;
+  TC: boolean;
+  RD: boolean;
+  RA: boolean;
+  AD: boolean;
+  CD: boolean;
+  Question: { name: string; type: number }[];
+  Answer?: DnsAnswer[];
+  Authority?: any[];
+  Additional?: any[];
+  provider: string;
+}
+
+const DNS_PROVIDERS = [
+  { name: 'Google DNS', url: 'https://dns.google/resolve' },
+  { name: 'Cloudflare DNS', url: 'https://cloudflare-dns.com/dns-query' },
+  { name: 'Quad9 DNS', url: 'https://dns.quad9.net/dns-query' },
+  { name: 'AdGuard DNS', url: 'https://dns.adguard.com/dns-query' },
+  { name: 'DNS.SB', url: 'https://doh.dns.sb/dns-query' },
+  { name: 'Mullvad DNS', url: 'https://dns.mullvad.net/dns-query' }
+];
+
+/**
+ * Performs a DNS lookup with fallback providers
+ */
+export async function dnsLookup(domain: string, type: DnsRecordType): Promise<DnsLookupResult> {
+  let lastError = null;
+
+  for (const provider of DNS_PROVIDERS) {
+    try {
+      const response = await fetch(`${provider.url}?name=${encodeURIComponent(domain)}&type=${type}`, {
+        headers: {
+          'Accept': 'application/dns-json'
+        }
+      });
+
+      if (!response.ok) continue;
+
+      const data = await response.json();
+      return { ...data, provider: provider.name };
+    } catch (e) {
+      lastError = e;
+      continue;
+    }
+  }
+
+  throw lastError || new Error('All DNS providers failed to resolve.');
 }
 
 /**
