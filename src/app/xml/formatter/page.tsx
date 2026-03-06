@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Select, 
   SelectContent, 
@@ -22,29 +23,72 @@ import {
   FileCode, 
   ArrowRightLeft, 
   Check, 
-  WrapText
+  WrapText,
+  ChevronRight,
+  ChevronDown,
+  Layout,
+  Braces
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { beautifyXml, minifyXml } from '@/lib/xml';
 
+type OutputView = 'code' | 'tree';
+
+interface XmlNode {
+  tag: string;
+  attributes: Record<string, string>;
+  children: (XmlNode | string)[];
+}
+
+const parseXmlToTree = (xml: string): XmlNode | null => {
+  try {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(xml, "text/xml");
+    const errorNode = doc.querySelector("parsererror");
+    if (errorNode) return null;
+
+    const elementToNode = (el: Element): XmlNode => {
+      const attributes: Record<string, string> = {};
+      for (let i = 0; i < el.attributes.length; i++) {
+        const attr = el.attributes[i];
+        attributes[attr.name] = attr.value;
+      }
+
+      const children: (XmlNode | string)[] = [];
+      for (let i = 0; i < el.childNodes.length; i++) {
+        const child = el.childNodes[i];
+        if (child.nodeType === Node.ELEMENT_NODE) {
+          children.push(elementToNode(child as Element));
+        } else if (child.nodeType === Node.TEXT_NODE && child.nodeValue?.trim()) {
+          children.push(child.nodeValue.trim());
+        }
+      }
+
+      return {
+        tag: el.tagName,
+        attributes,
+        children
+      };
+    };
+
+    return elementToNode(doc.documentElement);
+  } catch (e) {
+    return null;
+  }
+};
+
 const highlightXml = (xml: string) => {
   if (!xml) return null;
   
-  // Basic regex-based syntax highlighting for XML
   const tokens = xml.split(/(<[^>]+>|<!--.*?-->)/g);
   
   return tokens.map((token, i) => {
     if (!token) return null;
-    
-    // Comments
     if (token.startsWith('<!--')) {
       return <span key={i} className="text-muted-foreground italic">{token}</span>;
     }
-    
-    // Tags
     if (token.startsWith('<')) {
-      // Split tag into name and attributes
       const parts = token.split(/(\s+)/);
       return (
         <span key={i} className="text-blue-600 dark:text-blue-400">
@@ -52,7 +96,6 @@ const highlightXml = (xml: string) => {
             if (pi === 0 || (pi === 1 && part.startsWith('/'))) {
               return <span key={pi} className="font-bold">{part}</span>;
             }
-            // Attributes
             if (part.includes('=')) {
               const [attr, val] = part.split('=');
               return (
@@ -68,8 +111,6 @@ const highlightXml = (xml: string) => {
         </span>
       );
     }
-    
-    // Content
     return <span key={i}>{token}</span>;
   });
 };
@@ -86,12 +127,75 @@ const LineNumbers = ({ text }: { text: string }) => {
   );
 };
 
+const XmlTreeNode = ({ node, isLast = true, wordWrap }: { node: XmlNode | string; isLast?: boolean; wordWrap: boolean }) => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  if (typeof node === 'string') {
+    return (
+      <div className={cn(
+        "flex items-start gap-1 font-code text-sm py-0.5 ml-6",
+        wordWrap ? "whitespace-pre-wrap" : "whitespace-nowrap"
+      )}>
+        <span className="text-foreground">{node}</span>
+      </div>
+    );
+  }
+
+  const hasChildren = node.children.length > 0;
+  const hasAttributes = Object.keys(node.attributes).length > 0;
+
+  return (
+    <div className="font-code text-sm py-0.5">
+      <div 
+        className="flex items-center gap-1 cursor-pointer hover:bg-muted/50 rounded px-1 transition-colors w-fit whitespace-nowrap"
+        onClick={() => hasChildren && setIsOpen(!isOpen)}
+      >
+        <div className="w-4 h-4 flex items-center justify-center text-muted-foreground">
+          {hasChildren ? (isOpen ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />) : null}
+        </div>
+        <span className="text-blue-600 dark:text-blue-400 font-bold">&lt;{node.tag}</span>
+        {hasAttributes && Object.entries(node.attributes).map(([key, val]) => (
+          <span key={key} className="ml-1">
+            <span className="text-cyan-600 dark:text-cyan-400">{key}</span>
+            <span className="text-muted-foreground">=</span>
+            <span className="text-green-600 dark:text-green-400">"{val}"</span>
+          </span>
+        ))}
+        <span className="text-blue-600 dark:text-blue-400 font-bold">&gt;</span>
+        {!isOpen && hasChildren && <span className="text-muted-foreground px-1 bg-muted/50 rounded text-xs">...</span>}
+        {!isOpen && hasChildren && <span className="text-blue-600 dark:text-blue-400 font-bold">&lt;/{node.tag}&gt;</span>}
+      </div>
+      
+      {isOpen && hasChildren && (
+        <div className="ml-6 border-l border-muted/30 pl-2">
+          {node.children.map((child, index) => (
+            <XmlTreeNode 
+              key={index} 
+              node={child} 
+              isLast={index === node.children.length - 1}
+              wordWrap={wordWrap}
+            />
+          ))}
+        </div>
+      )}
+      
+      {isOpen && hasChildren && (
+        <div className="ml-4 text-blue-600 dark:text-blue-400 font-bold whitespace-nowrap">
+          &lt;/{node.tag}&gt;
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default function XmlFormatterPage() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const [parsedOutput, setParsedOutput] = useState<XmlNode | null>(null);
   const [indentSize, setIndentSize] = useState<number>(2);
+  const [viewMode, setViewMode] = useState<OutputView>('code');
   const [wordWrap, setWordWrap] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -100,6 +204,8 @@ export default function XmlFormatterPage() {
     if (!input.trim()) return;
     const formatted = beautifyXml(input, indentSize);
     setOutput(formatted);
+    const tree = parseXmlToTree(formatted);
+    setParsedOutput(tree);
     setError(null);
   };
 
@@ -107,12 +213,16 @@ export default function XmlFormatterPage() {
     if (!input.trim()) return;
     const minified = minifyXml(input);
     setOutput(minified);
+    const tree = parseXmlToTree(minified);
+    setParsedOutput(tree);
     setError(null);
+    setViewMode('code');
   };
 
   const handleClear = () => {
     setInput('');
     setOutput('');
+    setParsedOutput(null);
     setError(null);
   };
 
@@ -269,7 +379,21 @@ export default function XmlFormatterPage() {
         {/* Output Section */}
         <Card className="flex-1 border-border shadow-lg flex flex-col overflow-hidden">
           <CardHeader className="flex flex-row items-center justify-between pb-4">
-            <CardTitle className="text-lg">{t('common.output')}</CardTitle>
+            <div className="flex items-center gap-4">
+              <CardTitle className="text-lg">{t('common.output')}</CardTitle>
+              <Tabs value={viewMode} onValueChange={(val) => setViewMode(val as OutputView)} className="w-fit">
+                <TabsList className="h-8">
+                  <TabsTrigger value="code" className="text-xs">
+                    <Braces className="h-3 w-3 mr-1.5" />
+                    Code
+                  </TabsTrigger>
+                  <TabsTrigger value="tree" className="text-xs" disabled={!parsedOutput}>
+                    <Layout className="h-3 w-3 mr-1.5" />
+                    Tree View
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
             <Button 
               variant="outline" 
               size="sm" 
@@ -282,15 +406,26 @@ export default function XmlFormatterPage() {
           </CardHeader>
           <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
             <div className="flex flex-1 min-h-[400px] border-t bg-secondary/10 overflow-hidden">
-              <LineNumbers text={output} />
-              <div className="flex-1 overflow-auto bg-[#fafafa] dark:bg-[#0f1115]">
+              {viewMode === 'code' ? (
+                <>
+                  <LineNumbers text={output} />
+                  <div className="flex-1 overflow-auto bg-[#fafafa] dark:bg-[#0f1115]">
+                    <div className={cn(
+                      "font-code w-full min-h-full leading-6 py-2.5 px-3",
+                      wordWrap ? "whitespace-pre-wrap" : "whitespace-pre"
+                    )}>
+                      {highlightedOutput || <span className="text-muted-foreground/50">Formatted results will appear here...</span>}
+                    </div>
+                  </div>
+                </>
+              ) : (
                 <div className={cn(
-                  "font-code w-full min-h-full leading-6 py-2.5 px-3",
-                  wordWrap ? "whitespace-pre-wrap" : "whitespace-pre"
+                  "flex-1 overflow-auto p-4 bg-[#fafafa] dark:bg-[#0f1115] font-code",
+                  !wordWrap && "overflow-x-auto"
                 )}>
-                  {highlightedOutput || <span className="text-muted-foreground/50">Formatted results will appear here...</span>}
+                  {parsedOutput && <XmlTreeNode node={parsedOutput} wordWrap={wordWrap} />}
                 </div>
-              </div>
+              )}
             </div>
           </CardContent>
         </Card>
