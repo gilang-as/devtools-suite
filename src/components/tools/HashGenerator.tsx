@@ -49,12 +49,16 @@ export default function HashGenerator({ type }: HashGeneratorProps) {
     sha3: "SHA-3 is the latest NIST standard. It uses a completely different internal structure (Sponge construction) than SHA-2, providing extra safety against current SHA-2 weaknesses."
   }[type];
 
-  const navItems = [
-    { name: 'MD5', href: '/hashing/md5' },
+  // Logic for tab grouping
+  const shaFamily = [
     { name: 'SHA1', href: '/hashing/sha1' },
     { name: 'SHA256', href: '/hashing/sha256' },
     { name: 'SHA512', href: '/hashing/sha512' },
     { name: 'SHA3', href: '/hashing/sha3' },
+  ];
+
+  const digestFamily = [
+    { name: 'MD5', href: '/hashing/md5' },
   ];
 
   return (
@@ -69,18 +73,46 @@ export default function HashGenerator({ type }: HashGeneratorProps) {
         </div>
       </div>
 
-      <div className="flex p-1 bg-muted rounded-lg w-fit overflow-x-auto max-w-full">
-        {navItems.map((item) => (
-          <Link key={item.href} href={item.href}>
-            <Button 
-              variant={pathname === item.href ? 'secondary' : 'ghost'} 
-              className={cn("px-6 h-8 whitespace-nowrap", pathname === item.href && "bg-background shadow-sm")}
-              size="sm"
-            >
-              {item.name}
-            </Button>
-          </Link>
-        ))}
+      <div className="flex flex-col gap-6">
+        {/* SHA Family Tabs */}
+        <div className="space-y-2">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-1 ml-1">
+            SHA Family
+          </span>
+          <div className="flex p-1 bg-muted rounded-lg w-fit overflow-x-auto max-w-full border shadow-sm">
+            {shaFamily.map((item) => (
+              <Link key={item.href} href={item.href}>
+                <Button 
+                  variant={pathname === item.href ? 'secondary' : 'ghost'} 
+                  className={cn("px-6 h-8 whitespace-nowrap", pathname === item.href && "bg-background shadow-sm")}
+                  size="sm"
+                >
+                  {item.name}
+                </Button>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Other Digests Tabs */}
+        <div className="space-y-2">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-1 ml-1">
+            Other Hashes
+          </span>
+          <div className="flex p-1 bg-muted rounded-lg w-fit border shadow-sm">
+            {digestFamily.map((item) => (
+              <Link key={item.href} href={item.href}>
+                <Button 
+                  variant={pathname === item.href ? 'secondary' : 'ghost'} 
+                  className={cn("px-6 h-8 whitespace-nowrap", pathname === item.href && "bg-background shadow-sm")}
+                  size="sm"
+                >
+                  {item.name}
+                </Button>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6">
