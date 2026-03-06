@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useRef, useEffect } from 'react';
@@ -33,6 +32,8 @@ export default function DnsLookupPage() {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaKey, setCaptchaKey] = useState(0);
   const turnstileRef = useRef<TurnstileInstance>(null);
+
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
 
   const handleLookup = async () => {
     if (!domain.trim() || !captchaToken) return;
@@ -116,7 +117,7 @@ export default function DnsLookupPage() {
                   <Turnstile
                     key={captchaKey}
                     ref={turnstileRef}
-                    sitekey="3x00000000000000000000CC"
+                    sitekey={siteKey}
                     options={{
                       size: 'normal',
                       theme: 'auto',
