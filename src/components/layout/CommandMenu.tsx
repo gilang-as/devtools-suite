@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from 'react';
@@ -76,8 +77,8 @@ export default function CommandMenu() {
       
       const all = [...settings, ...tools];
       return all.filter(item => {
-        const name = item.isAction ? item.nameKey : t(item.nameKey);
-        const desc = item.isAction ? item.descriptionKey : t(item.descriptionKey);
+        const name = item.isAction ? (item.nameKey || item.name) : t(item.nameKey || '');
+        const desc = item.isAction ? (item.descriptionKey || item.category) : t(item.descriptionKey || '');
         return name.toLowerCase().includes(query.toLowerCase()) || desc.toLowerCase().includes(query.toLowerCase());
       });
     }
@@ -87,7 +88,7 @@ export default function CommandMenu() {
         { id: 'back', name: 'Back to Search', icon: 'ArrowLeft', isBack: true },
         ...colorOptions.map(c => ({ ...c, isAction: true, type: 'color' }))
       ];
-      return items.filter(item => item.name.toLowerCase().includes(query.toLowerCase()));
+      return items.filter(item => (item.name || '').toLowerCase().includes(query.toLowerCase()));
     }
 
     if (view === 'modes') {
@@ -211,8 +212,10 @@ export default function CommandMenu() {
               filteredItems.map((item: any, index) => {
                 const Icon = iconMap[item.icon] || Terminal;
                 const isCurrentItem = index === selectedIndex;
-                const name = item.isAction ? (item.nameKey || item.name) : t(item.nameKey);
-                const desc = item.isAction ? (item.descriptionKey || item.category) : t(item.descriptionKey);
+                
+                // Robust naming logic
+                const name = item.isBack ? item.name : (item.isAction ? (item.nameKey || item.name) : t(item.nameKey || ''));
+                const desc = item.isBack ? '' : (item.isAction ? (item.descriptionKey || item.category) : t(item.descriptionKey || ''));
 
                 return (
                   <div
@@ -233,12 +236,14 @@ export default function CommandMenu() {
                     </div>
                     <div className="flex-1 min-w-0 overflow-hidden text-left">
                       <p className="font-bold text-sm truncate w-full">{name}</p>
-                      <p className={cn(
-                        "text-xs truncate w-full",
-                        isCurrentItem ? "text-primary-foreground/80" : "text-muted-foreground"
-                      )}>
-                        {desc}
-                      </p>
+                      {desc && (
+                        <p className={cn(
+                          "text-xs truncate w-full",
+                          isCurrentItem ? "text-primary-foreground/80" : "text-muted-foreground"
+                        )}>
+                          {desc}
+                        </p>
+                      )}
                     </div>
                     {item.type === 'nav' || item.type === 'color' ? (
                       <ChevronRight className={cn("h-4 w-4 shrink-0", isCurrentItem ? "text-white" : "text-muted-foreground")} />

@@ -34,6 +34,8 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   };
 
   const t = (path: string): string => {
+    if (!path || typeof path !== 'string') return String(path || '');
+    
     const keys = path.split('.');
     let result: any = translations[language];
     
