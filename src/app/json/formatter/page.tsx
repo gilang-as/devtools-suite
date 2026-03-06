@@ -175,7 +175,6 @@ export default function JsonFormatterPage() {
       const minified = JSON.stringify(parsed);
       setOutput(minified);
       setError(null);
-      // Minified code should stay in code view as tree view is less useful for minified strings
       setViewMode('code');
     } catch (e: any) {
       setError(e.message);
@@ -353,7 +352,7 @@ export default function JsonFormatterPage() {
         {/* Output Section */}
         <Card className="flex-1 border-border shadow-lg flex flex-col overflow-hidden">
           <CardHeader className="flex flex-row items-center justify-between pb-4">
-            <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-4">
               <CardTitle className="text-lg">{t('common.output')}</CardTitle>
               <Tabs value={viewMode} onValueChange={(val) => setViewMode(val as OutputView)} className="w-fit">
                 <TabsList className="h-8">
