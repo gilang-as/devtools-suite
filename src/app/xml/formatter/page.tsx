@@ -27,7 +27,9 @@ import {
   ChevronRight,
   ChevronDown,
   Layout,
-  Braces
+  Braces,
+  ShieldCheck,
+  AlertCircle
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -219,6 +221,34 @@ export default function XmlFormatterPage() {
     setViewMode('code');
   };
 
+  const handleValidate = () => {
+    if (!input.trim()) return;
+    try {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(input, "text/xml");
+      const errorNode = doc.querySelector("parsererror");
+      if (errorNode) {
+        const errorMsg = errorNode.textContent || "Invalid XML syntax";
+        setError(errorMsg);
+        toast({
+          variant: 'destructive',
+          title: t('common.invalid'),
+          description: errorMsg,
+        });
+      } else {
+        setError(null);
+        toast({ title: t('common.valid') });
+      }
+    } catch (e: any) {
+      setError(e.message);
+      toast({
+        variant: 'destructive',
+        title: t('common.invalid'),
+        description: e.message,
+      });
+    }
+  };
+
   const handleClear = () => {
     setInput('');
     setOutput('');
@@ -312,6 +342,12 @@ export default function XmlFormatterPage() {
                 />
               </div>
             </div>
+            {error && (
+              <div className="bg-destructive/10 border-t border-destructive/20 p-3 flex items-start gap-2">
+                <AlertCircle className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                <p className="text-xs text-destructive font-code whitespace-pre-wrap">{error}</p>
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -352,28 +388,40 @@ export default function XmlFormatterPage() {
             </div>
           </div>
           
-          <Button 
-            onClick={handleBeautify} 
-            className="flex-1 lg:flex-none lg:w-full shadow-md bg-primary hover:bg-primary/90"
-            size="lg"
-          >
-            <Check className="h-4 w-4 mr-2" />
-            {t('common.beautify')}
-          </Button>
+          <div className="flex flex-col gap-3 w-full">
+            <Button 
+              onClick={handleBeautify} 
+              className="shadow-md bg-primary hover:bg-primary/90 w-full"
+              size="lg"
+            >
+              <Check className="h-4 w-4 mr-2" />
+              {t('common.beautify')}
+            </Button>
 
-          <div className="hidden lg:flex items-center justify-center text-muted-foreground/20">
-            <ArrowRightLeft className="h-6 w-6" />
+            <Button 
+              onClick={handleValidate} 
+              variant="outline"
+              className="w-full shadow-sm"
+              size="lg"
+            >
+              <ShieldCheck className="h-4 w-4 mr-2" />
+              {t('common.validate')}
+            </Button>
+
+            <div className="hidden lg:flex items-center justify-center text-muted-foreground/20 py-1">
+              <ArrowRightLeft className="h-6 w-6" />
+            </div>
+
+            <Button 
+              onClick={handleMinify} 
+              variant="secondary" 
+              className="w-full shadow-sm"
+              size="lg"
+            >
+              <CodeXml className="h-4 w-4 mr-2" />
+              {t('common.minify')}
+            </Button>
           </div>
-
-          <Button 
-            onClick={handleMinify} 
-            variant="secondary" 
-            className="flex-1 lg:flex-none lg:w-full shadow-sm"
-            size="lg"
-          >
-            <FileCode className="h-4 w-4 mr-2" />
-            {t('common.minify')}
-          </Button>
         </div>
 
         {/* Output Section */}
