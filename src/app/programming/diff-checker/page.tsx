@@ -1,7 +1,7 @@
 
 "use client"
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { diffLines, Change } from 'diff';
 import { Button } from '@/components/ui/button';
@@ -52,6 +52,39 @@ export default function DiffCheckerPage() {
     navigator.clipboard.writeText(newText);
     toast({ title: t('common.copied') });
   };
+
+  const diffLinesWithNumbers = useMemo(() => {
+    let oldLineNum = 1;
+    let newLineNum = 1;
+    const result: any[] = [];
+
+    diffResult.forEach((part, partIndex) => {
+      const lines = part.value.split(/\r?\n/);
+      
+      // If the part ends with a newline, split results in an extra empty string.
+      // We only want to pop it if it's not the very last part of the diff.
+      const shouldPop = part.value.endsWith('\n') || partIndex < diffResult.length - 1;
+      const linesToRender = (shouldPop && lines[lines.length - 1] === '') ? lines.slice(0, -1) : lines;
+
+      linesToRender.forEach((line, lineIndex) => {
+        const isAdded = part.added;
+        const isRemoved = part.removed;
+        
+        const currentOldNum = isAdded ? null : oldLineNum++;
+        const currentNewNum = isRemoved ? null : newLineNum++;
+
+        result.push({
+          key: `${partIndex}-${lineIndex}`,
+          line,
+          isAdded,
+          isRemoved,
+          oldNum: currentOldNum,
+          newNum: currentNewNum
+        });
+      });
+    });
+    return result;
+  }, [diffResult]);
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 py-6">
@@ -135,30 +168,31 @@ export default function DiffCheckerPage() {
           </CardHeader>
           <CardContent className="p-0">
             <div className="font-code text-sm overflow-x-auto bg-[#fafafa] dark:bg-[#0f1115]">
-              <div className="min-w-full divide-y divide-border/30">
-                {diffResult.map((part, index) => {
-                  const colorClass = part.added 
-                    ? 'bg-green-500/10 text-green-700 dark:text-green-400' 
-                    : part.removed 
-                    ? 'bg-destructive/10 text-destructive' 
-                    : 'text-muted-foreground opacity-70';
-                  
-                  const icon = part.added ? <Plus className="h-3 w-3 shrink-0" /> : part.removed ? <Minus className="h-3 w-3 shrink-0" /> : null;
-
-                  return (
-                    <div 
-                      key={index} 
-                      className={cn("px-6 py-1 flex gap-4 whitespace-pre-wrap break-all items-start", colorClass)}
-                    >
-                      <div className="w-4 pt-1 flex justify-center opacity-50">
-                        {icon}
-                      </div>
-                      <div className="flex-1">
-                        {part.value}
-                      </div>
+              <div className="min-w-full">
+                {diffLinesWithNumbers.map((row) => (
+                  <div 
+                    key={row.key} 
+                    className={cn(
+                      "flex whitespace-pre group transition-colors",
+                      row.isAdded ? "bg-green-500/10 text-green-700 dark:text-green-400" : 
+                      row.isRemoved ? "bg-destructive/10 text-destructive" : "hover:bg-muted/30"
+                    )}
+                  >
+                    <div className="flex w-24 shrink-0 bg-muted/20 border-r text-[10px] text-muted-foreground/40 select-none font-mono">
+                      <div className="w-1/2 text-right pr-2 py-1 border-r border-muted-foreground/10">{row.oldNum || ''}</div>
+                      <div className="w-1/2 text-right pr-2 py-1">{row.newNum || ''}</div>
                     </div>
-                  );
-                })}
+                    <div className={cn(
+                      "w-6 py-1 flex justify-center shrink-0",
+                      row.isAdded ? "text-green-500" : row.isRemoved ? "text-destructive" : "opacity-10"
+                    )}>
+                      {row.isAdded ? <Plus className="h-3 w-3" /> : row.isRemoved ? <Minus className="h-3 w-3" /> : null}
+                    </div>
+                    <div className="px-2 py-1 flex-1 break-all leading-normal">
+                      {row.line || ' '}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </CardContent>
