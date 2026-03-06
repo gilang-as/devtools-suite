@@ -157,12 +157,10 @@ export default function CommandMenu() {
     }
 
     if (item.type === 'nav') {
-      // Entering sub-menu: save current state as checkpoint for this target view
       setCheckpoints(prev => ({ ...prev, [item.target]: { theme, colorScheme } }));
       setView(item.target);
       setQuery('');
     } else if (item.type === 'color') {
-      // Entering color-mode selection: save current state (with the new color previewed)
       setCheckpoints(prev => ({ ...prev, 'color-modes': { theme, colorScheme } }));
       setColorScheme(item.id);
       setSelectedColor(item.id);
@@ -170,7 +168,6 @@ export default function CommandMenu() {
       setQuery('');
     } else if (item.type === 'mode' || item.type === 'apply-all') {
       setTheme(item.id as any);
-      // Final selection: update initial state so close effect doesn't revert it
       absoluteInitialState.current = { theme: item.id, colorScheme };
       setOpen(false);
     } else if (item.href) {
@@ -185,7 +182,6 @@ export default function CommandMenu() {
 
     const activeItem = filteredItems[selectedIndex];
     
-    // If we are highlighting the "Back" item, restore to the view's checkpoint
     if (!activeItem || activeItem.isBack) {
       const checkpoint = checkpoints[view];
       if (checkpoint) {
@@ -225,7 +221,6 @@ export default function CommandMenu() {
     if (open) {
       absoluteInitialState.current = { theme, colorScheme };
     } else {
-      // Revert to absolute initial state if closed without finalized selection
       if (absoluteInitialState.current) {
         setTheme(absoluteInitialState.current.theme);
         setColorScheme(absoluteInitialState.current.colorScheme);
@@ -237,7 +232,6 @@ export default function CommandMenu() {
     }
   }, [open]);
 
-  // Reset selection on query/view change
   React.useEffect(() => {
     setSelectedIndex(0);
   }, [query, view]);
@@ -287,11 +281,6 @@ export default function CommandMenu() {
           </div>
         </DialogHeader>
 
-        {/* 
-          CRITICAL FIX: Horizontal layout cutting.
-          We override Radix ScrollArea internal table-based layout using [data-radix-scroll-area-viewport] 
-          selectors to ensure it stays 100% width and does not bleed out.
-        */}
         <ScrollArea className="max-h-[450px] w-full flex-1 [&_[data-radix-scroll-area-viewport]]:!block [&_[data-radix-scroll-area-viewport]>div]:!block overflow-hidden">
           <div className="p-2 flex flex-col gap-1 w-full box-border">
             {filteredItems.length > 0 ? (
