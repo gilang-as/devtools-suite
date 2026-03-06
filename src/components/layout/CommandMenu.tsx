@@ -48,6 +48,7 @@ export default function CommandMenu() {
   // Storage for reverting if user cancels/goes back
   const initialColorScheme = React.useRef<ColorScheme | null>(null);
   const initialTheme = React.useRef<any>(null);
+  const hasFinalized = React.useRef(false);
 
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
@@ -83,7 +84,7 @@ export default function CommandMenu() {
       return all.filter(item => {
         const name = item.isAction ? (item.nameKey || item.name) : t(item.nameKey || '');
         const desc = item.isAction ? (item.descriptionKey || item.category) : t(item.descriptionKey || '');
-        return name.toLowerCase().includes(query.toLowerCase()) || desc.toLowerCase().includes(query.toLowerCase());
+        return (name || '').toLowerCase().includes(query.toLowerCase()) || (desc || '').toLowerCase().includes(query.toLowerCase());
       });
     }
 
@@ -96,18 +97,20 @@ export default function CommandMenu() {
     }
 
     if (view === 'modes') {
-      return [
+      const items = [
         { id: 'back', name: 'Back to Search', icon: 'ArrowLeft', isBack: true },
         ...modeOptions.map(m => ({ ...m, isAction: true, type: 'mode' }))
       ];
+      return items.filter(item => (item.name || '').toLowerCase().includes(query.toLowerCase()));
     }
 
     if (view === 'color-modes') {
       const colorName = colorOptions.find(c => c.id === selectedColor)?.name || 'Theme';
-      return [
+      const items = [
         { id: 'back', name: `Back to Colors`, icon: 'ArrowLeft', isBack: true },
         ...modeOptions.map(m => ({ ...m, id: m.id, name: `${colorName} (${m.name})`, isAction: true, type: 'apply-all' }))
       ];
+      return items.filter(item => (item.name || '').toLowerCase().includes(query.toLowerCase()));
     }
 
     return [];
@@ -116,12 +119,15 @@ export default function CommandMenu() {
   const handleSelect = (item: any) => {
     if (item.isBack) {
       if (view === 'color-modes') {
-        // Revert color to what it was when we started picking colors
-        if (initialColorScheme.current) setColorScheme(initialColorScheme.current);
+        // Revert mode preview but keep the color preview
         if (initialTheme.current) setTheme(initialTheme.current);
         setView('colors');
+      } else if (view === 'colors') {
+        // Revert color preview
+        if (initialColorScheme.current) setColorScheme(initialColorScheme.current);
+        setView('root');
       } else {
-        // Revert all
+        // Revert everything
         if (initialColorScheme.current) setColorScheme(initialColorScheme.current);
         if (initialTheme.current) setTheme(initialTheme.current);
         setView('root');
@@ -134,6 +140,7 @@ export default function CommandMenu() {
       // Capture state before we start making experimental changes
       initialColorScheme.current = colorScheme;
       initialTheme.current = theme;
+      hasFinalized.current = false;
       setView(item.target);
       setQuery('');
     } else if (item.type === 'color') {
@@ -142,19 +149,30 @@ export default function CommandMenu() {
       setSelectedColor(item.id);
       setView('color-modes');
       setQuery('');
-    } else if (item.type === 'mode') {
+    } else if (item.type === 'mode' || item.type === 'apply-all') {
       // Apply mode immediately and close (Final action)
-      setTheme(item.id);
-      setOpen(false);
-    } else if (item.type === 'apply-all') {
-      // Finalize mode for the selected color and close (Final action)
       setTheme(item.id as any);
+      hasFinalized.current = true;
       setOpen(false);
     } else if (item.href) {
       router.push(item.href);
       setOpen(false);
     }
   };
+
+  // Preview logic for keyboard navigation
+  React.useEffect(() => {
+    const activeItem = filteredItems[selectedIndex];
+    if (!activeItem) return;
+
+    if (view === 'colors' && activeItem.type === 'color') {
+      setColorScheme(activeItem.id);
+    } else if (view === 'modes' && activeItem.type === 'mode') {
+      setTheme(activeItem.id);
+    } else if (view === 'color-modes' && activeItem.type === 'apply-all') {
+      setTheme(activeItem.id);
+    }
+  }, [selectedIndex, filteredItems, view]);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -170,7 +188,7 @@ export default function CommandMenu() {
   React.useEffect(() => {
     if (!open) {
       // Revert if closed without finalizing via terminal action
-      if (view !== 'root') {
+      if (!hasFinalized.current && view !== 'root') {
         if (initialColorScheme.current) setColorScheme(initialColorScheme.current);
         if (initialTheme.current) setTheme(initialTheme.current);
       }
@@ -178,7 +196,7 @@ export default function CommandMenu() {
       setQuery('');
       setSelectedColor(null);
     }
-  }, [open]);
+  }, [open, view]);
 
   React.useEffect(() => {
     setSelectedIndex(0);
@@ -196,7 +214,6 @@ export default function CommandMenu() {
       if (filteredItems[selectedIndex]) handleSelect(filteredItems[selectedIndex]);
     } else if (e.key === 'Backspace' && query === '' && view !== 'root') {
       e.preventDefault();
-      // Use the logic in handleSelect for 'back'
       handleSelect({ isBack: true });
     }
   };
