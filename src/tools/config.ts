@@ -7,7 +7,7 @@ export interface Tool {
   descriptionKey: string;
   href: string;
   icon: string;
-  category: 'Encoding' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing';
+  category: 'Encoding' | 'Encryption' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing';
 }
 
 export const TOOLS: Tool[] = [
@@ -185,7 +185,7 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.aes_encrypt.description',
     href: '/security/aes/encrypt',
     icon: 'Lock',
-    category: 'Security',
+    category: 'Encryption',
   },
   {
     id: 'aes-decrypt',
@@ -193,7 +193,7 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.aes_decrypt.description',
     href: '/security/aes/decrypt',
     icon: 'ShieldPlus',
-    category: 'Security',
+    category: 'Encryption',
   },
   {
     id: 'des-encrypt',
@@ -201,7 +201,7 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.des_encrypt.description',
     href: '/security/des/encrypt',
     icon: 'Lock',
-    category: 'Security',
+    category: 'Encryption',
   },
   {
     id: 'des-decrypt',
@@ -209,7 +209,7 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.des_decrypt.description',
     href: '/security/des/decrypt',
     icon: 'ShieldPlus',
-    category: 'Security',
+    category: 'Encryption',
   },
   {
     id: '3des-encrypt',
@@ -217,7 +217,7 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.3des_encrypt.description',
     href: '/security/3des/encrypt',
     icon: 'Lock',
-    category: 'Security',
+    category: 'Encryption',
   },
   {
     id: '3des-decrypt',
@@ -225,7 +225,7 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.3des_decrypt.description',
     href: '/security/3des/decrypt',
     icon: 'ShieldPlus',
-    category: 'Security',
+    category: 'Encryption',
   },
   {
     id: 'chacha20-encrypt',
@@ -233,7 +233,7 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.chacha20_encrypt.description',
     href: '/security/chacha20/encrypt',
     icon: 'Zap',
-    category: 'Security',
+    category: 'Encryption',
   },
   {
     id: 'chacha20-decrypt',
@@ -241,7 +241,7 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.chacha20_decrypt.description',
     href: '/security/chacha20/decrypt',
     icon: 'ShieldPlus',
-    category: 'Security',
+    category: 'Encryption',
   },
   {
     id: 'rsa-tools',
@@ -249,7 +249,15 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'RSA Encrypt, Decrypt, Sign and Verify tools.',
     href: '/security/rsa',
     icon: 'ShieldCheck',
-    category: 'Security',
+    category: 'Encryption',
+  },
+  {
+    id: 'pgp-tools',
+    nameKey: 'PGP Studio',
+    descriptionKey: 'Professional PGP encryption and signing tools.',
+    href: '/security/pgp',
+    icon: 'ShieldEllipsis',
+    category: 'Encryption',
   },
   {
     id: 'ecc-tools',
@@ -265,14 +273,6 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'JSON Web Token Studio for generation and verification.',
     href: '/security/jwt',
     icon: 'KeyRound',
-    category: 'Security',
-  },
-  {
-    id: 'pgp-tools',
-    nameKey: 'PGP Studio',
-    descriptionKey: 'Professional PGP encryption and signing tools.',
-    href: '/security/pgp',
-    icon: 'ShieldEllipsis',
     category: 'Security',
   },
   {
@@ -313,6 +313,54 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.spki.description',
     href: '/security/spki',
     icon: 'Fingerprint',
+    category: 'Security',
+  },
+  {
+    id: 'pkcs-p1',
+    nameKey: 'tools.pkcs_p1.name',
+    descriptionKey: 'tools.pkcs_p1.description',
+    href: '/pkcs/p1',
+    icon: 'ShieldCheck',
+    category: 'Security',
+  },
+  {
+    id: 'pkcs-p7',
+    nameKey: 'tools.pkcs_p7.name',
+    descriptionKey: 'tools.pkcs_p7.description',
+    href: '/pkcs/p7',
+    icon: 'ShieldCheck',
+    category: 'Security',
+  },
+  {
+    id: 'pkcs-p8',
+    nameKey: 'tools.pkcs_p8.name',
+    descriptionKey: 'tools.pkcs_p8.description',
+    href: '/pkcs/p8',
+    icon: 'ShieldCheck',
+    category: 'Security',
+  },
+  {
+    id: 'pkcs-p10',
+    nameKey: 'tools.pkcs_p10.name',
+    descriptionKey: 'tools.pkcs_p10.description',
+    href: '/pkcs/p10',
+    icon: 'FileBadge',
+    category: 'Security',
+  },
+  {
+    id: 'pkcs-p12',
+    nameKey: 'tools.pkcs_p12.name',
+    descriptionKey: 'tools.pkcs_p12.description',
+    href: '/pkcs/p12',
+    icon: 'Lock',
+    category: 'Security',
+  },
+  {
+    id: 'pkcs-x509',
+    nameKey: 'tools.pkcs_x509.name',
+    descriptionKey: 'tools.pkcs_x509.description',
+    href: '/security/x509',
+    icon: 'FileBadge',
     category: 'Security',
   },
   {
@@ -402,53 +450,5 @@ export const TOOLS: Tool[] = [
     href: '/guid',
     icon: 'Fingerprint',
     category: 'Generators',
-  },
-  {
-    id: 'pkcs-p1',
-    nameKey: 'tools.pkcs_p1.name',
-    descriptionKey: 'tools.pkcs_p1.description',
-    href: '/pkcs/p1',
-    icon: 'ShieldCheck',
-    category: 'Security',
-  },
-  {
-    id: 'pkcs-p7',
-    nameKey: 'tools.pkcs_p7.name',
-    descriptionKey: 'tools.pkcs_p7.description',
-    href: '/pkcs/p7',
-    icon: 'ShieldCheck',
-    category: 'Security',
-  },
-  {
-    id: 'pkcs-p8',
-    nameKey: 'tools.pkcs_p8.name',
-    descriptionKey: 'tools.pkcs_p8.description',
-    href: '/pkcs/p8',
-    icon: 'ShieldCheck',
-    category: 'Security',
-  },
-  {
-    id: 'pkcs-p10',
-    nameKey: 'tools.pkcs_p10.name',
-    descriptionKey: 'tools.pkcs_p10.description',
-    href: '/pkcs/p10',
-    icon: 'FileBadge',
-    category: 'Security',
-  },
-  {
-    id: 'pkcs-p12',
-    nameKey: 'tools.pkcs_p12.name',
-    descriptionKey: 'tools.pkcs_p12.description',
-    href: '/pkcs/p12',
-    icon: 'Lock',
-    category: 'Security',
-  },
-  {
-    id: 'pkcs-x509',
-    nameKey: 'tools.pkcs_x509.name',
-    descriptionKey: 'tools.pkcs_x509.description',
-    href: '/security/x509',
-    icon: 'FileBadge',
-    category: 'Security',
   }
 ];
