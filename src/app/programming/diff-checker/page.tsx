@@ -1,12 +1,12 @@
+
 "use client"
 
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { diffLines, Change } from 'diff';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
   Diff, 
   Copy, 
@@ -14,7 +14,6 @@ import {
   ArrowRightLeft, 
   Check, 
   FileText,
-  AlertCircle,
   Plus,
   Minus
 } from 'lucide-react';
