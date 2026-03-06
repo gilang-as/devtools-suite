@@ -5,47 +5,88 @@
 
 @layer base {
   :root {
-    --background: 200 15% 98%;
-    --foreground: 200 15% 10%;
+    /* Base Neutral Palette */
+    --background: 210 20% 98%;
+    --foreground: 222 47% 11%;
+    
+    /* Card & Popover */
     --card: 0 0% 100%;
-    --card-foreground: 200 15% 10%;
+    --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 200 15% 10%;
-    --primary: 210 80% 55%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 200 15% 92%;
-    --secondary-foreground: 200 15% 10%;
-    --muted: 200 15% 92%;
-    --muted-foreground: 200 10% 40%;
-    --accent: 180 60% 62%;
-    --accent-foreground: 200 15% 10%;
+    --popover-foreground: 222 47% 11%;
+    
+    /* Primary (Brand Color) */
+    --primary: 221 83% 53%;
+    --primary-foreground: 210 40% 98%;
+    
+    /* Secondary (Muted actions/backgrounds) */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11.2%;
+    
+    /* Muted (Text and borders) */
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    
+    /* Accent (Interactive/Hover States - NOT derived from Primary) */
+    --accent: 199 89% 48%; /* A distinct vibrant cyan/blue */
+    --accent-foreground: 222 47% 11.2%;
+    
+    /* Interactive States */
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 200 15% 88%;
-    --input: 200 15% 88%;
-    --ring: 210 80% 55%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221 83% 53%;
     --radius: 0.75rem;
+
+    /* Sidebar specifics */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 222 47% 11.2%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 210 40% 96.1%;
+    --sidebar-accent-foreground: 222 47% 11.2%;
+    --sidebar-border: 214.3 31.8% 91.4%;
+    --sidebar-ring: 221 83% 53%;
   }
+
   .dark {
-    --background: 200 15% 10%;
-    --foreground: 210 20% 98%;
-    --card: 200 15% 12%;
-    --card-foreground: 210 20% 98%;
-    --popover: 200 15% 12%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 210 80% 55%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 200 15% 18%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 200 15% 18%;
-    --muted-foreground: 200 10% 65%;
-    --accent: 180 60% 62%;
-    --accent-foreground: 200 15% 10%;
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+    
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+    
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    
+    --accent: 199 89% 48%;
+    --accent-foreground: 210 40% 98%;
+    
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 200 15% 20%;
-    --input: 200 15% 20%;
-    --ring: 210 80% 55%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+
+    /* Sidebar specifics */
+    --sidebar-background: 222 47% 4%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 217.2 91.2% 59.8%;
+    --sidebar-primary-foreground: 222.2 47.4% 11.2%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 224.3 76.3% 48%;
   }
 }
 
@@ -54,7 +95,28 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  
+  /* Link Standardization */
+  a {
+    @apply transition-colors duration-200 ease-in-out;
+  }
+  
+  /* Focused state standardization */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer components {
+  /* Common interactive patterns */
+  .interactive-hover {
+    @apply hover:bg-accent hover:text-accent-foreground transition-all;
+  }
+  
+  .selected-state {
+    @apply bg-secondary text-secondary-foreground shadow-sm;
   }
 }
 
@@ -64,4 +126,9 @@
 
 code, pre {
   font-family: 'Source Code Pro', monospace !important;
+}
+
+/* Smooth transitions for all theme changes */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
