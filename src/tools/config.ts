@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -155,27 +155,43 @@ export const TOOLS: Tool[] = [
     category: 'Generators',
   },
   {
-    id: 'uuid-v1',
-    nameKey: 'tools.uuid_v1.name',
-    descriptionKey: 'tools.uuid_v1.description',
-    href: '/uuid/v1',
-    icon: 'Fingerprint',
-    category: 'Generators',
+    id: 'pkcs-p1',
+    nameKey: 'tools.pkcs_p1.name',
+    descriptionKey: 'tools.pkcs_p1.description',
+    href: '/pkcs/p1',
+    icon: 'ShieldCheck',
+    category: 'Security',
   },
   {
-    id: 'uuid-v7',
-    nameKey: 'tools.uuid_v7.name',
-    descriptionKey: 'tools.uuid_v7.description',
-    href: '/uuid/v7',
-    icon: 'Fingerprint',
-    category: 'Generators',
+    id: 'pkcs-p7',
+    nameKey: 'tools.pkcs_p7.name',
+    descriptionKey: 'tools.pkcs_p7.description',
+    href: '/pkcs/p7',
+    icon: 'ShieldCheck',
+    category: 'Security',
   },
   {
-    id: 'guid',
-    nameKey: 'tools.guid.name',
-    descriptionKey: 'tools.guid.description',
-    href: '/guid',
-    icon: 'Fingerprint',
-    category: 'Generators',
+    id: 'pkcs-p8',
+    nameKey: 'tools.pkcs_p8.name',
+    descriptionKey: 'tools.pkcs_p8.description',
+    href: '/pkcs/p8',
+    icon: 'ShieldCheck',
+    category: 'Security',
+  },
+  {
+    id: 'pkcs-p10',
+    nameKey: 'tools.pkcs_p10.name',
+    descriptionKey: 'tools.pkcs_p10.description',
+    href: '/pkcs/p10',
+    icon: 'ShieldCheck',
+    category: 'Security',
+  },
+  {
+    id: 'pkcs-p12',
+    nameKey: 'tools.pkcs_p12.name',
+    descriptionKey: 'tools.pkcs_p12.description',
+    href: '/pkcs/p12',
+    icon: 'ShieldCheck',
+    category: 'Security',
   }
 ];

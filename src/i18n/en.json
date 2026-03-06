@@ -8,7 +8,7 @@
     "encode": "Encode",
     "decode": "Decode",
     "generate": "Generate",
-    "download": "Download CSV",
+    "download": "Download",
     "input": "Input",
     "output": "Output",
     "liveMode": "Live Mode",
@@ -131,6 +131,26 @@
     "guid": {
       "name": "GUID Generator",
       "description": "Generate Globally Unique Identifiers (standard v4)."
+    },
+    "pkcs_p1": {
+      "name": "PKCS#1 Generator",
+      "description": "Generate RSA key pair in PKCS#1 format (PEM)."
+    },
+    "pkcs_p7": {
+      "name": "PKCS#7 Container",
+      "description": "Create a dummy PKCS#7 signed message container."
+    },
+    "pkcs_p8": {
+      "name": "PKCS#8 Generator",
+      "description": "Generate Private key in PKCS#8 format (PEM)."
+    },
+    "pkcs_p10": {
+      "name": "PKCS#10 (CSR)",
+      "description": "Generate a Certification Signing Request (CSR)."
+    },
+    "pkcs_p12": {
+      "name": "PKCS#12 (PFX)",
+      "description": "Generate a PFX/P12 certificate container."
     }
   }
 }

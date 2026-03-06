@@ -8,7 +8,7 @@
     "encode": "Enkode",
     "decode": "Dekode",
     "generate": "Generate",
-    "download": "Unduh CSV",
+    "download": "Unduh",
     "input": "Input",
     "output": "Output",
     "liveMode": "Mode Langsung",
@@ -131,6 +131,26 @@
     "guid": {
       "name": "Generator GUID",
       "description": "Hasilkan Globally Unique Identifier (standar v4)."
+    },
+    "pkcs_p1": {
+      "name": "Generator PKCS#1",
+      "description": "Hasilkan pasangan kunci RSA dalam format PKCS#1 (PEM)."
+    },
+    "pkcs_p7": {
+      "name": "Kontainer PKCS#7",
+      "description": "Buat kontainer pesan tertandatangan PKCS#7 simulasi."
+    },
+    "pkcs_p8": {
+      "name": "Generator PKCS#8",
+      "description": "Hasilkan kunci privat dalam format PKCS#8 (PEM)."
+    },
+    "pkcs_p10": {
+      "name": "PKCS#10 (CSR)",
+      "description": "Hasilkan Certification Signing Request (CSR)."
+    },
+    "pkcs_p12": {
+      "name": "PKCS#12 (PFX)",
+      "description": "Hasilkan kontainer sertifikat PFX/P12."
     }
   }
 }
