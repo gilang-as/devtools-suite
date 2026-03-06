@@ -1,3 +1,4 @@
+
 {
   "common": {
     "title": "DevTools Suite",
@@ -31,7 +32,8 @@
     "none": "Tidak Ada",
     "asc": "A-Z",
     "desc": "Z-A",
-    "wordWrap": "Bungkus Teks"
+    "wordWrap": "Bungkus Teks",
+    "preview": "Pratinjau"
   },
   "home": {
     "heading": "Alat Pengembang",

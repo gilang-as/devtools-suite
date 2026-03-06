@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useRef, useMemo } from 'react';
@@ -8,6 +9,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { 
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { 
   Select, 
   SelectContent, 
@@ -27,7 +35,8 @@ import {
   ChevronRight,
   ChevronDown,
   Layout,
-  Braces
+  Braces,
+  Eye
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -70,11 +79,9 @@ const parseHtmlToTree = (html: string): HtmlNode | null => {
       };
     };
 
-    // Determine starting point
     const hasHtmlTag = /<html/i.test(html);
     if (hasHtmlTag) return elementToNode(doc.documentElement);
     
-    // If multiple root nodes, wrap them or just return the first one from body
     if (doc.body.children.length > 0) {
       return elementToNode(doc.body.firstElementChild!);
     }
@@ -88,7 +95,6 @@ const parseHtmlToTree = (html: string): HtmlNode | null => {
 const highlightHtml = (html: string) => {
   if (!html) return null;
   
-  // Basic Regex-based highlighting for HTML
   const tokens = html.split(/(<[^>]+>|<!--.*?-->)/g);
   
   return tokens.map((token, i) => {
@@ -408,15 +414,44 @@ export default function HtmlFormatterPage() {
                 </TabsList>
               </Tabs>
             </div>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={copyToClipboard}
-              disabled={!output}
-            >
-              <Copy className="h-4 w-4 mr-2" />
-              {t('common.copy')}
-            </Button>
+            <div className="flex gap-2">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    disabled={!output}
+                  >
+                    <Eye className="h-4 w-4 mr-2" />
+                    {t('common.preview')}
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl h-[80vh] flex flex-col p-0 overflow-hidden">
+                  <DialogHeader className="p-4 border-b">
+                    <DialogTitle className="flex items-center gap-2">
+                      <Eye className="h-5 w-5 text-primary" />
+                      {t('common.preview')}
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="flex-1 bg-white">
+                    <iframe
+                      title="HTML Preview"
+                      srcDoc={output}
+                      className="w-full h-full border-none"
+                    />
+                  </div>
+                </DialogContent>
+              </Dialog>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={copyToClipboard}
+                disabled={!output}
+              >
+                <Copy className="h-4 w-4 mr-2" />
+                {t('common.copy')}
+              </Button>
+            </div>
           </CardHeader>
           <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
             <div className="flex flex-1 min-h-[400px] border-t bg-secondary/10 overflow-hidden">
