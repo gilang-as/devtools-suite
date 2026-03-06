@@ -7,10 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Search, Globe, Server, ShieldCheck, Info, Loader2, Braces, Copy, Globe2, Network } from 'lucide-react';
+import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Globe2, Network } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { cn } from '@/lib/utils';
 
 type RecordGroup = {
   title: string;
@@ -128,40 +126,46 @@ export default function DnsLookupPage() {
             </div>
           ) : (
             <div className="space-y-8 animate-in fade-in duration-500">
-              {GROUPS.map((group) => (
-                <section key={group.title} className="space-y-4">
-                  <div className="flex items-center gap-2 px-1">
-                    <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    <h2 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">
-                      {group.title} Records
-                    </h2>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 gap-4">
-                    {group.types.map((type) => {
-                      const res = results[type];
-                      if (!res) return null;
-                      
-                      return (
-                        <Card key={type} className="border-border shadow-md overflow-hidden group">
-                          <CardHeader className="py-3 px-4 bg-muted/30 border-b flex flex-row items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <Badge variant="outline" className="bg-background font-code font-bold text-primary">
-                                {type}
-                              </Badge>
-                              <span className="text-[10px] font-bold text-muted-foreground uppercase">
-                                Resolved via {res.provider}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              {res.AD && <Badge variant="secondary" className="text-[9px] bg-green-500/10 text-green-600 border-green-500/20">DNSSEC</Badge>}
-                              <Badge variant="outline" className="text-[9px]">TTL: {res.Answer?.[0]?.TTL || 'N/A'}</Badge>
-                            </div>
-                          </CardHeader>
-                          <CardContent className="p-0">
-                            <div className="divide-y">
-                              {res.Answer && res.Answer.length > 0 ? (
-                                res.Answer.map((ans, i) => (
+              {GROUPS.map((group) => {
+                // Check if this group has ANY types with results to show
+                const hasVisibleTypes = group.types.some(type => results[type]?.Answer && results[type].Answer!.length > 0);
+                
+                if (!hasVisibleTypes) return null;
+
+                return (
+                  <section key={group.title} className="space-y-4">
+                    <div className="flex items-center gap-2 px-1">
+                      <div className="h-1.5 w-1.5 rounded-full bg-primary" />
+                      <h2 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">
+                        {group.title} Records
+                      </h2>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 gap-4">
+                      {group.types.map((type) => {
+                        const res = results[type];
+                        // Hide the type card if it has no Answer records
+                        if (!res || !res.Answer || res.Answer.length === 0) return null;
+                        
+                        return (
+                          <Card key={type} className="border-border shadow-md overflow-hidden group">
+                            <CardHeader className="py-3 px-4 bg-muted/30 border-b flex flex-row items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <Badge variant="outline" className="bg-background font-code font-bold text-primary">
+                                  {type}
+                                </Badge>
+                                <span className="text-[10px] font-bold text-muted-foreground uppercase">
+                                  Resolved via {res.provider}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                {res.AD && <Badge variant="secondary" className="text-[9px] bg-green-500/10 text-green-600 border-green-500/20">DNSSEC</Badge>}
+                                <Badge variant="outline" className="text-[9px]">TTL: {res.Answer?.[0]?.TTL || 'N/A'}</Badge>
+                              </div>
+                            </CardHeader>
+                            <CardContent className="p-0">
+                              <div className="divide-y">
+                                {res.Answer.map((ans, i) => (
                                   <div key={i} className="p-4 flex items-start justify-between gap-4 hover:bg-accent/5 transition-colors">
                                     <code className="font-code text-sm break-all leading-relaxed flex-1">
                                       {ans.data}
@@ -170,20 +174,16 @@ export default function DnsLookupPage() {
                                       <Copy className="h-4 w-4" />
                                     </Button>
                                   </div>
-                                ))
-                              ) : (
-                                <div className="p-6 text-center text-xs text-muted-foreground italic">
-                                  No {type} records found.
-                                </div>
-                              )}
-                            </div>
-                          </CardContent>
-                        </Card>
-                      );
-                    })}
-                  </div>
-                </section>
-              ))}
+                                ))}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  </section>
+                );
+              })}
 
               <Card className="border-border shadow-lg bg-secondary/5 overflow-hidden">
                 <CardHeader className="bg-background border-b py-3">
