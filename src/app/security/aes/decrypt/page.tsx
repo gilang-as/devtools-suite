@@ -1,7 +1,7 @@
 "use client"
 
-import AesTool from '@/components/tools/AesTool';
+import SymmetricTool from '@/components/tools/SymmetricTool';
 
 export default function AesDecryptPage() {
-  return <AesTool type="decrypt" />;
+  return <SymmetricTool algo="AES" type="decrypt" />;
 }
