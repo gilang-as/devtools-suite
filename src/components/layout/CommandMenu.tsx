@@ -25,7 +25,6 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Icon mapping for display
 const iconMap: Record<string, any> = {
   Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, 
   Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, 
@@ -45,11 +44,9 @@ export default function CommandMenu() {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [view, setView] = React.useState<View>('root');
   const [selectedColor, setSelectedColor] = React.useState<ColorScheme | null>(null);
+  const [isKeyboard, setIsKeyboard] = React.useState(false);
   
-  // Track absolute start to revert on close
   const absoluteInitialState = React.useRef<{ theme: any, colorScheme: ColorScheme } | null>(null);
-  
-  // Checkpoints for hierarchical back navigation
   const [checkpoints, setCheckpoints] = React.useState<Record<View, { theme: any, colorScheme: ColorScheme } | null>>({
     root: null,
     colors: null,
@@ -59,15 +56,15 @@ export default function CommandMenu() {
 
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
-  // Auto-scroll to selected item
+  // Auto-scroll logic: only scroll when user uses keyboard
   React.useEffect(() => {
-    if (itemRefs.current[selectedIndex]) {
+    if (isKeyboard && itemRefs.current[selectedIndex]) {
       itemRefs.current[selectedIndex]?.scrollIntoView({
         block: 'nearest',
         behavior: 'auto'
       });
     }
-  }, [selectedIndex]);
+  }, [selectedIndex, isKeyboard]);
 
   const colorOptions: { id: ColorScheme; name: string; category: string; icon: string }[] = [
     { id: 'default', name: 'Default Blue', category: 'Standard', icon: 'Palette' },
@@ -93,14 +90,14 @@ export default function CommandMenu() {
     if (view === 'root') {
       const tools = TOOLS.map(t => ({ ...t, isAction: false, type: 'tool' }));
       const settings = [
-        { id: 'nav-colors', nameKey: 'Change Color Scheme', descriptionKey: 'Browse seasonal, cultural and Catppuccin themes', icon: 'Palette', category: 'Appearance', isAction: true, type: 'nav', target: 'colors' },
+        { id: 'nav-colors', nameKey: 'Change Color Scheme', descriptionKey: 'Browse seasonal and Catppuccin themes', icon: 'Palette', category: 'Appearance', isAction: true, type: 'nav', target: 'colors' },
         { id: 'nav-modes', nameKey: 'Change Appearance Mode', descriptionKey: 'Toggle between Light, Dark, and System', icon: 'Sun', category: 'Appearance', isAction: true, type: 'nav', target: 'modes' },
       ];
       
       const all = [...settings, ...tools];
       return all.filter(item => {
-        const name = item.isAction ? (item.nameKey || item.name) : t(item.nameKey || '');
-        const desc = item.isAction ? (item.descriptionKey || item.category) : t(item.descriptionKey || '');
+        const name = item.isAction ? item.nameKey : t(item.nameKey || '');
+        const desc = item.isAction ? item.descriptionKey : t(item.descriptionKey || '');
         return (name || '').toLowerCase().includes(query.toLowerCase()) || (desc || '').toLowerCase().includes(query.toLowerCase());
       });
     }
@@ -139,7 +136,7 @@ export default function CommandMenu() {
 
     const activeItem = filteredItems[selectedIndex];
     
-    // If hovering "Back", restore to checkpoint
+    // Restore to current level checkpoint if hovering "Back"
     if (!activeItem || activeItem.isBack) {
       const checkpoint = checkpoints[view];
       if (checkpoint) {
@@ -149,7 +146,7 @@ export default function CommandMenu() {
       return;
     }
 
-    // Apply previews instantly as user navigates
+    // Apply previews instantly as user navigates options
     if (view === 'colors' && activeItem.type === 'color') {
       setColorScheme(activeItem.id);
     } else if (view === 'modes' && activeItem.type === 'mode') {
@@ -193,7 +190,7 @@ export default function CommandMenu() {
       setQuery('');
     } else if (item.type === 'mode' || item.type === 'apply-all') {
       setTheme(item.id as any);
-      absoluteInitialState.current = { theme: item.id, colorScheme: colorScheme };
+      absoluteInitialState.current = null; // Selection confirmed, don't revert on close
       setOpen(false);
     } else if (item.href) {
       router.push(item.href);
@@ -201,24 +198,36 @@ export default function CommandMenu() {
     }
   };
 
-  // Handle Spotlight Shortcut
+  // Keyboard and Global Shortcut Management
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setOpen((open) => !open);
+        setOpen((o) => !o);
+      }
+      
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        setIsKeyboard(true);
       }
     };
+    
+    const mouseMove = () => setIsKeyboard(false);
+    
     document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
+    document.addEventListener('mousemove', mouseMove);
+    return () => {
+      document.removeEventListener('keydown', down);
+      document.removeEventListener('mousemove', mouseMove);
+    };
   }, []);
 
-  // Handle Modal Open/Close & Absolute Revert
+  // Modal State Management
   React.useEffect(() => {
     if (open) {
       absoluteInitialState.current = { theme, colorScheme };
+      setCheckpoints(prev => ({ ...prev, root: { theme, colorScheme } }));
     } else {
-      // Revert to start state unless a selection closed the menu
+      // Revert if absoluteInitialState hasn't been cleared (meaning we closed without finalizing)
       if (absoluteInitialState.current) {
         setTheme(absoluteInitialState.current.theme);
         setColorScheme(absoluteInitialState.current.colorScheme);
@@ -279,8 +288,8 @@ export default function CommandMenu() {
           </div>
         </DialogHeader>
 
-        {/* Override Radix table layout to fix horizontal cutoff & enable mouse interactions */}
-        <ScrollArea className="max-h-[450px] w-full flex-1 [&_[data-radix-scroll-area-viewport]>div]:!block overflow-hidden">
+        {/* Override Radix table behavior to fix horizontal cutting and enable mouse scrolling */}
+        <ScrollArea className="max-h-[450px] w-full flex-1 [&_[data-radix-scroll-area-viewport]>div]:!block overflow-auto">
           <div className="p-2 flex flex-col gap-1 w-full box-border">
             {filteredItems.length > 0 ? (
               filteredItems.map((item: any, index) => {
@@ -292,14 +301,16 @@ export default function CommandMenu() {
 
                 return (
                   <div
-                    key={item.id}
+                    key={item.id || item.name}
                     ref={(el) => { itemRefs.current[index] = el; }}
                     className={cn(
                       "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer transition-all w-full overflow-hidden",
                       isCurrentItem ? "bg-primary text-primary-foreground shadow-lg" : "hover:bg-accent hover:text-accent-foreground"
                     )}
                     onClick={() => handleSelect(item)}
-                    onMouseEnter={() => setSelectedIndex(index)}
+                    onMouseEnter={() => {
+                      if (!isKeyboard) setSelectedIndex(index);
+                    }}
                   >
                     <div className={cn(
                       "p-2 rounded-md shrink-0",
