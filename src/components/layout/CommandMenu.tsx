@@ -50,7 +50,6 @@ export default function CommandMenu() {
   const absoluteInitialState = React.useRef<{ theme: any, colorScheme: ColorScheme } | null>(null);
   
   // Checkpoints for hierarchical back navigation
-  // Stores the state as it was when the view was entered
   const [checkpoints, setCheckpoints] = React.useState<Record<View, { theme: any, colorScheme: ColorScheme } | null>>({
     root: null,
     colors: null,
@@ -134,6 +133,32 @@ export default function CommandMenu() {
     return [];
   }, [view, query, selectedColor, t]);
 
+  // Immediate Preview Effect
+  React.useEffect(() => {
+    if (!open) return;
+
+    const activeItem = filteredItems[selectedIndex];
+    
+    // If hovering "Back", restore to checkpoint
+    if (!activeItem || activeItem.isBack) {
+      const checkpoint = checkpoints[view];
+      if (checkpoint) {
+        setTheme(checkpoint.theme);
+        setColorScheme(checkpoint.colorScheme);
+      }
+      return;
+    }
+
+    // Apply previews instantly as user navigates
+    if (view === 'colors' && activeItem.type === 'color') {
+      setColorScheme(activeItem.id);
+    } else if (view === 'modes' && activeItem.type === 'mode') {
+      setTheme(activeItem.id as any);
+    } else if (view === 'color-modes' && activeItem.type === 'apply-all') {
+      setTheme(activeItem.id as any);
+    }
+  }, [selectedIndex, filteredItems, view, open, setTheme, setColorScheme, checkpoints]);
+
   const handleSelect = (item: any) => {
     if (item.isBack) {
       const prevViewMap: Record<View, View> = {
@@ -168,41 +193,13 @@ export default function CommandMenu() {
       setQuery('');
     } else if (item.type === 'mode' || item.type === 'apply-all') {
       setTheme(item.id as any);
-      absoluteInitialState.current = { theme: item.id, colorScheme };
+      absoluteInitialState.current = { theme: item.id, colorScheme: colorScheme };
       setOpen(false);
     } else if (item.href) {
       router.push(item.href);
       setOpen(false);
     }
   };
-
-  // Immediate Preview Effect
-  React.useEffect(() => {
-    if (!open) return;
-
-    const activeItem = filteredItems[selectedIndex];
-    
-    if (!activeItem || activeItem.isBack) {
-      const checkpoint = checkpoints[view];
-      if (checkpoint) {
-        setTheme(checkpoint.theme);
-        setColorScheme(checkpoint.colorScheme);
-      } else if (absoluteInitialState.current) {
-        setTheme(absoluteInitialState.current.theme);
-        setColorScheme(absoluteInitialState.current.colorScheme);
-      }
-      return;
-    }
-
-    // Apply previews instantly
-    if (view === 'colors' && activeItem.type === 'color') {
-      setColorScheme(activeItem.id);
-    } else if (view === 'modes' && activeItem.type === 'mode') {
-      setTheme(activeItem.id as any);
-    } else if (view === 'color-modes' && activeItem.type === 'apply-all') {
-      setTheme(activeItem.id as any);
-    }
-  }, [selectedIndex, filteredItems, view, open, setTheme, setColorScheme, checkpoints]);
 
   // Handle Spotlight Shortcut
   React.useEffect(() => {
@@ -216,11 +213,12 @@ export default function CommandMenu() {
     return () => document.removeEventListener('keydown', down);
   }, []);
 
-  // Handle Modal Open/Close & Revert
+  // Handle Modal Open/Close & Absolute Revert
   React.useEffect(() => {
     if (open) {
       absoluteInitialState.current = { theme, colorScheme };
     } else {
+      // Revert to start state unless a selection closed the menu
       if (absoluteInitialState.current) {
         setTheme(absoluteInitialState.current.theme);
         setColorScheme(absoluteInitialState.current.colorScheme);
@@ -281,7 +279,8 @@ export default function CommandMenu() {
           </div>
         </DialogHeader>
 
-        <ScrollArea className="max-h-[450px] w-full flex-1 [&_[data-radix-scroll-area-viewport]]:!block [&_[data-radix-scroll-area-viewport]>div]:!block overflow-hidden">
+        {/* Override Radix table layout to fix horizontal cutoff & enable mouse interactions */}
+        <ScrollArea className="max-h-[450px] w-full flex-1 [&_[data-radix-scroll-area-viewport]>div]:!block overflow-hidden">
           <div className="p-2 flex flex-col gap-1 w-full box-border">
             {filteredItems.length > 0 ? (
               filteredItems.map((item: any, index) => {
@@ -296,7 +295,7 @@ export default function CommandMenu() {
                     key={item.id}
                     ref={(el) => { itemRefs.current[index] = el; }}
                     className={cn(
-                      "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer transition-all w-full overflow-hidden animate-in fade-in slide-in-from-right-2 duration-200",
+                      "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer transition-all w-full overflow-hidden",
                       isCurrentItem ? "bg-primary text-primary-foreground shadow-lg" : "hover:bg-accent hover:text-accent-foreground"
                     )}
                     onClick={() => handleSelect(item)}
