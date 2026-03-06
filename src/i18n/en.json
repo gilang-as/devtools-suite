@@ -56,7 +56,9 @@
     "iv": "Initialization Vector (IV)",
     "key": "Encryption Key",
     "sign": "Sign",
-    "verify": "Verify"
+    "verify": "Verify",
+    "length": "Length",
+    "options": "Options"
   },
   "home": {
     "heading": "Developer Tools",
@@ -74,263 +76,86 @@
     "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
-    "aes_encrypt": {
-      "name": "AES Encrypt",
-      "description": "Securely encrypt text using AES algorithms (GCM, CBC, CTR)."
+    "password_hash": {
+      "name": "Password Hash Generator",
+      "description": "Securely hash passwords using modern algorithms like Bcrypt and Argon2."
     },
-    "aes_decrypt": {
-      "name": "AES Decrypt",
-      "description": "Decrypt AES-encrypted strings back into readable text."
+    "password_compare": {
+      "name": "Password Compare",
+      "description": "Verify if a plaintext password matches a previously generated hash."
     },
-    "des_encrypt": {
-      "name": "DES Encrypt",
-      "description": "Encrypt text using the legacy DES algorithm (64-bit key)."
+    "password_strength": {
+      "name": "Password Strength Checker",
+      "description": "Analyze password complexity and get feedback on how to improve security."
     },
-    "des_decrypt": {
-      "name": "DES Decrypt",
-      "description": "Decrypt strings encrypted with the Data Encryption Standard (DES)."
+    "password_generator": {
+      "name": "Random Password Generator",
+      "description": "Generate strong, unique, and random passwords instantly."
     },
-    "3des_encrypt": {
-      "name": "3DES Encrypt",
-      "description": "Encrypt text using Triple DES (192-bit key)."
-    },
-    "3des_decrypt": {
-      "name": "3DES Decrypt",
-      "description": "Decrypt strings encrypted with Triple DES (TDEA)."
-    },
-    "chacha20_encrypt": {
-      "name": "ChaCha20 Encrypt",
-      "description": "Modern stream encryption using ChaCha20 algorithm."
-    },
-    "chacha20_decrypt": {
-      "name": "ChaCha20 Decrypt",
-      "description": "Decrypt strings secured with ChaCha20 stream cipher."
-    },
-    "rsa_encrypt": {
-      "name": "RSA Encrypt",
-      "description": "Encrypt data using RSA public keys (OAEP padding)."
-    },
-    "rsa_decrypt": {
-      "name": "RSA Decrypt",
-      "description": "Decrypt RSA-encrypted data using private keys."
-    },
-    "rsa_sign": {
-      "name": "RSA Sign",
-      "description": "Generate digital signatures for messages using RSA private keys."
-    },
-    "rsa_verify": {
-      "name": "RSA Verify",
-      "description": "Verify digital signatures using RSA public keys."
-    },
-    "ecc_sign": {
-      "name": "ECC Sign",
-      "description": "Generate high-performance signatures using Elliptic Curve cryptography."
-    },
-    "ecc_verify": {
-      "name": "ECC Verify",
-      "description": "Verify ECC signatures to ensure message integrity."
-    },
-    "jwt_encode": {
-      "name": "JWT Encode",
-      "description": "Generate and sign JSON Web Tokens with custom payloads."
-    },
-    "jwt_decode": {
-      "name": "JWT Decode",
-      "description": "Instantly decode and visualize JWT header and payload contents."
-    },
-    "jwt_verify": {
-      "name": "JWT Verify",
-      "description": "Cryptographically verify the integrity of a JSON Web Token."
-    },
-    "pgp_encrypt": {
-      "name": "PGP Encrypt",
-      "description": "Secure messages using standard OpenPGP public key encryption."
-    },
-    "pgp_decrypt": {
-      "name": "PGP Decrypt",
-      "description": "Decrypt OpenPGP messages using your private key and passphrase."
-    },
-    "pgp_sign": {
-      "name": "PGP Sign",
-      "description": "Digitally sign a message using OpenPGP private keys."
-    },
-    "pgp_verify": {
-      "name": "PGP Verify",
-      "description": "Verify the authenticity of an OpenPGP signed message."
-    },
-    "base64_encode": {
-      "name": "Base64 Encode",
-      "description": "Encode text strings into Base64 format safely."
-    },
-    "base64_decode": {
-      "name": "Base64 Decode",
-      "description": "Decode Base64 strings back into readable text."
-    },
-    "binary_encode": {
-      "name": "Binary Encode",
-      "description": "Encode text strings into Binary format (0s and 1s)."
-    },
-    "binary_decode": {
-      "name": "Binary Decode",
-      "description": "Decode Binary strings back into readable text."
-    },
-    "hex_encode": {
-      "name": "Hex Encode",
-      "description": "Encode text strings into Hexadecimal format."
-    },
-    "hex_decode": {
-      "name": "Hex Decode",
-      "description": "Decode Hexadecimal strings back into readable text."
-    },
-    "url_encode": {
-      "name": "URL Encode",
-      "description": "Safely encode text strings for use in URLs."
-    },
-    "url_decode": {
-      "name": "URL Decode",
-      "description": "Decode URL-encoded strings back into readable text."
-    },
-    "html_encode": {
-      "name": "HTML Encode",
-      "description": "Convert special characters into HTML entities safely."
-    },
-    "html_decode": {
-      "name": "HTML Decode",
-      "description": "Decode HTML entities back into readable text."
-    },
-    "md5": {
-      "name": "MD5 Hash",
-      "description": "Generate MD5 message digests (Not secure for passwords)."
-    },
-    "sha1": {
-      "name": "SHA-1 Hash",
-      "description": "Generate SHA-1 message digests (Legacy security)."
-    },
-    "sha256": {
-      "name": "SHA-256 Hash",
-      "description": "Generate secure SHA-256 message digests."
-    },
-    "sha512": {
-      "name": "SHA-512 Hash",
-      "description": "Generate high-security SHA-512 message digests."
-    },
-    "sha3": {
-      "name": "SHA-3 Hash",
-      "description": "Generate modern SHA-3 message digests."
-    },
-    "bcrypt": {
-      "name": "Bcrypt Hash",
-      "description": "Secure password hashing with adaptive cost factor."
-    },
-    "argon2": {
-      "name": "Argon2 Hash",
-      "description": "State-of-the-art password hashing (Memory-hard)."
-    },
-    "pbkdf2": {
-      "name": "PBKDF2 Hash",
-      "description": "Key derivation function using multiple HMAC iterations."
-    },
-    "hmac_sha1": {
-      "name": "HMAC SHA1",
-      "description": "Generate a Hash-based Message Authentication Code using SHA1."
-    },
-    "hmac_sha256": {
-      "name": "HMAC SHA256",
-      "description": "Generate a Hash-based Message Authentication Code using SHA256."
-    },
-    "hmac_sha512": {
-      "name": "HMAC SHA512",
-      "description": "Generate a Hash-based Message Authentication Code using SHA512."
-    },
-    "json_formatter": {
-      "name": "JSON Formatter",
-      "description": "Clean, format, and minify your JSON data easily."
-    },
-    "js_formatter": {
-      "name": "JS Formatter",
-      "description": "Clean, format, and minify your JavaScript code."
-    },
-    "ts_formatter": {
-      "name": "TS Formatter",
-      "description": "Clean, format, and minify your TypeScript code."
-    },
-    "xml_formatter": {
-      "name": "XML Formatter",
-      "description": "Clean, format, and minify your XML documents."
-    },
-    "html_formatter": {
-      "name": "HTML Formatter",
-      "description": "Clean, format, and minify your HTML code."
-    },
-    "css_formatter": {
-      "name": "CSS Formatter",
-      "description": "Clean, format, and minify your CSS stylesheets."
-    },
-    "json_to_go": {
-      "name": "JSON to Go Struct",
-      "description": "Convert JSON objects into Go struct definitions instantly.",
-      "inline": "Inline Nested Structs"
-    },
-    "uuid_v4": {
-      "name": "UUID v4 Generator",
-      "description": "Generate random Universally Unique Identifiers (v4)."
-    },
-    "uuid_v1": {
-      "name": "UUID v1 Generator",
-      "description": "Generate time-based Universally Unique Identifiers (v1)."
-    },
-    "uuid_v7": {
-      "name": "UUID v7 Generator",
-      "description": "Generate time-ordered Universally Unique Identifiers (v7)."
-    },
-    "guid": {
-      "name": "GUID Generator",
-      "description": "Generate Globally Unique Identifiers (standard v4)."
-    },
-    "pkcs_p1": {
-      "name": "PKCS#1 Generator",
-      "description": "Generate RSA key pair in PKCS#1 format (PEM)."
-    },
-    "pkcs_p7": {
-      "name": "PKCS#7 Container",
-      "description": "Create a dummy PKCS#7 signed message container."
-    },
-    "pkcs_p8": {
-      "name": "PKCS#8 Generator",
-      "description": "Generate Private key in PKCS#8 format (PEM)."
-    },
-    "pkcs_p10": {
-      "name": "PKCS#10 (CSR)",
-      "description": "Generate a Certification Signing Request (CSR)."
-    },
-    "pkcs_p12": {
-      "name": "PKCS#12 (PFX)",
-      "description": "Generate a PFX/P12 certificate container."
-    },
-    "pkcs_x509": {
-      "name": "X.509 Certificate",
-      "description": "Generate a self-signed X.509 certificate."
-    },
-    "asn1": {
-      "name": "ASN.1 Inspector",
-      "description": "Decode and visualize ASN.1 structures from DER or Base64."
-    },
-    "jose": {
-      "name": "JOSE (JWT/JWK)",
-      "description": "Generate and verify JSON Web Tokens and Keys."
-    },
-    "openpgp": {
-      "name": "OpenPGP Key Gen",
-      "description": "Generate OpenPGP public/private key pairs."
-    },
-    "cose": {
-      "name": "COSE (CBOR)",
-      "description": "Encode and sign CBOR Object Signing and Encryption structures."
-    },
-    "spki": {
-      "name": "SPKI Formatter",
-      "description": "Convert and format Subject Public Key Info structures."
-    }
+    "aes_encrypt": { "name": "AES Encrypt", "description": "Securely encrypt text using AES algorithms (GCM, CBC, CTR)." },
+    "aes_decrypt": { "name": "AES Decrypt", "description": "Decrypt AES-encrypted strings back into readable text." },
+    "des_encrypt": { "name": "DES Encrypt", "description": "Encrypt text using the legacy DES algorithm (64-bit key)." },
+    "des_decrypt": { "name": "DES Decrypt", "description": "Decrypt strings encrypted with the Data Encryption Standard (DES)." },
+    "3des_encrypt": { "name": "3DES Encrypt", "description": "Encrypt text using Triple DES (192-bit key)." },
+    "3des_decrypt": { "name": "3DES Decrypt", "description": "Decrypt strings encrypted with Triple DES (TDEA)." },
+    "chacha20_encrypt": { "name": "ChaCha20 Encrypt", "description": "Modern stream encryption using ChaCha20 algorithm." },
+    "chacha20_decrypt": { "name": "ChaCha20 Decrypt", "description": "Decrypt strings secured with ChaCha20 stream cipher." },
+    "rsa_encrypt": { "name": "RSA Encrypt", "description": "Encrypt data using RSA public keys (OAEP padding)." },
+    "rsa_decrypt": { "name": "RSA Decrypt", "description": "Decrypt RSA-encrypted data using private keys." },
+    "rsa_sign": { "name": "RSA Sign", "description": "Generate digital signatures for messages using RSA private keys." },
+    "rsa_verify": { "name": "RSA Verify", "description": "Verify digital signatures using RSA public keys." },
+    "ecc_sign": { "name": "ECC Sign", "description": "Generate high-performance signatures using Elliptic Curve cryptography." },
+    "ecc_verify": { "name": "ECC Verify", "description": "Verify ECC signatures to ensure message integrity." },
+    "jwt_encode": { "name": "JWT Encode", "description": "Generate and sign JSON Web Tokens with custom payloads." },
+    "jwt_decode": { "name": "JWT Decode", "description": "Instantly decode and visualize JWT header and payload contents." },
+    "jwt_verify": { "name": "JWT Verify", "description": "Cryptographically verify the integrity of a JSON Web Token." },
+    "pgp_encrypt": { "name": "PGP Encrypt", "description": "Secure messages using standard OpenPGP public key encryption." },
+    "pgp_decrypt": { "name": "PGP Decrypt", "description": "Decrypt OpenPGP messages using your private key and passphrase." },
+    "pgp_sign": { "name": "PGP Sign", "description": "Digitally sign a message using OpenPGP private keys." },
+    "pgp_verify": { "name": "PGP Verify", "description": "Verify the authenticity of an OpenPGP signed message." },
+    "base64_encode": { "name": "Base64 Encode", "description": "Encode text strings into Base64 format safely." },
+    "base64_decode": { "name": "Base64 Decode", "description": "Decode Base64 strings back into readable text." },
+    "binary_encode": { "name": "Binary Encode", "description": "Encode text strings into Binary format (0s and 1s)." },
+    "binary_decode": { "name": "Binary Decode", "description": "Decode Binary strings back into readable text." },
+    "hex_encode": { "name": "Hex Encode", "description": "Encode text strings into Hexadecimal format." },
+    "hex_decode": { "name": "Hex Decode", "description": "Decode Hexadecimal strings back into readable text." },
+    "url_encode": { "name": "URL Encode", "description": "Safely encode text strings for use in URLs." },
+    "url_decode": { "name": "URL Decode", "description": "Decode URL-encoded strings back into readable text." },
+    "html_encode": { "name": "HTML Encode", "description": "Convert special characters into HTML entities safely." },
+    "html_decode": { "name": "HTML Decode", "description": "Decode HTML entities back into readable text." },
+    "md5": { "name": "MD5 Hash", "description": "Generate MD5 message digests (Not secure for passwords)." },
+    "sha1": { "name": "SHA-1 Hash", "description": "Generate SHA-1 message digests (Legacy security)." },
+    "sha256": { "name": "SHA-256 Hash", "description": "Generate secure SHA-256 message digests." },
+    "sha512": { "name": "SHA-512 Hash", "description": "Generate high-security SHA-512 message digests." },
+    "sha3": { "name": "SHA-3 Hash", "description": "Generate modern SHA-3 message digests." },
+    "bcrypt": { "name": "Bcrypt Hash", "description": "Secure password hashing with adaptive cost factor." },
+    "argon2": { "name": "Argon2 Hash", "description": "State-of-the-art password hashing (Memory-hard)." },
+    "pbkdf2": { "name": "PBKDF2 Hash", "description": "Key derivation function using multiple HMAC iterations." },
+    "hmac_sha1": { "name": "HMAC SHA1", "description": "Generate a Hash-based Message Authentication Code using SHA1." },
+    "hmac_sha256": { "name": "HMAC SHA256", "description": "Generate a Hash-based Message Authentication Code using SHA256." },
+    "hmac_sha512": { "name": "HMAC SHA512", "description": "Generate a Hash-based Message Authentication Code using SHA512." },
+    "json_formatter": { "name": "JSON Formatter", "description": "Clean, format, and minify your JSON data easily." },
+    "js_formatter": { "name": "JS Formatter", "description": "Clean, format, and minify your JavaScript code." },
+    "ts_formatter": { "name": "TS Formatter", "description": "Clean, format, and minify your TypeScript code." },
+    "xml_formatter": { "name": "XML Formatter", "description": "Clean, format, and minify your XML documents." },
+    "html_formatter": { "name": "HTML Formatter", "description": "Clean, format, and minify your HTML code." },
+    "css_formatter": { "name": "CSS Formatter", "description": "Clean, format, and minify your CSS stylesheets." },
+    "json_to_go": { "name": "JSON to Go Struct", "description": "Convert JSON objects into Go struct definitions instantly.", "inline": "Inline Nested Structs" },
+    "uuid_v4": { "name": "UUID v4 Generator", "description": "Generate random Universally Unique Identifiers (v4)." },
+    "uuid_v1": { "name": "UUID v1 Generator", "description": "Generate time-based Universally Unique Identifiers (v1)." },
+    "uuid_v7": { "name": "UUID v7 Generator", "description": "Generate time-ordered Universally Unique Identifiers (v7)." },
+    "guid": { "name": "GUID Generator", "description": "Generate Globally Unique Identifiers (standard v4)." },
+    "pkcs_p1": { "name": "PKCS#1 Generator", "description": "Generate RSA key pair in PKCS#1 format (PEM)." },
+    "pkcs_p7": { "name": "PKCS#7 Container", "description": "Create a dummy PKCS#7 signed message container." },
+    "pkcs_p8": { "name": "PKCS#8 Generator", "description": "Generate Private key in PKCS#8 format (PEM)." },
+    "pkcs_p10": { "name": "PKCS#10 (CSR)", "description": "Generate a Certification Signing Request (CSR)." },
+    "pkcs_p12": { "name": "PKCS#12 (PFX)", "description": "Generate a PFX/P12 certificate container." },
+    "pkcs_x509": { "name": "X.509 Certificate", "description": "Generate a self-signed X.509 certificate." },
+    "asn1": { "name": "ASN.1 Inspector", "description": "Decode and visualize ASN.1 structures from DER or Base64." },
+    "jose": { "name": "JOSE (JWT/JWK)", "description": "Generate and verify JSON Web Tokens and Keys." },
+    "openpgp": { "name": "OpenPGP Key Gen", "description": "Generate OpenPGP public/private key pairs." },
+    "cose": { "name": "COSE (CBOR)", "description": "Encode and sign CBOR Object Signing and Encryption structures." },
+    "spki": { "name": "SPKI Formatter", "description": "Convert and format Subject Public Key Info structures." }
   },
   "hints": {
     "bits": "Higher bit counts offer more security but slower processing. 2048 is standard; 4096 is high-security.",
@@ -351,7 +176,45 @@
     "3des_key": "Must be exactly 24 characters (192 bits). Used for Triple Data Encryption Standard.",
     "3des_iv": "Must be 8 characters (64 bits).",
     "chacha20_key": "Should be 32 characters (256 bits) for maximum security.",
-    "chacha20_iv": "A Nonce, usually 12 characters (96 bits) for standard RFC7539 implementation."
+    "chacha20_iv": "A Nonce, usually 12 characters (96 bits) for standard RFC7539 implementation.",
+    "pass_gen_upper": "Include uppercase letters (A-Z).",
+    "pass_gen_lower": "Include lowercase letters (a-z).",
+    "pass_gen_number": "Include digits (0-9).",
+    "pass_gen_special": "Include special characters (e.g., @, #, $).",
+    "pass_gen_similar": "Avoid visually similar characters like 'i' and 'l' or '0' and 'o'."
+  },
+  "pass_tool": {
+    "strength": {
+      "Very Weak": "Very Weak",
+      "Weak": "Weak",
+      "Fair": "Fair",
+      "Strong": "Strong",
+      "Very Strong": "Very Strong",
+      "entropy": "Entropy",
+      "bits": "bits",
+      "tips": "Improvement Tips"
+    },
+    "generator": {
+      "title": "Generator Settings",
+      "upper": "Uppercase",
+      "lower": "Lowercase",
+      "number": "Numbers",
+      "special": "Symbols",
+      "similar": "Avoid Similar Chars"
+    },
+    "compare": {
+      "hash_label": "Hashed Password",
+      "match": "Passwords Match!",
+      "no_match": "Passwords Do Not Match!",
+      "valid_proof": "The provided plaintext successfully verifies against the cryptographic hash.",
+      "invalid_proof": "Verification failed. The plaintext does not match the provided hash."
+    }
+  },
+  "strength_feedback": {
+    "length": "Make it longer (at least 12 characters).",
+    "upper": "Add some uppercase letters.",
+    "number": "Add at least one digit.",
+    "special": "Add special characters (e.g., !@#$)."
   },
   "kb": {
     "md5": "MD5 produces a 128-bit hash. It's fast but cryptographically broken. Use only for integrity checks, never for security or passwords.",

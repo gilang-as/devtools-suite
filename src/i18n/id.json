@@ -56,7 +56,9 @@
     "iv": "Initialization Vector (IV)",
     "key": "Kunci Enkripsi",
     "sign": "Sign",
-    "verify": "Verify"
+    "verify": "Verify",
+    "length": "Panjang",
+    "options": "Opsi"
   },
   "home": {
     "heading": "Alat Pengembang",
@@ -74,263 +76,86 @@
     "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
-    "aes_encrypt": {
-      "name": "AES Encrypt",
-      "description": "Enkripsi teks dengan aman menggunakan algoritma AES (GCM, CBC, CTR)."
+    "password_hash": {
+      "name": "Password Hash Generator",
+      "description": "Hasilkan hash kata sandi dengan aman menggunakan algoritma modern seperti Bcrypt dan Argon2."
     },
-    "aes_decrypt": {
-      "name": "AES Decrypt",
-      "description": "Dekripsi string terenkripsi AES kembali menjadi teks yang dapat dibaca."
+    "password_compare": {
+      "name": "Password Compare",
+      "description": "Verifikasi apakah kata sandi plaintext cocok dengan hash yang dihasilkan sebelumnya."
     },
-    "des_encrypt": {
-      "name": "DES Encrypt",
-      "description": "Enkripsi teks menggunakan algoritma warisan DES (kunci 64-bit)."
+    "password_strength": {
+      "name": "Password Strength Checker",
+      "description": "Analisis kompleksitas kata sandi dan dapatkan saran untuk meningkatkan keamanan."
     },
-    "des_decrypt": {
-      "name": "DES Decrypt",
-      "description": "Dekripsi string yang dienkripsi dengan Data Encryption Standard (DES)."
+    "password_generator": {
+      "name": "Random Password Generator",
+      "description": "Hasilkan kata sandi yang kuat, unik, dan acak secara instan."
     },
-    "3des_encrypt": {
-      "name": "3DES Encrypt",
-      "description": "Enkripsi teks menggunakan Triple DES (kunci 192-bit)."
-    },
-    "3des_decrypt": {
-      "name": "3DES Decrypt",
-      "description": "Dekripsi string yang dienkripsi dengan Triple DES (TDEA)."
-    },
-    "chacha20_encrypt": {
-      "name": "ChaCha20 Encrypt",
-      "description": "Enkripsi stream modern menggunakan algoritma ChaCha20."
-    },
-    "chacha20_decrypt": {
-      "name": "ChaCha20 Decrypt",
-      "description": "Dekripsi string yang diamankan dengan cipher stream ChaCha20."
-    },
-    "rsa_encrypt": {
-      "name": "RSA Encrypt",
-      "description": "Enkripsi data menggunakan kunci publik RSA (OAEP padding)."
-    },
-    "rsa_decrypt": {
-      "name": "RSA Decrypt",
-      "description": "Dekripsi data terenkripsi RSA menggunakan kunci privat."
-    },
-    "rsa_sign": {
-      "name": "RSA Sign",
-      "description": "Hasilkan tanda tangan digital menggunakan kunci privat RSA."
-    },
-    "rsa_verify": {
-      "name": "RSA Verify",
-      "description": "Verifikasi tanda tangan digital menggunakan kunci publik RSA."
-    },
-    "ecc_sign": {
-      "name": "ECC Sign",
-      "description": "Hasilkan tanda tangan berperforma tinggi menggunakan kriptografi Elliptic Curve."
-    },
-    "ecc_verify": {
-      "name": "ECC Verify",
-      "description": "Verifikasi tanda tangan ECC untuk memastikan integritas pesan."
-    },
-    "jwt_encode": {
-      "name": "JWT Encode",
-      "description": "Hasilkan dan tandatangani JSON Web Token dengan payload kustom."
-    },
-    "jwt_decode": {
-      "name": "JWT Decode",
-      "description": "Decode dan visualisasikan isi header dan payload JWT secara instan."
-    },
-    "jwt_verify": {
-      "name": "JWT Verify",
-      "description": "Verifikasi integritas kriptografis dari JSON Web Token."
-    },
-    "pgp_encrypt": {
-      "name": "PGP Encrypt",
-      "description": "Amankan pesan menggunakan enkripsi kunci publik standar OpenPGP."
-    },
-    "pgp_decrypt": {
-      "name": "PGP Decrypt",
-      "description": "Dekripsi pesan OpenPGP menggunakan kunci privat dan frasa sandi Anda."
-    },
-    "pgp_sign": {
-      "name": "PGP Sign",
-      "description": "Tandatangani pesan secara digital menggunakan kunci privat OpenPGP."
-    },
-    "pgp_verify": {
-      "name": "PGP Verify",
-      "description": "Verifikasi keaslian pesan bertanda tangan OpenPGP."
-    },
-    "base64_encode": {
-      "name": "Base64 Encode",
-      "description": "Encode string teks ke format Base64 dengan aman."
-    },
-    "base64_decode": {
-      "name": "Base64 Decode",
-      "description": "Decode string Base64 kembali ke teks yang dapat dibaca."
-    },
-    "binary_encode": {
-      "name": "Binary Encode",
-      "description": "Encode string teks ke format Biner (0 dan 1)."
-    },
-    "binary_decode": {
-      "name": "Binary Decode",
-      "description": "Decode string Biner kembali ke teks yang dapat dibaca."
-    },
-    "hex_encode": {
-      "name": "Hex Encode",
-      "description": "Encode string teks ke format Hexadecimal."
-    },
-    "hex_decode": {
-      "name": "Hex Decode",
-      "description": "Decode Hexadecimal kembali ke teks yang dapat dibaca."
-    },
-    "url_encode": {
-      "name": "URL Encode",
-      "description": "Encode string teks untuk digunakan dalam URL dengan aman."
-    },
-    "url_decode": {
-      "name": "URL Decode",
-      "description": "Decode string URL kembali ke teks yang dapat dibaca."
-    },
-    "html_encode": {
-      "name": "HTML Encode",
-      "description": "Konversi karakter khusus menjadi entitas HTML dengan aman."
-    },
-    "html_decode": {
-      "name": "HTML Decode",
-      "description": "Decode entitas HTML kembali menjadi teks biasa."
-    },
-    "md5": {
-      "name": "MD5 Hash",
-      "description": "Hasilkan digest pesan MD5 (Tidak aman untuk kata sandi)."
-    },
-    "sha1": {
-      "name": "SHA-1 Hash",
-      "description": "Hasilkan digest pesan SHA-1 (Keamanan legacy)."
-    },
-    "sha256": {
-      "name": "SHA-256 Hash",
-      "description": "Hasilkan digest pesan SHA-256 yang aman."
-    },
-    "sha512": {
-      "name": "SHA-512 Hash",
-      "description": "Hasilkan digest pesan SHA-512 keamanan tinggi."
-    },
-    "sha3": {
-      "name": "SHA-3 Hash",
-      "description": "Hasilkan digest pesan SHA-3 modern."
-    },
-    "bcrypt": {
-      "name": "Bcrypt Hash",
-      "description": "Hash kata sandi aman dengan faktor biaya adaptif."
-    },
-    "argon2": {
-      "name": "Argon2 Hash",
-      "description": "Hash kata sandi mutakhir (Memory-hard)."
-    },
-    "pbkdf2": {
-      "name": "PBKDF2 Hash",
-      "description": "Fungsi derivasi kunci menggunakan banyak iterasi HMAC."
-    },
-    "hmac_sha1": {
-      "name": "HMAC SHA1",
-      "description": "Hasilkan Hash-based Message Authentication Code menggunakan SHA1."
-    },
-    "hmac_sha256": {
-      "name": "HMAC SHA256",
-      "description": "Hasilkan Hash-based Message Authentication Code menggunakan SHA256."
-    },
-    "hmac_sha512": {
-      "name": "HMAC SHA512",
-      "description": "Hasilkan Hash-based Message Authentication Code menggunakan SHA512."
-    },
-    "json_formatter": {
-      "name": "JSON Formatter",
-      "description": "Bersihkan, format, dan minifikasi data JSON Anda dengan mudah."
-    },
-    "js_formatter": {
-      "name": "JS Formatter",
-      "description": "Bersihkan, format, dan minifikasi kode JavaScript Anda."
-    },
-    "ts_formatter": {
-      "name": "TS Formatter",
-      "description": "Bersihkan, format, dan minifikasi kode TypeScript Anda."
-    },
-    "xml_formatter": {
-      "name": "XML Formatter",
-      "description": "Bersihkan, format, and minifikasi dokumen XML Anda."
-    },
-    "html_formatter": {
-      "name": "HTML Formatter",
-      "description": "Bersihkan, format, dan minifikasi kode HTML Anda."
-    },
-    "css_formatter": {
-      "name": "CSS Formatter",
-      "description": "Bersihkan, format, dan minifikasi stylesheet CSS Anda."
-    },
-    "json_to_go": {
-      "name": "JSON to Go Struct",
-      "description": "Konversi objek JSON ke definisi struct Go secara instan.",
-      "inline": "Inline Struct Bersarang"
-    },
-    "uuid_v4": {
-      "name": "UUID v4 Generator",
-      "description": "Hasilkan Universally Unique Identifier acak (v4)."
-    },
-    "uuid_v1": {
-      "name": "UUID v1 Generator",
-      "description": "Hasilkan Universally Unique Identifier berbasis waktu (v1)."
-    },
-    "uuid_v7": {
-      "name": "UUID v7 Generator",
-      "description": "Hasilkan Universally Unique Identifier terurut waktu (v7)."
-    },
-    "guid": {
-      "name": "GUID Generator",
-      "description": "Hasilkan Globally Unique Identifier (standar v4)."
-    },
-    "pkcs_p1": {
-      "name": "PKCS#1 Generator",
-      "description": "Hasilkan pasangan kunci RSA dalam format PKCS#1 (PEM)."
-    },
-    "pkcs_p7": {
-      "name": "PKCS#7 Container",
-      "description": "Buat kontainer pesan tertandatangan PKCS#7 simulasi."
-    },
-    "pkcs_p8": {
-      "name": "PKCS#8 Generator",
-      "description": "Hasilkan kunci privat dalam format PKCS#8 (PEM)."
-    },
-    "pkcs_p10": {
-      "name": "PKCS#10 (CSR)",
-      "description": "Hasilkan Certification Signing Request (CSR)."
-    },
-    "pkcs_p12": {
-      "name": "PKCS#12 (PFX)",
-      "description": "Hasilkan kontainer sertifikat PFX/P12."
-    },
-    "pkcs_x509": {
-      "name": "X.509 Certificate",
-      "description": "Hasilkan sertifikat X.509 self-signed."
-    },
-    "asn1": {
-      "name": "ASN.1 Inspector",
-      "description": "Decode dan visualisasikan struktur ASN.1 dari DER atau Base64."
-    },
-    "jose": {
-      "name": "JOSE (JWT/JWK)",
-      "description": "Hasilkan dan verifikasi JSON Web Tokens dan Keys."
-    },
-    "openpgp": {
-      "name": "OpenPGP Key Gen",
-      "description": "Hasilkan pasangan kunci publik/privat OpenPGP."
-    },
-    "cose": {
-      "name": "COSE (CBOR)",
-      "description": "Encode dan tanda tangani struktur CBOR Object Signing and Encryption."
-    },
-    "spki": {
-      "name": "SPKI Formatter",
-      "description": "Konversi dan format struktur Subject Public Key Info."
-    }
+    "aes_encrypt": { "name": "AES Encrypt", "description": "Enkripsi teks dengan aman menggunakan algoritma AES (GCM, CBC, CTR)." },
+    "aes_decrypt": { "name": "AES Decrypt", "description": "Dekripsi string terenkripsi AES kembali menjadi teks yang dapat dibaca." },
+    "des_encrypt": { "name": "DES Encrypt", "description": "Enkripsi teks menggunakan algoritma warisan DES (kunci 64-bit)." },
+    "des_decrypt": { "name": "DES Decrypt", "description": "Dekripsi string yang dienkripsi dengan Data Encryption Standard (DES)." },
+    "3des_encrypt": { "name": "3DES Encrypt", "description": "Enkripsi teks menggunakan Triple DES (kunci 192-bit)." },
+    "3des_decrypt": { "name": "3DES Decrypt", "description": "Dekripsi string yang dienkripsi dengan Triple DES (TDEA)." },
+    "chacha20_encrypt": { "name": "ChaCha20 Encrypt", "description": "Enkripsi stream modern menggunakan algoritma ChaCha20." },
+    "chacha20_decrypt": { "name": "ChaCha20 Decrypt", "description": "Dekripsi string yang diamankan dengan cipher stream ChaCha20." },
+    "rsa_encrypt": { "name": "RSA Encrypt", "description": "Enkripsi data menggunakan kunci publik RSA (OAEP padding)." },
+    "rsa_decrypt": { "name": "RSA Decrypt", "description": "Dekripsi data terenkripsi RSA menggunakan kunci privat." },
+    "rsa_sign": { "name": "RSA Sign", "description": "Hasilkan tanda tangan digital menggunakan kunci privat RSA." },
+    "rsa_verify": { "name": "RSA Verify", "description": "Verifikasi tanda tangan digital menggunakan kunci publik RSA." },
+    "ecc_sign": { "name": "ECC Sign", "description": "Hasilkan tanda tangan berperforma tinggi menggunakan kriptografi Elliptic Curve." },
+    "ecc_verify": { "name": "ECC Verify", "description": "Verifikasi tanda tangan ECC untuk memastikan integritas pesan." },
+    "jwt_encode": { "name": "JWT Encode", "description": "Hasilkan dan tandatangani JSON Web Token dengan payload kustom." },
+    "jwt_decode": { "name": "JWT Decode", "description": "Decode dan visualisasikan isi header dan payload JWT secara instan." },
+    "jwt_verify": { "name": "JWT Verify", "description": "Verifikasi integritas kriptografis dari JSON Web Token." },
+    "pgp_encrypt": { "name": "PGP Encrypt", "description": "Amankan pesan menggunakan enkripsi kunci publik standar OpenPGP." },
+    "pgp_decrypt": { "name": "PGP Decrypt", "description": "Dekripsi pesan OpenPGP menggunakan kunci privat dan frasa sandi Anda." },
+    "pgp_sign": { "name": "PGP Sign", "description": "Tandatangani pesan secara digital menggunakan kunci privat OpenPGP." },
+    "pgp_verify": { "name": "PGP Verify", "description": "Verifikasi keaslian pesan bertanda tangan OpenPGP." },
+    "base64_encode": { "name": "Base64 Encode", "description": "Encode string teks ke format Base64 dengan aman." },
+    "base64_decode": { "name": "Base64 Decode", "description": "Decode string Base64 kembali ke teks yang dapat dibaca." },
+    "binary_encode": { "name": "Binary Encode", "description": "Encode string teks ke format Biner (0 dan 1)." },
+    "binary_decode": { "name": "Binary Decode", "description": "Decode string Biner kembali ke teks yang dapat dibaca." },
+    "hex_encode": { "name": "Hex Encode", "description": "Encode string teks ke format Hexadecimal." },
+    "hex_decode": { "name": "Hex Decode", "description": "Decode Hexadecimal kembali ke teks yang dapat dibaca." },
+    "url_encode": { "name": "URL Encode", "description": "Encode string teks untuk digunakan dalam URL dengan aman." },
+    "url_decode": { "name": "URL Decode", "description": "Decode string URL kembali ke teks yang dapat dibaca." },
+    "html_encode": { "name": "HTML Encode", "description": "Konversi karakter khusus menjadi entitas HTML dengan aman." },
+    "html_decode": { "name": "HTML Decode", "description": "Decode entitas HTML kembali menjadi teks biasa." },
+    "md5": { "name": "MD5 Hash", "description": "Hasilkan digest pesan MD5 (Tidak aman untuk kata sandi)." },
+    "sha1": { "name": "SHA-1 Hash", "description": "Hasilkan digest pesan SHA-1 (Keamanan legacy)." },
+    "sha256": { "name": "SHA-256 Hash", "description": "Hasilkan digest pesan SHA-256 yang aman." },
+    "sha512": { "name": "SHA-512 Hash", "description": "Hasilkan digest pesan SHA-512 keamanan tinggi." },
+    "sha3": { "name": "SHA-3 Hash", "description": "Hasilkan digest pesan SHA-3 modern." },
+    "bcrypt": { "name": "Bcrypt Hash", "description": "Hash kata sandi aman dengan faktor biaya adaptif." },
+    "argon2": { "name": "Argon2 Hash", "description": "Hash kata sandi mutakhir (Memory-hard)." },
+    "pbkdf2": { "name": "PBKDF2 Hash", "description": "Fungsi derivasi kunci menggunakan banyak iterasi HMAC." },
+    "hmac_sha1": { "name": "HMAC SHA1", "description": "Hasilkan Hash-based Message Authentication Code menggunakan SHA1." },
+    "hmac_sha256": { "name": "HMAC SHA256", "description": "Hasilkan Hash-based Message Authentication Code menggunakan SHA256." },
+    "hmac_sha512": { "name": "HMAC SHA512", "description": "Hasilkan Hash-based Message Authentication Code menggunakan SHA512." },
+    "json_formatter": { "name": "JSON Formatter", "description": "Bersihkan, format, dan minifikasi data JSON Anda dengan mudah." },
+    "js_formatter": { "name": "JS Formatter", "description": "Bersihkan, format, dan minifikasi kode JavaScript Anda." },
+    "ts_formatter": { "name": "TS Formatter", "description": "Bersihkan, format, dan minifikasi kode TypeScript Anda." },
+    "xml_formatter": { "name": "XML Formatter", "description": "Bersihkan, format, and minifikasi dokumen XML Anda." },
+    "html_formatter": { "name": "HTML Formatter", "description": "Bersihkan, format, dan minifikasi kode HTML Anda." },
+    "css_formatter": { "name": "CSS Formatter", "description": "Bersihkan, format, dan minifikasi stylesheet CSS Anda." },
+    "json_to_go": { "name": "JSON to Go Struct", "description": "Konversi objek JSON ke definisi struct Go secara instan.", "inline": "Inline Struct Bersarang" },
+    "uuid_v4": { "name": "UUID v4 Generator", "description": "Hasilkan Universally Unique Identifier acak (v4)." },
+    "uuid_v1": { "name": "UUID v1 Generator", "description": "Hasilkan Universally Unique Identifier berbasis waktu (v1)." },
+    "uuid_v7": { "name": "UUID v7 Generator", "description": "Hasilkan Universally Unique Identifier terurut waktu (v7)." },
+    "guid": { "name": "GUID Generator", "description": "Hasilkan Globally Unique Identifier (standar v4)." },
+    "pkcs_p1": { "name": "PKCS#1 Generator", "description": "Hasilkan pasangan kunci RSA dalam format PKCS#1 (PEM)." },
+    "pkcs_p7": { "name": "PKCS#7 Container", "description": "Buat kontainer pesan tertandatangan PKCS#7 simulasi." },
+    "pkcs_p8": { "name": "PKCS#8 Generator", "description": "Hasilkan kunci privat dalam format PKCS#8 (PEM)." },
+    "pkcs_p10": { "name": "PKCS#10 (CSR)", "description": "Hasilkan Certification Signing Request (CSR)." },
+    "pkcs_p12": { "name": "PKCS#12 (PFX)", "description": "Hasilkan kontainer sertifikat PFX/P12." },
+    "pkcs_x509": { "name": "X.509 Certificate", "description": "Hasilkan sertifikat X.509 self-signed." },
+    "asn1": { "name": "ASN.1 Inspector", "description": "Decode dan visualisasikan struktur ASN.1 dari DER atau Base64." },
+    "jose": { "name": "JOSE (JWT/JWK)", "description": "Hasilkan dan verifikasi JSON Web Tokens dan Keys." },
+    "openpgp": { "name": "OpenPGP Key Gen", "description": "Hasilkan pasangan kunci publik/privat OpenPGP." },
+    "cose": { "name": "COSE (CBOR)", "description": "Encode dan tanda tangani struktur CBOR Object Signing and Encryption." },
+    "spki": { "name": "SPKI Formatter", "description": "Konversi dan format struktur Subject Public Key Info." }
   },
   "hints": {
     "bits": "Jumlah bit yang lebih tinggi menawarkan keamanan lebih tetapi pemrosesan lebih lambat. 2048 adalah standar; 4096 adalah keamanan tinggi.",
@@ -351,7 +176,45 @@
     "3des_key": "Harus tepat 24 karakter (192 bit). Digunakan untuk Triple Data Encryption Standard.",
     "3des_iv": "Harus 8 karakter (64 bit).",
     "chacha20_key": "Harus memiliki panjang 32 karakter (256 bit) untuk keamanan maksimum.",
-    "chacha20_iv": "Sebuah Nonce, biasanya 12 karakter (96 bit) untuk implementasi standar RFC7539."
+    "chacha20_iv": "Sebuah Nonce, biasanya 12 karakter (96 bit) untuk implementasi standar RFC7539.",
+    "pass_gen_upper": "Sertakan huruf besar (A-Z).",
+    "pass_gen_lower": "Sertakan huruf kecil (a-z).",
+    "pass_gen_number": "Sertakan angka (0-9).",
+    "pass_gen_special": "Sertakan karakter khusus (misal: @, #, $).",
+    "pass_gen_similar": "Hindari karakter yang mirip secara visual seperti 'i' dan 'l' atau '0' dan 'o'."
+  },
+  "pass_tool": {
+    "strength": {
+      "Very Weak": "Sangat Lemah",
+      "Weak": "Lemah",
+      "Fair": "Cukup",
+      "Strong": "Kuat",
+      "Very Strong": "Sangat Kuat",
+      "entropy": "Entropi",
+      "bits": "bit",
+      "tips": "Saran Perbaikan"
+    },
+    "generator": {
+      "title": "Pengaturan Generator",
+      "upper": "Huruf Besar",
+      "lower": "Huruf Kecil",
+      "number": "Angka",
+      "special": "Simbol",
+      "similar": "Hindari Karakter Mirip"
+    },
+    "compare": {
+      "hash_label": "Hash Kata Sandi",
+      "match": "Kata Sandi Cocok!",
+      "no_match": "Kata Sandi Tidak Cocok!",
+      "valid_proof": "Plaintext yang diberikan berhasil diverifikasi terhadap hash kriptografi.",
+      "invalid_proof": "Verifikasi gagal. Plaintext tidak cocok dengan hash yang diberikan."
+    }
+  },
+  "strength_feedback": {
+    "length": "Buat lebih panjang (minimal 12 karakter).",
+    "upper": "Tambahkan beberapa huruf besar.",
+    "number": "Tambahkan setidaknya satu angka.",
+    "special": "Tambahkan karakter khusus (misal: !@#$)."
   },
   "kb": {
     "md5": "MD5 menghasilkan hash 128-bit. Cepat tetapi rusak secara kriptografis. Gunakan hanya untuk pemeriksaan integritas, jangan untuk keamanan atau kata sandi.",

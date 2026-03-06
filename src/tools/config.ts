@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -6,10 +6,42 @@ export interface Tool {
   descriptionKey: string;
   href: string;
   icon: string;
-  category: 'Encoding' | 'Encryption' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing';
+  category: 'Encoding' | 'Encryption' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing' | 'Passwords';
 }
 
 export const TOOLS: Tool[] = [
+  {
+    id: 'password-generator',
+    nameKey: 'tools.password_generator.name',
+    descriptionKey: 'tools.password_generator.description',
+    href: '/passwords/generator',
+    icon: 'RefreshCw',
+    category: 'Passwords',
+  },
+  {
+    id: 'password-strength',
+    nameKey: 'tools.password_strength.name',
+    descriptionKey: 'tools.password_strength.description',
+    href: '/passwords/strength',
+    icon: 'ShieldHalf',
+    category: 'Passwords',
+  },
+  {
+    id: 'password-compare',
+    nameKey: 'tools.password_compare.name',
+    descriptionKey: 'tools.password_compare.description',
+    href: '/passwords/compare',
+    icon: 'KeyRound',
+    category: 'Passwords',
+  },
+  {
+    id: 'password-hash',
+    nameKey: 'tools.password_hash.name',
+    descriptionKey: 'tools.password_hash.description',
+    href: '/passwords/hash',
+    icon: 'Lock',
+    category: 'Passwords',
+  },
   {
     id: 'base64-encode',
     nameKey: 'tools.base64_encode.name',
