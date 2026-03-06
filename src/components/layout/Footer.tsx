@@ -57,9 +57,9 @@ export default function Footer() {
               © {year} {t('common.title')}. All rights reserved.
             </p>
             <div className="flex gap-4">
-              <span className="opacity-50">Privacy Policy</span>
-              <span className="opacity-50">Terms of Service</span>
-              <span className="opacity-50">Status</span>
+              <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
+              <Link href="/cookies" className="hover:text-primary transition-colors">Cookies</Link>
             </div>
           </div>
         </div>
