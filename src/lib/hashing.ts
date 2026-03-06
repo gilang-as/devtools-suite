@@ -1,5 +1,6 @@
 import CryptoJS from 'crypto-js';
 import bcrypt from 'bcryptjs';
+import { argon2id } from 'hash-wasm';
 
 export type HashType = 'md5' | 'sha1' | 'sha256' | 'sha512' | 'sha3';
 
@@ -38,18 +39,17 @@ export function computeBcrypt(password: string, rounds: number = 10): string {
 
 export async function computeArgon2(password: string, salt: string, iterations: number = 10, memory: number = 1024, parallelism: number = 1): Promise<string> {
   try {
-    // Dynamically import argon2-browser to bypass Turbopack's static analysis issues with its WASM loader
-    const argon2 = await import('argon2-browser');
-    const result = await argon2.hash({
-      pass: password,
-      salt: salt,
-      time: iterations,
-      mem: memory,
-      hashLen: 32,
+    // hash-wasm is much more compatible with Turbopack than argon2-browser
+    const hash = await argon2id({
+      password: password,
+      salt: new TextEncoder().encode(salt),
+      iterations: iterations,
+      memorySize: memory,
       parallelism: parallelism,
-      type: argon2.ArgonType.Argon2id
+      hashLength: 32,
+      outputType: 'encoded',
     });
-    return result.encoded;
+    return hash;
   } catch (e: any) {
     throw new Error('Argon2 Error: ' + e.message);
   }
