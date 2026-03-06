@@ -147,6 +147,8 @@
     "json_to_ts": { "name": "JSON to TypeScript", "description": "Konversi objek JSON ke definisi interface atau tipe TypeScript." },
     "json_to_yaml": { "name": "JSON ke YAML", "description": "Konversi data JSON ke format YAML secara instan." },
     "yaml_to_json": { "name": "YAML ke JSON", "description": "Konversi data YAML ke format JSON secara instan." },
+    "xml_to_json": { "name": "XML ke JSON", "description": "Konversi dokumen XML ke objek JSON terstruktur." },
+    "json_to_xml": { "name": "JSON ke XML", "description": "Konversi data JSON menjadi dokumen XML yang bersih." },
     "csv_to_json": { "name": "CSV ke JSON", "description": "Konversi data tabel CSV ke array JSON terstruktur." },
     "json_to_csv": { "name": "JSON ke CSV", "description": "Konversi data JSON terstruktur menjadi file CSV yang dapat diunduh." },
     "uuid_v4": { "name": "UUID v4 Generator", "description": "Hasilkan Universally Unique Identifier acak (v4)." },
@@ -286,7 +288,7 @@
       "i1_label": "Padding PKCS#1",
       "i1_text": "Digunakan dalam enkripsi RSA (v1.5 atau OAEP) untuk mencegah serangan chosen-ciphertext.",
       "i2_label": "Struktur Kunci",
-      "i2_text": "Format standar untuk pasangan kunci khusus RSA (RSAPrivateKey/RSAPublicKey)."
+      "i2_text": "Standard format for RSA-specific key pairs (RSAPrivateKey/RSAPublicKey)."
     },
     "p7": {
       "title": "PKCS#7: Cryptographic Message Syntax",

@@ -627,6 +627,22 @@ export const TOOLS: Tool[] = [
     category: 'Conversion',
   },
   {
+    id: 'xml-to-json',
+    nameKey: 'tools.xml_to_json.name',
+    descriptionKey: 'tools.xml_to_json.description',
+    href: '/xml/to-json',
+    icon: 'CodeXml',
+    category: 'Conversion',
+  },
+  {
+    id: 'json-to-xml',
+    nameKey: 'tools.json_to_xml.name',
+    descriptionKey: 'tools.json_to_xml.description',
+    href: '/json/to-xml',
+    icon: 'Braces',
+    category: 'Conversion',
+  },
+  {
     id: 'csv-to-json',
     nameKey: 'tools.csv_to_json.name',
     descriptionKey: 'tools.csv_to_json.description',

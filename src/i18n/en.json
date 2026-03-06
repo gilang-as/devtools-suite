@@ -147,6 +147,8 @@
     "json_to_ts": { "name": "JSON to TypeScript", "description": "Convert JSON objects into TypeScript interface or type definitions." },
     "json_to_yaml": { "name": "JSON to YAML", "description": "Convert JSON data into YAML format instantly." },
     "yaml_to_json": { "name": "YAML to JSON", "description": "Convert YAML data into JSON format instantly." },
+    "xml_to_json": { "name": "XML to JSON", "description": "Convert XML documents into structured JSON objects." },
+    "json_to_xml": { "name": "JSON to XML", "description": "Convert JSON data into clean XML documents." },
     "csv_to_json": { "name": "CSV to JSON", "description": "Convert CSV table data into a structured JSON array." },
     "json_to_csv": { "name": "JSON to CSV", "description": "Convert structured JSON data into a downloadable CSV file." },
     "uuid_v4": { "name": "UUID v4 Generator", "description": "Generate random Universally Unique Identifiers (v4)." },
