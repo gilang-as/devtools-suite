@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { computeHmac, HmacType } from '@/lib/hashing';
 import { Button } from '@/components/ui/button';
@@ -11,6 +13,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Copy, ShieldCheck, Info, KeyRound } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 import { 
   Tooltip,
   TooltipContent,
@@ -25,6 +28,7 @@ interface HmacGeneratorProps {
 export default function HmacGenerator({ type }: HmacGeneratorProps) {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const pathname = usePathname();
   const [input, setInput] = useState('');
   const [secret, setSecret] = useState('');
   const [output, setOutput] = useState('');
@@ -51,6 +55,12 @@ export default function HmacGenerator({ type }: HmacGeneratorProps) {
     sha512: "HMAC-SHA512 provides the highest level of security in the HMAC family, often used in high-security financial or military systems."
   }[type];
 
+  const navItems = [
+    { name: 'HMAC-SHA1', href: '/hashing/hmac-sha1' },
+    { name: 'HMAC-SHA256', href: '/hashing/hmac-sha256' },
+    { name: 'HMAC-SHA512', href: '/hashing/hmac-sha512' },
+  ];
+
   return (
     <div className="max-w-4xl mx-auto space-y-8 py-6">
       <div className="flex items-center gap-4 mb-4">
@@ -61,6 +71,20 @@ export default function HmacGenerator({ type }: HmacGeneratorProps) {
           <h1 className="text-3xl font-headline font-bold uppercase">{t(`tools.hmac_${type}.name`)}</h1>
           <p className="text-muted-foreground">{t(`tools.hmac_${type}.description`)}</p>
         </div>
+      </div>
+
+      <div className="flex p-1 bg-muted rounded-lg w-fit overflow-x-auto max-w-full">
+        {navItems.map((item) => (
+          <Link key={item.href} href={item.href}>
+            <Button 
+              variant={pathname === item.href ? 'secondary' : 'ghost'} 
+              className={cn("px-6 h-8 whitespace-nowrap", pathname === item.href && "bg-background shadow-sm")}
+              size="sm"
+            >
+              {item.name}
+            </Button>
+          </Link>
+        ))}
       </div>
 
       <div className="grid grid-cols-1 gap-6">

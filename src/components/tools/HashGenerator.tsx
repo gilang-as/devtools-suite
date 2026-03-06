@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { computeHash, HashType } from '@/lib/hashing';
 import { Button } from '@/components/ui/button';
@@ -8,14 +10,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Copy, Fingerprint, RefreshCcw, Info } from 'lucide-react';
+import { Copy, Fingerprint, Info } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
 
 interface HashGeneratorProps {
   type: HashType;
@@ -24,6 +21,7 @@ interface HashGeneratorProps {
 export default function HashGenerator({ type }: HashGeneratorProps) {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const pathname = usePathname();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [isLive, setIsLive] = useState(true);
@@ -51,6 +49,14 @@ export default function HashGenerator({ type }: HashGeneratorProps) {
     sha3: "SHA-3 is the latest NIST standard. It uses a completely different internal structure (Sponge construction) than SHA-2, providing extra safety against current SHA-2 weaknesses."
   }[type];
 
+  const navItems = [
+    { name: 'MD5', href: '/hashing/md5' },
+    { name: 'SHA1', href: '/hashing/sha1' },
+    { name: 'SHA256', href: '/hashing/sha256' },
+    { name: 'SHA512', href: '/hashing/sha512' },
+    { name: 'SHA3', href: '/hashing/sha3' },
+  ];
+
   return (
     <div className="max-w-4xl mx-auto space-y-8 py-6">
       <div className="flex items-center gap-4 mb-4">
@@ -61,6 +67,20 @@ export default function HashGenerator({ type }: HashGeneratorProps) {
           <h1 className="text-3xl font-headline font-bold">{t(`tools.${type}.name`)}</h1>
           <p className="text-muted-foreground">{t(`tools.${type}.description`)}</p>
         </div>
+      </div>
+
+      <div className="flex p-1 bg-muted rounded-lg w-fit overflow-x-auto max-w-full">
+        {navItems.map((item) => (
+          <Link key={item.href} href={item.href}>
+            <Button 
+              variant={pathname === item.href ? 'secondary' : 'ghost'} 
+              className={cn("px-6 h-8 whitespace-nowrap", pathname === item.href && "bg-background shadow-sm")}
+              size="sm"
+            >
+              {item.name}
+            </Button>
+          </Link>
+        ))}
       </div>
 
       <div className="grid grid-cols-1 gap-6">
