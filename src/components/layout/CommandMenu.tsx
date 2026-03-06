@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from 'react';
@@ -97,13 +96,13 @@ export default function CommandMenu() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden">
-        <DialogHeader className="p-4 border-b">
+        <DialogHeader className="p-0 border-b">
           <DialogTitle className="sr-only">Search Tools</DialogTitle>
-          <div className="flex items-center gap-3 px-2">
-            <Search className="h-5 w-5 text-muted-foreground" />
+          <div className="flex items-center gap-4 px-6 h-16">
+            <Search className="h-6 w-6 text-muted-foreground shrink-0" />
             <Input
               placeholder="Type to search tools... (e.g. 'jwt', 'base64')"
-              className="border-none focus-visible:ring-0 text-lg p-0 h-auto bg-transparent"
+              className="border-none focus-visible:ring-0 text-lg p-0 h-full bg-transparent placeholder:text-muted-foreground/40 shadow-none"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -120,7 +119,7 @@ export default function CommandMenu() {
         <div className="flex p-2 bg-muted/30 gap-1 overflow-x-auto border-b">
           <Badge 
             variant={category === null ? 'default' : 'outline'} 
-            className="cursor-pointer whitespace-nowrap"
+            className="cursor-pointer whitespace-nowrap px-3"
             onClick={() => setCategory(null)}
           >
             All
@@ -129,7 +128,7 @@ export default function CommandMenu() {
             <Badge 
               key={cat} 
               variant={category === cat ? 'default' : 'outline'} 
-              className="cursor-pointer whitespace-nowrap"
+              className="cursor-pointer whitespace-nowrap px-3"
               onClick={() => setCategory(cat)}
             >
               {cat}
