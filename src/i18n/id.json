@@ -49,7 +49,8 @@
     "security_note": "Catatan Keamanan",
     "placeholder_results": "Hasil akan muncul di sini...",
     "placeholder_waiting": "Menunggu input...",
-    "best_practice": "Praktik Terbaik"
+    "best_practice": "Praktik Terbaik",
+    "try_tool": "Coba Alat"
   },
   "home": {
     "heading": "Alat Pengembang",
@@ -59,7 +60,12 @@
     "no_results_title": "Alat tidak ditemukan",
     "no_results_desc": "Kami tidak dapat menemukan alat yang cocok dengan pencarian atau filter Anda.",
     "clear_all_filters": "Hapus semua filter",
-    "shortcut_hint": "Tekan untuk mencari alat secara global"
+    "shortcut_hint": "Tekan untuk mencari alat secara global",
+    "quick_access": "Akses Cepat",
+    "all": "Semua",
+    "navigate": "Navigasi",
+    "select": "Pilih",
+    "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
     "base64_encode": {

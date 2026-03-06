@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useMemo } from 'react';
@@ -6,8 +7,7 @@ import ToolCard from '@/components/tools/ToolCard';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, X, Command } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Search, X } from 'lucide-react';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -93,7 +93,7 @@ export default function Home() {
           </div>
           
           <div className="flex flex-col items-center gap-2">
-            <p className="text-xs font-bold text-muted-foreground/40 uppercase tracking-[0.2em]">Quick Access</p>
+            <p className="text-xs font-bold text-muted-foreground/40 uppercase tracking-[0.2em]">{t('home.quick_access')}</p>
             <div 
               className="flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-primary/[0.03] border border-primary/10 shadow-sm cursor-pointer hover:bg-primary/[0.05] transition-all"
               onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))}

@@ -1,25 +1,14 @@
+
 "use client"
 
 import Link from 'next/link';
 import { Tool } from '@/tools/config';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Hash, KeyRound, ChevronRight, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon } from 'lucide-react';
+import { Hash, KeyRound, ChevronRight, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge } from 'lucide-react';
 
 const iconMap: Record<string, any> = {
-  Hash,
-  KeyRound,
-  Fingerprint,
-  Braces,
-  Terminal,
-  CodeXml,
-  LayoutPanelLeft,
-  Palette,
-  ScrollText,
-  Code2,
-  LinkIcon,
-  Binary,
-  Hexagon,
+  Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge
 };
 
 export default function ToolCard({ tool }: { tool: Tool }) {
@@ -46,8 +35,8 @@ export default function ToolCard({ tool }: { tool: Tool }) {
           <CardDescription className="text-sm leading-relaxed mb-4">
             {t(tool.descriptionKey)}
           </CardDescription>
-          <div className="flex items-center text-xs font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
-            TRY TOOL <ChevronRight className="h-3 w-3 ml-1" />
+          <div className="flex items-center text-xs font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity uppercase">
+            {t('common.try_tool')} <ChevronRight className="h-3 w-3 ml-1" />
           </div>
         </CardContent>
       </Card>

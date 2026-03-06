@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from 'react';
@@ -97,11 +98,11 @@ export default function CommandMenu() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden">
         <DialogHeader className="p-0 border-b">
-          <DialogTitle className="sr-only">Search Tools</DialogTitle>
+          <DialogTitle className="sr-only">{t('home.spotlight_title')}</DialogTitle>
           <div className="flex items-center gap-4 px-6 h-16">
             <Search className="h-6 w-6 text-muted-foreground shrink-0" />
             <Input
-              placeholder="Type to search tools... (e.g. 'jwt', 'base64')"
+              placeholder={t('home.search_placeholder')}
               className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 ring-0 focus:ring-0 outline-none text-lg p-0 h-full bg-transparent placeholder:text-muted-foreground/40 shadow-none hover:bg-transparent focus:bg-transparent"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -122,7 +123,7 @@ export default function CommandMenu() {
             className="cursor-pointer whitespace-nowrap px-3"
             onClick={() => setCategory(null)}
           >
-            All
+            {t('home.all')}
           </Badge>
           {categories.map((cat) => (
             <Badge 
@@ -182,17 +183,17 @@ export default function CommandMenu() {
             ) : (
               <div className="py-12 text-center text-muted-foreground">
                 <Search className="h-10 w-10 mx-auto mb-3 opacity-20" />
-                <p>No tools found for "{query}"</p>
+                <p>{t('home.no_results_title')} "{query}"</p>
               </div>
             )}
           </div>
         </ScrollArea>
         <div className="p-3 border-t bg-muted/20 flex items-center justify-between text-[10px] text-muted-foreground uppercase font-bold tracking-widest">
           <div className="flex gap-4">
-            <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">↑↓</kbd> Navigate</span>
-            <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">Enter</kbd> Select</span>
+            <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">↑↓</kbd> {t('home.navigate')}</span>
+            <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">Enter</kbd> {t('home.select')}</span>
           </div>
-          <span>DevTools Suite Spotlight</span>
+          <span>{t('home.spotlight_title')}</span>
         </div>
       </DialogContent>
     </Dialog>

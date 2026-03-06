@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -65,7 +66,7 @@ export default function Header() {
               onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))}
             >
               <Search className="mr-2 h-4 w-4" />
-              <span className="flex-1 text-left">Search tools...</span>
+              <span className="flex-1 text-left">{t('home.search_placeholder')}</span>
               <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
                 <span className="text-xs">⌘</span>K
               </kbd>
@@ -133,7 +134,7 @@ export default function Header() {
               }}
             >
               <Search className="mr-2 h-4 w-4" />
-              Search tools...
+              {t('home.search_placeholder')}
             </Button>
           )}
           <Link 

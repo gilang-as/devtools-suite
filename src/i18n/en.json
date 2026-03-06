@@ -49,7 +49,8 @@
     "security_note": "Security Note",
     "placeholder_results": "Results will appear here...",
     "placeholder_waiting": "Waiting for input...",
-    "best_practice": "Best Practice"
+    "best_practice": "Best Practice",
+    "try_tool": "Try Tool"
   },
   "home": {
     "heading": "Developer Tools",
@@ -59,7 +60,12 @@
     "no_results_title": "No tools found",
     "no_results_desc": "We couldn't find any tools matching your search or filters.",
     "clear_all_filters": "Clear all filters",
-    "shortcut_hint": "Press to search tools globally"
+    "shortcut_hint": "Press to search tools globally",
+    "quick_access": "Quick Access",
+    "all": "All",
+    "navigate": "Navigate",
+    "select": "Select",
+    "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
     "base64_encode": {
