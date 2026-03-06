@@ -1,4 +1,3 @@
-
 /**
  * Utility to convert JSON strings to Go struct definitions.
  */
@@ -23,16 +22,20 @@ function getGoType(value: any, key: string, structs: string[], inline: boolean, 
   
   if (Array.isArray(value)) {
     if (value.length === 0) return '[]interface{}';
+    // Try to get the type of the first element
     const subType = getGoType(value[0], key, structs, inline, depth);
     return `[]${subType}`;
   }
   
   if (type === 'object') {
     if (inline && depth > 0) {
+      // Generate inline struct
       return generateStruct(value, '', structs, inline, depth);
     } else {
+      // Generate standalone struct and return its name
       const structName = toPascalCase(key);
-      structs.push(generateStruct(value, structName, structs, inline, depth));
+      // Standalone structs should always be generated with depth 0
+      structs.push(generateStruct(value, structName, structs, inline, 0));
       return structName;
     }
   }
@@ -44,6 +47,8 @@ function generateStruct(obj: any, name: string, structs: string[], inline: boole
   const indent = '\t'.repeat(depth + 1);
   const closingIndent = '\t'.repeat(depth);
   let result = name ? `type ${name} struct {\n` : `struct {\n`;
+  
+  // Sort keys for consistent output
   const keys = Object.keys(obj);
   
   for (const key of keys) {
@@ -70,7 +75,7 @@ export function jsonToGo(jsonStr: string, options: JsonToGoOptions = {}): string
     }
 
     const structs: string[] = [];
-    // depth 0 for the root
+    // depth 0 for the root struct
     const mainStruct = generateStruct(parsed, toPascalCase(rootName), structs, inline, 0);
     
     // Filter unique structs by name to avoid duplicates if same key appears nested.
@@ -83,7 +88,7 @@ export function jsonToGo(jsonStr: string, options: JsonToGoOptions = {}): string
         seen.add(name);
         return true;
       }
-      return true; // Root or non-named structs (though root usually has name)
+      return true; // Unnamed inline structs are handled differently but included
     });
 
     return uniqueStructs.join('\n\n');
