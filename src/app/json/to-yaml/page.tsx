@@ -37,7 +37,7 @@ const highlightYaml = (code: string) => {
     if (!token) return null;
     
     // Symbols
-    if ([:\-\[\]{}].test(token)) return <span key={i} className="text-muted-foreground font-bold">{token}</span>;
+    if (/[:\-\[\]{}]/.test(token)) return <span key={i} className="text-muted-foreground font-bold">{token}</span>;
     // Booleans / Null
     if (/^(true|false|null)$/.test(token)) return <span key={i} className="text-orange-600 dark:text-orange-400 font-semibold">{token}</span>;
     // Numbers
