@@ -158,7 +158,11 @@
     "jose": { "name": "JOSE (JWT/JWK)", "description": "Hasilkan dan verifikasi JSON Web Tokens dan Keys." },
     "openpgp": { "name": "OpenPGP Key Gen", "description": "Hasilkan pasangan kunci publik/privat OpenPGP." },
     "cose": { "name": "COSE (CBOR)", "description": "Encode dan tanda tangani struktur CBOR Object Signing and Encryption." },
-    "spki": { "name": "SPKI Formatter", "description": "Konversi dan format struktur Subject Public Key Info." }
+    "spki": { "name": "SPKI Formatter", "description": "Konversi dan format struktur Subject Public Key Info." },
+    "random_key": { "name": "Random Key Generator", "description": "Hasilkan kunci acak yang aman secara kriptografis untuk enkripsi." },
+    "secure_token": { "name": "Secure Token Generator", "description": "Hasilkan token dengan entropi tinggi untuk kunci API atau pengenal sesi." },
+    "crc32": { "name": "CRC32 Checksum", "description": "Hasilkan pemeriksaan redundansi siklik 32-bit untuk integritas data." },
+    "adler32": { "name": "Adler32 Checksum", "description": "Hasilkan checksum Adler-32 cepat untuk verifikasi data." }
   },
   "hints": {
     "bits": "Jumlah bit yang lebih tinggi menawarkan keamanan lebih tetapi pemrosesan lebih lambat. 2048 adalah standar; 4096 adalah keamanan tinggi.",
@@ -263,7 +267,9 @@
       "title": "ChaCha20: Cipher Stream Modern",
       "desc": "ChaCha20 adalah cipher stream berkecepatan tinggi yang seringkali lebih cepat daripada AES pada platform tanpa akselerasi hardware.",
       "note": "Digunakan secara luas dalam TLS 1.3 dan komunikasi seluler."
-    }
+    },
+    "crc32": "CRC-32 adalah pemeriksaan redundansi siklik yang digunakan untuk mendeteksi perubahan tidak disengaja pada data mentah. Ini banyak digunakan dalam file ZIP dan frame Ethernet. Catatan: Ini TIDAK aman secara kriptografis.",
+    "adler32": "Adler-32 adalah algoritma checksum yang diciptakan oleh Mark Adler. Ini hampir sama andalnya dengan CRC-32 tetapi dapat dihitung jauh lebih cepat dalam perangkat lunak."
   },
   "pkcs_kb": {
     "p1": {

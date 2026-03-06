@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -41,6 +41,38 @@ export const TOOLS: Tool[] = [
     href: '/passwords/hash',
     icon: 'Lock',
     category: 'Passwords',
+  },
+  {
+    id: 'random-key-gen',
+    nameKey: 'tools.random_key.name',
+    descriptionKey: 'tools.random_key.description',
+    href: '/generators/random-key',
+    icon: 'KeyRound',
+    category: 'Generators',
+  },
+  {
+    id: 'secure-token-gen',
+    nameKey: 'tools.secure_token.name',
+    descriptionKey: 'tools.secure_token.description',
+    href: '/generators/secure-token',
+    icon: 'Zap',
+    category: 'Generators',
+  },
+  {
+    id: 'crc32-checksum',
+    nameKey: 'tools.crc32.name',
+    descriptionKey: 'tools.crc32.description',
+    href: '/hashing/crc32',
+    icon: 'FileSearch',
+    category: 'Hashing',
+  },
+  {
+    id: 'adler32-checksum',
+    nameKey: 'tools.adler32.name',
+    descriptionKey: 'tools.adler32.description',
+    href: '/hashing/adler32',
+    icon: 'FileSearch',
+    category: 'Hashing',
   },
   {
     id: 'base64-encode',

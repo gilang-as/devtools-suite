@@ -158,7 +158,11 @@
     "jose": { "name": "JOSE (JWT/JWK)", "description": "Generate and verify JSON Web Tokens and Keys." },
     "openpgp": { "name": "OpenPGP Key Gen", "description": "Generate OpenPGP public/private key pairs." },
     "cose": { "name": "COSE (CBOR)", "description": "Encode and sign CBOR Object Signing and Encryption structures." },
-    "spki": { "name": "SPKI Formatter", "description": "Convert and format Subject Public Key Info structures." }
+    "spki": { "name": "SPKI Formatter", "description": "Convert and format Subject Public Key Info structures." },
+    "random_key": { "name": "Random Key Generator", "description": "Generate cryptographically secure random keys for encryption." },
+    "secure_token": { "name": "Secure Token Generator", "description": "Generate high-entropy tokens for API keys or session identifiers." },
+    "crc32": { "name": "CRC32 Checksum", "description": "Generate a 32-bit cyclic redundancy check for data integrity." },
+    "adler32": { "name": "Adler32 Checksum", "description": "Generate a fast Adler-32 checksum for data verification." }
   },
   "hints": {
     "bits": "Higher bit counts offer more security but slower processing. 2048 is standard; 4096 is high-security.",
@@ -263,7 +267,9 @@
       "title": "ChaCha20: Modern Stream Cipher",
       "desc": "ChaCha20 is a high-speed stream cipher that is often faster than AES on platforms without hardware acceleration.",
       "note": "Extensively used in TLS 1.3 and mobile communications."
-    }
+    },
+    "crc32": "CRC-32 is a cyclic redundancy check used to detect accidental changes to raw data. It is widely used in ZIP files and Ethernet frames. Note: It is NOT cryptographically secure.",
+    "adler32": "Adler-32 is a checksum algorithm which was invented by Mark Adler. It is almost as reliable as CRC-32 but can be computed much more quickly in software."
   },
   "pkcs_kb": {
     "p1": {
