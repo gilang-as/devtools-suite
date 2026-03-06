@@ -1,4 +1,3 @@
-
 {
   "common": {
     "title": "DevTools Suite",
@@ -8,6 +7,8 @@
     "clear": "Bersihkan",
     "encode": "Encode",
     "decode": "Decode",
+    "encrypt": "Encrypt",
+    "decrypt": "Decrypt",
     "generate": "Hasilkan",
     "download": "Unduh",
     "input": "Input",
@@ -50,7 +51,10 @@
     "placeholder_results": "Hasil akan muncul di sini...",
     "placeholder_waiting": "Menunggu input...",
     "best_practice": "Praktik Terbaik",
-    "try_tool": "Kunjungi"
+    "try_tool": "Kunjungi",
+    "mode": "Mode Operasi",
+    "iv": "Initialization Vector (IV)",
+    "key": "Kunci Enkripsi"
   },
   "home": {
     "heading": "Alat Pengembang",
@@ -68,6 +72,14 @@
     "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
+    "aes_encrypt": {
+      "name": "AES Encrypt",
+      "description": "Enkripsi teks dengan aman menggunakan algoritma AES (GCM, CBC, CTR)."
+    },
+    "aes_decrypt": {
+      "name": "AES Decrypt",
+      "description": "Dekripsi string terenkripsi AES kembali menjadi teks yang dapat dibaca."
+    },
     "base64_encode": {
       "name": "Base64 Encode",
       "description": "Encode string teks ke format Base64 dengan aman."
@@ -252,7 +264,10 @@
     "p7_content": "Pesan atau data yang ingin Anda tandatangani atau bungkus dalam kontainer PKCS#7.",
     "salt": "String unik yang ditambahkan ke kata sandi untuk mencegah serangan rainbow table yang dihitung sebelumnya.",
     "hmac_key": "Kunci privat yang digunakan untuk menandatangani pesan.",
-    "validity_years": "Jumlah tahun hingga sertifikat kedaluwarsa."
+    "validity_years": "Jumlah tahun hingga sertifikat kedaluwarsa.",
+    "aes_key": "Harus memiliki panjang 16, 24, atau 32 karakter (128, 192, atau 256 bit).",
+    "aes_iv": "Biasanya 16 karakter (128 bit). Digunakan untuk memastikan teks yang sama menghasilkan output berbeda.",
+    "aes_mode": "GCM direkomendasikan untuk keamanan modern karena menyediakan otentikasi. CBC adalah standar untuk sistem lama."
   },
   "kb": {
     "md5": "MD5 menghasilkan hash 128-bit. Cepat tetapi rusak secara kriptografis. Gunakan hanya untuk pemeriksaan integritas, jangan untuk keamanan atau kata sandi.",
@@ -278,7 +293,12 @@
       "desc": "Password-Based Key Derivation Function 2. Menerapkan fungsi pseudo-random (seperti HMAC-SHA256) berkali-kali untuk membuat brute-force lambat.",
       "note": "NIST merekomendasikan setidaknya 600.000 iterasi untuk PBKDF2-HMAC-SHA256."
     },
-    "hmac_general": "HMAC lebih unggul daripada hash sederhana untuk verifikasi karena meskipun penyerang mengubah pesan, mereka tidak dapat mereproduksi HMAC tanpa Kunci Rahasia Anda."
+    "hmac_general": "HMAC lebih unggul daripada hash sederhana untuk verifikasi karena meskipun penyerang mengubah pesan, mereka tidak dapat mereproduksi HMAC tanpa Kunci Rahasia Anda.",
+    "aes": {
+      "title": "AES: Standar Simetris",
+      "desc": "Advanced Encryption Standard adalah algoritma simetris yang paling banyak digunakan secara global. Ia menggunakan kunci yang sama untuk enkripsi dan dekripsi.",
+      "note": "Mode GCM lebih disukai karena memberikan kerahasiaan dan integritas (AEAD)."
+    }
   },
   "pkcs_kb": {
     "p1": {

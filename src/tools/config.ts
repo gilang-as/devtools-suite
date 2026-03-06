@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, ShieldEllipsis } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, ShieldEllipsis, ShieldPlus } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -177,6 +177,22 @@ export const TOOLS: Tool[] = [
     href: '/hashing/hmac-sha512',
     icon: 'KeyRound',
     category: 'Hashing',
+  },
+  {
+    id: 'aes-encrypt',
+    nameKey: 'tools.aes_encrypt.name',
+    descriptionKey: 'tools.aes_encrypt.description',
+    href: '/security/aes/encrypt',
+    icon: 'Lock',
+    category: 'Security',
+  },
+  {
+    id: 'aes-decrypt',
+    nameKey: 'tools.aes_decrypt.name',
+    descriptionKey: 'tools.aes_decrypt.description',
+    href: '/security/aes/decrypt',
+    icon: 'ShieldPlus',
+    category: 'Security',
   },
   {
     id: 'json-formatter',

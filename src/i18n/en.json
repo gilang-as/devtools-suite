@@ -1,4 +1,3 @@
-
 {
   "common": {
     "title": "DevTools Suite",
@@ -8,6 +7,8 @@
     "clear": "Clear",
     "encode": "Encode",
     "decode": "Decode",
+    "encrypt": "Encrypt",
+    "decrypt": "Decrypt",
     "generate": "Generate",
     "download": "Download",
     "input": "Input",
@@ -50,7 +51,10 @@
     "placeholder_results": "Results will appear here...",
     "placeholder_waiting": "Waiting for input...",
     "best_practice": "Best Practice",
-    "try_tool": "Try Tool"
+    "try_tool": "Try Tool",
+    "mode": "Operation Mode",
+    "iv": "Initialization Vector (IV)",
+    "key": "Encryption Key"
   },
   "home": {
     "heading": "Developer Tools",
@@ -68,6 +72,14 @@
     "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
+    "aes_encrypt": {
+      "name": "AES Encrypt",
+      "description": "Securely encrypt text using AES algorithms (GCM, CBC, CTR)."
+    },
+    "aes_decrypt": {
+      "name": "AES Decrypt",
+      "description": "Decrypt AES-encrypted strings back into readable text."
+    },
     "base64_encode": {
       "name": "Base64 Encode",
       "description": "Encode text strings into Base64 format safely."
@@ -252,7 +264,10 @@
     "p7_content": "The message or data you want to sign or wrap in the PKCS#7 container.",
     "salt": "A unique string added to the password to prevent pre-computed rainbow table attacks.",
     "hmac_key": "The private key used to sign the message.",
-    "validity_years": "Number of years until the certificate expires."
+    "validity_years": "Number of years until the certificate expires.",
+    "aes_key": "Must be 16, 24, or 32 characters long (128, 192, or 256 bits).",
+    "aes_iv": "Usually 16 characters (128 bits). Used to ensure the same plaintext encrypts to different ciphertext.",
+    "aes_mode": "GCM is recommended for modern security as it provides authentication. CBC is standard for legacy systems."
   },
   "kb": {
     "md5": "MD5 produces a 128-bit hash. It's fast but cryptographically broken. Use only for integrity checks, never for security or passwords.",
@@ -278,7 +293,12 @@
       "desc": "Password-Based Key Derivation Function 2. It applies a pseudo-random function (like HMAC-SHA256) many times to make brute-force slow.",
       "note": "NIST recommends at least 600,000 iterations for PBKDF2-HMAC-SHA256."
     },
-    "hmac_general": "HMAC is superior to a simple hash for verification because even if an attacker changes the message, they cannot reproduce the HMAC without your Secret Key."
+    "hmac_general": "HMAC is superior to a simple hash for verification because even if an attacker changes the message, they cannot reproduce the HMAC without your Secret Key.",
+    "aes": {
+      "title": "AES: Symmetric Standard",
+      "desc": "Advanced Encryption Standard is the most widely used symmetric algorithm globally. It uses the same key for both encryption and decryption.",
+      "note": "GCM mode is preferred because it provides both confidentiality and integrity (AEAD)."
+    }
   },
   "pkcs_kb": {
     "p1": {
