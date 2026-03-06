@@ -147,6 +147,8 @@
     "json_to_ts": { "name": "JSON to TypeScript", "description": "Konversi objek JSON ke definisi interface atau tipe TypeScript." },
     "json_to_yaml": { "name": "JSON ke YAML", "description": "Konversi data JSON ke format YAML secara instan." },
     "yaml_to_json": { "name": "YAML ke JSON", "description": "Konversi data YAML ke format JSON secara instan." },
+    "csv_to_json": { "name": "CSV ke JSON", "description": "Konversi data tabel CSV ke array JSON terstruktur." },
+    "json_to_csv": { "name": "JSON ke CSV", "description": "Konversi data JSON terstruktur menjadi file CSV yang dapat diunduh." },
     "uuid_v4": { "name": "UUID v4 Generator", "description": "Hasilkan Universally Unique Identifier acak (v4)." },
     "uuid_v1": { "name": "UUID v1 Generator", "description": "Hasilkan Universally Unique Identifier berbasis waktu (v1)." },
     "uuid_v7": { "name": "UUID v7 Generator", "description": "Hasilkan Universally Unique Identifier terurut waktu (v7)." },
@@ -161,7 +163,7 @@
     "csr_decode": { "name": "CSR Decoder", "description": "Lihat detail dari file PEM Certificate Signing Request (CSR)." },
     "pem_der_converter": { "name": "PEM ↔ DER Converter", "description": "Konversi file keamanan antara format PEM (Base64) dan DER (Biner)." },
     "asn1": { "name": "ASN.1 Inspector", "description": "Decode dan visualisasikan struktur ASN.1 dari DER atau Base64." },
-    "jose": { "name": "JOSE (JWT/JWK)", "description": "Hasilkan dan verifikasi JSON Web Tokens dan Keys." },
+    "jose": { "name": "JOSE (JWT/JWK)", "description": "Hasilkan dan verifikasi JSON Web Tokens and Keys." },
     "openpgp": { "name": "OpenPGP Key Gen", "description": "Hasilkan pasangan kunci publik/privat OpenPGP." },
     "cose": { "name": "COSE (CBOR)", "description": "Encode dan tanda tangani struktur CBOR Object Signing and Encryption." },
     "spki": { "name": "SPKI Formatter", "description": "Konversi dan format struktur Subject Public Key Info." },
@@ -377,7 +379,7 @@
       "s1_item3": "Status Sidebar: Cookie kecil yang digunakan untuk mengingat pengaturan tata letak.",
       "s2_title": "2. Mengapa kami tidak menampilkan banner",
       "s2_desc": "Menurut hukum privasi global, persetujuan eksplisit biasanya diperlukan untuk pelacakan non-esensial. Karena penyimpanan data kami sepenuhnya fungsional dan penting, banner pop-up yang mengganggu tidak diwajibkan secara hukum.",
-      "s3_title": "3. Mengelola data Anda",
+      "s3_title": "3. Managing your data",
       "s3_desc": "Anda dapat menghapus preferensi ini kapan saja dengan menghapus data situs di browser Anda."
     }
   }

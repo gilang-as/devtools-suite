@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -624,6 +624,22 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.yaml_to_json.description',
     href: '/yaml/to-json',
     icon: 'FileText',
+    category: 'Conversion',
+  },
+  {
+    id: 'csv-to-json',
+    nameKey: 'tools.csv_to_json.name',
+    descriptionKey: 'tools.csv_to_json.description',
+    href: '/csv/to-json',
+    icon: 'Table2',
+    category: 'Conversion',
+  },
+  {
+    id: 'json-to-csv',
+    nameKey: 'tools.json_to_csv.name',
+    descriptionKey: 'tools.json_to_csv.description',
+    href: '/json/to-csv',
+    icon: 'FileSpreadsheet',
     category: 'Conversion',
   },
   {
