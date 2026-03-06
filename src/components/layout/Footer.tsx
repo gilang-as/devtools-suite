@@ -38,6 +38,9 @@ export default function Footer() {
     { id: 'mocha', name: 'Catppuccin Mocha' },
   ];
 
+  const standardSchemes = schemes.filter(s => s.id === 'default');
+  const catppuccinFlavors = schemes.filter(s => s.id !== 'default');
+
   return (
     <footer className="w-full border-t bg-card mt-auto pt-12 pb-8">
       <div className="container mx-auto max-w-7xl px-4">
@@ -95,9 +98,25 @@ export default function Footer() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel className="text-xs font-bold uppercase tracking-wider opacity-50">Choose Scheme</DropdownMenuLabel>
+                  <DropdownMenuLabel className="text-xs font-bold uppercase tracking-wider opacity-50">Choose Color</DropdownMenuLabel>
+                  
                   <DropdownMenuSeparator />
-                  {schemes.map((s) => (
+                  
+                  {standardSchemes.map((s) => (
+                    <DropdownMenuItem 
+                      key={s.id}
+                      onClick={() => setColorScheme(s.id)} 
+                      className="justify-between cursor-pointer"
+                    >
+                      {s.name}
+                      {colorScheme === s.id && <Check className="h-3.5 w-3.5 text-primary" />}
+                    </DropdownMenuItem>
+                  ))}
+
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Catppuccin Flavors</DropdownMenuLabel>
+                  
+                  {catppuccinFlavors.map((s) => (
                     <DropdownMenuItem 
                       key={s.id}
                       onClick={() => setColorScheme(s.id)} 
