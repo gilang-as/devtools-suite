@@ -1,3 +1,4 @@
+
 import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe, SearchCode, Sparkles } from 'lucide-react';
 
 export interface Tool {
@@ -10,6 +11,14 @@ export interface Tool {
 }
 
 export const TOOLS: Tool[] = [
+  {
+    id: 'color-converter',
+    nameKey: 'tools.color_converter.name',
+    descriptionKey: 'tools.color_converter.description',
+    href: '/colors/converter',
+    icon: 'Palette',
+    category: 'Conversion',
+  },
   {
     id: 'unix-converter',
     nameKey: 'tools.unix_timestamp_converter.name',

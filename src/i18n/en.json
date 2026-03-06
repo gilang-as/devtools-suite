@@ -1,3 +1,4 @@
+
 {
   "common": {
     "title": "DevTools Suite",
@@ -76,6 +77,7 @@
     "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
+    "color_converter": { "name": "Color Converter", "description": "Convert between HEX, RGB, and HSL color formats with a live preview." },
     "regex_tester": { "name": "Regex Tester", "description": "Test and debug regular expressions with live highlighting and detailed match info." },
     "regex_generator": { "name": "Regex AI Generator", "description": "Generate complex regular expressions from natural language descriptions using AI." },
     "unix_timestamp_converter": { "name": "Unix Timestamp Converter", "description": "Convert Unix seconds/milliseconds to human-readable dates." },
@@ -315,8 +317,8 @@
       "title": "PKCS#8: Private-Key Information",
       "desc": "A generic syntax for private keys that supports multiple algorithms (RSA, EC, etc.).",
       "i1_label": "Algorithm Agnostic",
-      "i1_text": "Unlike PKCS#1, it wraps the key with an OID that identifies the algorithm.",
-      "i2_label": "Encryption",
+      "i1_text": "Berbeda dengan PKCS#1, ini membungkus kunci dengan OID yang mengidentifikasi algoritma.",
+      "i2_label": "Enkripsi",
       "i2_text": "Can optionally be encrypted (EncryptedPrivateKeyInfo) with a password."
     },
     "p10": {
