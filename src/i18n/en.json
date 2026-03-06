@@ -76,6 +76,12 @@
     "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
+    "unix_timestamp_converter": { "name": "Unix Timestamp Converter", "description": "Convert Unix seconds/milliseconds to human-readable dates." },
+    "unix_timestamp_generator": { "name": "Unix Timestamp Generator", "description": "Generate current and future Unix timestamps instantly." },
+    "cron_parser": { "name": "Cron Expression Parser", "description": "Translate complex cron strings into readable human language." },
+    "cron_generator": { "name": "Cron Expression Generator", "description": "Build custom cron schedules using a simple visual interface." },
+    "timezone_converter": { "name": "Time Zone Converter", "description": "Convert times across multiple global zones using current standards." },
+    "iso8601_formatter": { "name": "ISO8601 Formatter", "description": "Generate and format standard ISO8601/UTC date strings." },
     "text_obfuscator": { "name": "Text Obfuscator", "description": "Scramble and hide readable text using reversible algorithms." },
     "js_obfuscator": { "name": "JavaScript Obfuscator", "description": "Protect your source code by making it difficult to read and reverse-engineer." },
     "rot13": { "name": "ROT13 Encode / Decode", "description": "Rotate letters by 13 places using the classic Caesar substitution cipher." },

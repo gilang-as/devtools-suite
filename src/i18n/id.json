@@ -76,6 +76,12 @@
     "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
+    "unix_timestamp_converter": { "name": "Konverter Unix Timestamp", "description": "Konversi detik/milidetik Unix ke tanggal yang dapat dibaca manusia." },
+    "unix_timestamp_generator": { "name": "Generator Unix Timestamp", "description": "Hasilkan timestamp Unix saat ini dan masa depan secara instan." },
+    "cron_parser": { "name": "Parser Ekspresi Cron", "description": "Terjemahkan string cron yang kompleks ke dalam bahasa manusia yang mudah dibaca." },
+    "cron_generator": { "name": "Generator Ekspresi Cron", "description": "Bangun jadwal cron khusus menggunakan antarmuka visual yang sederhana." },
+    "timezone_converter": { "name": "Konverter Zona Waktu", "description": "Konversi waktu di berbagai zona global menggunakan standar saat ini." },
+    "iso8601_formatter": { "name": "Formatter ISO8601", "description": "Hasilkan dan format string tanggal standar ISO8601/UTC." },
     "text_obfuscator": { "name": "Text Obfuscator", "description": "Acak dan sembunyikan teks yang dapat dibaca menggunakan algoritma yang dapat dibalik." },
     "js_obfuscator": { "name": "JavaScript Obfuscator", "description": "Lindungi kode sumber Anda dengan membuatnya sulit dibaca dan direkayasa balik." },
     "rot13": { "name": "ROT13 Encode / Decode", "description": "Putar huruf sebanyak 13 tempat menggunakan cipher substitusi Caesar klasik." },
@@ -167,7 +173,7 @@
     "pkcs_x509": { "name": "X.509 Certificate", "description": "Hasilkan sertifikat X.509 self-signed." },
     "certificate_decode": { "name": "SSL Certificate Decoder", "description": "Decode sertifikat SSL/TLS PEM untuk melihat Subjek, Penerbit, dan Validitas." },
     "csr_decode": { "name": "CSR Decoder", "description": "Lihat detail dari file PEM Certificate Signing Request (CSR)." },
-    "pem_der_converter": { "name": "PEM ↔ DER Converter", "description": "Konversi file keamanan antara format PEM (Base64) dan DER (Biner)." },
+    "pem_der_converter": { "name": "PEM ↔ DER Converter", "description": "Konversi file keamanan antara format PEM (Base64) and DER (Biner)." },
     "asn1": { "name": "ASN.1 Inspector", "description": "Decode dan visualisasikan struktur ASN.1 dari DER atau Base64." },
     "jose": { "name": "JOSE (JWT/JWK)", "description": "Hasilkan dan verifikasi JSON Web Tokens and Keys." },
     "openpgp": { "name": "OpenPGP Key Gen", "description": "Hasilkan pasangan kunci publik/privat OpenPGP." },
@@ -274,7 +280,7 @@
     },
     "3des": {
       "title": "3DES: Keamanan Tiga Lapis",
-      "desc": "Triple DES menjalankan algoritma DES tiga kali dengan kunci berbeda. Ini adalah jembatan antara DES dan AES.",
+      "desc": "Triple DES menjalankan algoritma DES tiga kali dengan kunci berbeda. Ini adalah jembatan antara DES and AES.",
       "note": "Dianggap warisan tetapi masih terlihat di perbankan dan kartu pintar."
     },
     "chacha20": {

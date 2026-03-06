@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -6,10 +6,58 @@ export interface Tool {
   descriptionKey: string;
   href: string;
   icon: string;
-  category: 'Encoding' | 'Encryption' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing' | 'Passwords' | 'Obfuscation';
+  category: 'Encoding' | 'Encryption' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing' | 'Passwords' | 'Obfuscation' | 'DateTime';
 }
 
 export const TOOLS: Tool[] = [
+  {
+    id: 'unix-converter',
+    nameKey: 'tools.unix_timestamp_converter.name',
+    descriptionKey: 'tools.unix_timestamp_converter.description',
+    href: '/datetime/unix-converter',
+    icon: 'Clock',
+    category: 'DateTime',
+  },
+  {
+    id: 'unix-generator',
+    nameKey: 'tools.unix_timestamp_generator.name',
+    descriptionKey: 'tools.unix_timestamp_generator.description',
+    href: '/datetime/unix-generator',
+    icon: 'Zap',
+    category: 'DateTime',
+  },
+  {
+    id: 'cron-parser',
+    nameKey: 'tools.cron_parser.name',
+    descriptionKey: 'tools.cron_parser.description',
+    href: '/datetime/cron-parser',
+    icon: 'CalendarClock',
+    category: 'DateTime',
+  },
+  {
+    id: 'cron-generator',
+    nameKey: 'tools.cron_generator.name',
+    descriptionKey: 'tools.cron_generator.description',
+    href: '/datetime/cron-generator',
+    icon: 'Wand2',
+    category: 'DateTime',
+  },
+  {
+    id: 'timezone-converter',
+    nameKey: 'tools.timezone_converter.name',
+    descriptionKey: 'tools.timezone_converter.description',
+    href: '/datetime/timezone-converter',
+    icon: 'Globe',
+    category: 'DateTime',
+  },
+  {
+    id: 'iso8601-formatter',
+    nameKey: 'tools.iso8601_formatter.name',
+    descriptionKey: 'tools.iso8601_formatter.description',
+    href: '/datetime/iso8601',
+    icon: 'FileText',
+    category: 'DateTime',
+  },
   {
     id: 'password-generator',
     nameKey: 'tools.password_generator.name',
