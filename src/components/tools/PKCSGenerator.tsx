@@ -7,10 +7,10 @@ import { useTranslation } from '@/components/providers/i18n-provider';
 import { generatePKCS, PKCSVersion, PKCSResult } from '@/lib/pkcs';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ShieldCheck, Copy, Trash2, Download, RefreshCcw, Loader2 } from 'lucide-react';
+import { ShieldCheck, Copy, Trash2, Download, RefreshCcw, Loader2, Key, FileText, Lock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
@@ -29,11 +29,19 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
   const [bits, setBits] = useState(2048);
   const [commonName, setCommonName] = useState('example.com');
   const [password, setPassword] = useState('password');
+  const [org, setOrg] = useState('DevTools Suite');
+  const [unit, setUnit] = useState('Engineering');
 
   const handleGenerate = async () => {
     setLoading(true);
     try {
-      const res = await generatePKCS(version, { bits, commonName, password });
+      const res = await generatePKCS(version, { 
+        bits, 
+        commonName, 
+        password,
+        organization: org,
+        unit: unit
+      });
       setResult(res);
     } catch (e: any) {
       toast({
@@ -47,15 +55,15 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
   };
 
   useEffect(() => {
-    // Optional: auto-generate on load if simple
     if (version === 'p1' || version === 'p8') {
       handleGenerate();
+    } else {
+      setResult(null);
     }
   }, [version]);
 
-  const copyToClipboard = () => {
-    if (!result?.content) return;
-    navigator.clipboard.writeText(result.content);
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
     toast({
       title: t('common.copied'),
     });
@@ -92,7 +100,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 py-6">
+    <div className="max-w-6xl mx-auto space-y-8 py-6">
       <div className="flex items-center gap-4 mb-4">
         <div className="bg-primary/10 p-2 rounded-xl text-primary">
           <ShieldCheck className="h-8 w-8" />
@@ -121,10 +129,15 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card className="border-border shadow-md md:col-span-1 h-fit">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Options Column */}
+        <Card className="lg:col-span-4 border-border shadow-md h-fit">
           <CardHeader>
-            <CardTitle className="text-lg">Options</CardTitle>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <RefreshCcw className="h-4 w-4 text-primary" />
+              {t('common.generate')}
+            </CardTitle>
+            <CardDescription>Configure your security parameters</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-1.5">
@@ -138,6 +151,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                 min={1024}
               />
             </div>
+            
             {(version === 'p10' || version === 'p12') && (
               <div className="space-y-1.5">
                 <Label htmlFor="cn">Common Name (CN)</Label>
@@ -149,6 +163,28 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                 />
               </div>
             )}
+
+            {version === 'p10' && (
+              <>
+                <div className="space-y-1.5">
+                  <Label htmlFor="org">Organization (O)</Label>
+                  <Input 
+                    id="org" 
+                    value={org} 
+                    onChange={(e) => setOrg(e.target.value)}
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="unit">Organizational Unit (OU)</Label>
+                  <Input 
+                    id="unit" 
+                    value={unit} 
+                    onChange={(e) => setUnit(e.target.value)}
+                  />
+                </div>
+              </>
+            )}
+
             {version === 'p12' && (
               <div className="space-y-1.5">
                 <Label htmlFor="pass">PFX Password</Label>
@@ -160,58 +196,93 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                 />
               </div>
             )}
-            <Button onClick={handleGenerate} className="w-full" disabled={loading}>
+
+            {version === 'p7' && (
+              <div className="space-y-1.5">
+                <Label htmlFor="content">Sample Content to Wrap</Label>
+                <Textarea 
+                  id="content"
+                  placeholder="Hello, PKCS#7!"
+                  className="h-20"
+                />
+              </div>
+            )}
+
+            <Button onClick={handleGenerate} className="w-full mt-2" disabled={loading}>
               {loading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <RefreshCcw className="h-4 w-4 mr-2" />}
               {t('common.generate')}
             </Button>
           </CardContent>
         </Card>
 
-        <Card className="border-border shadow-lg md:col-span-2 flex flex-col">
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-lg">{t('common.output')}</CardTitle>
-            <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={handleDownload}
-                disabled={!result}
-                className="h-8 text-xs"
-              >
-                <Download className="h-3 w-3 mr-1.5" />
-                {t('common.download')}
+        {/* Specialized Output Column */}
+        <div className="lg:col-span-8 space-y-4">
+          <div className="flex items-center justify-between px-1">
+            <h2 className="text-xl font-semibold flex items-center gap-2">
+              <FileText className="h-5 w-5 text-primary" />
+              {t('common.output')}
+            </h2>
+            {result && (
+              <Button variant="ghost" size="sm" onClick={() => setResult(null)} className="text-muted-foreground">
+                <Trash2 className="h-4 w-4 mr-2" />
+                {t('common.clear')}
               </Button>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={copyToClipboard}
-                disabled={!result}
-                className="h-8 text-xs"
-              >
-                <Copy className="h-3 w-3 mr-1.5" />
-                {t('common.copy')}
+            )}
+          </div>
+
+          {!result ? (
+            <Card className="border-dashed border-2 flex flex-col items-center justify-center py-20 text-muted-foreground bg-muted/10">
+              <ShieldCheck className="h-12 w-12 opacity-20 mb-4" />
+              <p>Generated results will appear here</p>
+              <Button variant="link" onClick={handleGenerate} className="mt-2">
+                Click to generate now
               </Button>
-              <Button 
-                variant="outline" 
-                size="icon" 
-                className="h-8 w-8" 
-                onClick={() => setResult(null)} 
-                title={t('common.clear')}
-                disabled={!result}
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+            </Card>
+          ) : (
+            <div className="space-y-6">
+              {/* Actions Header */}
+              <div className="flex gap-2">
+                <Button onClick={handleDownload} className="flex-1 shadow-md" variant="secondary">
+                  <Download className="h-4 w-4 mr-2" />
+                  {t('common.download')} {version === 'p12' ? '.p12' : '.pem'}
+                </Button>
+                <Button onClick={() => copyToClipboard(result.content)} variant="outline" className="flex-1">
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copy Full Payload
+                </Button>
+              </div>
+
+              {/* Dynamic Parts Form */}
+              <div className="grid grid-cols-1 gap-4">
+                {result.parts && Object.entries(result.parts).map(([label, val]) => (
+                  <Card key={label} className="border-border shadow-sm overflow-hidden">
+                    <CardHeader className="py-3 px-4 bg-secondary/30 flex flex-row items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        {label.includes('Private') ? <Lock className="h-4 w-4 text-orange-500" /> : <Key className="h-4 w-4 text-blue-500" />}
+                        <CardTitle className="text-sm font-bold uppercase tracking-wider">{label}</CardTitle>
+                      </div>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-7 w-7 p-0" 
+                        onClick={() => copyToClipboard(val)}
+                      >
+                        <Copy className="h-3.5 w-3.5" />
+                      </Button>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                      <Textarea
+                        readOnly
+                        className="font-code text-[10px] sm:text-xs min-h-[120px] bg-transparent border-none focus-visible:ring-0 rounded-none resize-none leading-relaxed"
+                        value={val}
+                      />
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
-          </CardHeader>
-          <CardContent className="flex-1">
-            <Textarea
-              readOnly
-              placeholder="Result will appear here..."
-              className="font-code min-h-[400px] h-full bg-secondary/30 resize-none text-xs"
-              value={result?.content || ''}
-            />
-          </CardContent>
-        </Card>
+          )}
+        </div>
       </div>
     </div>
   );
