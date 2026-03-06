@@ -4,6 +4,7 @@
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '@/components/providers/i18n-provider';
+import { useTheme, type ColorScheme } from '@/components/providers/theme-provider';
 import { TOOLS } from '@/tools/config';
 import {
   Dialog,
@@ -14,16 +15,25 @@ import {
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
-import { Search, Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, ChevronRight, FileBadge, Type, Network } from 'lucide-react';
+import { 
+  Search, Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, 
+  LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, 
+  Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, 
+  ChevronRight, FileBadge, Type, Network, Sun, Moon, Monitor, Sparkles
+} from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const iconMap: Record<string, any> = {
-  Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge, Type, Network
+  Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, 
+  Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, 
+  FileKey, Lock, ShieldAlert, Zap, FileBadge, Type, Network, Sun, Moon, 
+  Monitor, Sparkles
 };
 
 export default function CommandMenu() {
   const router = useRouter();
   const { t } = useTranslation();
+  const { setTheme, setColorScheme } = useTheme();
   const [open, setOpen] = React.useState(false);
   const [query, setQuery] = React.useState('');
   const [selectedIndex, setSelectedIndex] = React.useState(0);
@@ -31,16 +41,48 @@ export default function CommandMenu() {
   
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
+  // Appearance Actions
+  const appearanceActions = [
+    { id: 'mode-light', name: 'Switch to Light Mode', desc: 'Change appearance to light', icon: 'Sun', category: 'Appearance', action: () => setTheme('light') },
+    { id: 'mode-dark', name: 'Switch to Dark Mode', desc: 'Change appearance to dark', icon: 'Moon', category: 'Appearance', action: () => setTheme('dark') },
+    { id: 'mode-system', name: 'Switch to System Mode', desc: 'Follow system appearance settings', icon: 'Monitor', category: 'Appearance', action: () => setTheme('system') },
+  ];
+
+  // Color Scheme Actions
+  const colorActions = [
+    { id: 'theme-default', name: 'Default Blue Theme', desc: 'Classic professional blue', icon: 'Palette', category: 'Theme', action: () => setColorScheme('default') },
+    { id: 'theme-latte', name: 'Catppuccin Latte', desc: 'Light and airy palette', icon: 'Sparkles', category: 'Theme', action: () => setColorScheme('latte') },
+    { id: 'theme-frappe', name: 'Catppuccin Frappé', desc: 'Low-contrast dark theme', icon: 'Sparkles', category: 'Theme', action: () => setColorScheme('frappe') },
+    { id: 'theme-macchiato', name: 'Catppuccin Macchiato', desc: 'Medium-contrast dark theme', icon: 'Sparkles', category: 'Theme', action: () => setColorScheme('macchiato') },
+    { id: 'theme-mocha', name: 'Catppuccin Mocha', desc: 'High-contrast dark theme', icon: 'Sparkles', category: 'Theme', action: () => setColorScheme('mocha') },
+    { id: 'theme-spring', name: 'Spring Theme', desc: 'Fresh greens and pinks', icon: 'Palette', category: 'Theme', action: () => setColorScheme('spring') },
+    { id: 'theme-summer', name: 'Summer Theme', desc: 'Vibrant blues and yellows', icon: 'Palette', category: 'Theme', action: () => setColorScheme('summer') },
+    { id: 'theme-fall', name: 'Fall Theme', desc: 'Warm oranges and browns', icon: 'Palette', category: 'Theme', action: () => setColorScheme('fall') },
+    { id: 'theme-winter', name: 'Winter Theme', desc: 'Cool icy blues and greys', icon: 'Palette', category: 'Theme', action: () => setColorScheme('winter') },
+    { id: 'theme-sakura', name: 'Sakura Theme', desc: 'Japanese cherry blossom pinks', icon: 'Palette', category: 'Theme', action: () => setColorScheme('sakura') },
+    { id: 'theme-china', name: 'China Theme', desc: 'Imperial red and gold', icon: 'Palette', category: 'Theme', action: () => setColorScheme('china') },
+  ];
+
   const categories = React.useMemo(() => {
-    return Array.from(new Set(TOOLS.map(t => t.category))).sort();
+    const cats = new Set([...TOOLS.map(t => t.category), 'Appearance', 'Theme']);
+    return Array.from(cats).sort();
   }, []);
 
-  const filteredTools = React.useMemo(() => {
-    return TOOLS.filter(tool => {
+  const filteredItems = React.useMemo(() => {
+    const allItems = [
+      ...appearanceActions.map(a => ({ ...a, nameKey: a.name, descriptionKey: a.desc, isAction: true })),
+      ...colorActions.map(c => ({ ...c, nameKey: c.name, descriptionKey: c.desc, isAction: true })),
+      ...TOOLS.map(t => ({ ...t, isAction: false }))
+    ];
+
+    return allItems.filter(item => {
+      const name = item.isAction ? item.nameKey : t(item.nameKey);
+      const desc = item.isAction ? item.descriptionKey : t(item.descriptionKey);
+      
       const matchesQuery = 
-        t(tool.nameKey).toLowerCase().includes(query.toLowerCase()) ||
-        t(tool.descriptionKey).toLowerCase().includes(query.toLowerCase());
-      const matchesCategory = !category || tool.category === category;
+        name.toLowerCase().includes(query.toLowerCase()) ||
+        desc.toLowerCase().includes(query.toLowerCase());
+      const matchesCategory = !category || item.category === category;
       return matchesQuery && matchesCategory;
     });
   }, [query, category, t]);
@@ -56,12 +98,10 @@ export default function CommandMenu() {
     return () => document.removeEventListener('keydown', down);
   }, []);
 
-  // Reset selection when query or category changes
   React.useEffect(() => {
     setSelectedIndex(0);
   }, [query, category]);
 
-  // Scroll active item into view
   React.useEffect(() => {
     if (itemRefs.current[selectedIndex]) {
       itemRefs.current[selectedIndex]?.scrollIntoView({
@@ -71,25 +111,29 @@ export default function CommandMenu() {
     }
   }, [selectedIndex]);
 
-  const handleSelect = (tool: any) => {
-    router.push(tool.href);
+  const handleSelect = (item: any) => {
+    if (item.isAction && item.action) {
+      item.action();
+    } else if (item.href) {
+      router.push(item.href);
+    }
     setOpen(false);
     setQuery('');
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (filteredTools.length === 0) return;
+    if (filteredItems.length === 0) return;
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setSelectedIndex((prev) => (prev + 1) % filteredTools.length);
+      setSelectedIndex((prev) => (prev + 1) % filteredItems.length);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setSelectedIndex((prev) => (prev - 1 + filteredTools.length) % filteredTools.length);
+      setSelectedIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length);
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      if (filteredTools[selectedIndex]) {
-        handleSelect(filteredTools[selectedIndex]);
+      if (filteredItems[selectedIndex]) {
+        handleSelect(filteredItems[selectedIndex]);
       }
     }
   };
@@ -139,43 +183,47 @@ export default function CommandMenu() {
 
         <ScrollArea className="max-h-[400px] w-full overflow-hidden flex-1">
           <div className="p-2 flex flex-col gap-1 w-full overflow-hidden">
-            {filteredTools.length > 0 ? (
-              filteredTools.map((tool, index) => {
-                const Icon = iconMap[tool.icon] || Terminal;
+            {filteredItems.length > 0 ? (
+              filteredItems.map((item, index) => {
+                const Icon = iconMap[item.icon] || Terminal;
+                const isCurrentItem = index === selectedIndex;
+                const name = item.isAction ? item.nameKey : t(item.nameKey);
+                const desc = item.isAction ? item.descriptionKey : t(item.descriptionKey);
+
                 return (
                   <div
-                    key={tool.id}
+                    key={item.id}
                     ref={(el) => { itemRefs.current[index] = el; }}
                     className={cn(
                       "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer transition-all w-full overflow-hidden",
-                      index === selectedIndex ? "bg-primary text-primary-foreground shadow-lg" : "hover:bg-accent hover:text-accent-foreground"
+                      isCurrentItem ? "bg-primary text-primary-foreground shadow-lg" : "hover:bg-accent hover:text-accent-foreground"
                     )}
-                    onClick={() => handleSelect(tool)}
+                    onClick={() => handleSelect(item)}
                     onMouseEnter={() => setSelectedIndex(index)}
                   >
                     <div className={cn(
                       "p-2 rounded-md shrink-0",
-                      index === selectedIndex ? "bg-white/20" : "bg-primary/10 text-primary"
+                      isCurrentItem ? "bg-white/20" : "bg-primary/10 text-primary"
                     )}>
                       <Icon className="h-5 w-5" />
                     </div>
                     <div className="flex-1 min-w-0 overflow-hidden text-left">
-                      <p className="font-bold text-sm truncate w-full">{t(tool.nameKey)}</p>
+                      <p className="font-bold text-sm truncate w-full">{name}</p>
                       <p className={cn(
                         "text-xs truncate w-full",
-                        index === selectedIndex ? "text-primary-foreground/80" : "text-muted-foreground"
+                        isCurrentItem ? "text-primary-foreground/80" : "text-muted-foreground"
                       )}>
-                        {t(tool.descriptionKey)}
+                        {desc}
                       </p>
                     </div>
                     <div className="flex items-center gap-2 shrink-0 ml-2">
                       <Badge variant="secondary" className={cn(
                         "text-[10px] uppercase font-black",
-                        index === selectedIndex && "bg-white/20 text-white border-transparent"
+                        isCurrentItem && "bg-white/20 text-white border-transparent"
                       )}>
-                        {tool.category}
+                        {item.category}
                       </Badge>
-                      {index === selectedIndex && <ChevronRight className="h-4 w-4 shrink-0" />}
+                      {isCurrentItem && <ChevronRight className="h-4 w-4 shrink-0" />}
                     </div>
                   </div>
                 );
