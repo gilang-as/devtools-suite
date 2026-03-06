@@ -1,3 +1,4 @@
+
 {
   "common": {
     "title": "DevTools Suite",
@@ -76,7 +77,8 @@
     "total_hosts": "Total Hosts",
     "usable_hosts": "Usable Hosts",
     "wildcard_mask": "Wildcard Mask",
-    "binary_view": "Binary Representation"
+    "binary_view": "Binary Representation",
+    "color_scheme": "Color Scheme"
   },
   "home": {
     "heading": "Developer Tools",

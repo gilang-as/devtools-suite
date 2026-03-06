@@ -1,13 +1,23 @@
+
 "use client"
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { TOOLS } from '@/tools/config';
 import { useTranslation } from '@/components/providers/i18n-provider';
-import { Terminal } from 'lucide-react';
+import { useTheme } from '@/components/providers/theme-provider';
+import { Terminal, Palette, Check } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export default function Footer() {
   const { t } = useTranslation();
+  const { colorScheme, setColorScheme } = useTheme();
   const [year, setYear] = useState<number | null>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -45,18 +55,45 @@ export default function Footer() {
         </div>
 
         <div className="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-3">
-            <div className="bg-primary/10 p-1.5 rounded-lg text-primary">
-              <Terminal className="h-5 w-5" />
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3">
+              <div className="bg-primary/10 p-1.5 rounded-lg text-primary">
+                <Terminal className="h-5 w-5" />
+              </div>
+              <div>
+                <span className="font-headline font-bold text-lg tracking-tight block leading-none">
+                  {t('common.title')}
+                </span>
+                <span className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">
+                  Developer Toolbelt
+                </span>
+              </div>
             </div>
-            <div>
-              <span className="font-headline font-bold text-lg tracking-tight block leading-none">
-                {t('common.title')}
-              </span>
-              <span className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">
-                Developer Toolbelt
-              </span>
-            </div>
+
+            {mounted && (
+              <div className="h-8 w-px bg-border hidden sm:block" />
+            )}
+
+            {mounted && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="h-8 gap-2 rounded-full border-dashed px-4">
+                    <Palette className="h-3.5 w-3.5" />
+                    <span className="text-[10px] font-bold uppercase tracking-widest">
+                      {colorScheme === 'catppuccin' ? 'Catppuccin' : 'Default'}
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-40">
+                  <DropdownMenuItem onClick={() => setColorScheme('default')} className="justify-between">
+                    Default {colorScheme === 'default' && <Check className="h-3.5 w-3.5" />}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setColorScheme('catppuccin')} className="justify-between">
+                    Catppuccin {colorScheme === 'catppuccin' && <Check className="h-3.5 w-3.5" />}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
 
           <div className="flex flex-col items-center md:items-end gap-2 text-sm text-muted-foreground">
