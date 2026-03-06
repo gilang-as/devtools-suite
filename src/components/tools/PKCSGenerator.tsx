@@ -34,7 +34,8 @@ import {
   FileText, 
   Lock,
   Info,
-  HelpCircle
+  HelpCircle,
+  FileBadge
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -57,6 +58,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
   const [password, setPassword] = useState('password');
   const [org, setOrg] = useState('DevTools Suite');
   const [unit, setUnit] = useState('Engineering');
+  const [validityYears, setValidityYears] = useState(1);
 
   const handleGenerate = async () => {
     setLoading(true);
@@ -67,7 +69,8 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
         commonName, 
         password,
         organization: org,
-        unit: unit
+        unit: unit,
+        years: validityYears
       });
       setResult(res);
     } catch (e: any) {
@@ -90,7 +93,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
       setAlgorithm('RSA-2048');
     }
     
-    if (version === 'p1' || version === 'p8') {
+    if (version === 'p1' || version === 'p8' || version === 'x509') {
       handleGenerate();
     } else {
       setResult(null);
@@ -115,7 +118,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
       ext = 'p12';
     } else {
       blob = new Blob([result.content], { type: 'text/plain' });
-      ext = 'pem';
+      ext = version === 'x509' ? 'crt' : 'pem';
     }
     
     const url = URL.createObjectURL(blob);
@@ -132,6 +135,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
     { name: 'PKCS#8', href: '/pkcs/p8' },
     { name: 'PKCS#10', href: '/pkcs/p10' },
     { name: 'PKCS#12', href: '/pkcs/p12' },
+    { name: 'X.509', href: '/pkcs/x509' },
   ];
 
   const bitPresets = ['1024', '2048', '3072', '4096'];
@@ -175,6 +179,15 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
       items: [
         { label: "Full Identity", text: "Includes the end-entity certificate, the private key, and the CA chain." },
         { label: "Security", text: "The container is always password-protected to secure the private key during transit." }
+      ]
+    },
+    x509: {
+      title: "X.509: Digital Certificates",
+      description: "The standard format for public key certificates used in HTTPS/TLS and other protocols.",
+      items: [
+        { label: "Self-Signed", text: "A certificate where the issuer and subject are the same. Used for internal testing." },
+        { label: "Validity", text: "Defines the 'notBefore' and 'notAfter' dates between which the certificate is considered valid." },
+        { label: "Extensions", text: "Additional metadata like Subject Alternative Name (SAN) for supporting multiple domains." }
       ]
     }
   }[version];
@@ -266,7 +279,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
               )}
 
               {/* Bit Length Selector */}
-              {(version === 'p1' || version === 'p8' || version === 'p10') && algorithm === 'RSA' && (
+              {(version === 'p1' || version === 'p8' || version === 'p10' || version === 'x509') && algorithm === 'RSA' && (
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Label htmlFor="bits">Key Length (bits)</Label>
@@ -301,7 +314,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                 </div>
               )}
               
-              {(version === 'p10' || version === 'p12') && (
+              {(version === 'p10' || version === 'p12' || version === 'x509') && (
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Label htmlFor="cn">Common Name (CN)</Label>
@@ -316,7 +329,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                 </div>
               )}
 
-              {version === 'p10' && (
+              {(version === 'p10' || version === 'x509') && (
                 <>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
@@ -341,6 +354,23 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                     />
                   </div>
                 </>
+              )}
+
+              {version === 'x509' && (
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Label htmlFor="years">Validity (Years)</Label>
+                    <InfoIcon content="How long the certificate should be valid for. Typical values are 1-2 years." />
+                  </div>
+                  <Input 
+                    id="years" 
+                    type="number"
+                    value={validityYears} 
+                    onChange={(e) => setValidityYears(parseInt(e.target.value) || 1)}
+                    min={1}
+                    max={10}
+                  />
+                </div>
               )}
 
               {version === 'p12' && (
@@ -427,7 +457,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
               <div className="flex gap-2">
                 <Button onClick={handleDownload} className="flex-1 shadow-md" variant="secondary">
                   <Download className="h-4 w-4 mr-2" />
-                  {t('common.download')} {version === 'p12' ? '.p12' : '.pem'}
+                  {t('common.download')} {version === 'p12' ? '.p12' : version === 'x509' ? '.crt' : '.pem'}
                 </Button>
                 <Button onClick={() => copyToClipboard(result.content)} variant="outline" className="flex-1">
                   <Copy className="h-4 w-4 mr-2" />
@@ -440,7 +470,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                   <Card key={label} className="border-border shadow-sm overflow-hidden">
                     <CardHeader className="py-3 px-4 bg-secondary/30 flex flex-row items-center justify-between">
                       <div className="flex items-center gap-2">
-                        {label.includes('Private') ? <Lock className="h-4 w-4 text-orange-500" /> : <Key className="h-4 w-4 text-blue-500" />}
+                        {label.includes('Private') || label.includes('Key') ? <Lock className="h-4 w-4 text-orange-500" /> : <FileBadge className="h-4 w-4 text-blue-500" />}
                         <CardTitle className="text-sm font-bold uppercase tracking-wider">{label}</CardTitle>
                       </div>
                       <Button 
@@ -455,7 +485,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                     <CardContent className="p-0">
                       <Textarea
                         readOnly
-                        className="font-code text-[10px] sm:text-xs min-h-[120px] bg-transparent border-none focus-visible:ring-0 rounded-none resize-none leading-relaxed"
+                        className="font-code text-[10px] sm:text-xs min-h-[150px] bg-transparent border-none focus-visible:ring-0 rounded-none resize-none leading-relaxed"
                         value={val}
                       />
                     </CardContent>

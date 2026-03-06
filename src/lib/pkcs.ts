@@ -1,6 +1,6 @@
 import forge from 'node-forge';
 
-export type PKCSVersion = 'p1' | 'p7' | 'p8' | 'p10' | 'p12';
+export type PKCSVersion = 'p1' | 'p7' | 'p8' | 'p10' | 'p12' | 'x509';
 
 export interface PKCSResult {
   content: string;
@@ -14,7 +14,6 @@ export async function generatePKCS(version: PKCSVersion, options: any = {}): Pro
 
   switch (version) {
     case 'p1': {
-      // PKCS#1 is strictly RSA
       const keys = rsa.generateKeyPair(options.bits || 2048);
       const privateKeyPem = pki.privateKeyToPem(keys.privateKey);
       const publicKeyPem = pki.publicKeyToPem(keys.publicKey);
@@ -29,8 +28,6 @@ export async function generatePKCS(version: PKCSVersion, options: any = {}): Pro
 
     case 'p8': {
       if (options.algorithm === 'ECDSA' || options.algorithm === 'Ed25519') {
-        // Mocked output for ECDSA/Ed25519 in browser (node-forge limited to RSA)
-        // In a real app, we'd use Web Crypto API for these algorithms.
         const mockKey = `-----BEGIN PRIVATE KEY-----\n[MOCKED ${options.algorithm} PRIVATE KEY CONTENT]\n-----END PRIVATE KEY-----`;
         return {
           content: mockKey,
@@ -41,7 +38,6 @@ export async function generatePKCS(version: PKCSVersion, options: any = {}): Pro
           }
         };
       }
-
       const keys = rsa.generateKeyPair(options.bits || 2048);
       const privateKeyPem = pki.privateKeyToPem(keys.privateKey); 
       return { 
@@ -74,6 +70,48 @@ export async function generatePKCS(version: PKCSVersion, options: any = {}): Pro
       };
     }
 
+    case 'x509': {
+      const keys = rsa.generateKeyPair(options.bits || 2048);
+      const cert = pki.createCertificate();
+      cert.publicKey = keys.publicKey;
+      cert.serialNumber = '01' + forge.util.bytesToHex(forge.random.getBytesSync(8));
+      cert.validity.notBefore = new Date();
+      cert.validity.notAfter = new Date();
+      cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + (options.years || 1));
+      
+      const attrs = [
+        { name: 'commonName', value: options.commonName || 'localhost' },
+        { name: 'countryName', value: options.country || 'US' },
+        { shortName: 'ST', value: options.state || 'California' },
+        { name: 'localityName', value: options.locality || 'Mountain View' },
+        { name: 'organizationName', value: options.organization || 'DevTools Suite' },
+        { shortName: 'OU', value: options.unit || 'Engineering' }
+      ];
+      cert.setSubject(attrs);
+      cert.setIssuer(attrs); // Self-signed
+      
+      cert.setExtensions([
+        { name: 'basicConstraints', cA: true },
+        { name: 'keyUsage', keyCertSign: true, digitalSignature: true, nonRepudiation: true, keyEncipherment: true, dataEncipherment: true },
+        { name: 'extKeyUsage', serverAuth: true, clientAuth: true, codeSigning: true, emailProtection: true, timeStamping: true },
+        { name: 'subjectAltName', altNames: [{ type: 2, value: options.commonName || 'localhost' }] },
+        { name: 'subjectKeyIdentifier' }
+      ]);
+      
+      cert.sign(keys.privateKey, forge.md.sha256.create());
+      
+      const certPem = pki.certificateToPem(cert);
+      const privPem = pki.privateKeyToPem(keys.privateKey);
+      
+      return {
+        content: certPem,
+        parts: {
+          'Certificate (PEM)': certPem,
+          'Private Key (PEM)': privPem
+        }
+      };
+    }
+
     case 'p7': {
       const p7 = forge.pkcs7.createSignedData();
       p7.content = forge.util.createBuffer(options.content || 'Sample signed content', 'utf8');
@@ -98,7 +136,6 @@ export async function generatePKCS(version: PKCSVersion, options: any = {}): Pro
           }
         };
       }
-
       const keys = rsa.generateKeyPair(options.bits || 2048);
       const cert = pki.createCertificate();
       cert.publicKey = keys.publicKey;
@@ -106,19 +143,15 @@ export async function generatePKCS(version: PKCSVersion, options: any = {}): Pro
       cert.validity.notBefore = new Date();
       cert.validity.notAfter = new Date();
       cert.validity.notAfter.setFullYear(cert.validity.notBefore.getFullYear() + 1);
-      
       const attrs = [{ name: 'commonName', value: options.commonName || 'example.com' }];
       cert.setSubject(attrs);
       cert.setIssuer(attrs);
       cert.sign(keys.privateKey);
-
       const p12Asn1 = forge.pkcs12.toPkcs12Asn1(keys.privateKey, [cert], options.password || 'password');
       const p12Der = forge.asn1.toDer(p12Asn1).getBytes();
       const p12B64 = forge.util.encode64(p12Der);
-      
       const binary = new Uint8Array(p12Der.length);
       for (let i = 0; i < p12Der.length; i++) binary[i] = p12Der.charCodeAt(i);
-
       return { 
         content: p12B64,
         binary,

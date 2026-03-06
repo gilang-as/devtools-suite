@@ -193,5 +193,13 @@ export const TOOLS: Tool[] = [
     href: '/pkcs/p12',
     icon: 'ShieldCheck',
     category: 'Security',
+  },
+  {
+    id: 'pkcs-x509',
+    nameKey: 'tools.pkcs_x509.name',
+    descriptionKey: 'tools.pkcs_x509.description',
+    href: '/pkcs/x509',
+    icon: 'ShieldCheck',
+    category: 'Security',
   }
 ];

@@ -151,6 +151,10 @@
     "pkcs_p12": {
       "name": "PKCS#12 (PFX)",
       "description": "Generate a PFX/P12 certificate container."
+    },
+    "pkcs_x509": {
+      "name": "X.509 Certificate",
+      "description": "Generate a self-signed X.509 certificate."
     }
   }
 }
