@@ -1,4 +1,4 @@
-import { Hash, KeyRound } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -6,7 +6,7 @@ export interface Tool {
   descriptionKey: string;
   href: string;
   icon: string;
-  category: 'Encoding' | 'Security' | 'Formatting';
+  category: 'Encoding' | 'Security' | 'Formatting' | 'Generators';
 }
 
 export const TOOLS: Tool[] = [
@@ -25,5 +25,37 @@ export const TOOLS: Tool[] = [
     href: '/base64/decode',
     icon: 'Hash',
     category: 'Encoding',
+  },
+  {
+    id: 'uuid-v4',
+    nameKey: 'tools.uuid_v4.name',
+    descriptionKey: 'tools.uuid_v4.description',
+    href: '/uuid/v4',
+    icon: 'Fingerprint',
+    category: 'Generators',
+  },
+  {
+    id: 'uuid-v1',
+    nameKey: 'tools.uuid_v1.name',
+    descriptionKey: 'tools.uuid_v1.description',
+    href: '/uuid/v1',
+    icon: 'Fingerprint',
+    category: 'Generators',
+  },
+  {
+    id: 'uuid-v7',
+    nameKey: 'tools.uuid_v7.name',
+    descriptionKey: 'tools.uuid_v7.description',
+    href: '/uuid/v7',
+    icon: 'Fingerprint',
+    category: 'Generators',
+  },
+  {
+    id: 'guid',
+    nameKey: 'tools.guid.name',
+    descriptionKey: 'tools.guid.description',
+    href: '/guid',
+    icon: 'Fingerprint',
+    category: 'Generators',
   }
 ];
