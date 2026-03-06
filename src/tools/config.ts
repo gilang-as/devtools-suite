@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2 } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -32,6 +32,22 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.json_formatter.description',
     href: '/json/formatter',
     icon: 'Braces',
+    category: 'Formatting',
+  },
+  {
+    id: 'js-formatter',
+    nameKey: 'tools.js_formatter.name',
+    descriptionKey: 'tools.js_formatter.description',
+    href: '/javascript/formatter',
+    icon: 'ScrollText',
+    category: 'Formatting',
+  },
+  {
+    id: 'ts-formatter',
+    nameKey: 'tools.ts_formatter.name',
+    descriptionKey: 'tools.ts_formatter.description',
+    href: '/typescript/formatter',
+    icon: 'Code2',
     category: 'Formatting',
   },
   {

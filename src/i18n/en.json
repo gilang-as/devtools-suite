@@ -51,6 +51,14 @@
       "name": "JSON Formatter",
       "description": "Clean, format, and minify your JSON data easily."
     },
+    "js_formatter": {
+      "name": "JS Formatter",
+      "description": "Clean, format, and minify your JavaScript code."
+    },
+    "ts_formatter": {
+      "name": "TS Formatter",
+      "description": "Clean, format, and minify your TypeScript code."
+    },
     "xml_formatter": {
       "name": "XML Formatter",
       "description": "Clean, format, and minify your XML documents."

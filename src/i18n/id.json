@@ -51,6 +51,14 @@
       "name": "Format JSON",
       "description": "Bersihkan, format, dan minifikasi data JSON Anda dengan mudah."
     },
+    "js_formatter": {
+      "name": "Format JS",
+      "description": "Bersihkan, format, dan minifikasi kode JavaScript Anda."
+    },
+    "ts_formatter": {
+      "name": "Format TS",
+      "description": "Bersihkan, format, dan minifikasi kode TypeScript Anda."
+    },
     "xml_formatter": {
       "name": "Format XML",
       "description": "Bersihkan, format, dan minifikasi dokumen XML Anda."

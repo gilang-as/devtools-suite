@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Tool } from '@/tools/config';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Hash, KeyRound, ChevronRight, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette } from 'lucide-react';
+import { Hash, KeyRound, ChevronRight, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2 } from 'lucide-react';
 
 const iconMap: Record<string, any> = {
   Hash,
@@ -15,6 +15,8 @@ const iconMap: Record<string, any> = {
   CodeXml,
   LayoutPanelLeft,
   Palette,
+  ScrollText,
+  Code2,
 };
 
 export default function ToolCard({ tool }: { tool: Tool }) {
