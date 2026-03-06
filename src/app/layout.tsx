@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider';
 import { I18nProvider } from '@/components/providers/i18n-provider';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import CommandMenu from '@/components/layout/CommandMenu';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
@@ -37,6 +38,7 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            <CommandMenu />
             <Toaster />
           </ThemeProvider>
         </I18nProvider>

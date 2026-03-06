@@ -15,7 +15,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
     
-    /* Primary (Brand Color) - A consistent professional blue */
+    /* Primary (Brand Color) - Consistent professional blue */
     --primary: 221 83% 53%;
     --primary-foreground: 210 40% 98%;
     
@@ -27,7 +27,7 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
     
-    /* Accent (Derived from Primary Blue hue, used for hover/selected states) */
+    /* Accent - Perfect tint of Primary Blue */
     --accent: 221 83% 94%; 
     --accent-foreground: 221 83% 30%;
     
@@ -68,7 +68,7 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     
-    /* Dark mode accent - subtle dark blue tint */
+    /* Dark mode accent - Deep blue tint */
     --accent: 217.2 91.2% 15%;
     --accent-foreground: 217.2 91.2% 90%;
     
@@ -99,19 +99,16 @@
     @apply bg-background text-foreground font-body antialiased;
   }
   
-  /* Link Standardization */
   a {
     @apply transition-colors duration-200 ease-in-out;
   }
   
-  /* Focused state standardization */
   :focus-visible {
     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
 }
 
 @layer components {
-  /* Common interactive patterns */
   .interactive-hover {
     @apply hover:bg-accent hover:text-accent-foreground transition-all;
   }
@@ -129,7 +126,6 @@ code, pre {
   font-family: 'Source Code Pro', monospace !important;
 }
 
-/* Smooth transitions for all theme changes */
 * {
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }

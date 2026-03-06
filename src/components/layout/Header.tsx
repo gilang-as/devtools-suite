@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -11,7 +12,8 @@ import {
   Monitor, 
   Languages,
   Menu,
-  X
+  X,
+  Search
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -46,11 +48,19 @@ export default function Header() {
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center gap-6">
-          <Link href="/" className="text-sm font-medium hover:text-primary transition-colors">
-            Home
-          </Link>
-        </nav>
+        <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
+          <Button 
+            variant="outline" 
+            className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4"
+            onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))}
+          >
+            <Search className="mr-2 h-4 w-4" />
+            <span className="flex-1 text-left">Search tools...</span>
+            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+              <span className="text-xs">⌘</span>K
+            </kbd>
+          </Button>
+        </div>
 
         <div className="flex items-center gap-2">
           <DropdownMenu>
@@ -111,9 +121,20 @@ export default function Header() {
       
       {isMenuOpen && (
         <div className="md:hidden border-t bg-background p-4 flex flex-col gap-4 animate-in slide-in-from-top-2">
+          <Button 
+            variant="outline" 
+            className="w-full justify-start h-11"
+            onClick={() => {
+              setIsMenuOpen(false);
+              window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
+            }}
+          >
+            <Search className="mr-2 h-4 w-4" />
+            Search tools...
+          </Button>
           <Link 
             href="/" 
-            className="text-sm font-medium hover:text-primary transition-colors py-2"
+            className="text-sm font-medium hover:text-primary transition-colors py-2 px-2"
             onClick={() => setIsMenuOpen(false)}
           >
             Home
