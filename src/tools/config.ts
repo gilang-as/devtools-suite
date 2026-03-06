@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -25,6 +25,14 @@ export const TOOLS: Tool[] = [
     href: '/base64/decode',
     icon: 'Hash',
     category: 'Encoding',
+  },
+  {
+    id: 'json-formatter',
+    nameKey: 'tools.json_formatter.name',
+    descriptionKey: 'tools.json_formatter.description',
+    href: '/json/formatter',
+    icon: 'Braces',
+    category: 'Formatting',
   },
   {
     id: 'uuid-v4',

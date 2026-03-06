@@ -20,7 +20,11 @@
     "quantity": "Jumlah",
     "single": "Satu",
     "bulk": "Massal",
-    "refresh": "Segarkan"
+    "refresh": "Segarkan",
+    "beautify": "Perindah",
+    "minify": "Minifikasi",
+    "upload": "Unggah File",
+    "error": "Kesalahan"
   },
   "home": {
     "heading": "Alat Pengembang",
@@ -34,6 +38,10 @@
     "base64_decode": {
       "name": "Dekode Base64",
       "description": "Dekode string Base64 kembali ke teks yang dapat dibaca."
+    },
+    "json_formatter": {
+      "name": "Format JSON",
+      "description": "Bersihkan, format, dan minifikasi data JSON Anda dengan mudah."
     },
     "uuid_v4": {
       "name": "Generator UUID v4",

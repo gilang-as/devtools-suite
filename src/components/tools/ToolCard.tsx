@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { Tool } from '@/tools/config';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Hash, KeyRound, ChevronRight } from 'lucide-react';
+import { Hash, KeyRound, ChevronRight, Fingerprint, Braces } from 'lucide-react';
 
 const iconMap: Record<string, any> = {
   Hash,
   KeyRound,
+  Fingerprint,
+  Braces,
 };
 
 export default function ToolCard({ tool }: { tool: Tool }) {

@@ -20,7 +20,11 @@
     "quantity": "Quantity",
     "single": "Single",
     "bulk": "Bulk",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "beautify": "Beautify",
+    "minify": "Minify",
+    "upload": "Upload File",
+    "error": "Error"
   },
   "home": {
     "heading": "Developer Tools",
@@ -34,6 +38,10 @@
     "base64_decode": {
       "name": "Base64 Decode",
       "description": "Decode Base64 strings back into readable text."
+    },
+    "json_formatter": {
+      "name": "JSON Formatter",
+      "description": "Clean, format, and minify your JSON data easily."
     },
     "uuid_v4": {
       "name": "UUID v4 Generator",
