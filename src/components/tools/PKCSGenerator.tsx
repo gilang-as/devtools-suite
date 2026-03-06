@@ -17,9 +17,22 @@ import {
   SelectTrigger, 
   SelectValue 
 } from '@/components/ui/select';
-import { ShieldCheck, Copy, Trash2, Download, RefreshCcw, Loader2, Key, FileText, Lock } from 'lucide-react';
+import { 
+  ShieldCheck, 
+  Copy, 
+  Trash2, 
+  Download, 
+  RefreshCcw, 
+  Loader2, 
+  Key, 
+  FileText, 
+  Lock,
+  Info,
+  HelpCircle
+} from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface PKCSGeneratorProps {
   version: PKCSVersion;
@@ -34,6 +47,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
   
   // Options
   const [bits, setBits] = useState(2048);
+  const [algorithm, setAlgorithm] = useState('RSA');
   const [commonName, setCommonName] = useState('example.com');
   const [password, setPassword] = useState('password');
   const [org, setOrg] = useState('DevTools Suite');
@@ -44,6 +58,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
     try {
       const res = await generatePKCS(version, { 
         bits, 
+        algorithm,
         commonName, 
         password,
         organization: org,
@@ -62,6 +77,15 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
   };
 
   useEffect(() => {
+    // Reset specific defaults based on version
+    if (version === 'p1') {
+      setAlgorithm('RSA');
+    } else if (version === 'p8') {
+      setAlgorithm('RSA');
+    } else if (version === 'p12') {
+      setAlgorithm('RSA-2048');
+    }
+    
     if (version === 'p1' || version === 'p8') {
       handleGenerate();
     } else {
@@ -140,107 +164,158 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Options Column */}
-        <Card className="lg:col-span-4 border-border shadow-md h-fit">
-          <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <RefreshCcw className="h-4 w-4 text-primary" />
-              {t('common.generate')}
-            </CardTitle>
-            <CardDescription>Configure your security parameters</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-1.5">
-              <Label htmlFor="bits">Key Length (bits)</Label>
-              <div className="flex gap-2">
-                <Select 
-                  value={bitPresets.includes(bits.toString()) ? bits.toString() : 'custom'} 
-                  onValueChange={(val) => {
-                    if (val !== 'custom') setBits(parseInt(val));
-                  }}
-                >
-                  <SelectTrigger className="w-[120px] bg-background">
-                    <SelectValue placeholder="Bits" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {bitPresets.map(preset => (
-                      <SelectItem key={preset} value={preset}>{preset}</SelectItem>
-                    ))}
-                    <SelectItem value="custom">Custom</SelectItem>
-                  </SelectContent>
-                </Select>
-                <Input 
-                  id="bits" 
-                  type="number" 
-                  value={bits} 
-                  onChange={(e) => setBits(parseInt(e.target.value) || 0)}
-                  className="flex-1 bg-background"
-                  placeholder="Manual"
-                />
-              </div>
-            </div>
-            
-            {(version === 'p10' || version === 'p12') && (
-              <div className="space-y-1.5">
-                <Label htmlFor="cn">Common Name (CN)</Label>
-                <Input 
-                  id="cn" 
-                  value={commonName} 
-                  onChange={(e) => setCommonName(e.target.value)}
-                  placeholder="example.com"
-                />
-              </div>
-            )}
-
-            {version === 'p10' && (
-              <>
+        <div className="lg:col-span-4 space-y-6">
+          <Card className="border-border shadow-md">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <RefreshCcw className="h-4 w-4 text-primary" />
+                {t('common.generate')}
+              </CardTitle>
+              <CardDescription>Configure your security parameters</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Algorithm Selector for P8 and P12 */}
+              {(version === 'p8' || version === 'p12') && (
                 <div className="space-y-1.5">
-                  <Label htmlFor="org">Organization (O)</Label>
+                  <Label>Algorithm</Label>
+                  <Select value={algorithm} onValueChange={setAlgorithm}>
+                    <SelectTrigger className="bg-background">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {version === 'p8' ? (
+                        <>
+                          <SelectItem value="RSA">RSA</SelectItem>
+                          <SelectItem value="ECDSA">ECDSA</SelectItem>
+                          <SelectItem value="Ed25519">Ed25519</SelectItem>
+                        </>
+                      ) : (
+                        <>
+                          <SelectItem value="RSA-2048">RSA 2048</SelectItem>
+                          <SelectItem value="ECC-256">ECC 256 (NIST P-256)</SelectItem>
+                        </>
+                      )}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+
+              {/* Bit Length Selector */}
+              {(version === 'p1' || version === 'p8' || version === 'p10') && algorithm === 'RSA' && (
+                <div className="space-y-1.5">
+                  <Label htmlFor="bits">Key Length (bits)</Label>
+                  <div className="flex gap-2">
+                    <Select 
+                      value={bits.toString()} 
+                      onValueChange={(val) => setBits(parseInt(val))}
+                    >
+                      <SelectTrigger className={cn("bg-background", version !== 'p1' ? 'w-[120px]' : 'w-full')}>
+                        <SelectValue placeholder="Bits" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {bitPresets.map(preset => (
+                          <SelectItem key={preset} value={preset}>{preset}</SelectItem>
+                        ))}
+                        {version !== 'p1' && <SelectItem value="custom">Custom</SelectItem>}
+                      </SelectContent>
+                    </Select>
+                    {version !== 'p1' && !bitPresets.includes(bits.toString()) && (
+                      <Input 
+                        id="bits" 
+                        type="number" 
+                        value={bits} 
+                        onChange={(e) => setBits(parseInt(e.target.value) || 0)}
+                        className="flex-1 bg-background"
+                        placeholder="Manual"
+                      />
+                    )}
+                  </div>
+                </div>
+              )}
+              
+              {(version === 'p10' || version === 'p12') && (
+                <div className="space-y-1.5">
+                  <Label htmlFor="cn">Common Name (CN)</Label>
                   <Input 
-                    id="org" 
-                    value={org} 
-                    onChange={(e) => setOrg(e.target.value)}
+                    id="cn" 
+                    value={commonName} 
+                    onChange={(e) => setCommonName(e.target.value)}
+                    placeholder="example.com"
                   />
                 </div>
+              )}
+
+              {version === 'p10' && (
+                <>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="org">Organization (O)</Label>
+                    <Input 
+                      id="org" 
+                      value={org} 
+                      onChange={(e) => setOrg(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="unit">Organizational Unit (OU)</Label>
+                    <Input 
+                      id="unit" 
+                      value={unit} 
+                      onChange={(e) => setUnit(e.target.value)}
+                    />
+                  </div>
+                </>
+              )}
+
+              {version === 'p12' && (
                 <div className="space-y-1.5">
-                  <Label htmlFor="unit">Organizational Unit (OU)</Label>
+                  <Label htmlFor="pass">PFX Password</Label>
                   <Input 
-                    id="unit" 
-                    value={unit} 
-                    onChange={(e) => setUnit(e.target.value)}
+                    id="pass" 
+                    type="password"
+                    value={password} 
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-              </>
-            )}
+              )}
 
-            {version === 'p12' && (
-              <div className="space-y-1.5">
-                <Label htmlFor="pass">PFX Password</Label>
-                <Input 
-                  id="pass" 
-                  type="password"
-                  value={password} 
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+              {version === 'p7' && (
+                <div className="space-y-1.5">
+                  <Label htmlFor="content">Sample Content to Wrap</Label>
+                  <Textarea 
+                    id="content"
+                    placeholder="Hello, PKCS#7!"
+                    className="h-20"
+                  />
+                </div>
+              )}
+
+              <Button onClick={handleGenerate} className="w-full mt-2" disabled={loading}>
+                {loading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <RefreshCcw className="h-4 w-4 mr-2" />}
+                {t('common.generate')}
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Padding Knowledge Base */}
+          <Card className="border-border bg-primary/5 shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-bold flex items-center gap-2">
+                <HelpCircle className="h-4 w-4 text-primary" />
+                Padding Knowledge Base
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-xs leading-relaxed">
+              <div>
+                <p className="font-bold text-primary">PKCS#1 Padding</p>
+                <p className="text-muted-foreground">Specifically for **RSA**. It adds deterministic or probabilistic structures (v1.5 or OAEP) to data before RSA exponentiation to prevent attacks.</p>
               </div>
-            )}
-
-            {version === 'p7' && (
-              <div className="space-y-1.5">
-                <Label htmlFor="content">Sample Content to Wrap</Label>
-                <Textarea 
-                  id="content"
-                  placeholder="Hello, PKCS#7!"
-                  className="h-20"
-                />
+              <div className="pt-1 border-t border-primary/10">
+                <p className="font-bold text-primary">PKCS#7 Padding</p>
+                <p className="text-muted-foreground">Specifically for **Block Ciphers** (like AES). It pads data to a multiple of the block size (usually 16 bytes). The value of each added byte is the number of bytes added.</p>
               </div>
-            )}
-
-            <Button onClick={handleGenerate} className="w-full mt-2" disabled={loading}>
-              {loading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <RefreshCcw className="h-4 w-4 mr-2" />}
-              {t('common.generate')}
-            </Button>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Specialized Output Column */}
         <div className="lg:col-span-8 space-y-4">
