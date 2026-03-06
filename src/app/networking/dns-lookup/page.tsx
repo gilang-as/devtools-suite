@@ -51,7 +51,9 @@ export default function DnsLookupPage() {
     const settled = await Promise.all(promises);
     const newResults: Record<string, DnsLookupResult> = {};
     settled.forEach(({ type, res }) => {
-      if (res) newResults[type] = res;
+      if (res && res.Answer && res.Answer.length > 0) {
+        newResults[type] = res;
+      }
     });
 
     setResults(newResults);
@@ -64,8 +66,8 @@ export default function DnsLookupPage() {
     if (Object.keys(newResults).length === 0) {
       toast({
         variant: 'destructive',
-        title: 'Lookup Failed',
-        description: 'Could not resolve any records for this domain.'
+        title: 'Lookup Finished',
+        description: 'No matching records found for the requested types.'
       });
     }
   };
@@ -101,7 +103,6 @@ export default function DnsLookupPage() {
                   value={domain}
                   onChange={(e) => {
                     setDomain(e.target.value);
-                    // Force re-verification if domain changes
                     if (captchaToken) {
                       setCaptchaToken(null);
                       turnstileRef.current?.reset();
@@ -113,21 +114,21 @@ export default function DnsLookupPage() {
                 />
               </div>
 
-              <div className="flex flex-col items-center justify-center p-4 bg-secondary/20 rounded-xl border border-dashed border-primary/20">
+              <div className="flex flex-col items-center justify-center p-4 bg-secondary/20 rounded-xl border border-dashed border-primary/20 min-h-[100px]">
                 <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-3 flex items-center gap-1.5">
                   <Lock className="h-3 w-3" />
-                  Security Verification Required
+                  Security Verification
                 </p>
                 <Turnstile
                   ref={turnstileRef}
-                  sitekey="1x00000000000000000000AA"
+                  sitekey="3x00000000000000000000CC"
                   onSuccess={(token) => setCaptchaToken(token)}
                   onError={() => {
                     setCaptchaToken(null);
                     toast({
                       variant: 'destructive',
                       title: 'Captcha Error',
-                      description: 'Verification failed. Please try again.'
+                      description: 'Verification failed to load.'
                     });
                   }}
                   onExpire={() => setCaptchaToken(null)}
@@ -154,7 +155,7 @@ export default function DnsLookupPage() {
                 Reliability Engine
               </div>
               <p className="text-[10px] text-muted-foreground leading-relaxed">
-                Uses a multi-provider fallback system (Google → Cloudflare → Quad9 → AdGuard → DNS.SB → Mullvad) to ensure successful resolution even if some providers are blocked or down.
+                Uses a multi-provider fallback system (Google → Cloudflare → Quad9) to ensure resolution.
               </p>
             </div>
           </CardContent>
