@@ -1,6 +1,6 @@
-
 "use client"
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { useTheme } from '@/components/providers/theme-provider';
@@ -20,12 +20,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useState } from 'react';
 
 export default function Header() {
   const { t, language, setLanguage } = useTranslation();
   const { theme, setTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Defer rendering of theme icons until after hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -68,9 +73,15 @@ export default function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="h-9 w-9">
-                {theme === 'light' && <Sun className="h-[1.2rem] w-[1.2rem]" />}
-                {theme === 'dark' && <Moon className="h-[1.2rem] w-[1.2rem]" />}
-                {theme === 'system' && <Monitor className="h-[1.2rem] w-[1.2rem]" />}
+                {!mounted ? (
+                  <Monitor className="h-[1.2rem] w-[1.2rem]" />
+                ) : (
+                  <>
+                    {theme === 'light' && <Sun className="h-[1.2rem] w-[1.2rem]" />}
+                    {theme === 'dark' && <Moon className="h-[1.2rem] w-[1.2rem]" />}
+                    {theme === 'system' && <Monitor className="h-[1.2rem] w-[1.2rem]" />}
+                  </>
+                )}
                 <span className="sr-only">Toggle theme</span>
               </Button>
             </DropdownMenuTrigger>

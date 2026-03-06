@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -26,13 +25,19 @@ const ThemeProviderContext = React.createContext<ThemeProviderState>(initialStat
 export function ThemeProvider({
   children,
   defaultTheme = "system",
-  storageKey = "vite-ui-theme",
+  storageKey = "devtools-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = React.useState<Theme>(() => {
-    if (typeof window === "undefined") return defaultTheme
-    return (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  })
+  // Initialize with defaultTheme to prevent hydration mismatch
+  const [theme, setTheme] = React.useState<Theme>(defaultTheme)
+
+  // Load theme from localStorage only after mounting
+  React.useEffect(() => {
+    const savedTheme = localStorage.getItem(storageKey) as Theme
+    if (savedTheme) {
+      setTheme(savedTheme)
+    }
+  }, [storageKey])
 
   React.useEffect(() => {
     const root = window.document.documentElement
@@ -54,9 +59,9 @@ export function ThemeProvider({
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme)
-      setTheme(theme)
+    setTheme: (newTheme: Theme) => {
+      localStorage.setItem(storageKey, newTheme)
+      setTheme(newTheme)
     },
   }
 
