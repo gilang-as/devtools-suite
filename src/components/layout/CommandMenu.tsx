@@ -83,6 +83,7 @@ export default function CommandMenu() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl">
         <DialogHeader className="p-4 border-b">
+          <DialogTitle className="sr-only">Search Tools</DialogTitle>
           <div className="flex items-center gap-3 px-2">
             <Search className="h-5 w-5 text-muted-foreground" />
             <Input
