@@ -10,6 +10,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
 import { ShieldCheck, Copy, Trash2, Download, RefreshCcw, Loader2, Key, FileText, Lock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -99,6 +106,8 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
     { name: 'PKCS#12', href: '/pkcs/p12' },
   ];
 
+  const bitPresets = ['1024', '2048', '3072', '4096'];
+
   return (
     <div className="max-w-6xl mx-auto space-y-8 py-6">
       <div className="flex items-center gap-4 mb-4">
@@ -142,14 +151,32 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
           <CardContent className="space-y-4">
             <div className="space-y-1.5">
               <Label htmlFor="bits">Key Length (bits)</Label>
-              <Input 
-                id="bits" 
-                type="number" 
-                value={bits} 
-                onChange={(e) => setBits(parseInt(e.target.value) || 2048)}
-                step={1024}
-                min={1024}
-              />
+              <div className="flex gap-2">
+                <Select 
+                  value={bitPresets.includes(bits.toString()) ? bits.toString() : 'custom'} 
+                  onValueChange={(val) => {
+                    if (val !== 'custom') setBits(parseInt(val));
+                  }}
+                >
+                  <SelectTrigger className="w-[120px] bg-background">
+                    <SelectValue placeholder="Bits" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {bitPresets.map(preset => (
+                      <SelectItem key={preset} value={preset}>{preset}</SelectItem>
+                    ))}
+                    <SelectItem value="custom">Custom</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Input 
+                  id="bits" 
+                  type="number" 
+                  value={bits} 
+                  onChange={(e) => setBits(parseInt(e.target.value) || 0)}
+                  className="flex-1 bg-background"
+                  placeholder="Manual"
+                />
+              </div>
             </div>
             
             {(version === 'p10' || version === 'p12') && (
