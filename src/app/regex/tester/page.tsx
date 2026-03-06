@@ -1,8 +1,8 @@
-
 "use client"
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useTranslation } from '@/components/providers/i18n-provider';
+import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
-import { SearchCode, Info, AlertCircle, CheckCircle2, List, Settings2 } from 'lucide-react';
+import { SearchCode, Info, AlertCircle, List, Settings2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface RegexMatch {
@@ -19,8 +19,9 @@ interface RegexMatch {
   groups: (string | undefined)[];
 }
 
-export default function RegexTesterPage() {
+function RegexTesterContent() {
   const { t } = useTranslation();
+  const searchParams = useSearchParams();
   const [pattern, setRegexPattern] = useState('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}');
   const [testText, setTestText] = useState('My email is test@example.com and another one is hello.world@provider.io');
   const [flags, setFlags] = useState({
@@ -30,6 +31,13 @@ export default function RegexTesterPage() {
     s: false,
     u: false,
   });
+
+  useEffect(() => {
+    const p = searchParams.get('pattern');
+    if (p) {
+      setRegexPattern(decodeURIComponent(p));
+    }
+  }, [searchParams]);
 
   const flagStr = useMemo(() => {
     return Object.entries(flags)
@@ -46,9 +54,14 @@ export default function RegexTesterPage() {
       let match;
 
       if (flags.g) {
+        let lastIndex = -1;
         while ((match = re.exec(testText)) !== null) {
           // Prevent infinite loops with zero-width matches
-          if (match.index === re.lastIndex) re.lastIndex++;
+          if (re.lastIndex === lastIndex) {
+            re.lastIndex++;
+            continue;
+          }
+          lastIndex = re.lastIndex;
           matches.push({
             index: match.index,
             content: match[0],
@@ -82,7 +95,7 @@ export default function RegexTesterPage() {
     const sortedMatches = [...regexResult.matches].sort((a, b) => a.index - b.index);
 
     sortedMatches.forEach((match, i) => {
-      // Avoid overlapping or out of order matches due to regex weirdness
+      // Avoid overlapping or out of order matches
       if (match.index < lastIndex) return;
 
       // Add text before match
@@ -218,11 +231,9 @@ export default function RegexTesterPage() {
             </CardHeader>
             <CardContent className="p-0 flex-1 flex flex-col">
               <div className="relative flex-1">
-                {/* Mirrored background for highlights */}
                 <div className="absolute inset-0 p-6 font-code text-sm pointer-events-none whitespace-pre-wrap break-all leading-relaxed text-transparent overflow-auto">
                   {highlightedText}
                 </div>
-                {/* Interactive Textarea */}
                 <Textarea
                   value={testText}
                   onChange={(e) => setTestText(e.target.value)}
@@ -273,5 +284,13 @@ export default function RegexTesterPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function RegexTesterPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <RegexTesterContent />
+    </Suspense>
   );
 }

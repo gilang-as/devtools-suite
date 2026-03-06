@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe, SearchCode } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe, SearchCode, Sparkles } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -64,6 +64,14 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.regex_tester.description',
     href: '/regex/tester',
     icon: 'SearchCode',
+    category: 'Programming',
+  },
+  {
+    id: 'regex-generator',
+    nameKey: 'tools.regex_generator.name',
+    descriptionKey: 'tools.regex_generator.description',
+    href: '/regex/generator',
+    icon: 'Wand2',
     category: 'Programming',
   },
   {
