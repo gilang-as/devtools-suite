@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useMemo } from 'react';
@@ -62,7 +61,12 @@ export default function DiffCheckerPage() {
           <Diff className="h-8 w-8" />
         </div>
         <div>
-          <h1 className="text-3xl font-headline font-bold">{t('tools.text_diff.name')}</h1>
+          <h1 className="text-3xl font-headline font-bold">
+            {t('tools.text_diff.name')}
+            <span className="text-muted-foreground/40 font-normal text-xl ml-3 hidden sm:inline">
+              (Text Compare)
+            </span>
+          </h1>
           <p className="text-muted-foreground">{t('tools.text_diff.description')}</p>
         </div>
       </div>
@@ -106,7 +110,7 @@ export default function DiffCheckerPage() {
       <div className="flex flex-wrap items-center justify-center gap-4">
         <Button onClick={handleCompare} size="lg" className="px-12 shadow-lg h-12">
           <Check className="h-5 w-5 mr-2" />
-          {t('common.compare') || 'Compare'}
+          {t('common.compare')}
         </Button>
         <Button variant="outline" onClick={handleSwap} size="lg" className="h-12">
           <ArrowRightLeft className="h-5 w-5 mr-2" />
