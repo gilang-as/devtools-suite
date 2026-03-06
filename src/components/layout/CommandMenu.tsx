@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from 'react';
@@ -184,9 +183,9 @@ export default function CommandMenu() {
     if (view === 'colors' && activeItem.type === 'color') {
       setColorScheme(activeItem.id);
     } else if (view === 'modes' && activeItem.type === 'mode') {
-      setTheme(activeItem.id);
+      setTheme(activeItem.id as any);
     } else if (view === 'color-modes' && activeItem.type === 'apply-all') {
-      setTheme(activeItem.id);
+      setTheme(activeItem.id as any);
     }
   }, [selectedIndex, filteredItems, view, setTheme, setColorScheme]);
 
