@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useRef } from 'react';
@@ -6,7 +5,7 @@ import { useTranslation } from '@/components/providers/i18n-provider';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Braces, Copy, Trash2, Upload, FileJson, Check } from 'lucide-react';
+import { Braces, Copy, Trash2, Upload, FileJson, ArrowRightLeft, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function JsonFormatterPage() {
@@ -65,7 +64,6 @@ export default function JsonFormatterPage() {
     reader.onload = (event) => {
       const content = event.target?.result as string;
       setInput(content);
-      // Auto beautify on upload
       try {
         const parsed = JSON.parse(content);
         setOutput(JSON.stringify(parsed, null, 2));
@@ -96,9 +94,9 @@ export default function JsonFormatterPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+      <div className="flex flex-col lg:flex-row items-stretch gap-4">
         {/* Input Section */}
-        <Card className="border-border shadow-lg flex flex-col">
+        <Card className="flex-1 border-border shadow-lg flex flex-col">
           <CardHeader className="flex flex-row items-center justify-between pb-4">
             <CardTitle className="text-lg flex items-center gap-2">
               <FileJson className="h-5 w-5 text-primary" />
@@ -132,23 +130,13 @@ export default function JsonFormatterPage() {
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4 flex-1 flex flex-col">
+          <CardContent className="flex-1 flex flex-col space-y-2">
             <Textarea
               placeholder="Paste your JSON here..."
               className="font-code flex-1 min-h-[400px] bg-secondary/30 resize-none"
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
-            <div className="flex gap-3 pt-2">
-              <Button onClick={handleBeautify} className="flex-1">
-                <Check className="h-4 w-4 mr-2" />
-                {t('common.beautify')}
-              </Button>
-              <Button onClick={handleMinify} variant="secondary" className="flex-1">
-                <Braces className="h-4 w-4 mr-2" />
-                {t('common.minify')}
-              </Button>
-            </div>
             {error && (
               <p className="text-xs text-destructive mt-2 bg-destructive/10 p-2 rounded border border-destructive/20 font-code">
                 {error}
@@ -157,8 +145,32 @@ export default function JsonFormatterPage() {
           </CardContent>
         </Card>
 
+        {/* Action Buttons (Middle) */}
+        <div className="flex flex-row lg:flex-col justify-center items-center gap-3 py-4 lg:py-0 min-w-[120px]">
+          <Button 
+            onClick={handleBeautify} 
+            className="flex-1 lg:flex-none lg:w-full shadow-md"
+            size="lg"
+          >
+            <Check className="h-4 w-4 mr-2" />
+            {t('common.beautify')}
+          </Button>
+          <div className="hidden lg:flex items-center justify-center text-muted-foreground/30">
+            <ArrowRightLeft className="h-6 w-6" />
+          </div>
+          <Button 
+            onClick={handleMinify} 
+            variant="secondary" 
+            className="flex-1 lg:flex-none lg:w-full shadow-sm"
+            size="lg"
+          >
+            <Braces className="h-4 w-4 mr-2" />
+            {t('common.minify')}
+          </Button>
+        </div>
+
         {/* Output Section */}
-        <Card className="border-border shadow-lg flex flex-col">
+        <Card className="flex-1 border-border shadow-lg flex flex-col">
           <CardHeader className="flex flex-row items-center justify-between pb-4">
             <CardTitle className="text-lg">{t('common.output')}</CardTitle>
             <Button 
