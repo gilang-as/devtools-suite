@@ -20,6 +20,14 @@ export const TOOLS: Tool[] = [
     category: 'Conversion',
   },
   {
+    id: 'color-palette',
+    nameKey: 'tools.color_palette.name',
+    descriptionKey: 'tools.color_palette.description',
+    href: '/colors/palette',
+    icon: 'Palette',
+    category: 'Conversion',
+  },
+  {
     id: 'unix-converter',
     nameKey: 'tools.unix_timestamp_converter.name',
     descriptionKey: 'tools.unix_timestamp_converter.description',

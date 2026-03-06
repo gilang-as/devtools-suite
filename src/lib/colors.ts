@@ -1,6 +1,6 @@
 
 /**
- * Utility for color conversion between HEX, RGB, and HSL.
+ * Utility for color conversion and palette generation.
  */
 
 export interface RGBA {
@@ -109,6 +109,7 @@ export function hslaToRgba(hsla: HSLA): RGBA {
 }
 
 export function parseColor(str: string): RGBA | null {
+  if (!str) return null;
   str = str.trim().toLowerCase();
   
   // Hex
@@ -150,4 +151,44 @@ export function formatRgba(rgba: RGBA): string {
 export function formatHsla(hsla: HSLA): string {
   if (hsla.a === 1) return `hsl(${hsla.h}, ${hsla.s}%, ${hsla.l}%)`;
   return `hsla(${hsla.h}, ${hsla.s}%, ${hsla.l}%, ${hsla.a.toFixed(2)})`;
+}
+
+// Palette Generation
+export function generatePalette(baseHsla: HSLA, type: 'analogous' | 'complementary' | 'triadic' | 'tetradic' | 'monochromatic'): string[] {
+  const colors: HSLA[] = [];
+  const { h, s, l, a } = baseHsla;
+
+  switch (type) {
+    case 'analogous':
+      colors.push({ h: (h + 330) % 360, s, l, a });
+      colors.push({ h: (h + 345) % 360, s, l, a });
+      colors.push(baseHsla);
+      colors.push({ h: (h + 15) % 360, s, l, a });
+      colors.push({ h: (h + 30) % 360, s, l, a });
+      break;
+    case 'complementary':
+      colors.push(baseHsla);
+      colors.push({ h: (h + 180) % 360, s, l, a });
+      break;
+    case 'triadic':
+      colors.push(baseHsla);
+      colors.push({ h: (h + 120) % 360, s, l, a });
+      colors.push({ h: (h + 240) % 360, s, l, a });
+      break;
+    case 'tetradic':
+      colors.push(baseHsla);
+      colors.push({ h: (h + 90) % 360, s, l, a });
+      colors.push({ h: (h + 180) % 360, s, l, a });
+      colors.push({ h: (h + 270) % 360, s, l, a });
+      break;
+    case 'monochromatic':
+      colors.push({ h, s, l: Math.max(0, l - 30), a });
+      colors.push({ h, s, l: Math.max(0, l - 15), a });
+      colors.push(baseHsla);
+      colors.push({ h, s, l: Math.min(100, l + 15), a });
+      colors.push({ h, s, l: Math.min(100, l + 30), a });
+      break;
+  }
+
+  return colors.map(c => rgbaToHex(hslaToRgba(c)));
 }
