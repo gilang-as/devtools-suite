@@ -10,7 +10,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Fingerprint, Copy, Trash2, Download, RefreshCcw } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Fingerprint, Copy, Trash2, Download, RefreshCcw, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
@@ -22,36 +23,42 @@ export default function UUIDGenerator({ version }: UUIDGeneratorProps) {
   const { t } = useTranslation();
   const { toast } = useToast();
   const pathname = usePathname();
-  const [quantity, setQuantity] = useState(1);
-  const [output, setOutput] = useState('');
-  const [uuids, setUuids] = useState<string[]>([]);
+  const [quantity, setQuantity] = useState(10);
+  const [singleUuid, setSingleUuid] = useState('');
+  const [bulkUuids, setBulkUuids] = useState<string[]>([]);
+  const [copied, setCopied] = useState(false);
 
-  const handleGenerate = () => {
-    const count = Math.min(Math.max(1, quantity), 1000); // Limit to 1000 for performance
+  const handleGenerateSingle = () => {
+    const [newUuid] = generateUUIDs(version, 1);
+    setSingleUuid(newUuid);
+    setCopied(false);
+  };
+
+  const handleGenerateBulk = () => {
+    const count = Math.min(Math.max(1, quantity), 1000);
     const newUuids = generateUUIDs(version, count);
-    setUuids(newUuids);
-    setOutput(newUuids.join('\n'));
+    setBulkUuids(newUuids);
   };
 
   useEffect(() => {
-    handleGenerate();
+    handleGenerateSingle();
+    handleGenerateBulk();
   }, [version]);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(output);
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
     toast({
       title: t('common.copied'),
     });
-  };
-
-  const handleClear = () => {
-    setUuids([]);
-    setOutput('');
+    if (text === singleUuid) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   const handleDownloadCSV = () => {
-    if (uuids.length === 0) return;
-    exportToCSV(uuids, `uuids-${version}-${new Date().getTime()}.csv`);
+    if (bulkUuids.length === 0) return;
+    exportToCSV(bulkUuids, `uuids-${version}-${new Date().getTime()}.csv`);
   };
 
   const navItems = [
@@ -91,69 +98,107 @@ export default function UUIDGenerator({ version }: UUIDGeneratorProps) {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-6">
-        <Card className="border-border shadow-lg">
-          <CardHeader>
-            <CardTitle>{t('common.generate')}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="quantity">{t('common.quantity')}</Label>
-              <div className="flex gap-2">
-                <Input 
-                  id="quantity" 
-                  type="number" 
-                  value={quantity} 
-                  onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
-                  min={1}
-                  max={1000}
-                />
-                <Button onClick={handleGenerate} className="flex-1 shrink-0">
+      <Tabs defaultValue="single" className="space-y-6">
+        <TabsList className="grid w-full max-w-[400px] grid-cols-2">
+          <TabsTrigger value="single">{t('common.single') || 'Single'}</TabsTrigger>
+          <TabsTrigger value="bulk">{t('common.bulk') || 'Bulk'}</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="single">
+          <Card className="border-border shadow-lg">
+            <CardHeader>
+              <CardTitle>{t('common.output')}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex-1 relative">
+                  <Input 
+                    readOnly 
+                    value={singleUuid} 
+                    className="font-code text-lg h-12 bg-secondary/30 pr-12"
+                  />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-1 top-1 h-10 w-10"
+                    onClick={() => copyToClipboard(singleUuid)}
+                  >
+                    {copied ? <Check className="h-5 w-5 text-green-500" /> : <Copy className="h-5 w-5" />}
+                  </Button>
+                </div>
+                <Button onClick={handleGenerateSingle} className="h-12 px-8">
                   <RefreshCcw className="h-4 w-4 mr-2" />
-                  {t('common.generate')}
+                  {t('common.refresh') || 'Refresh'}
                 </Button>
               </div>
-              <p className="text-[0.7rem] text-muted-foreground">Max 1000 per generation</p>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </TabsContent>
 
-        <Card className="border-border shadow-lg">
-          <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>{t('common.output')}</CardTitle>
-            <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={handleDownloadCSV}
-                disabled={!output}
-              >
-                <Download className="h-4 w-4 mr-2" />
-                {t('common.download')}
-              </Button>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={copyToClipboard}
-                disabled={!output}
-              >
-                <Copy className="h-4 w-4 mr-2" />
-                {t('common.copy')}
-              </Button>
-              <Button variant="outline" size="icon" className="h-9 w-9" onClick={handleClear} title={t('common.clear')}>
-                <Trash2 className="h-4 w-4" />
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <Textarea
-              readOnly
-              className="font-code min-h-[250px] bg-secondary/30"
-              value={output}
-            />
-          </CardContent>
-        </Card>
-      </div>
+        <TabsContent value="bulk" className="space-y-6">
+          <Card className="border-border shadow-lg">
+            <CardHeader>
+              <CardTitle>{t('common.generate')}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label htmlFor="quantity">{t('common.quantity')}</Label>
+                <div className="flex gap-2">
+                  <Input 
+                    id="quantity" 
+                    type="number" 
+                    value={quantity} 
+                    onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
+                    min={1}
+                    max={1000}
+                  />
+                  <Button onClick={handleGenerateBulk} className="flex-1 shrink-0">
+                    <RefreshCcw className="h-4 w-4 mr-2" />
+                    {t('common.generate')}
+                  </Button>
+                </div>
+                <p className="text-[0.7rem] text-muted-foreground">Max 1000 per generation</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-border shadow-lg">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle>{t('common.output')}</CardTitle>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={handleDownloadCSV}
+                  disabled={bulkUuids.length === 0}
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  {t('common.download')}
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => copyToClipboard(bulkUuids.join('\n'))}
+                  disabled={bulkUuids.length === 0}
+                >
+                  <Copy className="h-4 w-4 mr-2" />
+                  {t('common.copy')}
+                </Button>
+                <Button variant="outline" size="icon" className="h-9 w-9" onClick={() => setBulkUuids([])} title={t('common.clear')}>
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <Textarea
+                readOnly
+                className="font-code min-h-[250px] bg-secondary/30"
+                value={bulkUuids.join('\n')}
+              />
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

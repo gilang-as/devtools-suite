@@ -17,7 +17,10 @@
     "dark": "Gelap",
     "system": "Sistem",
     "language": "Bahasa",
-    "quantity": "Jumlah"
+    "quantity": "Jumlah",
+    "single": "Satu",
+    "bulk": "Massal",
+    "refresh": "Segarkan"
   },
   "home": {
     "heading": "Alat Pengembang",

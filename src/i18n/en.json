@@ -17,7 +17,10 @@
     "dark": "Dark",
     "system": "System",
     "language": "Language",
-    "quantity": "Quantity"
+    "quantity": "Quantity",
+    "single": "Single",
+    "bulk": "Bulk",
+    "refresh": "Refresh"
   },
   "home": {
     "heading": "Developer Tools",
