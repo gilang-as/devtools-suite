@@ -228,5 +228,109 @@
       "name": "SPKI Formatter",
       "description": "Convert and format Subject Public Key Info structures."
     }
+  },
+  "pkcs_kb": {
+    "p1": {
+      "title": "PKCS#1: RSA Cryptography",
+      "desc": "Specific to RSA keys. Defines the structure of public/private keys and padding schemes.",
+      "i1_label": "Padding PKCS#1",
+      "i1_text": "Used in RSA encryption (v1.5 or OAEP) to prevent chosen-ciphertext attacks.",
+      "i2_label": "Key Structure",
+      "i2_text": "Standard format for RSA-specific key pairs (RSAPrivateKey/RSAPublicKey)."
+    },
+    "p7": {
+      "title": "PKCS#7: Cryptographic Message Syntax",
+      "desc": "Used for signing and/or encrypting data. Often used in S/MIME or code signing.",
+      "i1_label": "Padding PKCS#7",
+      "i1_text": "Used for Block Ciphers (AES/DES). Pads data to match the block size (e.g., 16 bytes).",
+      "i2_label": "Containers",
+      "i2_text": "Can wrap certificates, CRLs, and signed data into a single CMS container."
+    },
+    "p8": {
+      "title": "PKCS#8: Private-Key Information",
+      "desc": "A generic syntax for private keys that supports multiple algorithms (RSA, EC, etc.).",
+      "i1_label": "Algorithm Agnostic",
+      "i1_text": "Unlike PKCS#1, it wraps the key with an OID that identifies the algorithm.",
+      "i2_label": "Encryption",
+      "i2_text": "Can optionally be encrypted (EncryptedPrivateKeyInfo) with a password."
+    },
+    "p10": {
+      "title": "PKCS#10: Certification Request (CSR)",
+      "desc": "A request sent to a Certificate Authority (CA) to sign a public key.",
+      "i1_label": "Subject Info",
+      "i1_text": "Includes identity details like Common Name (CN), Org (O), and Country (C).",
+      "i2_label": "Signature",
+      "i2_text": "The CSR is self-signed by the private key to prove ownership of the public key."
+    },
+    "p12": {
+      "title": "PKCS#12: Personal Information (PFX)",
+      "desc": "A binary container (PFX) used to store certificates and their matching private keys.",
+      "i1_label": "Full Identity",
+      "i1_text": "Includes the end-entity certificate, the private key, and the CA chain.",
+      "i2_label": "Security",
+      "i2_text": "The container is always password-protected to secure the private key during transit."
+    },
+    "x509": {
+      "title": "X.509: Digital Certificates",
+      "desc": "The standard format for public key certificates used in HTTPS/TLS and other protocols.",
+      "i1_label": "Self-Signed",
+      "i1_text": "A certificate where the issuer and subject are the same. Used for internal testing.",
+      "i2_label": "Validity",
+      "i2_text": "Defines the validity dates between which the certificate is considered valid.",
+      "i3_label": "Extensions",
+      "i3_text": "Additional metadata like Subject Alternative Name (SAN) for supporting multiple domains."
+    }
+  },
+  "policies": {
+    "privacy": {
+      "title": "Privacy Policy",
+      "last_updated": "Last updated",
+      "card1_title": "Client-Side Processing",
+      "card1_desc": "All tools run entirely in your browser. Your data never leaves your computer.",
+      "card2_title": "Zero Data Collection",
+      "card2_desc": "We do not collect, store, or share any personal information or input data.",
+      "commitment_title": "Our Commitment",
+      "s1_title": "1. Information We Do Not Collect",
+      "s1_desc": "DevTools Suite is designed as a stateless utility. We do not require account registration, and we do not have a backend database to store your inputs. Whether you are hashing a password or formatting JSON, that data stays in your browser's memory.",
+      "s2_title": "2. Anonymous Analytics",
+      "s2_desc": "We may use basic, anonymous analytical tools to understand which tools are most popular. This data is purely numerical and contains no identifiable user information or payload data.",
+      "s3_title": "3. Third-Party Services",
+      "s3_desc": "We do not sell, trade, or otherwise transfer your information to outside parties.",
+      "s4_title": "4. Security",
+      "s4_desc": "By performing all operations locally via JavaScript, we eliminate the primary security risk of data interception during transit to a server."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "agreement_title": "Agreement to Terms",
+      "agreement_desc": "By accessing DevTools Suite, you agree to be bound by these terms. These tools are provided for educational and professional development purposes.",
+      "p1_title": "Permitted Use",
+      "p1_desc": "You are free to use these tools for personal or commercial projects. There are no fees or subscriptions.",
+      "p2_title": "As Is Basis",
+      "p2_desc": "The tools are provided without warranties of any kind. You should verify critical outputs for production systems.",
+      "p3_title": "Data Responsibility",
+      "p3_desc": "You are responsible for the data you input. Since we do not store your data, we cannot recover any lost keys once you close your browser session.",
+      "liability_title": "Limitation of Liability",
+      "liability_desc": "In no event shall DevTools Suite be liable for any damages arising out of the use or inability to use the tools on this website."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "subtitle": "How we use local storage and cookies.",
+      "c1_title": "No Tracking",
+      "c1_desc": "We do not use advertising or tracking cookies.",
+      "c2_title": "Functional Only",
+      "c2_desc": "Used only to remember your theme and language preferences.",
+      "c3_title": "GDPR Ready",
+      "c3_desc": "Compliant with global privacy regulations.",
+      "details_title": "Cookie Usage Details",
+      "details_intro": "DevTools Suite uses minimal data stored on your device to provide a consistent user experience.",
+      "s1_title": "1. What we store",
+      "s1_item1": "Theme Preference: Stored in localStorage.",
+      "s1_item2": "Language Preference: Stored in localStorage.",
+      "s1_item3": "Sidebar State: A small cookie used to remember layout settings.",
+      "s2_title": "2. Why we don't show a banner",
+      "s2_desc": "According to global privacy laws, explicit consent is generally required for non-essential tracking. Since our data storage is strictly functional and essential, a intrusive pop-up banner is not legally required.",
+      "s3_title": "3. Managing your data",
+      "s3_desc": "You can clear these preferences at any time by clearing your browser's site data."
+    }
   }
 }

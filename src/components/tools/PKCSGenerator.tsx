@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -140,56 +141,14 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
   const bitPresets = ['1024', '2048', '3072', '4096'];
 
   const KnowledgeBaseContent = {
-    p1: {
-      title: "PKCS#1: RSA Cryptography",
-      description: "Specific to RSA keys. Defines the structure of public/private keys and padding schemes.",
-      items: [
-        { label: "Padding PKCS#1", text: "Used in RSA encryption (v1.5 or OAEP) to prevent chosen-ciphertext attacks." },
-        { label: "Key Structure", text: "Standard format for RSA-specific key pairs (RSAPrivateKey/RSAPublicKey)." }
-      ]
-    },
-    p7: {
-      title: "PKCS#7: Cryptographic Message Syntax",
-      description: "Used for signing and/or encrypting data. Often used in S/MIME or code signing.",
-      items: [
-        { label: "Padding PKCS#7", text: "Used for Block Ciphers (AES/DES). Pads data to match the block size (e.g., 16 bytes)." },
-        { label: "Containers", text: "Can wrap certificates, CRLs, and signed data into a single CMS container." }
-      ]
-    },
-    p8: {
-      title: "PKCS#8: Private-Key Information",
-      description: "A generic syntax for private keys that supports multiple algorithms (RSA, EC, etc.).",
-      items: [
-        { label: "Algorithm Agnostic", text: "Unlike PKCS#1, it wraps the key with an OID that identifies the algorithm." },
-        { label: "Encryption", text: "Can optionally be encrypted (EncryptedPrivateKeyInfo) with a password." }
-      ]
-    },
-    p10: {
-      title: "PKCS#10: Certification Request (CSR)",
-      description: "A request sent to a Certificate Authority (CA) to sign a public key.",
-      items: [
-        { label: "Subject Info", text: "Includes identity details like Common Name (CN), Org (O), and Country (C)." },
-        { label: "Signature", text: "The CSR is self-signed by the private key to prove ownership of the public key." }
-      ]
-    },
-    p12: {
-      title: "PKCS#12: Personal Information (PFX)",
-      description: "A binary container (PFX) used to store certificates and their matching private keys.",
-      items: [
-        { label: "Full Identity", text: "Includes the end-entity certificate, the private key, and the CA chain." },
-        { label: "Security", text: "The container is always password-protected to secure the private key during transit." }
-      ]
-    },
-    x509: {
-      title: "X.509: Digital Certificates",
-      description: "The standard format for public key certificates used in HTTPS/TLS and other protocols.",
-      items: [
-        { label: "Self-Signed", text: "A certificate where the issuer and subject are the same. Used for internal testing." },
-        { label: "Validity", text: "Defines the 'notBefore' and 'notAfter' dates between which the certificate is considered valid." },
-        { label: "Extensions", text: "Additional metadata like Subject Alternative Name (SAN) for supporting multiple domains." }
-      ]
-    }
-  }[version];
+    title: t(`pkcs_kb.${version}.title`),
+    description: t(`pkcs_kb.${version}.desc`),
+    items: [
+      { label: t(`pkcs_kb.${version}.i1_label`), text: t(`pkcs_kb.${version}.i1_text`) },
+      { label: t(`pkcs_kb.${version}.i2_label`), text: t(`pkcs_kb.${version}.i2_text`) },
+      ...(version === 'x509' ? [{ label: t(`pkcs_kb.x509.i3_label`), text: t(`pkcs_kb.x509.i3_text`) }] : [])
+    ].filter(i => i.label && i.text)
+  };
 
   const InfoIcon = ({ content }: { content: string }) => (
     <TooltipProvider>
@@ -237,7 +196,6 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Options Column */}
         <div className="lg:col-span-4 space-y-6">
           <Card className="border-border shadow-md">
             <CardHeader>
@@ -248,7 +206,6 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
               <CardDescription>Configure security parameters</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* Algorithm Selector */}
               {(version === 'p8' || version === 'p12') && (
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
@@ -277,7 +234,6 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                 </div>
               )}
 
-              {/* Bit Length Selector */}
               {(version === 'p1' || version === 'p8' || version === 'p10') && algorithm === 'RSA' && (
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
@@ -391,7 +347,6 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
             </CardContent>
           </Card>
 
-          {/* Dynamic Knowledge Base */}
           <Card className="border-border bg-primary/5 shadow-sm">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-bold flex items-center gap-2">
@@ -411,7 +366,6 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
           </Card>
         </div>
 
-        {/* Output Column */}
         <div className="lg:col-span-8 space-y-4">
           <div className="flex items-center justify-between px-1">
             <h2 className="text-xl font-semibold flex items-center gap-2">

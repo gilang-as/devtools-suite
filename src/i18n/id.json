@@ -8,7 +8,7 @@
     "clear": "Bersihkan",
     "encode": "Enkode",
     "decode": "Dekode",
-    "generate": "Generate",
+    "generate": "Hasilkan",
     "download": "Unduh",
     "input": "Input",
     "output": "Output",
@@ -56,75 +56,75 @@
   },
   "tools": {
     "base64_encode": {
-      "name": "Enkode Base64",
+      "name": "Base64 Encode",
       "description": "Enkode string teks ke format Base64 dengan aman."
     },
     "base64_decode": {
-      "name": "Dekode Base64",
+      "name": "Base64 Decode",
       "description": "Dekode string Base64 kembali ke teks yang dapat dibaca."
     },
     "binary_encode": {
-      "name": "Enkode Biner",
+      "name": "Binary Encode",
       "description": "Enkode string teks ke format Biner (0 dan 1)."
     },
     "binary_decode": {
-      "name": "Dekode Biner",
+      "name": "Binary Decode",
       "description": "Dekode string Biner kembali ke teks yang dapat dibaca."
     },
     "hex_encode": {
-      "name": "Enkode Hex",
+      "name": "Hex Encode",
       "description": "Enkode string teks ke format Hexadecimal."
     },
     "hex_decode": {
-      "name": "Dekode Hex",
+      "name": "Hex Decode",
       "description": "Dekode Hexadecimal kembali ke teks yang dapat dibaca."
     },
     "url_encode": {
-      "name": "Enkode URL",
+      "name": "URL Encode",
       "description": "Enkode string teks untuk digunakan dalam URL dengan aman."
     },
     "url_decode": {
-      "name": "Dekode URL",
+      "name": "URL Decode",
       "description": "Dekode string URL kembali ke teks yang dapat dibaca."
     },
     "html_encode": {
-      "name": "Enkode HTML",
+      "name": "HTML Encode",
       "description": "Konversi karakter khusus menjadi entitas HTML dengan aman."
     },
     "html_decode": {
-      "name": "Dekode HTML",
+      "name": "HTML Decode",
       "description": "Dekode entitas HTML kembali menjadi teks biasa."
     },
     "md5": {
-      "name": "Hash MD5",
+      "name": "MD5 Hash",
       "description": "Hasilkan digest pesan MD5 (Tidak aman untuk kata sandi)."
     },
     "sha1": {
-      "name": "Hash SHA-1",
+      "name": "SHA-1 Hash",
       "description": "Hasilkan digest pesan SHA-1 (Keamanan legacy)."
     },
     "sha256": {
-      "name": "Hash SHA-256",
+      "name": "SHA-256 Hash",
       "description": "Hasilkan digest pesan SHA-256 yang aman."
     },
     "sha512": {
-      "name": "Hash SHA-512",
+      "name": "SHA-512 Hash",
       "description": "Hasilkan digest pesan SHA-512 keamanan tinggi."
     },
     "sha3": {
-      "name": "Hash SHA-3",
+      "name": "SHA-3 Hash",
       "description": "Hasilkan digest pesan SHA-3 modern."
     },
     "bcrypt": {
-      "name": "Hash Bcrypt",
+      "name": "Bcrypt Hash",
       "description": "Hash kata sandi aman dengan faktor biaya adaptif."
     },
     "argon2": {
-      "name": "Hash Argon2",
+      "name": "Argon2 Hash",
       "description": "Hash kata sandi mutakhir (Memory-hard)."
     },
     "pbkdf2": {
-      "name": "Hash PBKDF2",
+      "name": "PBKDF2 Hash",
       "description": "Fungsi derivasi kunci menggunakan banyak iterasi HMAC."
     },
     "hmac_sha1": {
@@ -140,60 +140,60 @@
       "description": "Hasilkan Hash-based Message Authentication Code menggunakan SHA512."
     },
     "json_formatter": {
-      "name": "Format JSON",
+      "name": "JSON Formatter",
       "description": "Bersihkan, format, dan minifikasi data JSON Anda dengan mudah."
     },
     "js_formatter": {
-      "name": "Format JS",
+      "name": "JS Formatter",
       "description": "Bersihkan, format, dan minifikasi kode JavaScript Anda."
     },
     "ts_formatter": {
-      "name": "Format TS",
+      "name": "TS Formatter",
       "description": "Bersihkan, format, dan minifikasi kode TypeScript Anda."
     },
     "xml_formatter": {
-      "name": "Format XML",
+      "name": "XML Formatter",
       "description": "Bersihkan, format, and minifikasi dokumen XML Anda."
     },
     "html_formatter": {
-      "name": "Format HTML",
+      "name": "HTML Formatter",
       "description": "Bersihkan, format, dan minifikasi kode HTML Anda."
     },
     "css_formatter": {
-      "name": "Format CSS",
+      "name": "CSS Formatter",
       "description": "Bersihkan, format, dan minifikasi stylesheet CSS Anda."
     },
     "json_to_go": {
-      "name": "JSON ke Go Struct",
+      "name": "JSON to Go Struct",
       "description": "Konversi objek JSON ke definisi struct Go secara instan.",
       "inline": "Inline Struct Bersarang"
     },
     "uuid_v4": {
-      "name": "Generator UUID v4",
+      "name": "UUID v4 Generator",
       "description": "Hasilkan Universally Unique Identifier acak (v4)."
     },
     "uuid_v1": {
-      "name": "Generator UUID v1",
+      "name": "UUID v1 Generator",
       "description": "Hasilkan Universally Unique Identifier berbasis waktu (v1)."
     },
     "uuid_v7": {
-      "name": "Generator UUID v7",
+      "name": "UUID v7 Generator",
       "description": "Hasilkan Universally Unique Identifier terurut waktu (v7)."
     },
     "guid": {
-      "name": "Generator GUID",
+      "name": "GUID Generator",
       "description": "Hasilkan Globally Unique Identifier (standar v4)."
     },
     "pkcs_p1": {
-      "name": "Generator PKCS#1",
+      "name": "PKCS#1 Generator",
       "description": "Hasilkan pasangan kunci RSA dalam format PKCS#1 (PEM)."
     },
     "pkcs_p7": {
-      "name": "Kontainer PKCS#7",
+      "name": "PKCS#7 Container",
       "description": "Buat kontainer pesan tertandatangan PKCS#7 simulasi."
     },
     "pkcs_p8": {
-      "name": "Generator PKCS#8",
+      "name": "PKCS#8 Generator",
       "description": "Hasilkan kunci privat dalam format PKCS#8 (PEM)."
     },
     "pkcs_p10": {
@@ -205,8 +205,132 @@
       "description": "Hasilkan kontainer sertifikat PFX/P12."
     },
     "pkcs_x509": {
-      "name": "Sertifikat X.509",
+      "name": "X.509 Certificate",
       "description": "Hasilkan sertifikat X.509 self-signed."
+    },
+    "asn1": {
+      "name": "ASN.1 Inspector",
+      "description": "Dekode dan visualisasikan struktur ASN.1 dari DER atau Base64."
+    },
+    "jose": {
+      "name": "JOSE (JWT/JWK)",
+      "description": "Hasilkan dan verifikasi JSON Web Tokens dan Keys."
+    },
+    "openpgp": {
+      "name": "OpenPGP Key Gen",
+      "description": "Hasilkan pasangan kunci publik/privat OpenPGP."
+    },
+    "cose": {
+      "name": "COSE (CBOR)",
+      "description": "Enkode dan tanda tangani struktur CBOR Object Signing and Encryption."
+    },
+    "spki": {
+      "name": "SPKI Formatter",
+      "description": "Konversi dan format struktur Subject Public Key Info."
+    }
+  },
+  "pkcs_kb": {
+    "p1": {
+      "title": "PKCS#1: Kriptografi RSA",
+      "desc": "Khusus untuk kunci RSA. Menentukan struktur kunci publik/privat dan skema padding.",
+      "i1_label": "Padding PKCS#1",
+      "i1_text": "Digunakan dalam enkripsi RSA (v1.5 atau OAEP) untuk mencegah serangan chosen-ciphertext.",
+      "i2_label": "Struktur Kunci",
+      "i2_text": "Format standar untuk pasangan kunci khusus RSA (RSAPrivateKey/RSAPublicKey)."
+    },
+    "p7": {
+      "title": "PKCS#7: Cryptographic Message Syntax",
+      "desc": "Digunakan untuk menandatangani dan/atau mengenkripsi data. Sering digunakan dalam S/MIME atau penandatanganan kode.",
+      "i1_label": "Padding PKCS#7",
+      "i1_text": "Digunakan untuk Cipher Blok (AES/DES). Melengkapi data agar sesuai dengan ukuran blok (misal, 16 byte).",
+      "i2_label": "Kontainer",
+      "i2_text": "Dapat membungkus sertifikat, CRL, dan data bertanda tangan ke dalam satu kontainer CMS."
+    },
+    "p8": {
+      "title": "PKCS#8: Informasi Kunci Privat",
+      "desc": "Sintaks generik untuk kunci privat yang mendukung berbagai algoritma (RSA, EC, dll.).",
+      "i1_label": "Agnostik Algoritma",
+      "i1_text": "Berbeda dengan PKCS#1, ini membungkus kunci dengan OID yang mengidentifikasi algoritma.",
+      "i2_label": "Enkripsi",
+      "i2_text": "Secara opsional dapat dienkripsi (EncryptedPrivateKeyInfo) dengan kata sandi."
+    },
+    "p10": {
+      "title": "PKCS#10: Certification Request (CSR)",
+      "desc": "Permintaan yang dikirim ke Certificate Authority (CA) untuk menandatangani kunci publik.",
+      "i1_label": "Info Subjek",
+      "i1_text": "Termasuk detail identitas seperti Common Name (CN), Org (O), dan Country (C).",
+      "i2_label": "Tanda Tangan",
+      "i2_text": "CSR ditandatangani sendiri oleh kunci privat untuk membuktikan kepemilikan kunci publik."
+    },
+    "p12": {
+      "title": "PKCS#12: Informasi Personal (PFX)",
+      "desc": "Kontainer biner (PFX) yang digunakan untuk menyimpan sertifikat dan kunci privat yang cocok.",
+      "i1_label": "Identitas Lengkap",
+      "i1_text": "Termasuk sertifikat entitas akhir, kunci privat, dan rantai CA.",
+      "i2_label": "Keamanan",
+      "i2_text": "Kontainer ini selalu dilindungi kata sandi untuk mengamankan kunci privat selama transit."
+    },
+    "x509": {
+      "title": "X.509: Sertifikat Digital",
+      "desc": "Format standar untuk sertifikat kunci publik yang digunakan dalam HTTPS/TLS dan protokol lainnya.",
+      "i1_label": "Self-Signed",
+      "i1_text": "Sertifikat di mana penerbit dan subjeknya sama. Digunakan untuk pengujian internal.",
+      "i2_label": "Validitas",
+      "i2_text": "Menentukan rentang tanggal di mana sertifikat dianggap valid.",
+      "i3_label": "Ekstensi",
+      "i3_text": "Metadata tambahan seperti Subject Alternative Name (SAN) untuk mendukung banyak domain."
+    }
+  },
+  "policies": {
+    "privacy": {
+      "title": "Kebijakan Privasi",
+      "last_updated": "Terakhir diperbarui",
+      "card1_title": "Pemrosesan Sisi Klien",
+      "card1_desc": "Semua alat berjalan sepenuhnya di browser Anda. Data Anda tidak pernah meninggalkan komputer Anda.",
+      "card2_title": "Tanpa Pengumpulan Data",
+      "card2_desc": "Kami tidak mengumpulkan, menyimpan, atau membagikan informasi pribadi atau data input apa pun.",
+      "commitment_title": "Komitmen Kami",
+      "s1_title": "1. Informasi yang Tidak Kami Kumpulkan",
+      "s1_desc": "DevTools Suite dirancang sebagai utilitas tanpa status (stateless). Kami tidak memerlukan pendaftaran akun, dan kami tidak memiliki database backend untuk menyimpan input Anda. Baik Anda melakukan hashing kata sandi atau memformat JSON, data tersebut tetap berada di memori browser Anda.",
+      "s2_title": "2. Analitik Anonim",
+      "s2_desc": "Kami mungkin menggunakan alat analitik dasar yang anonim untuk memahami alat mana yang paling populer. Data ini murni numerik dan tidak mengandung informasi pengguna yang dapat diidentifikasi.",
+      "s3_title": "3. Layanan Pihak Ketiga",
+      "s3_desc": "Kami tidak menjual, menukar, atau mentransfer informasi Anda kepada pihak luar.",
+      "s4_title": "4. Keamanan",
+      "s4_desc": "Dengan melakukan semua operasi secara lokal melalui JavaScript, kami menghilangkan risiko keamanan utama berupa intersepsi data selama transit ke server."
+    },
+    "terms": {
+      "title": "Ketentuan Layanan",
+      "agreement_title": "Persetujuan Ketentuan",
+      "agreement_desc": "Dengan mengakses DevTools Suite, Anda setuju untuk terikat oleh ketentuan ini. Alat-alat ini disediakan untuk tujuan pendidikan dan pengembangan profesional.",
+      "p1_title": "Penggunaan yang Diizinkan",
+      "p1_desc": "Anda bebas menggunakan alat-alat ini untuk proyek pribadi atau komersial. Tidak ada biaya atau langganan.",
+      "p2_title": "Basis 'Sebagaimana Adanya'",
+      "p2_desc": "Alat disediakan tanpa jaminan apa pun. Anda harus memverifikasi output kritis untuk sistem produksi.",
+      "p3_title": "Tanggung Jawab Data",
+      "p3_desc": "Anda bertanggung jawab atas data yang Anda masukkan. Karena kami tidak menyimpan data Anda, kami tidak dapat memulihkan kunci yang hilang setelah Anda menutup sesi browser.",
+      "liability_title": "Batasan Tanggung Jawab",
+      "liability_desc": "Dalam hal apa pun DevTools Suite tidak bertanggung jawab atas kerugian yang timbul dari penggunaan atau ketidakmampuan menggunakan alat di situs web ini."
+    },
+    "cookies": {
+      "title": "Kebijakan Cookie",
+      "subtitle": "Bagaimana kami menggunakan penyimpanan lokal dan cookie.",
+      "c1_title": "Tanpa Pelacakan",
+      "c1_desc": "Kami tidak menggunakan cookie iklan atau pelacakan.",
+      "c2_title": "Hanya Fungsional",
+      "c2_desc": "Hanya digunakan untuk mengingat preferensi tema dan bahasa Anda.",
+      "c3_title": "Siap GDPR",
+      "c3_desc": "Patuh terhadap peraturan privasi global.",
+      "details_title": "Detail Penggunaan Cookie",
+      "details_intro": "DevTools Suite menggunakan data minimal yang disimpan di perangkat Anda untuk memberikan pengalaman pengguna yang konsisten.",
+      "s1_title": "1. Apa yang kami simpan",
+      "s1_item1": "Preferensi Tema: Disimpan di localStorage.",
+      "s1_item2": "Preferensi Bahasa: Disimpan di localStorage.",
+      "s1_item3": "Status Sidebar: Cookie kecil yang digunakan untuk mengingat pengaturan tata letak.",
+      "s2_title": "2. Mengapa kami tidak menampilkan banner",
+      "s2_desc": "Menurut hukum privasi global, persetujuan eksplisit biasanya diperlukan untuk pelacakan non-esensial. Karena penyimpanan data kami sepenuhnya fungsional dan penting, banner pop-up yang mengganggu tidak diwajibkan secara hukum.",
+      "s3_title": "3. Mengelola data Anda",
+      "s3_desc": "Anda dapat menghapus preferensi ini kapan saja dengan menghapus data situs di browser Anda."
     }
   }
 }
