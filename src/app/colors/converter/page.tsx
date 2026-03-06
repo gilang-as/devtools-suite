@@ -1,7 +1,7 @@
 
 "use client"
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { 
   parseColor, 
@@ -25,6 +25,7 @@ import { cn } from '@/lib/utils';
 export default function ColorConverterPage() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const colorInputRef = useRef<HTMLInputElement>(null);
   
   const [input, setInput] = useState('#3b82f6');
   const [rgba, setRgba] = useState<RGBA>({ r: 59, g: 130, b: 246, a: 1 });
@@ -42,8 +43,14 @@ export default function ColorConverterPage() {
 
   const handleHslaChange = (updates: Partial<HSLA>) => {
     const newHsla = { ...hsla, ...updates };
-    setRgba(hslaToRgba(newHsla));
-    setInput(rgbaToHex(hslaToRgba(newHsla)));
+    const newRgba = hslaToRgba(newHsla);
+    setRgba(newRgba);
+    setInput(rgbaToHex(newRgba));
+  };
+
+  const handleColorPickerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newHex = e.target.value;
+    setInput(newHex);
   };
 
   const copy = (val: string) => {
@@ -90,7 +97,7 @@ export default function ColorConverterPage() {
                 <Pipette className="h-5 w-5 text-primary" />
                 Color Input
               </CardTitle>
-              <CardDescription>Enter any color format (HEX, RGB, HSL)</CardDescription>
+              <CardDescription>Enter any color format (HEX, RGB, HSL) or use the picker</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
@@ -103,8 +110,17 @@ export default function ColorConverterPage() {
                     className="h-12 font-code text-lg pl-4 pr-12"
                   />
                   <div 
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border shadow-sm"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full border shadow-sm cursor-pointer hover:scale-110 transition-transform"
                     style={{ backgroundColor: formatRgba(rgba) }}
+                    onClick={() => colorInputRef.current?.click()}
+                    title="Open color picker"
+                  />
+                  <input 
+                    type="color"
+                    ref={colorInputRef}
+                    value={hex.substring(0, 7)} // Native picker only supports 6-char hex
+                    onChange={handleColorPickerChange}
+                    className="sr-only"
                   />
                 </div>
               </div>
