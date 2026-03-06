@@ -45,7 +45,6 @@ export default function CommandMenu() {
   const [view, setView] = React.useState<View>('root');
   const [selectedColor, setSelectedColor] = React.useState<ColorScheme | null>(null);
   
-  // Track states for restoration
   const absoluteInitialState = React.useRef<{ theme: any, colorScheme: ColorScheme } | null>(null);
   const [checkpoints, setCheckpoints] = React.useState<Record<View, { theme: any, colorScheme: ColorScheme } | null>>({
     root: null,
@@ -55,6 +54,16 @@ export default function CommandMenu() {
   });
 
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+
+  // Auto-scroll logic
+  React.useEffect(() => {
+    if (itemRefs.current[selectedIndex]) {
+      itemRefs.current[selectedIndex]?.scrollIntoView({
+        block: 'nearest',
+        behavior: 'smooth'
+      });
+    }
+  }, [selectedIndex]);
 
   const colorOptions: { id: ColorScheme; name: string; category: string; icon: string }[] = [
     { id: 'default', name: 'Default Blue', category: 'Standard', icon: 'Palette' },
@@ -154,7 +163,6 @@ export default function CommandMenu() {
       setQuery('');
     } else if (item.type === 'mode' || item.type === 'apply-all') {
       setTheme(item.id as any);
-      // Finalized
       absoluteInitialState.current = { theme: item.id, colorScheme };
       setOpen(false);
     } else if (item.href) {
@@ -163,7 +171,6 @@ export default function CommandMenu() {
     }
   };
 
-  // Immediate Preview on selection (Keyboard/Hover)
   React.useEffect(() => {
     const activeItem = filteredItems[selectedIndex];
     if (!activeItem || activeItem.isBack) return;
@@ -192,7 +199,6 @@ export default function CommandMenu() {
     if (open) {
       absoluteInitialState.current = { theme, colorScheme };
     } else {
-      // Revert if not finalized
       if (absoluteInitialState.current) {
         setTheme(absoluteInitialState.current.theme);
         setColorScheme(absoluteInitialState.current.colorScheme);
