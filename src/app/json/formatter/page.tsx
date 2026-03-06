@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -56,12 +56,46 @@ const sortObject = (obj: any, order: SortOrder): any => {
   return sortedObj;
 };
 
+const highlightJson = (json: string) => {
+  if (!json) return null;
+  
+  // Safe regex-based syntax highlighting for JSON
+  const tokens = json.split(/("(?:\\.|[^\\"])*"(?:\s*:)?|\b-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?\b|\b(?:true|false|null)\b|[{}[\],])/g);
+  
+  return tokens.map((token, i) => {
+    if (!token) return null;
+    
+    // Key
+    if (token.endsWith(':')) {
+      return <span key={i} className="text-primary font-bold">{token}</span>;
+    }
+    // String value
+    if (token.startsWith('"')) {
+      return <span key={i} className="text-green-600 dark:text-green-400">{token}</span>;
+    }
+    // Number
+    if (/^-?\d/.test(token)) {
+      return <span key={i} className="text-blue-600 dark:text-blue-400">{token}</span>;
+    }
+    // Boolean / Null
+    if (/^(true|false|null)$/.test(token)) {
+      return <span key={i} className="text-orange-600 dark:text-orange-400 font-semibold">{token}</span>;
+    }
+    // Structural characters
+    if (/^[{}[\],]$/.test(token)) {
+      return <span key={i} className="text-muted-foreground">{token}</span>;
+    }
+    
+    return <span key={i}>{token}</span>;
+  });
+};
+
 const LineNumbers = ({ text }: { text: string }) => {
   const lines = text.split('\n');
   const lineCount = lines.length || 1;
   return (
     <div className="flex flex-col text-right pr-2 text-muted-foreground/30 font-code text-xs select-none pt-2.5 bg-muted/20 border-r w-10 shrink-0 h-full overflow-hidden">
-      {Array.from({ length: lineCount }).map((_, i) => (
+      {Array.from({ length: Math.max(lineCount, 15) }).map((_, i) => (
         <div key={i} className="leading-6 h-6">{i + 1}</div>
       ))}
     </div>
@@ -79,7 +113,7 @@ const JsonTreeNode = ({ label, value, isLast = true, depth = 0, wordWrap }: { la
         "flex items-start gap-1 font-code text-sm py-0.5 ml-6",
         wordWrap ? "whitespace-pre-wrap" : "whitespace-nowrap"
       )}>
-        {label && <span className="text-primary/80 shrink-0">"{label}": </span>}
+        {label && <span className="text-primary font-bold shrink-0">"{label}": </span>}
         <span className={cn(
           typeof value === 'string' ? 'text-green-600 dark:text-green-400' : 
           typeof value === 'number' ? 'text-blue-600 dark:text-blue-400' :
@@ -106,7 +140,7 @@ const JsonTreeNode = ({ label, value, isLast = true, depth = 0, wordWrap }: { la
         <div className="w-4 h-4 flex items-center justify-center text-muted-foreground">
           {isOpen ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
         </div>
-        {label && <span className="text-primary/80">"{label}": </span>}
+        {label && <span className="text-primary font-bold">"{label}": </span>}
         <span className="text-muted-foreground">{bracketOpen}</span>
         {!isOpen && <span className="text-muted-foreground px-1 bg-muted/50 rounded text-xs">... {keys.length} items</span>}
         {!isOpen && <span className="text-muted-foreground">{bracketClose}{!isLast && ','}</span>}
@@ -145,11 +179,9 @@ export default function JsonFormatterPage() {
   const [indentSize, setIndentSize] = useState<number>(2);
   const [sortOrder, setSortOrder] = useState<SortOrder>('none');
   const [viewMode, setViewMode] = useState<OutputView>('code');
-  const [wordWrap, setWordWrap] = useState(true);
+  const [wordWrap, setWordWrap] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-  const outputRef = useRef<HTMLTextAreaElement>(null);
 
   const handleBeautify = () => {
     try {
@@ -221,6 +253,8 @@ export default function JsonFormatterPage() {
     });
   };
 
+  const highlightedOutput = useMemo(() => highlightJson(output), [output]);
+
   return (
     <div className="max-w-7xl mx-auto space-y-8 py-6">
       <div className="flex items-center gap-4 mb-4">
@@ -274,7 +308,6 @@ export default function JsonFormatterPage() {
               <LineNumbers text={input} />
               <div className="flex-1 overflow-auto">
                 <Textarea
-                  ref={inputRef}
                   placeholder="Paste your JSON here..."
                   className={cn(
                     "font-code w-full min-h-full border-none focus-visible:ring-0 bg-transparent resize-none leading-6 rounded-none py-2.5 shadow-none",
@@ -410,23 +443,18 @@ export default function JsonFormatterPage() {
               {viewMode === 'code' ? (
                 <>
                   <LineNumbers text={output} />
-                  <div className="flex-1 overflow-auto">
-                    <Textarea
-                      readOnly
-                      ref={outputRef}
-                      placeholder="Formatted results will appear here..."
-                      className={cn(
-                        "font-code w-full min-h-full border-none focus-visible:ring-0 bg-transparent resize-none leading-6 rounded-none py-2.5 shadow-none",
-                        wordWrap ? "whitespace-pre-wrap" : "whitespace-pre overflow-x-auto"
-                      )}
-                      wrap={wordWrap ? "soft" : "off"}
-                      value={output}
-                    />
+                  <div className="flex-1 overflow-auto bg-[#fafafa] dark:bg-[#0f1115]">
+                    <div className={cn(
+                      "font-code w-full min-h-full leading-6 py-2.5 px-3",
+                      wordWrap ? "whitespace-pre-wrap" : "whitespace-pre"
+                    )}>
+                      {highlightedOutput || <span className="text-muted-foreground/50">Formatted results will appear here...</span>}
+                    </div>
                   </div>
                 </>
               ) : (
                 <div className={cn(
-                  "flex-1 overflow-auto p-4 bg-transparent font-code",
+                  "flex-1 overflow-auto p-4 bg-[#fafafa] dark:bg-[#0f1115] font-code",
                   !wordWrap && "overflow-x-auto"
                 )}>
                   {parsedOutput && <JsonTreeNode value={parsedOutput} wordWrap={wordWrap} />}
