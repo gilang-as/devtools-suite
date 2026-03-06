@@ -1,18 +1,23 @@
-
 "use client"
 
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShieldCheck, EyeOff, ServerOff } from 'lucide-react';
 import { useTranslation } from '@/components/providers/i18n-provider';
 
 export default function PrivacyPage() {
   const { t } = useTranslation();
+  const [lastUpdated, setLastUpdated] = useState<string>('');
+
+  useEffect(() => {
+    setLastUpdated(new Date().toLocaleDateString());
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto py-12 space-y-8">
       <div className="text-center space-y-4">
         <h1 className="text-4xl font-headline font-bold">{t('policies.privacy.title')}</h1>
-        <p className="text-muted-foreground">{t('policies.privacy.last_updated')}: {new Date().toLocaleDateString()}</p>
+        <p className="text-muted-foreground">{t('policies.privacy.last_updated')}: {lastUpdated || '...'}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

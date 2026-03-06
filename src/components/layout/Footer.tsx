@@ -1,6 +1,6 @@
-
 "use client"
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { TOOLS } from '@/tools/config';
 import { useTranslation } from '@/components/providers/i18n-provider';
@@ -8,7 +8,13 @@ import { Terminal } from 'lucide-react';
 
 export default function Footer() {
   const { t } = useTranslation();
-  const year = new Date().getFullYear();
+  const [year, setYear] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+    setMounted(true);
+  }, []);
 
   const categories = Array.from(new Set(TOOLS.map(tool => tool.category))).sort();
 
@@ -55,7 +61,7 @@ export default function Footer() {
 
           <div className="flex flex-col items-center md:items-end gap-2 text-sm text-muted-foreground">
             <p className="font-medium">
-              © {year} {t('common.title')}. All rights reserved.
+              © {year || '...'} {t('common.title')}. All rights reserved.
             </p>
             <div className="flex gap-4">
               <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>

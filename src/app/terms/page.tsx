@@ -1,18 +1,23 @@
-
 "use client"
 
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileText, Scale, AlertTriangle, CheckCircle2 } from 'lucide-react';
 import { useTranslation } from '@/components/providers/i18n-provider';
 
 export default function TermsPage() {
   const { t } = useTranslation();
+  const [validDate, setValidDate] = useState<string>('');
+
+  useEffect(() => {
+    setValidDate(new Date().toLocaleDateString());
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto py-12 space-y-8">
       <div className="text-center space-y-4">
         <h1 className="text-4xl font-headline font-bold">{t('policies.terms.title')}</h1>
-        <p className="text-muted-foreground">{t('common.valid')}: {new Date().toLocaleDateString()}</p>
+        <p className="text-muted-foreground">{t('common.valid')}: {validDate || '...'}</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6">
