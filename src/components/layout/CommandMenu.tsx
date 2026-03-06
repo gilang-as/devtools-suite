@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from 'react';
@@ -14,11 +13,11 @@ import {
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
-import { Search, Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, ChevronRight, FileBadge } from 'lucide-react';
+import { Search, Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, ChevronRight, FileBadge, Type } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const iconMap: Record<string, any> = {
-  Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge
+  Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge, Type
 };
 
 export default function CommandMenu() {

@@ -1,4 +1,3 @@
-
 {
   "common": {
     "title": "DevTools Suite",
@@ -84,6 +83,7 @@
     "regex_tester": { "name": "Regex Tester", "description": "Test and debug regular expressions with live highlighting and detailed match info." },
     "regex_generator": { "name": "Regex AI Generator", "description": "Generate complex regular expressions from natural language descriptions using AI." },
     "text_diff": { "name": "Text Diff Checker", "description": "Compare two text blocks to find differences, additions, and deletions." },
+    "case_converter": { "name": "Case Converter", "description": "Convert text between various letter cases like camelCase, snake_case, PascalCase, etc." },
     "unix_timestamp_converter": { "name": "Unix Timestamp Converter", "description": "Convert Unix seconds/milliseconds to human-readable dates." },
     "unix_timestamp_generator": { "name": "Unix Timestamp Generator", "description": "Generate current and future Unix timestamps instantly." },
     "cron_parser": { "name": "Cron Expression Parser", "description": "Translate complex cron strings into readable human language." },
