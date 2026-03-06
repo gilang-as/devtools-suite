@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Select, 
@@ -25,7 +26,8 @@ import {
   ListOrdered,
   ChevronRight,
   ChevronDown,
-  Layout
+  Layout,
+  WrapText
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -55,7 +57,8 @@ const sortObject = (obj: any, order: SortOrder): any => {
 };
 
 const LineNumbers = ({ text }: { text: string }) => {
-  const lineCount = text.split('\n').length || 1;
+  const lines = text.split('\n');
+  const lineCount = lines.length || 1;
   return (
     <div className="flex flex-col text-right pr-2 text-muted-foreground/30 font-code text-xs select-none pt-2.5 bg-muted/20 border-r w-10 shrink-0 h-full overflow-hidden">
       {Array.from({ length: lineCount }).map((_, i) => (
@@ -138,6 +141,7 @@ export default function JsonFormatterPage() {
   const [indentSize, setIndentSize] = useState<number>(2);
   const [sortOrder, setSortOrder] = useState<SortOrder>('none');
   const [viewMode, setViewMode] = useState<OutputView>('code');
+  const [wordWrap, setWordWrap] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -261,16 +265,22 @@ export default function JsonFormatterPage() {
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="flex-1 flex flex-col p-0">
-            <div className="flex flex-1 min-h-[400px] border-t bg-secondary/10">
+          <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
+            <div className="flex flex-1 min-h-[400px] border-t bg-secondary/10 overflow-hidden">
               <LineNumbers text={input} />
-              <Textarea
-                ref={inputRef}
-                placeholder="Paste your JSON here..."
-                className="font-code flex-1 border-none focus-visible:ring-0 bg-transparent resize-none leading-6 rounded-none py-2.5 shadow-none"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              />
+              <div className="flex-1 overflow-auto">
+                <Textarea
+                  ref={inputRef}
+                  placeholder="Paste your JSON here..."
+                  className={cn(
+                    "font-code w-full min-h-full border-none focus-visible:ring-0 bg-transparent resize-none leading-6 rounded-none py-2.5 shadow-none",
+                    wordWrap ? "whitespace-pre-wrap" : "whitespace-pre overflow-x-auto"
+                  )}
+                  wrap={wordWrap ? "soft" : "off"}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                />
+              </div>
             </div>
             {error && (
               <div className="p-2 border-t border-destructive/20 bg-destructive/5">
@@ -322,6 +332,20 @@ export default function JsonFormatterPage() {
                   <SelectItem value="desc">{t('common.desc')}</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+
+            <div className="flex items-center justify-between px-1">
+              <div className="flex items-center gap-2">
+                <WrapText className="h-4 w-4 text-muted-foreground" />
+                <Label htmlFor="word-wrap" className="text-xs font-medium cursor-pointer">
+                  {t('common.wordWrap')}
+                </Label>
+              </div>
+              <Switch 
+                id="word-wrap" 
+                checked={wordWrap} 
+                onCheckedChange={setWordWrap} 
+              />
             </div>
           </div>
           
@@ -377,18 +401,24 @@ export default function JsonFormatterPage() {
               {t('common.copy')}
             </Button>
           </CardHeader>
-          <CardContent className="flex-1 flex flex-col p-0">
+          <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
             <div className="flex flex-1 min-h-[400px] border-t bg-secondary/10 overflow-hidden">
               {viewMode === 'code' ? (
                 <>
                   <LineNumbers text={output} />
-                  <Textarea
-                    readOnly
-                    ref={outputRef}
-                    placeholder="Formatted results will appear here..."
-                    className="font-code flex-1 border-none focus-visible:ring-0 bg-transparent resize-none leading-6 rounded-none py-2.5 shadow-none"
-                    value={output}
-                  />
+                  <div className="flex-1 overflow-auto">
+                    <Textarea
+                      readOnly
+                      ref={outputRef}
+                      placeholder="Formatted results will appear here..."
+                      className={cn(
+                        "font-code w-full min-h-full border-none focus-visible:ring-0 bg-transparent resize-none leading-6 rounded-none py-2.5 shadow-none",
+                        wordWrap ? "whitespace-pre-wrap" : "whitespace-pre overflow-x-auto"
+                      )}
+                      wrap={wordWrap ? "soft" : "off"}
+                      value={output}
+                    />
+                  </div>
                 </>
               ) : (
                 <div className="flex-1 overflow-auto p-4 bg-transparent font-code">

@@ -30,7 +30,8 @@
     "sort": "Urutkan Key",
     "none": "Tidak Ada",
     "asc": "A-Z",
-    "desc": "Z-A"
+    "desc": "Z-A",
+    "wordWrap": "Bungkus Teks"
   },
   "home": {
     "heading": "Alat Pengembang",

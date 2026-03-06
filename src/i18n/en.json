@@ -30,7 +30,8 @@
     "sort": "Sort Keys",
     "none": "None",
     "asc": "Ascending",
-    "desc": "Descending"
+    "desc": "Descending",
+    "wordWrap": "Word Wrap"
   },
   "home": {
     "heading": "Developer Tools",
