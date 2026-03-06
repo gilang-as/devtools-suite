@@ -6,8 +6,8 @@
     "copy": "Salin",
     "copied": "Tersalin!",
     "clear": "Bersihkan",
-    "encode": "Enkode",
-    "decode": "Dekode",
+    "encode": "Encode",
+    "decode": "Decode",
     "generate": "Hasilkan",
     "download": "Unduh",
     "input": "Input",
@@ -64,35 +64,35 @@
   "tools": {
     "base64_encode": {
       "name": "Base64 Encode",
-      "description": "Enkode string teks ke format Base64 dengan aman."
+      "description": "Encode string teks ke format Base64 dengan aman."
     },
     "base64_decode": {
       "name": "Base64 Decode",
-      "description": "Dekode string Base64 kembali ke teks yang dapat dibaca."
+      "description": "Decode string Base64 kembali ke teks yang dapat dibaca."
     },
     "binary_encode": {
       "name": "Binary Encode",
-      "description": "Enkode string teks ke format Biner (0 dan 1)."
+      "description": "Encode string teks ke format Biner (0 dan 1)."
     },
     "binary_decode": {
       "name": "Binary Decode",
-      "description": "Dekode string Biner kembali ke teks yang dapat dibaca."
+      "description": "Decode string Biner kembali ke teks yang dapat dibaca."
     },
     "hex_encode": {
       "name": "Hex Encode",
-      "description": "Enkode string teks ke format Hexadecimal."
+      "description": "Encode string teks ke format Hexadecimal."
     },
     "hex_decode": {
       "name": "Hex Decode",
-      "description": "Dekode Hexadecimal kembali ke teks yang dapat dibaca."
+      "description": "Decode Hexadecimal kembali ke teks yang dapat dibaca."
     },
     "url_encode": {
       "name": "URL Encode",
-      "description": "Enkode string teks untuk digunakan dalam URL dengan aman."
+      "description": "Encode string teks untuk digunakan dalam URL dengan aman."
     },
     "url_decode": {
       "name": "URL Decode",
-      "description": "Dekode string URL kembali ke teks yang dapat dibaca."
+      "description": "Decode string URL kembali ke teks yang dapat dibaca."
     },
     "html_encode": {
       "name": "HTML Encode",
@@ -100,7 +100,7 @@
     },
     "html_decode": {
       "name": "HTML Decode",
-      "description": "Dekode entitas HTML kembali menjadi teks biasa."
+      "description": "Decode entitas HTML kembali menjadi teks biasa."
     },
     "md5": {
       "name": "MD5 Hash",
@@ -217,7 +217,7 @@
     },
     "asn1": {
       "name": "ASN.1 Inspector",
-      "description": "Dekode dan visualisasikan struktur ASN.1 dari DER atau Base64."
+      "description": "Decode dan visualisasikan struktur ASN.1 dari DER atau Base64."
     },
     "jose": {
       "name": "JOSE (JWT/JWK)",
@@ -229,7 +229,7 @@
     },
     "cose": {
       "name": "COSE (CBOR)",
-      "description": "Enkode dan tanda tangani struktur CBOR Object Signing and Encryption."
+      "description": "Encode dan tanda tangani struktur CBOR Object Signing and Encryption."
     },
     "spki": {
       "name": "SPKI Formatter",
