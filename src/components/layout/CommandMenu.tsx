@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from 'react';
@@ -24,6 +25,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+// Icon mapping for display
 const iconMap: Record<string, any> = {
   Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, 
   Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, 
@@ -44,10 +46,11 @@ export default function CommandMenu() {
   const [view, setView] = React.useState<View>('root');
   const [selectedColor, setSelectedColor] = React.useState<ColorScheme | null>(null);
   
-  // Stores the state when the menu was first opened
+  // Track absolute start to revert on close
   const absoluteInitialState = React.useRef<{ theme: any, colorScheme: ColorScheme } | null>(null);
   
-  // Stores the state when entering a specific sub-menu level
+  // Checkpoints for hierarchical back navigation
+  // Stores the state as it was when the view was entered
   const [checkpoints, setCheckpoints] = React.useState<Record<View, { theme: any, colorScheme: ColorScheme } | null>>({
     root: null,
     colors: null,
@@ -57,7 +60,7 @@ export default function CommandMenu() {
 
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
-  // Auto-scroll logic for keyboard navigation
+  // Auto-scroll to selected item
   React.useEffect(() => {
     if (itemRefs.current[selectedIndex]) {
       itemRefs.current[selectedIndex]?.scrollIntoView({
@@ -141,7 +144,7 @@ export default function CommandMenu() {
       };
       
       const targetView = prevViewMap[view];
-      const checkpoint = checkpoints[view]; // Restore state from when we ENTERED this sub-view
+      const checkpoint = checkpoints[view]; 
       
       if (checkpoint) {
         setTheme(checkpoint.theme);
@@ -154,11 +157,12 @@ export default function CommandMenu() {
     }
 
     if (item.type === 'nav') {
+      // Entering sub-menu: save current state as checkpoint for this target view
       setCheckpoints(prev => ({ ...prev, [item.target]: { theme, colorScheme } }));
       setView(item.target);
       setQuery('');
     } else if (item.type === 'color') {
-      // Save state before we pick this color, so 'Back' works correctly
+      // Entering color-mode selection: save current state (with the new color previewed)
       setCheckpoints(prev => ({ ...prev, 'color-modes': { theme, colorScheme } }));
       setColorScheme(item.id);
       setSelectedColor(item.id);
@@ -177,9 +181,24 @@ export default function CommandMenu() {
 
   // Immediate Preview Effect
   React.useEffect(() => {
-    const activeItem = filteredItems[selectedIndex];
-    if (!activeItem || activeItem.isBack) return;
+    if (!open) return;
 
+    const activeItem = filteredItems[selectedIndex];
+    
+    // If we are highlighting the "Back" item, restore to the view's checkpoint
+    if (!activeItem || activeItem.isBack) {
+      const checkpoint = checkpoints[view];
+      if (checkpoint) {
+        setTheme(checkpoint.theme);
+        setColorScheme(checkpoint.colorScheme);
+      } else if (absoluteInitialState.current) {
+        setTheme(absoluteInitialState.current.theme);
+        setColorScheme(absoluteInitialState.current.colorScheme);
+      }
+      return;
+    }
+
+    // Apply previews instantly
     if (view === 'colors' && activeItem.type === 'color') {
       setColorScheme(activeItem.id);
     } else if (view === 'modes' && activeItem.type === 'mode') {
@@ -187,8 +206,9 @@ export default function CommandMenu() {
     } else if (view === 'color-modes' && activeItem.type === 'apply-all') {
       setTheme(activeItem.id as any);
     }
-  }, [selectedIndex, filteredItems, view, setTheme, setColorScheme]);
+  }, [selectedIndex, filteredItems, view, open, setTheme, setColorScheme, checkpoints]);
 
+  // Handle Spotlight Shortcut
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
@@ -200,11 +220,12 @@ export default function CommandMenu() {
     return () => document.removeEventListener('keydown', down);
   }, []);
 
+  // Handle Modal Open/Close & Revert
   React.useEffect(() => {
     if (open) {
       absoluteInitialState.current = { theme, colorScheme };
     } else {
-      // Revert to initial state if closed without finalized selection
+      // Revert to absolute initial state if closed without finalized selection
       if (absoluteInitialState.current) {
         setTheme(absoluteInitialState.current.theme);
         setColorScheme(absoluteInitialState.current.colorScheme);
@@ -216,6 +237,7 @@ export default function CommandMenu() {
     }
   }, [open]);
 
+  // Reset selection on query/view change
   React.useEffect(() => {
     setSelectedIndex(0);
   }, [query, view]);
@@ -265,6 +287,11 @@ export default function CommandMenu() {
           </div>
         </DialogHeader>
 
+        {/* 
+          CRITICAL FIX: Horizontal layout cutting.
+          We override Radix ScrollArea internal table-based layout using [data-radix-scroll-area-viewport] 
+          selectors to ensure it stays 100% width and does not bleed out.
+        */}
         <ScrollArea className="max-h-[450px] w-full flex-1 [&_[data-radix-scroll-area-viewport]]:!block [&_[data-radix-scroll-area-viewport]>div]:!block overflow-hidden">
           <div className="p-2 flex flex-col gap-1 w-full box-border">
             {filteredItems.length > 0 ? (
