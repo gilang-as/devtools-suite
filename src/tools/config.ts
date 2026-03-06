@@ -44,6 +44,22 @@ export const TOOLS: Tool[] = [
     category: 'Encoding',
   },
   {
+    id: 'html-encode',
+    nameKey: 'tools.html_encode.name',
+    descriptionKey: 'tools.html_encode.description',
+    href: '/html/encode',
+    icon: 'CodeXml',
+    category: 'Encoding',
+  },
+  {
+    id: 'html-decode',
+    nameKey: 'tools.html_decode.name',
+    descriptionKey: 'tools.html_decode.description',
+    href: '/html/decode',
+    icon: 'CodeXml',
+    category: 'Encoding',
+  },
+  {
     id: 'json-formatter',
     nameKey: 'tools.json_formatter.name',
     descriptionKey: 'tools.json_formatter.description',

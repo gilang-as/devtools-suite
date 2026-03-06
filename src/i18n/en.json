@@ -64,6 +64,14 @@
       "name": "URL Decode",
       "description": "Decode URL-encoded strings back into readable text."
     },
+    "html_encode": {
+      "name": "HTML Encode",
+      "description": "Convert special characters into HTML entities safely."
+    },
+    "html_decode": {
+      "name": "HTML Decode",
+      "description": "Decode HTML entities back into readable text."
+    },
     "json_formatter": {
       "name": "JSON Formatter",
       "description": "Clean, format, and minify your JSON data easily."

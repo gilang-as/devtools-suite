@@ -64,6 +64,14 @@
       "name": "Dekode URL",
       "description": "Dekode string URL kembali ke teks yang dapat dibaca."
     },
+    "html_encode": {
+      "name": "Enkode HTML",
+      "description": "Konversi karakter khusus menjadi entitas HTML dengan aman."
+    },
+    "html_decode": {
+      "name": "Dekode HTML",
+      "description": "Dekode entitas HTML kembali menjadi teks biasa."
+    },
     "json_formatter": {
       "name": "Format JSON",
       "description": "Bersihkan, format, dan minifikasi data JSON Anda dengan mudah."
