@@ -1,14 +1,14 @@
 
 "use client"
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { dnsLookup, DnsLookupResult, DnsRecordType } from '@/lib/networking';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Globe2, Network, Lock } from 'lucide-react';
+import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Globe2, Network, Lock, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 
@@ -31,6 +31,7 @@ export default function DnsLookupPage() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Record<string, DnsLookupResult>>({});
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaKey, setCaptchaKey] = useState(0);
   const turnstileRef = useRef<TurnstileInstance>(null);
 
   const handleLookup = async () => {
@@ -61,15 +62,7 @@ export default function DnsLookupPage() {
     
     // Reset captcha for next request
     setCaptchaToken(null);
-    turnstileRef.current?.reset();
-    
-    if (Object.keys(newResults).length === 0) {
-      toast({
-        variant: 'destructive',
-        title: 'Lookup Finished',
-        description: 'No matching records found for the requested types.'
-      });
-    }
+    setCaptchaKey(prev => prev + 1);
   };
 
   const copyToClipboard = (text: string) => {
@@ -105,41 +98,51 @@ export default function DnsLookupPage() {
                     setDomain(e.target.value);
                     if (captchaToken) {
                       setCaptchaToken(null);
-                      turnstileRef.current?.reset();
+                      setCaptchaKey(prev => prev + 1);
                     }
                   }}
                   placeholder="example.com"
                   className="pl-10 h-12 text-lg font-code"
-                  onKeyDown={(e) => e.key === 'Enter' && captchaToken && handleLookup()}
+                  onKeyDown={(e) => e.key === 'Enter' && captchaToken && !loading && handleLookup()}
                 />
               </div>
 
-              <div className="flex flex-col items-center justify-center p-4 bg-secondary/20 rounded-xl border border-dashed border-primary/20 min-h-[100px]">
-                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-3 flex items-center gap-1.5">
+              <div className="flex flex-col items-center justify-center p-4 bg-secondary/10 rounded-xl border-2 border-dashed border-primary/10 min-h-[120px] overflow-visible">
+                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-4 flex items-center gap-1.5">
                   <Lock className="h-3 w-3" />
                   Security Verification
                 </p>
-                <Turnstile
-                  ref={turnstileRef}
-                  sitekey="3x00000000000000000000CC"
-                  onSuccess={(token) => setCaptchaToken(token)}
-                  onError={() => {
-                    setCaptchaToken(null);
-                    toast({
-                      variant: 'destructive',
-                      title: 'Captcha Error',
-                      description: 'Verification failed to load.'
-                    });
-                  }}
-                  onExpire={() => setCaptchaToken(null)}
-                />
+                <div className="w-full flex justify-center">
+                  <Turnstile
+                    key={captchaKey}
+                    ref={turnstileRef}
+                    sitekey="3x00000000000000000000CC"
+                    options={{
+                      size: 'normal',
+                      theme: 'auto',
+                    }}
+                    onSuccess={(token) => setCaptchaToken(token)}
+                    onError={() => {
+                      setCaptchaToken(null);
+                      toast({
+                        variant: 'destructive',
+                        title: 'Captcha Error',
+                        description: 'Failed to initialize security widget.'
+                      });
+                    }}
+                    onExpire={() => {
+                      setCaptchaToken(null);
+                      setCaptchaKey(prev => prev + 1);
+                    }}
+                  />
+                </div>
               </div>
             </div>
 
             <Button 
               onClick={handleLookup} 
-              className="w-full h-12 shadow-md" 
-              disabled={loading || !captchaToken}
+              className="w-full h-12 shadow-md transition-all active:scale-95" 
+              disabled={loading || !captchaToken || !domain.trim()}
             >
               {loading ? (
                 <Loader2 className="h-5 w-5 mr-2 animate-spin" />
@@ -197,7 +200,7 @@ export default function DnsLookupPage() {
                           <Card key={type} className="border-border shadow-md overflow-hidden group">
                             <CardHeader className="py-3 px-4 bg-muted/30 border-b flex flex-row items-center justify-between">
                               <div className="flex items-center gap-3">
-                                <Badge variant="outline" className="bg-background font-code font-bold text-primary">
+                                <Badge variant="outline" className="bg-background font-code font-bold text-primary border-primary/20">
                                   {type}
                                 </Badge>
                                 <span className="text-[10px] font-bold text-muted-foreground uppercase">
@@ -206,17 +209,17 @@ export default function DnsLookupPage() {
                               </div>
                               <div className="flex items-center gap-2">
                                 {res.AD && <Badge variant="secondary" className="text-[9px] bg-green-500/10 text-green-600 border-green-500/20">DNSSEC</Badge>}
-                                <Badge variant="outline" className="text-[9px]">TTL: {res.Answer?.[0]?.TTL || 'N/A'}</Badge>
+                                <Badge variant="outline" className="text-[9px] font-mono">TTL: {res.Answer?.[0]?.TTL || 'N/A'}</Badge>
                               </div>
                             </CardHeader>
                             <CardContent className="p-0">
-                              <div className="divide-y">
+                              <div className="divide-y divide-border/50">
                                 {res.Answer.map((ans, i) => (
                                   <div key={i} className="p-4 flex items-start justify-between gap-4 hover:bg-accent/5 transition-colors">
                                     <code className="font-code text-sm break-all leading-relaxed flex-1">
                                       {ans.data}
                                     </code>
-                                    <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 opacity-0 group-hover:opacity-100" onClick={() => copyToClipboard(ans.data)}>
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" onClick={() => copyToClipboard(ans.data)}>
                                       <Copy className="h-4 w-4" />
                                     </Button>
                                   </div>
@@ -235,11 +238,11 @@ export default function DnsLookupPage() {
                 <CardHeader className="bg-background border-b py-3">
                   <div className="flex items-center gap-2">
                     <Braces className="h-4 w-4 text-primary" />
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest">Advanced Inspection (ANY)</CardTitle>
+                    <CardTitle className="text-sm font-bold uppercase tracking-widest">Advanced Inspection (Raw JSON)</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent className="p-0">
-                  <pre className="font-code text-[10px] p-6 max-h-[400px] overflow-auto leading-relaxed">
+                  <pre className="font-code text-[10px] p-6 max-h-[400px] overflow-auto leading-relaxed bg-[#fafafa] dark:bg-[#0f1115]">
                     {JSON.stringify(results, null, 2)}
                   </pre>
                 </CardContent>
