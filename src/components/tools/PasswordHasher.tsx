@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -66,24 +67,6 @@ export default function PasswordHasher({ algorithm }: PasswordHasherProps) {
     toast({ title: t('common.copied') });
   };
 
-  const KnowledgeBase = {
-    bcrypt: {
-      title: "Bcrypt: Adaptive Hashing",
-      desc: "Bcrypt is a battle-tested algorithm that uses a configurable 'cost factor' to slow down attackers. It stores the salt and cost inside the resulting hash string.",
-      note: "Standard cost is 10-12. Going too high significantly increases computation time."
-    },
-    argon2: {
-      title: "Argon2: The Modern Winner",
-      desc: "Winner of the Password Hashing Competition. It is designed to resist GPU/ASIC cracking by being 'memory-hard'.",
-      note: "Argon2id is the recommended version for most use cases."
-    },
-    pbkdf2: {
-      title: "PBKDF2: Standard Derivation",
-      desc: "Password-Based Key Derivation Function 2. It applies a pseudo-random function (like HMAC-SHA256) many times to make brute-force slow.",
-      note: "NIST recommends at least 600,000 iterations for PBKDF2-HMAC-SHA256."
-    }
-  }[algorithm];
-
   const InfoIcon = ({ content }: { content: string }) => (
     <TooltipProvider>
       <Tooltip>
@@ -127,7 +110,7 @@ export default function PasswordHasher({ algorithm }: PasswordHasherProps) {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Label>{t('common.salt')}</Label>
-                    <InfoIcon content="A unique string added to the password to prevent pre-computed rainbow table attacks." />
+                    <InfoIcon content={t('hints.salt')} />
                   </div>
                   <Input value={salt} onChange={(e) => setSalt(e.target.value)} />
                 </div>
@@ -171,14 +154,14 @@ export default function PasswordHasher({ algorithm }: PasswordHasherProps) {
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-bold flex items-center gap-2">
                 <Info className="h-4 w-4 text-primary" />
-                {KnowledgeBase.title}
+                {t(`kb.${algorithm}.title`)}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-xs leading-relaxed text-muted-foreground">
-              <p>{KnowledgeBase.desc}</p>
+              <p>{t(`kb.${algorithm}.desc`)}</p>
               <div className="pt-2 border-t border-primary/10">
-                <p className="font-bold text-primary">Best Practice</p>
-                <p>{KnowledgeBase.note}</p>
+                <p className="font-bold text-primary">{t('common.best_practice')}</p>
+                <p>{t(`kb.${algorithm}.note`)}</p>
               </div>
             </CardContent>
           </Card>
@@ -194,7 +177,7 @@ export default function PasswordHasher({ algorithm }: PasswordHasherProps) {
           </CardHeader>
           <CardContent className="pt-6">
             <div className="p-6 bg-background rounded-xl border-2 border-primary/10 shadow-inner break-all font-code text-sm leading-relaxed min-h-[120px] flex items-center">
-              {hash || <span className="text-muted-foreground/50">Your hash will appear here...</span>}
+              {hash || <span className="text-muted-foreground/50">{t('common.placeholder_results')}</span>}
             </div>
             <p className="text-[10px] text-muted-foreground mt-4 italic text-center">
               * Verification: For real apps, never trust client-side hashing alone. Perform final hashing on the server.

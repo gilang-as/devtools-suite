@@ -140,16 +140,6 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
 
   const bitPresets = ['1024', '2048', '3072', '4096'];
 
-  const KnowledgeBaseContent = {
-    title: t(`pkcs_kb.${version}.title`),
-    description: t(`pkcs_kb.${version}.desc`),
-    items: [
-      { label: t(`pkcs_kb.${version}.i1_label`), text: t(`pkcs_kb.${version}.i1_text`) },
-      { label: t(`pkcs_kb.${version}.i2_label`), text: t(`pkcs_kb.${version}.i2_text`) },
-      ...(version === 'x509' ? [{ label: t(`pkcs_kb.x509.i3_label`), text: t(`pkcs_kb.x509.i3_text`) }] : [])
-    ].filter(i => i.label && i.text)
-  };
-
   const InfoIcon = ({ content }: { content: string }) => (
     <TooltipProvider>
       <Tooltip>
@@ -209,8 +199,8 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
               {(version === 'p8' || version === 'p12') && (
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <Label>Algorithm</Label>
-                    <InfoIcon content="The cryptographic algorithm used to generate the key pair." />
+                    <Label>{t('common.algorithm')}</Label>
+                    <InfoIcon content={t('hints.algorithm')} />
                   </div>
                   <Select value={algorithm} onValueChange={setAlgorithm}>
                     <SelectTrigger className="bg-background">
@@ -237,8 +227,8 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
               {(version === 'p1' || version === 'p8' || version === 'p10') && algorithm === 'RSA' && (
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <Label htmlFor="bits">Key Length (bits)</Label>
-                    <InfoIcon content="Higher bit counts offer more security but slower processing. 2048 is standard; 4096 is high-security." />
+                    <Label htmlFor="bits">{t('common.bits')}</Label>
+                    <InfoIcon content={t('hints.bits')} />
                   </div>
                   <div className="flex gap-2">
                     <Select 
@@ -252,7 +242,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                         {bitPresets.map(preset => (
                           <SelectItem key={preset} value={preset}>{preset}</SelectItem>
                         ))}
-                        {version !== 'p1' && <SelectItem value="custom">Custom</SelectItem>}
+                        {version !== 'p1' && <SelectItem value="custom">{t('common.manual')}</SelectItem>}
                       </SelectContent>
                     </Select>
                     {version !== 'p1' && !bitPresets.includes(bits.toString()) && (
@@ -273,7 +263,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Label htmlFor="cn">Common Name (CN)</Label>
-                    <InfoIcon content="The primary name the certificate is issued for (e.g., your domain or server name)." />
+                    <InfoIcon content={t('hints.cn')} />
                   </div>
                   <Input 
                     id="cn" 
@@ -289,7 +279,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <Label htmlFor="org">Organization (O)</Label>
-                      <InfoIcon content="The legal name of your organization." />
+                      <InfoIcon content={t('hints.org')} />
                     </div>
                     <Input 
                       id="org" 
@@ -300,7 +290,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <Label htmlFor="unit">Organizational Unit (OU)</Label>
-                      <InfoIcon content="The department or sub-unit within the organization." />
+                      <InfoIcon content={t('hints.unit')} />
                     </div>
                     <Input 
                       id="unit" 
@@ -315,7 +305,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Label htmlFor="pass">PFX Password</Label>
-                    <InfoIcon content="The password required to import the certificate and private key into other systems." />
+                    <InfoIcon content={t('hints.pass')} />
                   </div>
                   <Input 
                     id="pass" 
@@ -330,7 +320,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Label htmlFor="content">Sample Content to Wrap</Label>
-                    <InfoIcon content="The message or data you want to sign or wrap in the PKCS#7 container." />
+                    <InfoIcon content={t('hints.p7_content')} />
                   </div>
                   <Textarea 
                     id="content"
@@ -351,17 +341,19 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-bold flex items-center gap-2">
                 <HelpCircle className="h-4 w-4 text-primary" />
-                {KnowledgeBaseContent.title}
+                {t(`pkcs_kb.${version}.title`)}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-xs leading-relaxed">
-              <p className="text-muted-foreground">{KnowledgeBaseContent.description}</p>
-              {KnowledgeBaseContent.items.map((item, idx) => (
-                <div key={idx} className="pt-2 border-t border-primary/10">
-                  <p className="font-bold text-primary">{item.label}</p>
-                  <p className="text-muted-foreground">{item.text}</p>
-                </div>
-              ))}
+              <p className="text-muted-foreground">{t(`pkcs_kb.${version}.desc`)}</p>
+              <div className="pt-2 border-t border-primary/10">
+                <p className="font-bold text-primary">{t(`pkcs_kb.${version}.i1_label`)}</p>
+                <p className="text-muted-foreground">{t(`pkcs_kb.${version}.i1_text`)}</p>
+              </div>
+              <div className="pt-2 border-t border-primary/10">
+                <p className="font-bold text-primary">{t(`pkcs_kb.${version}.i2_label`)}</p>
+                <p className="text-muted-foreground">{t(`pkcs_kb.${version}.i2_text`)}</p>
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -383,7 +375,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
           {!result ? (
             <Card className="border-dashed border-2 flex flex-col items-center justify-center py-20 text-muted-foreground bg-muted/10">
               <ShieldCheck className="h-12 w-12 opacity-20 mb-4" />
-              <p>Generated results will appear here</p>
+              <p>{t('common.placeholder_results')}</p>
               <Button variant="link" onClick={handleGenerate} className="mt-2">
                 Click to generate now
               </Button>

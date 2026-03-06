@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -48,12 +49,6 @@ export default function HmacGenerator({ type }: HmacGeneratorProps) {
     navigator.clipboard.writeText(output);
     toast({ title: t('common.copied') });
   };
-
-  const KnowledgeBase = {
-    sha1: "HMAC-SHA1 uses the SHA-1 hash function. While SHA-1 is weak for collisions, HMAC-SHA1 is still considered mathematically strong for authentication, though modern systems prefer SHA-256.",
-    sha256: "HMAC-SHA256 is the industry standard for message authentication. It's used in JWT (HS256), AWS signing, and many secure APIs.",
-    sha512: "HMAC-SHA512 provides the highest level of security in the HMAC family, often used in high-security financial or military systems."
-  }[type];
 
   const navItems = [
     { name: 'HMAC-SHA1', href: '/hashing/hmac-sha1' },
@@ -108,14 +103,14 @@ export default function HmacGenerator({ type }: HmacGeneratorProps) {
                       <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p className="text-xs">The private key used to sign the message.</p>
+                      <p className="text-xs">{t('hints.hmac_key')}</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               </Label>
               <Input 
                 type="text" 
-                placeholder="Enter secret key..." 
+                placeholder={t('common.secret_key') + "..."} 
                 value={secret}
                 onChange={(e) => setSecret(e.target.value)}
                 className="bg-secondary/30"
@@ -125,7 +120,7 @@ export default function HmacGenerator({ type }: HmacGeneratorProps) {
             <div className="space-y-2">
               <Label>{t('common.input')} Data</Label>
               <Textarea
-                placeholder="Enter message to sign..."
+                placeholder={t('common.placeholder_waiting')}
                 className="font-code min-h-[120px] bg-secondary/30"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -150,7 +145,7 @@ export default function HmacGenerator({ type }: HmacGeneratorProps) {
           </CardHeader>
           <CardContent>
             <div className="p-4 bg-background rounded-lg border-2 border-primary/10 font-code text-sm break-all min-h-[60px] flex items-center shadow-inner">
-              {output || <span className="text-muted-foreground/50 italic">Waiting for input and secret key...</span>}
+              {output || <span className="text-muted-foreground/50 italic">{t('common.placeholder_results')}</span>}
             </div>
           </CardContent>
         </Card>
@@ -159,7 +154,7 @@ export default function HmacGenerator({ type }: HmacGeneratorProps) {
           <CardContent className="pt-6 flex gap-3 items-start">
             <ShieldCheck className="h-5 w-5 text-primary shrink-0 mt-0.5" />
             <div className="text-sm leading-relaxed text-muted-foreground">
-              <strong>Security Note:</strong> {KnowledgeBase} HMAC is superior to a simple hash for verification because even if an attacker changes the message, they cannot reproduce the HMAC without your Secret Key.
+              <strong>{t('common.security_note')}:</strong> {t(`kb.hmac_${type}`)} {t('kb.hmac_general')}
             </div>
           </CardContent>
         </Card>

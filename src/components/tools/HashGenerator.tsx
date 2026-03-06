@@ -42,14 +42,6 @@ export default function HashGenerator({ type }: HashGeneratorProps) {
     toast({ title: t('common.copied') });
   };
 
-  const KnowledgeBase = {
-    md5: "MD5 produces a 128-bit hash. It's fast but cryptographically broken. Use only for integrity checks, never for security or passwords.",
-    sha1: "SHA-1 produces a 160-bit hash. It's now considered weak and susceptible to collision attacks. Primarily used for legacy system compatibility.",
-    sha256: "SHA-256 is part of the SHA-2 family. It's widely used in security protocols (SSL/TLS) and blockchain technology. Currently considered highly secure.",
-    sha512: "SHA-512 offers a larger 512-bit digest. It provides extremely high security and is often faster on 64-bit architectures than SHA-256.",
-    sha3: "SHA-3 is the latest NIST standard. It uses a completely different internal structure (Sponge construction) than SHA-2, providing extra safety against current SHA-2 weaknesses."
-  }[type];
-
   // Logic for tab grouping
   const shaFamily = [
     { name: 'SHA1', href: '/hashing/sha1' },
@@ -135,7 +127,7 @@ export default function HashGenerator({ type }: HashGeneratorProps) {
           </CardHeader>
           <CardContent className="space-y-4">
             <Textarea
-              placeholder="Enter text to hash..."
+              placeholder={t('common.placeholder_waiting')}
               className="font-code min-h-[120px] bg-secondary/30"
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -158,7 +150,7 @@ export default function HashGenerator({ type }: HashGeneratorProps) {
           </CardHeader>
           <CardContent>
             <div className="p-4 bg-background rounded-lg border font-code text-sm break-all min-h-[60px] flex items-center">
-              {output || <span className="text-muted-foreground/50">Result will appear here...</span>}
+              {output || <span className="text-muted-foreground/50">{t('common.placeholder_results')}</span>}
             </div>
           </CardContent>
         </Card>
@@ -167,7 +159,7 @@ export default function HashGenerator({ type }: HashGeneratorProps) {
           <CardContent className="pt-6 flex gap-3 items-start">
             <Info className="h-5 w-5 text-primary shrink-0 mt-0.5" />
             <div className="text-sm leading-relaxed text-muted-foreground">
-              <strong>Security Note:</strong> {KnowledgeBase}
+              <strong>{t('common.security_note')}:</strong> {t(`kb.${type}`)}
             </div>
           </CardContent>
         </Card>

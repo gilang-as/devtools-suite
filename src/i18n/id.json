@@ -42,7 +42,14 @@
     "password": "Kata Sandi",
     "salt": "Salt",
     "iterations": "Iterasi",
-    "secret_key": "Kunci Rahasia"
+    "secret_key": "Kunci Rahasia",
+    "bits": "Panjang Kunci (bit)",
+    "algorithm": "Algoritma",
+    "manual": "Manual",
+    "security_note": "Catatan Keamanan",
+    "placeholder_results": "Hasil akan muncul di sini...",
+    "placeholder_waiting": "Menunggu input...",
+    "best_practice": "Praktik Terbaik"
   },
   "home": {
     "heading": "Alat Pengembang",
@@ -228,6 +235,44 @@
       "name": "SPKI Formatter",
       "description": "Konversi dan format struktur Subject Public Key Info."
     }
+  },
+  "hints": {
+    "bits": "Jumlah bit yang lebih tinggi menawarkan keamanan lebih tetapi pemrosesan lebih lambat. 2048 adalah standar; 4096 adalah keamanan tinggi.",
+    "algorithm": "Algoritma kriptografi yang digunakan untuk menghasilkan pasangan kunci.",
+    "cn": "Nama utama sertifikat yang diterbitkan (misalnya, domain atau nama server Anda).",
+    "org": "Nama legal organisasi Anda.",
+    "unit": "Departemen atau sub-unit dalam organisasi.",
+    "pass": "Kata sandi yang diperlukan untuk mengimpor sertifikat dan kunci privat ke sistem lain.",
+    "p7_content": "Pesan atau data yang ingin Anda tandatangani atau bungkus dalam kontainer PKCS#7.",
+    "salt": "String unik yang ditambahkan ke kata sandi untuk mencegah serangan rainbow table yang dihitung sebelumnya.",
+    "hmac_key": "Kunci privat yang digunakan untuk menandatangani pesan.",
+    "validity_years": "Jumlah tahun hingga sertifikat kedaluwarsa."
+  },
+  "kb": {
+    "md5": "MD5 menghasilkan hash 128-bit. Cepat tetapi rusak secara kriptografis. Gunakan hanya untuk pemeriksaan integritas, jangan untuk keamanan atau kata sandi.",
+    "sha1": "SHA-1 menghasilkan hash 160-bit. Sekarang dianggap lemah dan rentan terhadap serangan tabrakan (collision). Terutama digunakan untuk kompatibilitas sistem lama.",
+    "sha256": "SHA-256 adalah bagian dari keluarga SHA-2. Banyak digunakan dalam protokol keamanan (SSL/TLS) dan teknologi blockchain. Saat ini dianggap sangat aman.",
+    "sha512": "SHA-512 menawarkan digest 512-bit yang lebih besar. Memberikan keamanan yang sangat tinggi dan seringkali lebih cepat pada arsitektur 64-bit daripada SHA-256.",
+    "sha3": "SHA-3 adalah standar NIST terbaru. Menggunakan struktur internal yang sama sekali berbeda (konstruksi Sponge) dari SHA-2, memberikan keamanan ekstra terhadap kelemahan SHA-2 saat ini.",
+    "hmac_sha1": "HMAC-SHA1 menggunakan fungsi hash SHA-1. Meskipun SHA-1 lemah untuk tabrakan, HMAC-SHA1 masih dianggap kuat secara matematis untuk otentikasi, meskipun sistem modern lebih menyukai SHA-256.",
+    "hmac_sha256": "HMAC-SHA256 adalah standar industri untuk otentikasi pesan. Digunakan dalam JWT (HS256), penandatanganan AWS, dan banyak API aman.",
+    "hmac_sha512": "HMAC-SHA512 memberikan tingkat keamanan tertinggi dalam keluarga HMAC, sering digunakan dalam sistem keuangan atau militer dengan keamanan tinggi.",
+    "bcrypt": {
+      "title": "Bcrypt: Hashing Adaptif",
+      "desc": "Bcrypt adalah algoritma yang teruji yang menggunakan 'faktor biaya' yang dapat dikonfigurasi untuk memperlambat penyerang. Ini menyimpan salt dan biaya di dalam string hash yang dihasilkan.",
+      "note": "Biaya standar adalah 10-12. Mengaturnya terlalu tinggi akan meningkatkan waktu komputasi secara signifikan."
+    },
+    "argon2": {
+      "title": "Argon2: Pemenang Modern",
+      "desc": "Pemenang Kompetisi Hashing Kata Sandi. Dirancang untuk menahan peretasan GPU/ASIC dengan menjadi 'memory-hard'.",
+      "note": "Argon2id adalah versi yang direkomendasikan untuk sebagian besar kasus penggunaan."
+    },
+    "pbkdf2": {
+      "title": "PBKDF2: Derivasi Standar",
+      "desc": "Password-Based Key Derivation Function 2. Menerapkan fungsi pseudo-random (seperti HMAC-SHA256) berkali-kali untuk membuat brute-force lambat.",
+      "note": "NIST merekomendasikan setidaknya 600.000 iterasi untuk PBKDF2-HMAC-SHA256."
+    },
+    "hmac_general": "HMAC lebih unggul daripada hash sederhana untuk verifikasi karena meskipun penyerang mengubah pesan, mereka tidak dapat mereproduksi HMAC tanpa Kunci Rahasia Anda."
   },
   "pkcs_kb": {
     "p1": {

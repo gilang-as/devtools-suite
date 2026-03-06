@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -126,8 +127,8 @@ export default function X509Generator() {
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <Label htmlFor="bits">Key Length (bits)</Label>
-                  <InfoIcon content="Standard RSA key length for the certificate. 2048 is common; 4096 is high-security." />
+                  <Label htmlFor="bits">{t('common.bits')}</Label>
+                  <InfoIcon content={t('hints.bits')} />
                 </div>
                 <Input 
                   id="bits" 
@@ -140,7 +141,7 @@ export default function X509Generator() {
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Label htmlFor="cn">Common Name (CN)</Label>
-                  <InfoIcon content="The domain name or identifier the certificate is for (e.g. localhost)." />
+                  <InfoIcon content={t('hints.cn')} />
                 </div>
                 <Input 
                   id="cn" 
@@ -152,7 +153,7 @@ export default function X509Generator() {
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Label htmlFor="org">Organization (O)</Label>
-                  <InfoIcon content="The company or organization name." />
+                  <InfoIcon content={t('hints.org')} />
                 </div>
                 <Input id="org" value={org} onChange={(e) => setOrg(e.target.value)} />
               </div>
@@ -160,7 +161,7 @@ export default function X509Generator() {
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Label htmlFor="years">Validity (Years)</Label>
-                  <InfoIcon content="Number of years until the certificate expires." />
+                  <InfoIcon content={t('hints.validity_years')} />
                 </div>
                 <Input 
                   id="years" 
@@ -182,18 +183,18 @@ export default function X509Generator() {
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-bold flex items-center gap-2">
                 <HelpCircle className="h-4 w-4 text-primary" />
-                X.509 Standard
+                {t('pkcs_kb.x509.title')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-xs leading-relaxed text-muted-foreground">
-              <p>X.509 is the standard for public key certificates used in TLS/SSL and other security protocols.</p>
+              <p>{t('pkcs_kb.x509.desc')}</p>
               <div className="pt-2 border-t border-primary/10">
-                <p className="font-bold text-primary">Self-Signed</p>
-                <p>A certificate where the issuer and subject match. Ideal for development and internal testing.</p>
+                <p className="font-bold text-primary">{t('pkcs_kb.x509.i1_label')}</p>
+                <p>{t('pkcs_kb.x509.i1_text')}</p>
               </div>
               <div className="pt-2 border-t border-primary/10">
-                <p className="font-bold text-primary">Extensions</p>
-                <p>Includes standard extensions like SAN (Subject Alternative Name) and Key Usage.</p>
+                <p className="font-bold text-primary">{t('pkcs_kb.x509.i3_label')}</p>
+                <p>{t('pkcs_kb.x509.i3_text')}</p>
               </div>
             </CardContent>
           </Card>
@@ -216,7 +217,7 @@ export default function X509Generator() {
           {!result ? (
             <Card className="border-dashed border-2 flex flex-col items-center justify-center py-20 text-muted-foreground bg-muted/10">
               <FileBadge className="h-12 w-12 opacity-20 mb-4" />
-              <p>Results will appear here</p>
+              <p>{t('common.placeholder_results')}</p>
             </Card>
           ) : (
             <div className="space-y-6">

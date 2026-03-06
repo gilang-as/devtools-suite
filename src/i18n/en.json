@@ -42,7 +42,14 @@
     "password": "Password",
     "salt": "Salt",
     "iterations": "Iterations",
-    "secret_key": "Secret Key"
+    "secret_key": "Secret Key",
+    "bits": "Key Length (bits)",
+    "algorithm": "Algorithm",
+    "manual": "Manual",
+    "security_note": "Security Note",
+    "placeholder_results": "Results will appear here...",
+    "placeholder_waiting": "Waiting for input...",
+    "best_practice": "Best Practice"
   },
   "home": {
     "heading": "Developer Tools",
@@ -228,6 +235,44 @@
       "name": "SPKI Formatter",
       "description": "Convert and format Subject Public Key Info structures."
     }
+  },
+  "hints": {
+    "bits": "Higher bit counts offer more security but slower processing. 2048 is standard; 4096 is high-security.",
+    "algorithm": "The cryptographic algorithm used to generate the key pair.",
+    "cn": "The primary name the certificate is issued for (e.g., your domain or server name).",
+    "org": "The legal name of your organization.",
+    "unit": "The department or sub-unit within the organization.",
+    "pass": "The password required to import the certificate and private key into other systems.",
+    "p7_content": "The message or data you want to sign or wrap in the PKCS#7 container.",
+    "salt": "A unique string added to the password to prevent pre-computed rainbow table attacks.",
+    "hmac_key": "The private key used to sign the message.",
+    "validity_years": "Number of years until the certificate expires."
+  },
+  "kb": {
+    "md5": "MD5 produces a 128-bit hash. It's fast but cryptographically broken. Use only for integrity checks, never for security or passwords.",
+    "sha1": "SHA-1 produces a 160-bit hash. It's now considered weak and susceptible to collision attacks. Primarily used for legacy system compatibility.",
+    "sha256": "SHA-256 is part of the SHA-2 family. It's widely used in security protocols (SSL/TLS) and blockchain technology. Currently considered highly secure.",
+    "sha512": "SHA-512 offers a larger 512-bit digest. It provides extremely high security and is often faster on 64-bit architectures than SHA-256.",
+    "sha3": "SHA-3 is the latest NIST standard. It uses a completely different internal structure (Sponge construction) than SHA-2, providing extra safety against current SHA-2 weaknesses.",
+    "hmac_sha1": "HMAC-SHA1 uses the SHA-1 hash function. While SHA-1 is weak for collisions, HMAC-SHA1 is still considered mathematically strong for authentication, though modern systems prefer SHA-256.",
+    "hmac_sha256": "HMAC-SHA256 is the industry standard for message authentication. It's used in JWT (HS256), AWS signing, and many secure APIs.",
+    "hmac_sha512": "HMAC-SHA512 provides the highest level of security in the HMAC family, often used in high-security financial or military systems.",
+    "bcrypt": {
+      "title": "Bcrypt: Adaptive Hashing",
+      "desc": "Bcrypt is a battle-tested algorithm that uses a configurable 'cost factor' to slow down attackers. It stores the salt and cost inside the resulting hash string.",
+      "note": "Standard cost is 10-12. Going too high significantly increases computation time."
+    },
+    "argon2": {
+      "title": "Argon2: The Modern Winner",
+      "desc": "Winner of the Password Hashing Competition. It is designed to resist GPU/ASIC cracking by being 'memory-hard'.",
+      "note": "Argon2id is the recommended version for most use cases."
+    },
+    "pbkdf2": {
+      "title": "PBKDF2: Standard Derivation",
+      "desc": "Password-Based Key Derivation Function 2. It applies a pseudo-random function (like HMAC-SHA256) many times to make brute-force slow.",
+      "note": "NIST recommends at least 600,000 iterations for PBKDF2-HMAC-SHA256."
+    },
+    "hmac_general": "HMAC is superior to a simple hash for verification because even if an attacker changes the message, they cannot reproduce the HMAC without your Secret Key."
   },
   "pkcs_kb": {
     "p1": {
