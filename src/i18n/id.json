@@ -63,6 +63,14 @@
       "name": "Dekode Biner",
       "description": "Dekode string Biner kembali ke teks yang dapat dibaca."
     },
+    "hex_encode": {
+      "name": "Enkode Hex",
+      "description": "Enkode string teks ke format Hexadecimal."
+    },
+    "hex_decode": {
+      "name": "Dekode Hex",
+      "description": "Dekode string Hexadecimal kembali ke teks yang dapat dibaca."
+    },
     "url_encode": {
       "name": "Enkode URL",
       "description": "Enkode string teks untuk digunakan dalam URL dengan aman."
@@ -83,6 +91,11 @@
       "name": "Format JSON",
       "description": "Bersihkan, format, dan minifikasi data JSON Anda dengan mudah."
     },
+    "json_to_go": {
+      "name": "JSON ke Go Struct",
+      "description": "Konversi objek JSON ke definisi struct Go secara instan.",
+      "inline": "Inline Struct Bersarang"
+    },
     "js_formatter": {
       "name": "Format JS",
       "description": "Bersihkan, format, dan minifikasi kode JavaScript Anda."
@@ -102,11 +115,6 @@
     "css_formatter": {
       "name": "Format CSS",
       "description": "Bersihkan, format, dan minifikasi stylesheet CSS Anda."
-    },
-    "json_to_go": {
-      "name": "JSON ke Go Struct",
-      "description": "Konversi objek JSON ke definisi struct Go secara instan.",
-      "inline": "Inline Struct Bersarang"
     },
     "uuid_v4": {
       "name": "Generator UUID v4",

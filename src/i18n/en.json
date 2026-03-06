@@ -63,6 +63,14 @@
       "name": "Binary Decode",
       "description": "Decode Binary strings back into readable text."
     },
+    "hex_encode": {
+      "name": "Hex Encode",
+      "description": "Encode text strings into Hexadecimal format."
+    },
+    "hex_decode": {
+      "name": "Hex Decode",
+      "description": "Decode Hexadecimal strings back into readable text."
+    },
     "url_encode": {
       "name": "URL Encode",
       "description": "Safely encode text strings for use in URLs."
