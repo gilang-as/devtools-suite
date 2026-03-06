@@ -33,6 +33,7 @@ export default function DnsLookupPage() {
   const [captchaKey, setCaptchaKey] = useState(0);
   const turnstileRef = useRef<TurnstileInstance>(null);
 
+  // Fallback to the 'Always Passes' test key if environment variable is missing
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
 
   const handleLookup = async () => {
