@@ -35,7 +35,9 @@ import {
   ChevronDown,
   Layout,
   Braces,
-  Eye
+  Eye,
+  ShieldCheck,
+  AlertCircle
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -216,7 +218,7 @@ export default function HtmlFormatterPage() {
   const [indentSize, setIndentSize] = useState<number>(2);
   const [viewMode, setViewMode] = useState<OutputView>('code');
   const [wordWrap, setWordWrap] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [validationError, setValidationError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleBeautify = () => {
@@ -225,7 +227,7 @@ export default function HtmlFormatterPage() {
     setOutput(formatted);
     const tree = parseHtmlToTree(formatted);
     setParsedOutput(tree);
-    setError(null);
+    setValidationError(null);
   };
 
   const handleMinify = () => {
@@ -234,15 +236,36 @@ export default function HtmlFormatterPage() {
     setOutput(minified);
     const tree = parseHtmlToTree(minified);
     setParsedOutput(tree);
-    setError(null);
+    setValidationError(null);
     setViewMode('code');
+  };
+
+  const handleValidate = () => {
+    if (!input.trim()) return;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(input, "text/html");
+    const errorNode = doc.querySelector("parsererror");
+    
+    if (errorNode) {
+      setValidationError(errorNode.textContent || t('common.invalid'));
+      toast({
+        variant: 'destructive',
+        title: t('common.invalid'),
+        description: errorNode.textContent || '',
+      });
+    } else {
+      setValidationError(null);
+      toast({
+        title: t('common.valid'),
+      });
+    }
   };
 
   const handleClear = () => {
     setInput('');
     setOutput('');
     setParsedOutput(null);
-    setError(null);
+    setValidationError(null);
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -253,7 +276,7 @@ export default function HtmlFormatterPage() {
     reader.onload = (event) => {
       const content = event.target?.result as string;
       setInput(content);
-      setError(null);
+      setValidationError(null);
     };
     reader.readAsText(file);
   };
@@ -331,6 +354,12 @@ export default function HtmlFormatterPage() {
                 />
               </div>
             </div>
+            {validationError && (
+              <div className="bg-destructive/10 border-t border-destructive/20 p-3 flex items-start gap-2">
+                <AlertCircle className="h-4 w-4 text-destructive shrink-0 mt-0.5" />
+                <p className="text-xs text-destructive font-code whitespace-pre-wrap">{validationError}</p>
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -379,6 +408,16 @@ export default function HtmlFormatterPage() {
             >
               <Check className="h-4 w-4 mr-2" />
               {t('common.beautify')}
+            </Button>
+
+            <Button 
+              onClick={handleValidate} 
+              variant="outline"
+              className="w-full shadow-sm"
+              size="lg"
+            >
+              <ShieldCheck className="h-4 w-4 mr-2" />
+              {t('common.validate')}
             </Button>
 
             <Dialog>
