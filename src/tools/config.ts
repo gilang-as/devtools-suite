@@ -603,6 +603,14 @@ export const TOOLS: Tool[] = [
     category: 'Conversion',
   },
   {
+    id: 'json-to-ts',
+    nameKey: 'tools.json_to_ts.name',
+    descriptionKey: 'tools.json_to_ts.description',
+    href: '/json/to-typescript',
+    icon: 'Code2',
+    category: 'Conversion',
+  },
+  {
     id: 'uuid-v4',
     nameKey: 'tools.uuid_v4.name',
     descriptionKey: 'tools.uuid_v4.description',

@@ -144,6 +144,7 @@
     "html_formatter": { "name": "HTML Formatter", "description": "Clean, format, and minify your HTML code." },
     "css_formatter": { "name": "CSS Formatter", "description": "Clean, format, and minify your CSS stylesheets." },
     "json_to_go": { "name": "JSON to Go Struct", "description": "Convert JSON objects into Go struct definitions instantly.", "inline": "Inline Nested Structs" },
+    "json_to_ts": { "name": "JSON to TypeScript", "description": "Convert JSON objects into TypeScript interface or type definitions." },
     "uuid_v4": { "name": "UUID v4 Generator", "description": "Generate random Universally Unique Identifiers (v4)." },
     "uuid_v1": { "name": "UUID v1 Generator", "description": "Generate time-based Universally Unique Identifiers (v1)." },
     "uuid_v7": { "name": "UUID v7 Generator", "description": "Generate time-ordered Universally Unique Identifiers (v7)." },

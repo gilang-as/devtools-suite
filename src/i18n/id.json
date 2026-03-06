@@ -95,16 +95,16 @@
       "name": "Random Password Generator",
       "description": "Hasilkan kata sandi yang kuat, unik, dan acak secara instan."
     },
-    "aes_encrypt": { "name": "AES Encrypt", "description": "Enkripsi teks dengan aman menggunakan algoritma AES (GCM, CBC, CTR)." },
-    "aes_decrypt": { "name": "AES Decrypt", "description": "Dekripsi string terenkripsi AES kembali menjadi teks yang dapat dibaca." },
-    "des_encrypt": { "name": "DES Encrypt", "description": "Enkripsi teks menggunakan algoritma warisan DES (kunci 64-bit)." },
-    "des_decrypt": { "name": "DES Decrypt", "description": "Dekripsi string yang dienkripsi dengan Data Encryption Standard (DES)." },
-    "3des_encrypt": { "name": "3DES Encrypt", "description": "Enkripsi teks menggunakan Triple DES (kunci 192-bit)." },
-    "3des_decrypt": { "name": "3DES Decrypt", "description": "Dekripsi string yang dienkripsi dengan Triple DES (TDEA)." },
-    "chacha20_encrypt": { "name": "ChaCha20 Encrypt", "description": "Enkripsi stream modern menggunakan algoritma ChaCha20." },
-    "chacha20_decrypt": { "name": "ChaCha20 Decrypt", "description": "Dekripsi string yang diamankan dengan cipher stream ChaCha20." },
-    "rsa_encrypt": { "name": "RSA Encrypt", "description": "Enkripsi data menggunakan kunci publik RSA (OAEP padding)." },
-    "rsa_decrypt": { "name": "RSA Decrypt", "description": "Dekripsi data terenkripsi RSA menggunakan kunci privat." },
+    "aes_encrypt": { "name": "AES Enkripsi", "description": "Enkripsi teks dengan aman menggunakan algoritma AES (GCM, CBC, CTR)." },
+    "aes_decrypt": { "name": "AES Dekripsi", "description": "Dekripsi string terenkripsi AES kembali menjadi teks yang dapat dibaca." },
+    "des_encrypt": { "name": "DES Enkripsi", "description": "Enkripsi teks menggunakan algoritma warisan DES (kunci 64-bit)." },
+    "des_decrypt": { "name": "DES Dekripsi", "description": "Dekripsi string yang dienkripsi dengan Data Encryption Standard (DES)." },
+    "3des_encrypt": { "name": "3DES Enkripsi", "description": "Enkripsi teks menggunakan Triple DES (kunci 192-bit)." },
+    "3des_decrypt": { "name": "3DES Dekripsi", "description": "Dekripsi string yang dienkripsi dengan Triple DES (TDEA)." },
+    "chacha20_encrypt": { "name": "ChaCha20 Enkripsi", "description": "Enkripsi stream modern menggunakan algoritma ChaCha20." },
+    "chacha20_decrypt": { "name": "ChaCha20 Dekripsi", "description": "Dekripsi string yang diamankan dengan cipher stream ChaCha20." },
+    "rsa_encrypt": { "name": "RSA Enkripsi", "description": "Enkripsi data menggunakan kunci publik RSA (OAEP padding)." },
+    "rsa_decrypt": { "name": "RSA Dekripsi", "description": "Dekripsi data terenkripsi RSA menggunakan kunci privat." },
     "rsa_sign": { "name": "RSA Sign", "description": "Hasilkan tanda tangan digital menggunakan kunci privat RSA." },
     "rsa_verify": { "name": "RSA Verify", "description": "Verifikasi tanda tangan digital menggunakan kunci publik RSA." },
     "ecc_sign": { "name": "ECC Sign", "description": "Hasilkan tanda tangan berperforma tinggi menggunakan kriptografi Elliptic Curve." },
@@ -112,8 +112,8 @@
     "jwt_encode": { "name": "JWT Encode", "description": "Hasilkan dan tandatangani JSON Web Token dengan payload kustom." },
     "jwt_decode": { "name": "JWT Decode", "description": "Decode dan visualisasikan isi header dan payload JWT secara instan." },
     "jwt_verify": { "name": "JWT Verify", "description": "Verifikasi integritas kriptografis dari JSON Web Token." },
-    "pgp_encrypt": { "name": "PGP Encrypt", "description": "Amankan pesan menggunakan enkripsi kunci publik standar OpenPGP." },
-    "pgp_decrypt": { "name": "PGP Decrypt", "description": "Dekripsi pesan OpenPGP menggunakan kunci privat dan frasa sandi Anda." },
+    "pgp_encrypt": { "name": "PGP Enkripsi", "description": "Amankan pesan menggunakan enkripsi kunci publik standar OpenPGP." },
+    "pgp_decrypt": { "name": "PGP Dekripsi", "description": "Dekripsi pesan OpenPGP menggunakan kunci privat dan frasa sandi Anda." },
     "pgp_sign": { "name": "PGP Sign", "description": "Tandatangani pesan secara digital menggunakan kunci privat OpenPGP." },
     "pgp_verify": { "name": "PGP Verify", "description": "Verifikasi keaslian pesan bertanda tangan OpenPGP." },
     "base64_encode": { "name": "Base64 Encode", "description": "Encode string teks ke format Base64 dengan aman." },
@@ -144,6 +144,7 @@
     "html_formatter": { "name": "HTML Formatter", "description": "Bersihkan, format, dan minifikasi kode HTML Anda." },
     "css_formatter": { "name": "CSS Formatter", "description": "Bersihkan, format, dan minifikasi stylesheet CSS Anda." },
     "json_to_go": { "name": "JSON to Go Struct", "description": "Konversi objek JSON ke definisi struct Go secara instan.", "inline": "Inline Struct Bersarang" },
+    "json_to_ts": { "name": "JSON to TypeScript", "description": "Konversi objek JSON ke definisi interface atau tipe TypeScript." },
     "uuid_v4": { "name": "UUID v4 Generator", "description": "Hasilkan Universally Unique Identifier acak (v4)." },
     "uuid_v1": { "name": "UUID v1 Generator", "description": "Hasilkan Universally Unique Identifier berbasis waktu (v1)." },
     "uuid_v7": { "name": "UUID v7 Generator", "description": "Hasilkan Universally Unique Identifier terurut waktu (v7)." },
@@ -247,7 +248,7 @@
     },
     "pbkdf2": {
       "title": "PBKDF2: Derivasi Standar",
-      "desc": "Password-Based Key Derivation Function 2. Menerapkan fungsi pseudo-random (seperti HMAC-SHA256) berkali-kali untuk membuat brute-force lambat.",
+      "desc": "Password-Based Key Derivation Function 2. Menerapkan fungsi pseudo-random (seperti HMAC-SHA256) berkali-copy untuk membuat brute-force lambat.",
       "note": "NIST merekomendasikan setidaknya 600.000 iterasi untuk PBKDF2-HMAC-SHA256."
     },
     "hmac_general": "HMAC lebih unggul daripada hash sederhana untuk verifikasi karena meskipun penyerang mengubah pesan, mereka tidak dapat mereproduksi HMAC tanpa Kunci Rahasia Anda.",
@@ -285,7 +286,7 @@
     },
     "p7": {
       "title": "PKCS#7: Cryptographic Message Syntax",
-      "desc": "Digunakan untuk menandatangani dan/atau mengenkripsi data. Sering digunakan dalam S/MIME atau penandatanganan kode.",
+      "desc": "Used for signing and/or encrypting data. Often used in S/MIME or code signing.",
       "i1_label": "Padding PKCS#7",
       "i1_text": "Digunakan untuk Cipher Blok (AES/DES). Melengkapi data agar sesuai dengan ukuran blok (misal, 16 byte).",
       "i2_label": "Kontainer",
@@ -297,7 +298,7 @@
       "i1_label": "Agnostik Algoritma",
       "i1_text": "Berbeda dengan PKCS#1, ini membungkus kunci dengan OID yang mengidentifikasi algoritma.",
       "i2_label": "Enkripsi",
-      "i2_text": "Secara opsional dapat dienkripsi (EncryptedPrivateKeyInfo) dengan kata sandi."
+      "i2_text": "Secara opsional dapat dienkripsi (EncryptedPrivateKeyInfo) with a password."
     },
     "p10": {
       "title": "PKCS#10: Certification Request (CSR)",
@@ -309,21 +310,21 @@
     },
     "p12": {
       "title": "PKCS#12: Informasi Personal (PFX)",
-      "desc": "Kontainer biner (PFX) yang digunakan untuk menyimpan sertifikat dan kunci privat yang cocok.",
+      "desc": "A binary container (PFX) used to store certificates and their matching private keys.",
       "i1_label": "Identitas Lengkap",
       "i1_text": "Termasuk sertifikat entitas akhir, kunci privat, dan rantai CA.",
       "i2_label": "Keamanan",
-      "i2_text": "Kontainer ini selalu dilindungi kata sandi untuk mengamankan kunci privat selama transit."
+      "i2_text": "The container is always password-protected to secure the private key during transit."
     },
     "x509": {
-      "title": "X.509: Sertifikat Digital",
-      "desc": "Format standar untuk sertifikat kunci publik yang digunakan dalam HTTPS/TLS dan protokol lainnya.",
+      "title": "X.509: Digital Certificates",
+      "desc": "The standard format for public key certificates used in HTTPS/TLS and other protocols.",
       "i1_label": "Self-Signed",
-      "i1_text": "Sertifikat di mana penerbit dan subjeknya sama. Gunakan untuk pengujian internal.",
-      "i2_label": "Validitas",
-      "i2_text": "Menentukan rentang tanggal di mana sertifikat dianggap valid.",
-      "i3_label": "Ekstensi",
-      "i3_text": "Metadata tambahan seperti Subject Alternative Name (SAN) for mendukung banyak domain."
+      "i1_text": "A certificate where the issuer and subject are the same. Used for internal testing.",
+      "i2_label": "Validity",
+      "i2_text": "Defines the validity dates between which the certificate is considered valid.",
+      "i3_label": "Extensions",
+      "i3_text": "Additional metadata like Subject Alternative Name (SAN) for supporting multiple domains."
     }
   },
   "policies": {
