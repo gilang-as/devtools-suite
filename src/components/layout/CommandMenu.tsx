@@ -14,11 +14,11 @@ import {
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
-import { Search, Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, ChevronRight } from 'lucide-react';
+import { Search, Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, ChevronRight, FileBadge } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const iconMap: Record<string, any> = {
-  Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap,
+  Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge
 };
 
 export default function CommandMenu() {
@@ -28,6 +28,8 @@ export default function CommandMenu() {
   const [query, setQuery] = React.useState('');
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [category, setCategory] = React.useState<string | null>(null);
+  
+  const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
   const categories = React.useMemo(() => {
     return Array.from(new Set(TOOLS.map(t => t.category))).sort();
@@ -54,9 +56,20 @@ export default function CommandMenu() {
     return () => document.removeEventListener('keydown', down);
   }, []);
 
+  // Reset selection when query or category changes
   React.useEffect(() => {
     setSelectedIndex(0);
   }, [query, category]);
+
+  // Scroll active item into view
+  React.useEffect(() => {
+    if (itemRefs.current[selectedIndex]) {
+      itemRefs.current[selectedIndex]?.scrollIntoView({
+        block: 'nearest',
+        behavior: 'smooth'
+      });
+    }
+  }, [selectedIndex]);
 
   const handleSelect = (tool: any) => {
     router.push(tool.href);
@@ -65,6 +78,8 @@ export default function CommandMenu() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (filteredTools.length === 0) return;
+
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       setSelectedIndex((prev) => (prev + 1) % filteredTools.length);
@@ -81,7 +96,7 @@ export default function CommandMenu() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl">
+      <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden">
         <DialogHeader className="p-4 border-b">
           <DialogTitle className="sr-only">Search Tools</DialogTitle>
           <div className="flex items-center gap-3 px-2">
@@ -130,6 +145,7 @@ export default function CommandMenu() {
                 return (
                   <div
                     key={tool.id}
+                    ref={(el) => { itemRefs.current[index] = el; }}
                     className={cn(
                       "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer transition-all",
                       index === selectedIndex ? "bg-primary text-primary-foreground shadow-lg scale-[1.01]" : "hover:bg-accent hover:text-accent-foreground"

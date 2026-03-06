@@ -1,3 +1,4 @@
+
 {
   "common": {
     "title": "DevTools Suite",
@@ -50,7 +51,8 @@
     "all_tools": "Semua Alat",
     "no_results_title": "Alat tidak ditemukan",
     "no_results_desc": "Kami tidak dapat menemukan alat yang cocok dengan pencarian atau filter Anda.",
-    "clear_all_filters": "Hapus semua filter"
+    "clear_all_filters": "Hapus semua filter",
+    "shortcut_hint": "Tekan untuk mencari alat secara global"
   },
   "tools": {
     "base64_encode": {
@@ -75,7 +77,7 @@
     },
     "hex_decode": {
       "name": "Dekode Hex",
-      "description": "Dekode string Hexadecimal kembali ke teks yang dapat dibaca."
+      "description": "Dekode Hexadecimal kembali ke teks yang dapat dibaca."
     },
     "url_encode": {
       "name": "Enkode URL",

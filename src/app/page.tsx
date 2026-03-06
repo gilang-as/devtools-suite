@@ -7,7 +7,7 @@ import ToolCard from '@/components/tools/ToolCard';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, X } from 'lucide-react';
+import { Search, X, Command } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function Home() {
@@ -70,26 +70,34 @@ export default function Home() {
           )}
         </div>
 
-        <div className="flex flex-wrap justify-center gap-2">
-          <Button
-            variant={selectedCategory === null ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setSelectedCategory(null)}
-            className="rounded-full px-6"
-          >
-            {t('home.all_tools') || 'All Tools'}
-          </Button>
-          {categories.map((category) => (
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex flex-wrap justify-center gap-2">
             <Button
-              key={category}
-              variant={selectedCategory === category ? 'default' : 'outline'}
+              variant={selectedCategory === null ? 'default' : 'outline'}
               size="sm"
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => setSelectedCategory(null)}
               className="rounded-full px-6"
             >
-              {category}
+              {t('home.all_tools') || 'All Tools'}
             </Button>
-          ))}
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant={selectedCategory === category ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setSelectedCategory(category)}
+                className="rounded-full px-6"
+              >
+                {category}
+              </Button>
+            ))}
+          </div>
+          
+          <div className="flex items-center gap-2 text-xs text-muted-foreground/60 font-medium bg-muted/30 px-3 py-1.5 rounded-full border border-border/50">
+            <Command className="h-3 w-3" />
+            <span>{t('home.shortcut_hint')}</span>
+            <kbd className="bg-background border px-1.5 py-0.5 rounded text-[10px] font-bold">⌘K</kbd>
+          </div>
         </div>
       </section>
 

@@ -1,3 +1,4 @@
+
 {
   "common": {
     "title": "DevTools Suite",
@@ -50,7 +51,8 @@
     "all_tools": "All Tools",
     "no_results_title": "No tools found",
     "no_results_desc": "We couldn't find any tools matching your search or filters.",
-    "clear_all_filters": "Clear all filters"
+    "clear_all_filters": "Clear all filters",
+    "shortcut_hint": "Press to search tools globally"
   },
   "tools": {
     "base64_encode": {
