@@ -1,3 +1,4 @@
+
 {
   "common": {
     "title": "DevTools Suite",
@@ -147,6 +148,8 @@
     "json_to_ts": { "name": "JSON to TypeScript", "description": "Convert JSON objects into TypeScript interface or type definitions." },
     "json_to_yaml": { "name": "JSON to YAML", "description": "Convert JSON data into YAML format instantly." },
     "yaml_to_json": { "name": "YAML to JSON", "description": "Convert YAML data into JSON format instantly." },
+    "toml_to_json": { "name": "TOML to JSON", "description": "Convert TOML configuration strings into structured JSON objects." },
+    "json_to_toml": { "name": "JSON to TOML", "description": "Convert JSON data into clean, human-readable TOML." },
     "xml_to_json": { "name": "XML to JSON", "description": "Convert XML documents into structured JSON objects." },
     "json_to_xml": { "name": "JSON to XML", "description": "Convert JSON data into clean XML documents." },
     "csv_to_json": { "name": "CSV to JSON", "description": "Convert CSV table data into a structured JSON array." },

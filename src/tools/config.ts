@@ -1,3 +1,4 @@
+
 import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet } from 'lucide-react';
 
 export interface Tool {
@@ -624,6 +625,22 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.yaml_to_json.description',
     href: '/yaml/to-json',
     icon: 'FileText',
+    category: 'Conversion',
+  },
+  {
+    id: 'toml-to-json',
+    nameKey: 'tools.toml_to_json.name',
+    descriptionKey: 'tools.toml_to_json.description',
+    href: '/toml/to-json',
+    icon: 'FileText',
+    category: 'Conversion',
+  },
+  {
+    id: 'json-to-toml',
+    nameKey: 'tools.json_to_toml.name',
+    descriptionKey: 'tools.json_to_toml.description',
+    href: '/json/to-toml',
+    icon: 'Braces',
     category: 'Conversion',
   },
   {

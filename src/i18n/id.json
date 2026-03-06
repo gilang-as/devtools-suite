@@ -1,3 +1,4 @@
+
 {
   "common": {
     "title": "DevTools Suite",
@@ -147,6 +148,8 @@
     "json_to_ts": { "name": "JSON to TypeScript", "description": "Konversi objek JSON ke definisi interface atau tipe TypeScript." },
     "json_to_yaml": { "name": "JSON ke YAML", "description": "Konversi data JSON ke format YAML secara instan." },
     "yaml_to_json": { "name": "YAML ke JSON", "description": "Konversi data YAML ke format JSON secara instan." },
+    "toml_to_json": { "name": "TOML ke JSON", "description": "Konversi string konfigurasi TOML menjadi objek JSON terstruktur." },
+    "json_to_toml": { "name": "JSON ke TOML", "description": "Konversi data JSON menjadi format TOML yang bersih dan mudah dibaca." },
     "xml_to_json": { "name": "XML ke JSON", "description": "Konversi dokumen XML ke objek JSON terstruktur." },
     "json_to_xml": { "name": "JSON ke XML", "description": "Konversi data JSON menjadi dokumen XML yang bersih." },
     "csv_to_json": { "name": "CSV ke JSON", "description": "Konversi data tabel CSV ke array JSON terstruktur." },
@@ -377,7 +380,7 @@
       "details_intro": "DevTools Suite menggunakan data minimal yang disimpan di perangkat Anda untuk memberikan pengalaman pengguna yang konsisten.",
       "s1_title": "1. Apa yang kami simpan",
       "s1_item1": "Preferensi Tema: Disimpan di localStorage.",
-      "s1_item2": "Preferensi Bahasa: Disimpan di localStorage.",
+      "s1_item2": "Language Preference: Stored in localStorage.",
       "s1_item3": "Status Sidebar: Cookie kecil yang digunakan untuk mengingat pengaturan tata letak.",
       "s2_title": "2. Mengapa kami tidak menampilkan banner",
       "s2_desc": "Menurut hukum privasi global, persetujuan eksplisit biasanya diperlukan untuk pelacakan non-esensial. Karena penyimpanan data kami sepenuhnya fungsional dan penting, banner pop-up yang mengganggu tidak diwajibkan secara hukum.",
