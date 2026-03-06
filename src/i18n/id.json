@@ -1,3 +1,4 @@
+
 {
   "common": {
     "title": "DevTools Suite",
@@ -152,6 +153,7 @@
     "hex_decode": { "name": "Hex Decode", "description": "Decode Hexadecimal kembali ke teks yang dapat dibaca." },
     "url_encode": { "name": "URL Encode", "description": "Encode string teks untuk digunakan dalam URL dengan aman." },
     "url_decode": { "name": "URL Decode", "description": "Decode string URL kembali ke teks yang dapat dibaca." },
+    "url_parser": { "name": "URL Parser", "description": "Uraikan URL yang kompleks menjadi komponen terstruktur seperti protokol, host, dan parameter." },
     "html_encode": { "name": "HTML Encode", "description": "Konversi karakter khusus menjadi entitas HTML dengan aman." },
     "html_decode": { "name": "HTML Decode", "description": "Decode entitas HTML kembali menjadi teks biasa." },
     "md5": { "name": "MD5 Hash", "description": "Hasilkan digest pesan MD5 (Tidak aman untuk kata sandi)." },
@@ -205,5 +207,35 @@
     "secure_token": { "name": "Secure Token Generator", "description": "Hasilkan token dengan entropi tinggi untuk kunci API atau pengenal sesi." },
     "crc32": { "name": "CRC32 Checksum", "description": "Hasilkan pemeriksaan redundansi siklik 32-bit untuk integritas data." },
     "adler32": { "name": "Adler32 Checksum", "description": "Hasilkan checksum Adler-32 cepat untuk verifikasi data." }
+  },
+  "kb": {
+    "aes": {
+      "title": "Advanced Encryption Standard (AES)",
+      "desc": "Standar global untuk enkripsi kunci simetris yang aman. Menggunakan ukuran blok tetap 128 bit dan mendukung panjang kunci 128, 192, dan 256 bit.",
+      "note": "Untuk aplikasi modern, AES-GCM sangat direkomendasikan karena menyediakan kerahasiaan dan integritas data (otentikasi)."
+    },
+    "des": {
+      "title": "Data Encryption Standard (DES)",
+      "desc": "Algoritma kunci simetris warisan yang menggunakan kunci 56-bit. Ini adalah standar pertama tetapi sekarang dianggap rusak secara kriptografis.",
+      "note": "Peringatan: DES tidak aman untuk penggunaan modern. Disediakan di sini hanya untuk pengujian kompatibilitas sistem lama."
+    },
+    "3des": {
+      "title": "Triple DES (3DES)",
+      "desc": "Evolusi dari DES yang menerapkan algoritma tiga kali pada setiap blok data, secara efektif meningkatkan panjang kunci menjadi 112 atau 168 bit.",
+      "note": "Meskipun lebih aman daripada DES, 3DES sedang dihapus dan digantikan oleh AES yang jauh lebih cepat dan aman."
+    },
+    "chacha20": {
+      "title": "ChaCha20 Stream Cipher",
+      "desc": "Cipher stream kecepatan tinggi yang dirancang oleh Daniel J. Bernstein. Sangat aman dan jauh lebih cepat daripada AES pada sistem tanpa hardware AES khusus.",
+      "note": "Umumnya digunakan dalam protokol modern seperti TLS 1.3, WireGuard, dan SSH karena ketahanannya terhadap serangan timing."
+    }
+  },
+  "hints": {
+    "aes_key": "Kunci 128-bit (16 karakter), 192-bit (24 karakter), atau 256-bit (32 karakter).",
+    "aes_iv": "IV standar 128-bit (16 karakter) untuk CBC/CTR. GCM biasanya menggunakan nonce 12-byte.",
+    "des_key": "Membutuhkan tepat 8 karakter (64-bit) kunci.",
+    "3des_key": "Membutuhkan tepat 24 karakter kunci untuk keamanan maksimum.",
+    "chacha20_key": "Kunci standar 256-bit (32 karakter) sangat direkomendasikan.",
+    "chacha20_iv": "Membutuhkan nonce 12-karakter (96-bit) untuk implementasi standar."
   }
 }

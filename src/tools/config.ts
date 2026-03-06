@@ -1,3 +1,4 @@
+
 import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe, SearchCode, Sparkles, Diff, Type, Link2, ListOrdered, Rows } from 'lucide-react';
 
 export interface Tool {
@@ -296,6 +297,14 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.url_decode.description',
     href: '/url/decode',
     icon: 'LinkIcon',
+    category: 'Encoding',
+  },
+  {
+    id: 'url-parser',
+    nameKey: 'tools.url_parser.name',
+    descriptionKey: 'tools.url_parser.description',
+    href: '/url/parser',
+    icon: 'Globe',
     category: 'Encoding',
   },
   {
