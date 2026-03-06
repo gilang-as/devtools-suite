@@ -1,0 +1,34 @@
+
+{
+  "common": {
+    "title": "DevTools Suite",
+    "description": "Modern developer tools for everyday tasks.",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "clear": "Clear",
+    "encode": "Encode",
+    "decode": "Decode",
+    "input": "Input",
+    "output": "Output",
+    "liveMode": "Live Mode",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "language": "Language"
+  },
+  "home": {
+    "heading": "Developer Tools",
+    "subheading": "Simple, fast, and secure tools for your development workflow."
+  },
+  "tools": {
+    "base64_encode": {
+      "name": "Base64 Encode",
+      "description": "Encode text strings into Base64 format safely."
+    },
+    "base64_decode": {
+      "name": "Base64 Decode",
+      "description": "Decode Base64 strings back into readable text."
+    }
+  }
+}

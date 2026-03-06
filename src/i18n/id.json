@@ -1,0 +1,34 @@
+
+{
+  "common": {
+    "title": "DevTools Suite",
+    "description": "Alat pengembang modern untuk tugas sehari-hari.",
+    "copy": "Salin",
+    "copied": "Tersalin!",
+    "clear": "Bersihkan",
+    "encode": "Enkode",
+    "decode": "Dekode",
+    "input": "Input",
+    "output": "Output",
+    "liveMode": "Mode Langsung",
+    "theme": "Tema",
+    "light": "Terang",
+    "dark": "Gelap",
+    "system": "Sistem",
+    "language": "Bahasa"
+  },
+  "home": {
+    "heading": "Alat Pengembang",
+    "subheading": "Alat yang sederhana, cepat, dan aman untuk alur kerja pengembangan Anda."
+  },
+  "tools": {
+    "base64_encode": {
+      "name": "Enkode Base64",
+      "description": "Enkode string teks ke format Base64 dengan aman."
+    },
+    "base64_decode": {
+      "name": "Dekode Base64",
+      "description": "Dekode string Base64 kembali ke teks yang dapat dibaca."
+    }
+  }
+}
