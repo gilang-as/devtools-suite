@@ -56,6 +56,14 @@
       "name": "Dekode Base64",
       "description": "Dekode string Base64 kembali ke teks yang dapat dibaca."
     },
+    "url_encode": {
+      "name": "Enkode URL",
+      "description": "Enkode string teks untuk digunakan dalam URL dengan aman."
+    },
+    "url_decode": {
+      "name": "Dekode URL",
+      "description": "Dekode string URL kembali ke teks yang dapat dibaca."
+    },
     "json_formatter": {
       "name": "Format JSON",
       "description": "Bersihkan, format, dan minifikasi data JSON Anda dengan mudah."

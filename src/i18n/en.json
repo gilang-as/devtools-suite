@@ -56,6 +56,14 @@
       "name": "Base64 Decode",
       "description": "Decode Base64 strings back into readable text."
     },
+    "url_encode": {
+      "name": "URL Encode",
+      "description": "Safely encode text strings for use in URLs."
+    },
+    "url_decode": {
+      "name": "URL Decode",
+      "description": "Decode URL-encoded strings back into readable text."
+    },
     "json_formatter": {
       "name": "JSON Formatter",
       "description": "Clean, format, and minify your JSON data easily."
