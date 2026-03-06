@@ -45,7 +45,10 @@ export default function CommandMenu() {
   const [view, setView] = React.useState<View>('root');
   const [selectedColor, setSelectedColor] = React.useState<ColorScheme | null>(null);
   
+  // Stores the state when the menu was first opened
   const absoluteInitialState = React.useRef<{ theme: any, colorScheme: ColorScheme } | null>(null);
+  
+  // Stores the state when entering a specific sub-menu level
   const [checkpoints, setCheckpoints] = React.useState<Record<View, { theme: any, colorScheme: ColorScheme } | null>>({
     root: null,
     colors: null,
@@ -55,7 +58,7 @@ export default function CommandMenu() {
 
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
-  // Auto-scroll logic
+  // Auto-scroll logic for keyboard navigation
   React.useEffect(() => {
     if (itemRefs.current[selectedIndex]) {
       itemRefs.current[selectedIndex]?.scrollIntoView({
@@ -139,7 +142,7 @@ export default function CommandMenu() {
       };
       
       const targetView = prevViewMap[view];
-      const checkpoint = checkpoints[view];
+      const checkpoint = checkpoints[view]; // Restore state from when we ENTERED this sub-view
       
       if (checkpoint) {
         setTheme(checkpoint.theme);
@@ -156,13 +159,15 @@ export default function CommandMenu() {
       setView(item.target);
       setQuery('');
     } else if (item.type === 'color') {
-      setCheckpoints(prev => ({ ...prev, 'color-modes': { theme, colorScheme: item.id } }));
+      // Save state before we pick this color, so 'Back' works correctly
+      setCheckpoints(prev => ({ ...prev, 'color-modes': { theme, colorScheme } }));
       setColorScheme(item.id);
       setSelectedColor(item.id);
       setView('color-modes');
       setQuery('');
     } else if (item.type === 'mode' || item.type === 'apply-all') {
       setTheme(item.id as any);
+      // Final selection: update initial state so close effect doesn't revert it
       absoluteInitialState.current = { theme: item.id, colorScheme };
       setOpen(false);
     } else if (item.href) {
@@ -171,6 +176,7 @@ export default function CommandMenu() {
     }
   };
 
+  // Immediate Preview Effect
   React.useEffect(() => {
     const activeItem = filteredItems[selectedIndex];
     if (!activeItem || activeItem.isBack) return;
@@ -182,7 +188,7 @@ export default function CommandMenu() {
     } else if (view === 'color-modes' && activeItem.type === 'apply-all') {
       setTheme(activeItem.id);
     }
-  }, [selectedIndex, filteredItems, view]);
+  }, [selectedIndex, filteredItems, view, setTheme, setColorScheme]);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -199,6 +205,7 @@ export default function CommandMenu() {
     if (open) {
       absoluteInitialState.current = { theme, colorScheme };
     } else {
+      // Revert to initial state if closed without finalized selection
       if (absoluteInitialState.current) {
         setTheme(absoluteInitialState.current.theme);
         setColorScheme(absoluteInitialState.current.colorScheme);
