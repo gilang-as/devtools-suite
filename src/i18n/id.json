@@ -60,7 +60,10 @@
     "length": "Panjang",
     "options": "Opsi",
     "swap": "Tukar",
-    "compare": "Bandingkan"
+    "compare": "Bandingkan",
+    "separator": "Pemisah",
+    "lowercase": "Huruf Kecil",
+    "remove_numbers": "Hapus Angka"
   },
   "home": {
     "heading": "Alat Pengembang",
@@ -84,6 +87,7 @@
     "regex_generator": { "name": "Generator AI Regex", "description": "Hasilkan ekspresi reguler yang kompleks dari deskripsi bahasa alami menggunakan AI." },
     "text_diff": { "name": "Text Diff Checker", "description": "Bandingkan dua blok teks untuk menemukan perbedaan, penambahan, dan penghapusan." },
     "case_converter": { "name": "Konverter Case", "description": "Konversi teks di antara berbagai format huruf seperti camelCase, snake_case, PascalCase, dll." },
+    "slug_generator": { "name": "Generator Slug URL", "description": "Ubah judul dan teks menjadi slug URL yang ramah mesin pencari (SEO)." },
     "unix_timestamp_converter": { "name": "Konverter Unix Timestamp", "description": "Konversi detik/milidetik Unix ke tanggal yang dapat dibaca manusia." },
     "unix_timestamp_generator": { "name": "Generator Unix Timestamp", "description": "Hasilkan timestamp Unix saat ini dan masa depan secara instan." },
     "cron_parser": { "name": "Parser Ekspresi Cron", "description": "Terjemahkan string cron yang kompleks ke dalam bahasa manusia yang mudah dibaca." },
@@ -126,7 +130,7 @@
     "jwt_encode": { "name": "JWT Encode", "description": "Hasilkan dan tandatangani JSON Web Token dengan payload kustom." },
     "jwt_decode": { "name": "JWT Decode", "description": "Decode dan visualisasikan isi header dan payload JWT secara instan." },
     "jwt_verify": { "name": "JWT Verify", "description": "Verifikasi integritas kriptografis dari JSON Web Token." },
-    "pgp_encrypt": { "name": "PGP Enkripsi", "description": "Amankan pesan menggunakan enkripsi kunci publik standar OpenPGP." },
+    "pgp_encrypt": { "name": "PGP Enkripsi", "description": "Enkripsi pesan menggunakan enkripsi kunci publik standar OpenPGP." },
     "pgp_decrypt": { "name": "PGP Dekripsi", "description": "Dekripsi pesan OpenPGP menggunakan kunci privat dan frasa sandi Anda." },
     "pgp_sign": { "name": "PGP Sign", "description": "Tandatangani pesan secara digital menggunakan kunci privat OpenPGP." },
     "pgp_verify": { "name": "PGP Verify", "description": "Verifikasi keaslian pesan bertanda tangan OpenPGP." },

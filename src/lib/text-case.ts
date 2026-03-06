@@ -65,3 +65,40 @@ export function toConstantCase(str: string): string {
     .map(w => w.toUpperCase())
     .join('_');
 }
+
+export interface SlugOptions {
+  separator?: '-' | '_';
+  lowercase?: boolean;
+  removeNumbers?: boolean;
+}
+
+export function toSlug(str: string, options: SlugOptions = {}): string {
+  const { separator = '-', lowercase = true, removeNumbers = false } = options;
+  
+  if (!str) return '';
+
+  // Normalize accented characters
+  let slug = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+  if (lowercase) {
+    slug = slug.toLowerCase();
+  }
+
+  if (removeNumbers) {
+    slug = slug.replace(/[0-9]/g, '');
+  }
+
+  // Replace non-alphanumeric characters with the separator
+  slug = slug.replace(/[^a-z0-9]+/gi, separator);
+
+  // Remove duplicate separators
+  const escapedSeparator = separator === '-' ? '\\-' : separator;
+  const regex = new RegExp(`${escapedSeparator}+`, 'g');
+  slug = slug.replace(regex, separator);
+
+  // Trim separators from ends
+  if (slug.startsWith(separator)) slug = slug.substring(1);
+  if (slug.endsWith(separator)) slug = slug.substring(0, slug.length - 1);
+
+  return slug;
+}

@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe, SearchCode, Sparkles, Diff, Type } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe, SearchCode, Sparkles, Diff, Type, Link2 } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -104,6 +104,14 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.case_converter.description',
     href: '/programming/case-converter',
     icon: 'Type',
+    category: 'Programming',
+  },
+  {
+    id: 'slug-generator',
+    nameKey: 'tools.slug_generator.name',
+    descriptionKey: 'tools.slug_generator.description',
+    href: '/programming/slug-generator',
+    icon: 'Link2',
     category: 'Programming',
   },
   {
