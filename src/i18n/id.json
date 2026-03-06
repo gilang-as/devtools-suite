@@ -1,4 +1,3 @@
-
 {
   "common": {
     "title": "DevTools Suite",
@@ -50,6 +49,10 @@
     "json_formatter": {
       "name": "Format JSON",
       "description": "Bersihkan, format, dan minifikasi data JSON Anda dengan mudah."
+    },
+    "xml_formatter": {
+      "name": "Format XML",
+      "description": "Bersihkan, format, dan minifikasi dokumen XML Anda."
     },
     "json_to_go": {
       "name": "JSON ke Go Struct",
