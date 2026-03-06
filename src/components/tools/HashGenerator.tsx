@@ -62,6 +62,8 @@ export default function HashGenerator({ type }: HashGeneratorProps) {
     { name: 'MD5', href: '/hashing/md5' },
   ];
 
+  const isShaFamily = ['sha1', 'sha256', 'sha512', 'sha3'].includes(type);
+
   return (
     <div className="max-w-4xl mx-auto space-y-8 py-6">
       <div className="flex items-center gap-4 mb-4">
@@ -75,45 +77,49 @@ export default function HashGenerator({ type }: HashGeneratorProps) {
       </div>
 
       <div className="flex flex-col gap-6">
-        {/* SHA Family Tabs */}
-        <div className="space-y-2">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-1 ml-1">
-            SHA Family
-          </span>
-          <div className="flex p-1 bg-muted rounded-lg w-fit overflow-x-auto max-w-full border shadow-sm">
-            {shaFamily.map((item) => (
-              <Link key={item.href} href={item.href}>
-                <Button 
-                  variant={pathname === item.href ? 'secondary' : 'ghost'} 
-                  className={cn("px-6 h-8 whitespace-nowrap", pathname === item.href && "bg-background shadow-sm")}
-                  size="sm"
-                >
-                  {item.name}
-                </Button>
-              </Link>
-            ))}
+        {/* SHA Family Tabs - Only show if current hash is a SHA hash */}
+        {isShaFamily && (
+          <div className="space-y-2">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-1 ml-1">
+              SHA Family
+            </span>
+            <div className="flex p-1 bg-muted rounded-lg w-fit overflow-x-auto max-w-full border shadow-sm">
+              {shaFamily.map((item) => (
+                <Link key={item.href} href={item.href}>
+                  <Button 
+                    variant={pathname === item.href ? 'secondary' : 'ghost'} 
+                    className={cn("px-6 h-8 whitespace-nowrap", pathname === item.href && "bg-background shadow-sm")}
+                    size="sm"
+                  >
+                    {item.name}
+                  </Button>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Other Digests Tabs */}
-        <div className="space-y-2">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-1 ml-1">
-            Other Hashes
-          </span>
-          <div className="flex p-1 bg-muted rounded-lg w-fit border shadow-sm">
-            {digestFamily.map((item) => (
-              <Link key={item.href} href={item.href}>
-                <Button 
-                  variant={pathname === item.href ? 'secondary' : 'ghost'} 
-                  className={cn("px-6 h-8 whitespace-nowrap", pathname === item.href && "bg-background shadow-sm")}
-                  size="sm"
-                >
-                  {item.name}
-                </Button>
-              </Link>
-            ))}
+        {/* Other Digests Tabs - Only show if current hash is MD5 */}
+        {type === 'md5' && (
+          <div className="space-y-2">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-1 ml-1">
+              Other Hashes
+            </span>
+            <div className="flex p-1 bg-muted rounded-lg w-fit border shadow-sm">
+              {digestFamily.map((item) => (
+                <Link key={item.href} href={item.href}>
+                  <Button 
+                    variant={pathname === item.href ? 'secondary' : 'ghost'} 
+                    className={cn("px-6 h-8 whitespace-nowrap", pathname === item.href && "bg-background shadow-sm")}
+                    size="sm"
+                  >
+                    {item.name}
+                  </Button>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 gap-6">
