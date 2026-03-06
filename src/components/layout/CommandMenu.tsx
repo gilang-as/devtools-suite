@@ -117,7 +117,7 @@ export default function CommandMenu() {
           </div>
         </DialogHeader>
 
-        <div className="flex p-2 bg-muted/30 gap-1 overflow-x-auto border-b">
+        <div className="flex p-2 bg-muted/30 gap-1 overflow-x-auto border-b scrollbar-hide">
           <Badge 
             variant={category === null ? 'default' : 'outline'} 
             className="cursor-pointer whitespace-nowrap px-3"
@@ -154,12 +154,12 @@ export default function CommandMenu() {
                     onMouseEnter={() => setSelectedIndex(index)}
                   >
                     <div className={cn(
-                      "p-2 rounded-md",
+                      "p-2 rounded-md shrink-0",
                       index === selectedIndex ? "bg-white/20" : "bg-primary/10 text-primary"
                     )}>
                       <Icon className="h-5 w-5" />
                     </div>
-                    <div className="flex-1 overflow-hidden">
+                    <div className="flex-1 min-w-0 overflow-hidden">
                       <p className="font-bold text-sm truncate">{t(tool.nameKey)}</p>
                       <p className={cn(
                         "text-xs truncate",
