@@ -44,6 +44,7 @@ export default function CommandMenu() {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
   const [view, setView] = React.useState<View>('root');
   const [selectedColor, setSelectedColor] = React.useState<ColorScheme | null>(null);
+  const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
   const [isKeyboard, setIsKeyboard] = React.useState(false);
   
   const absoluteInitialState = React.useRef<{ theme: any, colorScheme: ColorScheme } | null>(null);
@@ -55,6 +56,7 @@ export default function CommandMenu() {
   });
 
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+  const categoryRefs = React.useRef<(HTMLButtonElement | null)[]>([]);
 
   // Auto-scroll logic: only scroll when user uses keyboard
   React.useEffect(() => {
@@ -86,7 +88,8 @@ export default function CommandMenu() {
     { id: 'system', name: 'System Default', icon: 'Monitor' },
   ];
 
-  const filteredItems = React.useMemo(() => {
+  // Logic for filtered items before category filter
+  const baseItems = React.useMemo(() => {
     if (view === 'root') {
       const tools = TOOLS.map(t => ({ ...t, isAction: false, type: 'tool' }));
       const settings = [
@@ -129,6 +132,24 @@ export default function CommandMenu() {
 
     return [];
   }, [view, query, selectedColor, t]);
+
+  const availableCategories = React.useMemo(() => {
+    if (view !== 'root') return [];
+    const cats = new Set<string>();
+    baseItems.forEach(item => {
+      if (!item.isAction && item.category) {
+        cats.add(item.category);
+      }
+    });
+    return Array.from(cats).sort();
+  }, [baseItems, view]);
+
+  const filteredItems = React.useMemo(() => {
+    if (view === 'root' && selectedCategory) {
+      return baseItems.filter(item => item.isAction || item.category === selectedCategory);
+    }
+    return baseItems;
+  }, [baseItems, view, selectedCategory]);
 
   // Immediate Preview Effect
   React.useEffect(() => {
@@ -175,6 +196,7 @@ export default function CommandMenu() {
       
       setView(targetView);
       setQuery('');
+      setSelectedIndex(0);
       return;
     }
 
@@ -182,12 +204,14 @@ export default function CommandMenu() {
       setCheckpoints(prev => ({ ...prev, [item.target]: { theme, colorScheme } }));
       setView(item.target);
       setQuery('');
+      setSelectedIndex(0);
     } else if (item.type === 'color') {
       setCheckpoints(prev => ({ ...prev, 'color-modes': { theme, colorScheme } }));
       setColorScheme(item.id);
       setSelectedColor(item.id);
       setView('color-modes');
       setQuery('');
+      setSelectedIndex(0);
     } else if (item.type === 'mode' || item.type === 'apply-all') {
       setTheme(item.id as any);
       absoluteInitialState.current = null; // Selection confirmed, don't revert on close
@@ -206,7 +230,7 @@ export default function CommandMenu() {
         setOpen((o) => !o);
       }
       
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
         setIsKeyboard(true);
       }
     };
@@ -235,13 +259,11 @@ export default function CommandMenu() {
       setView('root');
       setQuery('');
       setSelectedColor(null);
+      setSelectedCategory(null);
+      setSelectedIndex(0);
       setCheckpoints({ root: null, colors: null, modes: null, 'color-modes': null });
     }
   }, [open]);
-
-  React.useEffect(() => {
-    setSelectedIndex(0);
-  }, [query, view]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
@@ -250,6 +272,26 @@ export default function CommandMenu() {
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setSelectedIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length);
+    } else if (e.key === 'ArrowRight' && view === 'root' && availableCategories.length > 0) {
+      e.preventDefault();
+      const currentIndex = selectedCategory ? availableCategories.indexOf(selectedCategory) : -1;
+      const nextIndex = currentIndex + 1;
+      if (nextIndex < availableCategories.length) {
+        setSelectedCategory(availableCategories[nextIndex]);
+      } else {
+        setSelectedCategory(null);
+      }
+      setSelectedIndex(0);
+    } else if (e.key === 'ArrowLeft' && view === 'root' && availableCategories.length > 0) {
+      e.preventDefault();
+      const currentIndex = selectedCategory ? availableCategories.indexOf(selectedCategory) : availableCategories.length;
+      const nextIndex = currentIndex - 1;
+      if (nextIndex >= 0) {
+        setSelectedCategory(availableCategories[nextIndex]);
+      } else {
+        setSelectedCategory(null);
+      }
+      setSelectedIndex(0);
     } else if (e.key === 'Enter') {
       e.preventDefault();
       if (filteredItems[selectedIndex]) handleSelect(filteredItems[selectedIndex]);
@@ -281,14 +323,54 @@ export default function CommandMenu() {
               }
               className="border-0 focus-visible:ring-0 focus-visible:ring-offset-0 ring-0 focus:ring-0 outline-none text-lg p-0 h-full bg-transparent placeholder:text-muted-foreground/40 shadow-none hover:bg-transparent focus:bg-transparent flex-1"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setSelectedIndex(0);
+              }}
               onKeyDown={handleKeyDown}
               autoFocus
             />
           </div>
+          
+          {/* Category Selector */}
+          {view === 'root' && availableCategories.length > 0 && (
+            <div className="px-6 pb-3 flex gap-2 overflow-x-auto no-scrollbar scroll-smooth">
+              <Button
+                variant={selectedCategory === null ? 'default' : 'ghost'}
+                size="sm"
+                className={cn(
+                  "h-7 text-[10px] uppercase font-bold tracking-widest rounded-full px-3 transition-all",
+                  selectedCategory === null && "shadow-md"
+                )}
+                onClick={() => {
+                  setSelectedCategory(null);
+                  setSelectedIndex(0);
+                }}
+              >
+                All
+              </Button>
+              {availableCategories.map((cat, idx) => (
+                <Button
+                  key={cat}
+                  ref={el => { categoryRefs.current[idx] = el; }}
+                  variant={selectedCategory === cat ? 'default' : 'ghost'}
+                  size="sm"
+                  className={cn(
+                    "h-7 text-[10px] uppercase font-bold tracking-widest rounded-full px-3 transition-all whitespace-nowrap",
+                    selectedCategory === cat && "shadow-md"
+                  )}
+                  onClick={() => {
+                    setSelectedCategory(cat);
+                    setSelectedIndex(0);
+                  }}
+                >
+                  {cat}
+                </Button>
+              ))}
+            </div>
+          )}
         </DialogHeader>
 
-        {/* Override Radix table behavior to fix horizontal cutting and enable mouse scrolling */}
         <ScrollArea className="max-h-[450px] w-full flex-1 [&_[data-radix-scroll-area-viewport]>div]:!block overflow-auto">
           <div className="p-2 flex flex-col gap-1 w-full box-border">
             {filteredItems.length > 0 ? (
@@ -342,21 +424,24 @@ export default function CommandMenu() {
             ) : (
               <div className="py-12 text-center text-muted-foreground w-full">
                 <Search className="h-10 w-10 mx-auto mb-3 opacity-20" />
-                <p>No results for "{query}"</p>
+                <p>No results found</p>
               </div>
             )}
           </div>
         </ScrollArea>
         
         <div className="p-3 border-t bg-muted/20 flex items-center justify-between text-[10px] text-muted-foreground uppercase font-bold tracking-widest shrink-0">
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
             <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">↑↓</kbd> {t('home.navigate')}</span>
+            {view === 'root' && availableCategories.length > 0 && (
+              <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">←→</kbd> Categories</span>
+            )}
             <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">Enter</kbd> {t('home.select')}</span>
             {view !== 'root' && (
               <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">BS</kbd> Back</span>
             )}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="hidden sm:flex items-center gap-2">
             <Badge variant="outline" className="text-[9px] border-primary/20 text-primary">
               {view.toUpperCase()} VIEW
             </Badge>
