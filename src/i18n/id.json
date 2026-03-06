@@ -151,6 +151,9 @@
     "pkcs_p10": { "name": "PKCS#10 (CSR)", "description": "Hasilkan Certification Signing Request (CSR)." },
     "pkcs_p12": { "name": "PKCS#12 (PFX)", "description": "Hasilkan kontainer sertifikat PFX/P12." },
     "pkcs_x509": { "name": "X.509 Certificate", "description": "Hasilkan sertifikat X.509 self-signed." },
+    "certificate_decode": { "name": "SSL Certificate Decoder", "description": "Decode sertifikat SSL/TLS PEM untuk melihat Subjek, Penerbit, dan Validitas." },
+    "csr_decode": { "name": "CSR Decoder", "description": "Lihat detail dari file PEM Certificate Signing Request (CSR)." },
+    "pem_der_converter": { "name": "PEM ↔ DER Converter", "description": "Konversi file keamanan antara format PEM (Base64) dan DER (Biner)." },
     "asn1": { "name": "ASN.1 Inspector", "description": "Decode dan visualisasikan struktur ASN.1 dari DER atau Base64." },
     "jose": { "name": "JOSE (JWT/JWK)", "description": "Hasilkan dan verifikasi JSON Web Tokens dan Keys." },
     "openpgp": { "name": "OpenPGP Key Gen", "description": "Hasilkan pasangan kunci publik/privat OpenPGP." },
@@ -168,7 +171,7 @@
     "salt": "String unik yang ditambahkan ke kata sandi untuk mencegah serangan rainbow table yang dihitung sebelumnya.",
     "hmac_key": "Kunci privat yang digunakan untuk menandatangani pesan.",
     "validity_years": "Jumlah tahun hingga sertifikat kedaluwarsa.",
-    "aes_key": "Harus memiliki panjang 16, 24, atau 32 karakter (128, 192, atau 256 bit).",
+    "aes_key": "Harus memiliki panjang 16, 24, atau 32 karakter (128, 192, or 256 bit).",
     "aes_iv": "Biasanya 16 karakter (128 bit). Digunakan untuk memastikan teks yang sama menghasilkan output berbeda.",
     "aes_mode": "GCM direkomendasikan untuk keamanan modern karena menyediakan otentikasi. CBC adalah standar untuk sistem lama.",
     "des_key": "Harus tepat 8 karakter (64 bit). DES adalah algoritma usang dan dianggap tidak aman.",
@@ -181,7 +184,7 @@
     "pass_gen_lower": "Sertakan huruf kecil (a-z).",
     "pass_gen_number": "Sertakan angka (0-9).",
     "pass_gen_special": "Sertakan karakter khusus (misal: @, #, $).",
-    "pass_gen_similar": "Hindari karakter yang mirip secara visual seperti 'i' dan 'l' atau '0' dan 'o'."
+    "pass_gen_similar": "Hindari karakter yang mirip secara visual seperti 'i' and 'l' atau '0' and 'o'."
   },
   "pass_tool": {
     "strength": {

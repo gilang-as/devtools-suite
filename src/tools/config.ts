@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -376,6 +376,30 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.jwt_verify.description',
     href: '/security/jwt/verify',
     icon: 'KeyRound',
+    category: 'Security',
+  },
+  {
+    id: 'certificate-decode',
+    nameKey: 'tools.certificate_decode.name',
+    descriptionKey: 'tools.certificate_decode.description',
+    href: '/security/certificate/decode',
+    icon: 'FileBadge',
+    category: 'Security',
+  },
+  {
+    id: 'csr-decode',
+    nameKey: 'tools.csr_decode.name',
+    descriptionKey: 'tools.csr_decode.description',
+    href: '/security/csr/decode',
+    icon: 'FileBadge',
+    category: 'Security',
+  },
+  {
+    id: 'pem-der-converter',
+    nameKey: 'tools.pem_der_converter.name',
+    descriptionKey: 'tools.pem_der_converter.description',
+    href: '/security/pem-der-converter',
+    icon: 'ArrowRightLeft',
     category: 'Security',
   },
   {
