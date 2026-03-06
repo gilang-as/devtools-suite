@@ -93,7 +93,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
       setAlgorithm('RSA-2048');
     }
     
-    if (version === 'p1' || version === 'p8' || version === 'x509') {
+    if (version === 'p1' || version === 'p8') {
       handleGenerate();
     } else {
       setResult(null);
@@ -118,7 +118,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
       ext = 'p12';
     } else {
       blob = new Blob([result.content], { type: 'text/plain' });
-      ext = version === 'x509' ? 'crt' : 'pem';
+      ext = 'pem';
     }
     
     const url = URL.createObjectURL(blob);
@@ -135,7 +135,6 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
     { name: 'PKCS#8', href: '/pkcs/p8' },
     { name: 'PKCS#10', href: '/pkcs/p10' },
     { name: 'PKCS#12', href: '/pkcs/p12' },
-    { name: 'X.509', href: '/pkcs/x509' },
   ];
 
   const bitPresets = ['1024', '2048', '3072', '4096'];
@@ -279,7 +278,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
               )}
 
               {/* Bit Length Selector */}
-              {(version === 'p1' || version === 'p8' || version === 'p10' || version === 'x509') && algorithm === 'RSA' && (
+              {(version === 'p1' || version === 'p8' || version === 'p10') && algorithm === 'RSA' && (
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Label htmlFor="bits">Key Length (bits)</Label>
@@ -314,7 +313,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                 </div>
               )}
               
-              {(version === 'p10' || version === 'p12' || version === 'x509') && (
+              {(version === 'p10' || version === 'p12') && (
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Label htmlFor="cn">Common Name (CN)</Label>
@@ -329,7 +328,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                 </div>
               )}
 
-              {(version === 'p10' || version === 'x509') && (
+              {(version === 'p10') && (
                 <>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
@@ -354,23 +353,6 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
                     />
                   </div>
                 </>
-              )}
-
-              {version === 'x509' && (
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <Label htmlFor="years">Validity (Years)</Label>
-                    <InfoIcon content="How long the certificate should be valid for. Typical values are 1-2 years." />
-                  </div>
-                  <Input 
-                    id="years" 
-                    type="number"
-                    value={validityYears} 
-                    onChange={(e) => setValidityYears(parseInt(e.target.value) || 1)}
-                    min={1}
-                    max={10}
-                  />
-                </div>
               )}
 
               {version === 'p12' && (
@@ -457,7 +439,7 @@ export default function PKCSGenerator({ version }: PKCSGeneratorProps) {
               <div className="flex gap-2">
                 <Button onClick={handleDownload} className="flex-1 shadow-md" variant="secondary">
                   <Download className="h-4 w-4 mr-2" />
-                  {t('common.download')} {version === 'p12' ? '.p12' : version === 'x509' ? '.crt' : '.pem'}
+                  {t('common.download')} {version === 'p12' ? '.p12' : '.pem'}
                 </Button>
                 <Button onClick={() => copyToClipboard(result.content)} variant="outline" className="flex-1">
                   <Copy className="h-4 w-4 mr-2" />
