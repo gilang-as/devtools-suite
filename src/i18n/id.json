@@ -24,7 +24,9 @@
     "beautify": "Perindah",
     "minify": "Minifikasi",
     "upload": "Unggah File",
-    "error": "Kesalahan"
+    "error": "Kesalahan",
+    "indentation": "Indentasi",
+    "spaces": "Spasi"
   },
   "home": {
     "heading": "Alat Pengembang",

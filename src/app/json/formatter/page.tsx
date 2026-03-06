@@ -5,6 +5,14 @@ import { useTranslation } from '@/components/providers/i18n-provider';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { 
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
 import { Braces, Copy, Trash2, Upload, FileJson, ArrowRightLeft, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -13,6 +21,7 @@ export default function JsonFormatterPage() {
   const { toast } = useToast();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const [indentSize, setIndentSize] = useState<number>(2);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -20,7 +29,7 @@ export default function JsonFormatterPage() {
     try {
       if (!input.trim()) return;
       const parsed = JSON.parse(input);
-      const formatted = JSON.stringify(parsed, null, 2);
+      const formatted = JSON.stringify(parsed, null, indentSize);
       setOutput(formatted);
       setError(null);
     } catch (e: any) {
@@ -66,7 +75,7 @@ export default function JsonFormatterPage() {
       setInput(content);
       try {
         const parsed = JSON.parse(content);
-        setOutput(JSON.stringify(parsed, null, 2));
+        setOutput(JSON.stringify(parsed, null, indentSize));
         setError(null);
       } catch (err) {
         // Just set input if it's not valid JSON yet
@@ -146,7 +155,26 @@ export default function JsonFormatterPage() {
         </Card>
 
         {/* Action Buttons (Middle) */}
-        <div className="flex flex-row lg:flex-col justify-center items-center gap-3 py-4 lg:py-0 min-w-[120px]">
+        <div className="flex flex-row lg:flex-col justify-center items-center gap-4 py-4 lg:py-0 min-w-[160px]">
+          <div className="w-full space-y-1.5 px-1">
+            <Label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              {t('common.indentation')}
+            </Label>
+            <Select 
+              value={indentSize.toString()} 
+              onValueChange={(val) => setIndentSize(parseInt(val))}
+            >
+              <SelectTrigger className="h-9 w-full bg-background border-input shadow-sm">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="2">2 {t('common.spaces')}</SelectItem>
+                <SelectItem value="3">3 {t('common.spaces')}</SelectItem>
+                <SelectItem value="4">4 {t('common.spaces')}</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
           <Button 
             onClick={handleBeautify} 
             className="flex-1 lg:flex-none lg:w-full shadow-md"
@@ -155,9 +183,11 @@ export default function JsonFormatterPage() {
             <Check className="h-4 w-4 mr-2" />
             {t('common.beautify')}
           </Button>
+
           <div className="hidden lg:flex items-center justify-center text-muted-foreground/30">
             <ArrowRightLeft className="h-6 w-6" />
           </div>
+
           <Button 
             onClick={handleMinify} 
             variant="secondary" 

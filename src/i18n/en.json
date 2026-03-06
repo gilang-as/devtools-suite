@@ -24,7 +24,9 @@
     "beautify": "Beautify",
     "minify": "Minify",
     "upload": "Upload File",
-    "error": "Error"
+    "error": "Error",
+    "indentation": "Indentation",
+    "spaces": "Spaces"
   },
   "home": {
     "heading": "Developer Tools",
