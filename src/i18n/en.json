@@ -53,7 +53,8 @@
     },
     "json_to_go": {
       "name": "JSON to Go Struct",
-      "description": "Convert JSON objects into Go struct definitions instantly."
+      "description": "Convert JSON objects into Go struct definitions instantly.",
+      "inline": "Inline Nested Structs"
     },
     "uuid_v4": {
       "name": "UUID v4 Generator",

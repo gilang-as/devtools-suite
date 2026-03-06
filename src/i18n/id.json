@@ -53,7 +53,8 @@
     },
     "json_to_go": {
       "name": "JSON ke Go Struct",
-      "description": "Konversi objek JSON ke definisi struct Go secara instan."
+      "description": "Konversi objek JSON ke definisi struct Go secara instan.",
+      "inline": "Inline Struct Bersarang"
     },
     "uuid_v4": {
       "name": "Generator UUID v4",
