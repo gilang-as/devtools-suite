@@ -45,10 +45,14 @@ export default function CommandMenu() {
   const [view, setView] = React.useState<View>('root');
   const [selectedColor, setSelectedColor] = React.useState<ColorScheme | null>(null);
   
-  // Storage for reverting if user cancels/goes back
-  const initialColorScheme = React.useRef<ColorScheme | null>(null);
-  const initialTheme = React.useRef<any>(null);
-  const hasFinalized = React.useRef(false);
+  // Track states for restoration
+  const absoluteInitialState = React.useRef<{ theme: any, colorScheme: ColorScheme } | null>(null);
+  const [checkpoints, setCheckpoints] = React.useState<Record<View, { theme: any, colorScheme: ColorScheme } | null>>({
+    root: null,
+    colors: null,
+    modes: null,
+    'color-modes': null
+  });
 
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
 
@@ -118,41 +122,40 @@ export default function CommandMenu() {
 
   const handleSelect = (item: any) => {
     if (item.isBack) {
-      if (view === 'color-modes') {
-        // Revert mode preview but keep the color preview
-        if (initialTheme.current) setTheme(initialTheme.current);
-        setView('colors');
-      } else if (view === 'colors') {
-        // Revert color preview
-        if (initialColorScheme.current) setColorScheme(initialColorScheme.current);
-        setView('root');
-      } else {
-        // Revert everything
-        if (initialColorScheme.current) setColorScheme(initialColorScheme.current);
-        if (initialTheme.current) setTheme(initialTheme.current);
-        setView('root');
+      const prevViewMap: Record<View, View> = {
+        'root': 'root',
+        'colors': 'root',
+        'modes': 'root',
+        'color-modes': 'colors'
+      };
+      
+      const targetView = prevViewMap[view];
+      const checkpoint = checkpoints[view];
+      
+      if (checkpoint) {
+        setTheme(checkpoint.theme);
+        setColorScheme(checkpoint.colorScheme);
       }
+      
+      setView(targetView);
       setQuery('');
       return;
     }
 
     if (item.type === 'nav') {
-      // Capture state before we start making experimental changes
-      initialColorScheme.current = colorScheme;
-      initialTheme.current = theme;
-      hasFinalized.current = false;
+      setCheckpoints(prev => ({ ...prev, [item.target]: { theme, colorScheme } }));
       setView(item.target);
       setQuery('');
     } else if (item.type === 'color') {
-      // Preview color immediately
+      setCheckpoints(prev => ({ ...prev, 'color-modes': { theme, colorScheme: item.id } }));
       setColorScheme(item.id);
       setSelectedColor(item.id);
       setView('color-modes');
       setQuery('');
     } else if (item.type === 'mode' || item.type === 'apply-all') {
-      // Apply mode immediately and close (Final action)
       setTheme(item.id as any);
-      hasFinalized.current = true;
+      // Finalized
+      absoluteInitialState.current = { theme: item.id, colorScheme };
       setOpen(false);
     } else if (item.href) {
       router.push(item.href);
@@ -160,10 +163,10 @@ export default function CommandMenu() {
     }
   };
 
-  // Preview logic for keyboard navigation
+  // Immediate Preview on selection (Keyboard/Hover)
   React.useEffect(() => {
     const activeItem = filteredItems[selectedIndex];
-    if (!activeItem) return;
+    if (!activeItem || activeItem.isBack) return;
 
     if (view === 'colors' && activeItem.type === 'color') {
       setColorScheme(activeItem.id);
@@ -186,17 +189,20 @@ export default function CommandMenu() {
   }, []);
 
   React.useEffect(() => {
-    if (!open) {
-      // Revert if closed without finalizing via terminal action
-      if (!hasFinalized.current && view !== 'root') {
-        if (initialColorScheme.current) setColorScheme(initialColorScheme.current);
-        if (initialTheme.current) setTheme(initialTheme.current);
+    if (open) {
+      absoluteInitialState.current = { theme, colorScheme };
+    } else {
+      // Revert if not finalized
+      if (absoluteInitialState.current) {
+        setTheme(absoluteInitialState.current.theme);
+        setColorScheme(absoluteInitialState.current.colorScheme);
       }
       setView('root');
       setQuery('');
       setSelectedColor(null);
+      setCheckpoints({ root: null, colors: null, modes: null, 'color-modes': null });
     }
-  }, [open, view]);
+  }, [open]);
 
   React.useEffect(() => {
     setSelectedIndex(0);
@@ -247,8 +253,8 @@ export default function CommandMenu() {
           </div>
         </DialogHeader>
 
-        <ScrollArea className="max-h-[450px] w-full overflow-hidden flex-1">
-          <div className="p-2 flex flex-col gap-1 w-full overflow-hidden">
+        <ScrollArea className="max-h-[450px] w-full flex-1 [&>[data-radix-scroll-area-viewport]>div]:!block overflow-hidden">
+          <div className="p-2 flex flex-col gap-1 w-full box-border">
             {filteredItems.length > 0 ? (
               filteredItems.map((item: any, index) => {
                 const Icon = iconMap[item.icon] || Terminal;
@@ -288,7 +294,7 @@ export default function CommandMenu() {
                     {item.type === 'nav' || item.type === 'color' ? (
                       <ChevronRight className={cn("h-4 w-4 shrink-0", isCurrentItem ? "text-white" : "text-muted-foreground")} />
                     ) : item.category && (
-                      <Badge variant="secondary" className={cn("text-[10px] uppercase font-black", isCurrentItem && "bg-white/20 text-white")}>
+                      <Badge variant="secondary" className={cn("text-[10px] uppercase font-black shrink-0", isCurrentItem && "bg-white/20 text-white")}>
                         {item.category}
                       </Badge>
                     )}
