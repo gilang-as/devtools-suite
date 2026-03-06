@@ -1,4 +1,3 @@
-
 {
   "common": {
     "title": "DevTools Suite",
@@ -147,6 +146,7 @@
     "json_to_go": { "name": "JSON to Go Struct", "description": "Konversi objek JSON ke definisi struct Go secara instan.", "inline": "Inline Struct Bersarang" },
     "json_to_ts": { "name": "JSON to TypeScript", "description": "Konversi objek JSON ke definisi interface atau tipe TypeScript." },
     "json_to_yaml": { "name": "JSON ke YAML", "description": "Konversi data JSON ke format YAML secara instan." },
+    "yaml_to_json": { "name": "YAML ke JSON", "description": "Konversi data YAML ke format JSON secara instan." },
     "uuid_v4": { "name": "UUID v4 Generator", "description": "Hasilkan Universally Unique Identifier acak (v4)." },
     "uuid_v1": { "name": "UUID v1 Generator", "description": "Hasilkan Universally Unique Identifier berbasis waktu (v1)." },
     "uuid_v7": { "name": "UUID v7 Generator", "description": "Hasilkan Universally Unique Identifier terurut waktu (v7)." },
