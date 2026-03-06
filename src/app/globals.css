@@ -15,7 +15,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
     
-    /* Primary (Brand Color) */
+    /* Primary (Brand Color) - A consistent professional blue */
     --primary: 221 83% 53%;
     --primary-foreground: 210 40% 98%;
     
@@ -27,9 +27,9 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
     
-    /* Accent (Interactive/Hover States - NOT derived from Primary) */
-    --accent: 199 89% 48%; /* A distinct vibrant cyan/blue */
-    --accent-foreground: 222 47% 11.2%;
+    /* Accent (Derived from Primary Blue hue, used for hover/selected states) */
+    --accent: 221 83% 94%; 
+    --accent-foreground: 221 83% 30%;
     
     /* Interactive States */
     --destructive: 0 84.2% 60.2%;
@@ -44,8 +44,8 @@
     --sidebar-foreground: 222 47% 11.2%;
     --sidebar-primary: 221 83% 53%;
     --sidebar-primary-foreground: 210 40% 98%;
-    --sidebar-accent: 210 40% 96.1%;
-    --sidebar-accent-foreground: 222 47% 11.2%;
+    --sidebar-accent: 221 83% 96%;
+    --sidebar-accent-foreground: 221 83% 25%;
     --sidebar-border: 214.3 31.8% 91.4%;
     --sidebar-ring: 221 83% 53%;
   }
@@ -68,8 +68,9 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
     
-    --accent: 199 89% 48%;
-    --accent-foreground: 210 40% 98%;
+    /* Dark mode accent - subtle dark blue tint */
+    --accent: 217.2 91.2% 15%;
+    --accent-foreground: 217.2 91.2% 90%;
     
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
@@ -83,7 +84,7 @@
     --sidebar-foreground: 210 40% 98%;
     --sidebar-primary: 217.2 91.2% 59.8%;
     --sidebar-primary-foreground: 222.2 47.4% 11.2%;
-    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent: 217.2 91.2% 12%;
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217.2 32.6% 17.5%;
     --sidebar-ring: 224.3 76.3% 48%;
@@ -116,7 +117,7 @@
   }
   
   .selected-state {
-    @apply bg-secondary text-secondary-foreground shadow-sm;
+    @apply bg-accent text-accent-foreground shadow-sm;
   }
 }
 
@@ -130,5 +131,5 @@ code, pre {
 
 /* Smooth transitions for all theme changes */
 * {
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
