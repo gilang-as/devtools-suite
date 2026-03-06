@@ -1,5 +1,4 @@
-
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -25,6 +24,22 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.base64_decode.description',
     href: '/base64/decode',
     icon: 'Hash',
+    category: 'Encoding',
+  },
+  {
+    id: 'binary-encode',
+    nameKey: 'tools.binary_encode.name',
+    descriptionKey: 'tools.binary_encode.description',
+    href: '/binary/encode',
+    icon: 'Binary',
+    category: 'Encoding',
+  },
+  {
+    id: 'binary-decode',
+    nameKey: 'tools.binary_decode.name',
+    descriptionKey: 'tools.binary_decode.description',
+    href: '/binary/decode',
+    icon: 'Binary',
     category: 'Encoding',
   },
   {

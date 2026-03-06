@@ -1,4 +1,3 @@
-
 {
   "common": {
     "title": "DevTools Suite",
@@ -55,6 +54,14 @@
     "base64_decode": {
       "name": "Base64 Decode",
       "description": "Decode Base64 strings back into readable text."
+    },
+    "binary_encode": {
+      "name": "Binary Encode",
+      "description": "Encode text strings into Binary format (0s and 1s)."
+    },
+    "binary_decode": {
+      "name": "Binary Decode",
+      "description": "Decode Binary strings back into readable text."
     },
     "url_encode": {
       "name": "URL Encode",
