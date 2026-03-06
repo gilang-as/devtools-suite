@@ -146,6 +146,7 @@
     "json_to_go": { "name": "JSON to Go Struct", "description": "Konversi objek JSON ke definisi struct Go secara instan.", "inline": "Inline Struct Bersarang" },
     "json_to_rust": { "name": "JSON to Rust Struct", "description": "Konversi objek JSON ke definisi struct Rust dengan atribut Serde secara instan." },
     "json_to_ts": { "name": "JSON to TypeScript", "description": "Konversi objek JSON ke definisi interface atau tipe TypeScript." },
+    "json_to_java": { "name": "JSON to Java Class", "description": "Konversi objek JSON ke definisi class Java POJO." },
     "json_to_yaml": { "name": "JSON ke YAML", "description": "Konversi data JSON ke format YAML secara instan." },
     "yaml_to_json": { "name": "YAML ke JSON", "description": "Konversi data YAML ke format JSON secara instan." },
     "toml_to_json": { "name": "TOML ke JSON", "description": "Konversi string konfigurasi TOML menjadi objek JSON terstruktur." },

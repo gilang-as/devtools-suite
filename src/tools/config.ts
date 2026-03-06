@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -616,6 +616,14 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.json_to_ts.description',
     href: '/json/to-typescript',
     icon: 'Code2',
+    category: 'Conversion',
+  },
+  {
+    id: 'json-to-java',
+    nameKey: 'tools.json_to_java.name',
+    descriptionKey: 'tools.json_to_java.description',
+    href: '/json/to-java-class',
+    icon: 'Coffee',
     category: 'Conversion',
   },
   {

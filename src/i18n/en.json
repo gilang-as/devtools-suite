@@ -146,6 +146,7 @@
     "json_to_go": { "name": "JSON to Go Struct", "description": "Convert JSON objects into Go struct definitions instantly.", "inline": "Inline Nested Structs" },
     "json_to_rust": { "name": "JSON to Rust Struct", "description": "Convert JSON objects into Rust struct definitions with Serde attributes." },
     "json_to_ts": { "name": "JSON to TypeScript", "description": "Convert JSON objects into TypeScript interface or type definitions." },
+    "json_to_java": { "name": "JSON to Java Class", "description": "Convert JSON objects into Java POJO class definitions." },
     "json_to_yaml": { "name": "JSON to YAML", "description": "Convert JSON data into YAML format instantly." },
     "yaml_to_json": { "name": "YAML to JSON", "description": "Convert YAML data into JSON format instantly." },
     "toml_to_json": { "name": "TOML to JSON", "description": "Convert TOML configuration strings into structured JSON objects." },
