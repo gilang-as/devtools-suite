@@ -1,4 +1,3 @@
-
 {
   "common": {
     "title": "DevTools Suite",
@@ -215,7 +214,8 @@
     "crc32": { "name": "CRC32 Checksum", "description": "Generate a 32-bit cyclic redundancy check for data integrity." },
     "adler32": { "name": "Adler32 Checksum", "description": "Generate a fast Adler-32 checksum for data verification." },
     "subnet_calculator": { "name": "Subnet Calculator", "description": "Calculate detailed network parameters based on an IP and Subnet Mask." },
-    "cidr_calculator": { "name": "CIDR Calculator", "description": "Calculate network ranges and host capacities using CIDR notation." }
+    "cidr_calculator": { "name": "CIDR Calculator", "description": "Calculate network ranges and host capacities using CIDR notation." },
+    "ipv6_calculator": { "name": "IPv6 Calculator", "description": "Calculate IPv6 network ranges, prefixes, and address counts." }
   },
   "kb": {
     "aes": {

@@ -1,5 +1,5 @@
 /**
- * Utility for networking operations: IP Subnet and CIDR calculations.
+ * Utility for networking operations: IP Subnet, CIDR, and IPv6 calculations.
  */
 
 export interface NetworkDetails {
@@ -15,6 +15,16 @@ export interface NetworkDetails {
   usableHosts: number;
   binaryIp: string;
   binaryMask: string;
+}
+
+export interface IPv6Details {
+  ip: string;
+  expandedIp: string;
+  prefix: number;
+  networkPrefix: string;
+  firstAddress: string;
+  lastAddress: string;
+  totalAddresses: string;
 }
 
 /**
@@ -65,7 +75,7 @@ export function cidrToMask(cidr: number): string {
 }
 
 /**
- * Core calculation logic for Subnetting
+ * Core calculation logic for Subnetting (IPv4)
  */
 export function calculateSubnet(ip: string, maskOrCidr: string | number): NetworkDetails {
   try {
@@ -104,5 +114,61 @@ export function calculateSubnet(ip: string, maskOrCidr: string | number): Networ
     };
   } catch (e) {
     throw new Error('Invalid IP or Subnet configuration');
+  }
+}
+
+/**
+ * IPv6 Logic
+ */
+
+export function expandIPv6(ip: string): string {
+  if (!ip.includes('::')) {
+    const parts = ip.split(':');
+    return parts.map(p => p.padStart(4, '0')).join(':');
+  }
+  const [left, right] = ip.split('::');
+  const leftParts = left ? left.split(':') : [];
+  const rightParts = right ? right.split(':') : [];
+  const missingCount = 8 - (leftParts.length + rightParts.length);
+  const middle = new Array(missingCount).fill('0000');
+  return [...leftParts.map(p => p.padStart(4, '0')), ...middle, ...rightParts.map(p => p.padStart(4, '0'))].join(':');
+}
+
+export function ipv6ToBigInt(ip: string): bigint {
+  const expanded = expandIPv6(ip);
+  const parts = expanded.split(':');
+  let bn = BigInt(0);
+  for (const part of parts) {
+    bn = (bn << BigInt(16)) + BigInt(parseInt(part, 16));
+  }
+  return bn;
+}
+
+export function bigIntToIPv6(bn: bigint): string {
+  let s = bn.toString(16).padStart(32, '0');
+  const parts = s.match(/.{4}/g) || [];
+  return parts.join(':');
+}
+
+export function calculateIPv6(ip: string, prefix: number): IPv6Details {
+  try {
+    const ipBn = ipv6ToBigInt(ip);
+    const mask = (BigInt(1) << BigInt(128)) - (BigInt(1) << BigInt(128 - prefix));
+    
+    const networkBn = ipBn & mask;
+    const totalCount = BigInt(1) << BigInt(128 - prefix);
+    const lastBn = networkBn + totalCount - BigInt(1);
+
+    return {
+      ip,
+      expandedIp: expandIPv6(ip),
+      prefix,
+      networkPrefix: bigIntToIPv6(networkBn),
+      firstAddress: bigIntToIPv6(networkBn),
+      lastAddress: bigIntToIPv6(lastBn),
+      totalAddresses: totalCount.toLocaleString()
+    };
+  } catch (e) {
+    throw new Error('Invalid IPv6 address');
   }
 }

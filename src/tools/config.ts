@@ -1,4 +1,3 @@
-
 import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe, SearchCode, Sparkles, Diff, Type, Link2, ListOrdered, Rows, Network } from 'lucide-react';
 
 export interface Tool {
@@ -161,6 +160,14 @@ export const TOOLS: Tool[] = [
     descriptionKey: 'tools.cidr_calculator.description',
     href: '/networking/cidr-calculator',
     icon: 'Network',
+    category: 'Networking',
+  },
+  {
+    id: 'ipv6-calculator',
+    nameKey: 'tools.ipv6_calculator.name',
+    descriptionKey: 'tools.ipv6_calculator.description',
+    href: '/networking/ipv6-calculator',
+    icon: 'Globe',
     category: 'Networking',
   },
   {
