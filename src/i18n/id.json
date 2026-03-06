@@ -54,7 +54,9 @@
     "try_tool": "Kunjungi",
     "mode": "Mode Operasi",
     "iv": "Initialization Vector (IV)",
-    "key": "Kunci Enkripsi"
+    "key": "Kunci Enkripsi",
+    "sign": "Sign",
+    "verify": "Verify"
   },
   "home": {
     "heading": "Alat Pengembang",
@@ -103,6 +105,58 @@
     "chacha20_decrypt": {
       "name": "ChaCha20 Decrypt",
       "description": "Dekripsi string yang diamankan dengan cipher stream ChaCha20."
+    },
+    "rsa_encrypt": {
+      "name": "RSA Encrypt",
+      "description": "Enkripsi data menggunakan kunci publik RSA (OAEP padding)."
+    },
+    "rsa_decrypt": {
+      "name": "RSA Decrypt",
+      "description": "Dekripsi data terenkripsi RSA menggunakan kunci privat."
+    },
+    "rsa_sign": {
+      "name": "RSA Sign",
+      "description": "Hasilkan tanda tangan digital menggunakan kunci privat RSA."
+    },
+    "rsa_verify": {
+      "name": "RSA Verify",
+      "description": "Verifikasi tanda tangan digital menggunakan kunci publik RSA."
+    },
+    "ecc_sign": {
+      "name": "ECC Sign",
+      "description": "Hasilkan tanda tangan berperforma tinggi menggunakan kriptografi Elliptic Curve."
+    },
+    "ecc_verify": {
+      "name": "ECC Verify",
+      "description": "Verifikasi tanda tangan ECC untuk memastikan integritas pesan."
+    },
+    "jwt_encode": {
+      "name": "JWT Encode",
+      "description": "Hasilkan dan tandatangani JSON Web Token dengan payload kustom."
+    },
+    "jwt_decode": {
+      "name": "JWT Decode",
+      "description": "Decode dan visualisasikan isi header dan payload JWT secara instan."
+    },
+    "jwt_verify": {
+      "name": "JWT Verify",
+      "description": "Verifikasi integritas kriptografis dari JSON Web Token."
+    },
+    "pgp_encrypt": {
+      "name": "PGP Encrypt",
+      "description": "Amankan pesan menggunakan enkripsi kunci publik standar OpenPGP."
+    },
+    "pgp_decrypt": {
+      "name": "PGP Decrypt",
+      "description": "Dekripsi pesan OpenPGP menggunakan kunci privat dan frasa sandi Anda."
+    },
+    "pgp_sign": {
+      "name": "PGP Sign",
+      "description": "Tandatangani pesan secara digital menggunakan kunci privat OpenPGP."
+    },
+    "pgp_verify": {
+      "name": "PGP Verify",
+      "description": "Verifikasi keaslian pesan bertanda tangan OpenPGP."
     },
     "base64_encode": {
       "name": "Base64 Encode",

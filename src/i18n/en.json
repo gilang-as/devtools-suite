@@ -54,7 +54,9 @@
     "try_tool": "Try Tool",
     "mode": "Operation Mode",
     "iv": "Initialization Vector (IV)",
-    "key": "Encryption Key"
+    "key": "Encryption Key",
+    "sign": "Sign",
+    "verify": "Verify"
   },
   "home": {
     "heading": "Developer Tools",
@@ -103,6 +105,58 @@
     "chacha20_decrypt": {
       "name": "ChaCha20 Decrypt",
       "description": "Decrypt strings secured with ChaCha20 stream cipher."
+    },
+    "rsa_encrypt": {
+      "name": "RSA Encrypt",
+      "description": "Encrypt data using RSA public keys (OAEP padding)."
+    },
+    "rsa_decrypt": {
+      "name": "RSA Decrypt",
+      "description": "Decrypt RSA-encrypted data using private keys."
+    },
+    "rsa_sign": {
+      "name": "RSA Sign",
+      "description": "Generate digital signatures for messages using RSA private keys."
+    },
+    "rsa_verify": {
+      "name": "RSA Verify",
+      "description": "Verify digital signatures using RSA public keys."
+    },
+    "ecc_sign": {
+      "name": "ECC Sign",
+      "description": "Generate high-performance signatures using Elliptic Curve cryptography."
+    },
+    "ecc_verify": {
+      "name": "ECC Verify",
+      "description": "Verify ECC signatures to ensure message integrity."
+    },
+    "jwt_encode": {
+      "name": "JWT Encode",
+      "description": "Generate and sign JSON Web Tokens with custom payloads."
+    },
+    "jwt_decode": {
+      "name": "JWT Decode",
+      "description": "Instantly decode and visualize JWT header and payload contents."
+    },
+    "jwt_verify": {
+      "name": "JWT Verify",
+      "description": "Cryptographically verify the integrity of a JSON Web Token."
+    },
+    "pgp_encrypt": {
+      "name": "PGP Encrypt",
+      "description": "Secure messages using standard OpenPGP public key encryption."
+    },
+    "pgp_decrypt": {
+      "name": "PGP Decrypt",
+      "description": "Decrypt OpenPGP messages using your private key and passphrase."
+    },
+    "pgp_sign": {
+      "name": "PGP Sign",
+      "description": "Digitally sign a message using OpenPGP private keys."
+    },
+    "pgp_verify": {
+      "name": "PGP Verify",
+      "description": "Verify the authenticity of an OpenPGP signed message."
     },
     "base64_encode": {
       "name": "Base64 Encode",
