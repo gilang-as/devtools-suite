@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Select, 
   SelectContent, 
@@ -13,11 +14,24 @@ import {
   SelectTrigger, 
   SelectValue 
 } from '@/components/ui/select';
-import { Braces, Copy, Trash2, Upload, FileJson, ArrowRightLeft, Check, ListOrdered } from 'lucide-react';
+import { 
+  Braces, 
+  Copy, 
+  Trash2, 
+  Upload, 
+  FileJson, 
+  ArrowRightLeft, 
+  Check, 
+  ListOrdered,
+  ChevronRight,
+  ChevronDown,
+  Layout
+} from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 
 type SortOrder = 'none' | 'asc' | 'desc';
+type OutputView = 'code' | 'tree';
 
 const sortObject = (obj: any, order: SortOrder): any => {
   if (order === 'none' || obj === null || typeof obj !== 'object') {
@@ -51,13 +65,79 @@ const LineNumbers = ({ text }: { text: string }) => {
   );
 };
 
+const JsonTreeNode = ({ label, value, isLast = true, depth = 0 }: { label?: string; value: any; isLast?: boolean; depth?: number }) => {
+  const [isOpen, setIsOpen] = useState(true);
+  const isObject = value !== null && typeof value === 'object';
+  const isArray = Array.isArray(value);
+
+  if (!isObject) {
+    return (
+      <div className="flex items-start gap-1 font-code text-sm py-0.5 ml-6">
+        {label && <span className="text-primary/80">"{label}": </span>}
+        <span className={cn(
+          typeof value === 'string' ? 'text-green-600 dark:text-green-400' : 
+          typeof value === 'number' ? 'text-blue-600 dark:text-blue-400' :
+          typeof value === 'boolean' ? 'text-orange-600 dark:text-orange-400' :
+          'text-muted-foreground'
+        )}>
+          {typeof value === 'string' ? `"${value}"` : String(value)}
+        </span>
+        {!isLast && <span className="text-muted-foreground">,</span>}
+      </div>
+    );
+  }
+
+  const keys = Object.keys(value);
+  const bracketOpen = isArray ? '[' : '{';
+  const bracketClose = isArray ? ']' : '}';
+
+  return (
+    <div className="font-code text-sm py-0.5">
+      <div 
+        className="flex items-center gap-1 cursor-pointer hover:bg-muted/50 rounded px-1 transition-colors w-fit"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className="w-4 h-4 flex items-center justify-center text-muted-foreground">
+          {isOpen ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+        </div>
+        {label && <span className="text-primary/80">"{label}": </span>}
+        <span className="text-muted-foreground">{bracketOpen}</span>
+        {!isOpen && <span className="text-muted-foreground px-1 bg-muted/50 rounded text-xs">... {keys.length} items</span>}
+        {!isOpen && <span className="text-muted-foreground">{bracketClose}{!isLast && ','}</span>}
+      </div>
+      
+      {isOpen && (
+        <div className="ml-6 border-l border-muted/30 pl-2">
+          {keys.map((key, index) => (
+            <JsonTreeNode 
+              key={key} 
+              label={isArray ? undefined : key} 
+              value={value[key]} 
+              isLast={index === keys.length - 1}
+              depth={depth + 1}
+            />
+          ))}
+        </div>
+      )}
+      
+      {isOpen && (
+        <div className="ml-4 text-muted-foreground">
+          {bracketClose}{!isLast && ','}
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default function JsonFormatterPage() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const [parsedOutput, setParsedOutput] = useState<any>(null);
   const [indentSize, setIndentSize] = useState<number>(2);
   const [sortOrder, setSortOrder] = useState<SortOrder>('none');
+  const [viewMode, setViewMode] = useState<OutputView>('code');
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -70,6 +150,7 @@ export default function JsonFormatterPage() {
       if (sortOrder !== 'none') {
         parsed = sortObject(parsed, sortOrder);
       }
+      setParsedOutput(parsed);
       const formatted = JSON.stringify(parsed, null, indentSize);
       setOutput(formatted);
       setError(null);
@@ -90,9 +171,12 @@ export default function JsonFormatterPage() {
       if (sortOrder !== 'none') {
         parsed = sortObject(parsed, sortOrder);
       }
+      setParsedOutput(parsed);
       const minified = JSON.stringify(parsed);
       setOutput(minified);
       setError(null);
+      // Minified code should stay in code view as tree view is less useful for minified strings
+      setViewMode('code');
     } catch (e: any) {
       setError(e.message);
       toast({
@@ -106,6 +190,7 @@ export default function JsonFormatterPage() {
   const handleClear = () => {
     setInput('');
     setOutput('');
+    setParsedOutput(null);
     setError(null);
   };
 
@@ -199,7 +284,7 @@ export default function JsonFormatterPage() {
         </Card>
 
         {/* Action Buttons (Middle) */}
-        <div className="flex flex-row lg:flex-col justify-center items-center gap-4 py-4 lg:py-0 min-w-[180px]">
+        <div className="flex flex-row lg:flex-col justify-center items-center gap-4 py-4 lg:py-0 min-w-[200px]">
           <div className="w-full space-y-4 px-2">
             <div className="space-y-1.5">
               <Label className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
@@ -268,7 +353,21 @@ export default function JsonFormatterPage() {
         {/* Output Section */}
         <Card className="flex-1 border-border shadow-lg flex flex-col overflow-hidden">
           <CardHeader className="flex flex-row items-center justify-between pb-4">
-            <CardTitle className="text-lg">{t('common.output')}</CardTitle>
+            <div className="flex flex-col gap-2">
+              <CardTitle className="text-lg">{t('common.output')}</CardTitle>
+              <Tabs value={viewMode} onValueChange={(val) => setViewMode(val as OutputView)} className="w-fit">
+                <TabsList className="h-8">
+                  <TabsTrigger value="code" className="text-xs">
+                    <Braces className="h-3 w-3 mr-1.5" />
+                    Code
+                  </TabsTrigger>
+                  <TabsTrigger value="tree" className="text-xs" disabled={!parsedOutput}>
+                    <Layout className="h-3 w-3 mr-1.5" />
+                    Tree View
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
             <Button 
               variant="outline" 
               size="sm" 
@@ -280,15 +379,23 @@ export default function JsonFormatterPage() {
             </Button>
           </CardHeader>
           <CardContent className="flex-1 flex flex-col p-0">
-            <div className="flex flex-1 min-h-[400px] border-t bg-secondary/10">
-              <LineNumbers text={output} />
-              <Textarea
-                readOnly
-                ref={outputRef}
-                placeholder="Formatted results will appear here..."
-                className="font-code flex-1 border-none focus-visible:ring-0 bg-transparent resize-none leading-6 rounded-none py-2.5 shadow-none"
-                value={output}
-              />
+            <div className="flex flex-1 min-h-[400px] border-t bg-secondary/10 overflow-hidden">
+              {viewMode === 'code' ? (
+                <>
+                  <LineNumbers text={output} />
+                  <Textarea
+                    readOnly
+                    ref={outputRef}
+                    placeholder="Formatted results will appear here..."
+                    className="font-code flex-1 border-none focus-visible:ring-0 bg-transparent resize-none leading-6 rounded-none py-2.5 shadow-none"
+                    value={output}
+                  />
+                </>
+              ) : (
+                <div className="flex-1 overflow-auto p-4 bg-transparent font-code">
+                  {parsedOutput && <JsonTreeNode value={parsedOutput} />}
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
