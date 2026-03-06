@@ -26,7 +26,11 @@
     "upload": "Upload File",
     "error": "Error",
     "indentation": "Indentation",
-    "spaces": "Spaces"
+    "spaces": "Spaces",
+    "sort": "Sort Keys",
+    "none": "None",
+    "asc": "Ascending",
+    "desc": "Descending"
   },
   "home": {
     "heading": "Developer Tools",

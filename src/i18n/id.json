@@ -26,7 +26,11 @@
     "upload": "Unggah File",
     "error": "Kesalahan",
     "indentation": "Indentasi",
-    "spaces": "Spasi"
+    "spaces": "Spasi",
+    "sort": "Urutkan Key",
+    "none": "Tidak Ada",
+    "asc": "A-Z",
+    "desc": "Z-A"
   },
   "home": {
     "heading": "Alat Pengembang",
