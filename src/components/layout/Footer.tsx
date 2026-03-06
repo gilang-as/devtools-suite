@@ -15,14 +15,14 @@ export default function Footer() {
   return (
     <footer className="w-full border-t bg-card mt-auto pt-12 pb-8">
       <div className="container mx-auto max-w-7xl px-4">
-        {/* Mega Footer Content */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
+        {/* Mega Footer Content - Optimized Column Layout */}
+        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-12 mb-12">
           {categories.map((category) => (
-            <div key={category} className="space-y-4">
-              <h3 className="text-sm font-black uppercase tracking-widest text-primary/60">
+            <div key={category} className="break-inside-avoid mb-10 group">
+              <h3 className="text-xs font-black uppercase tracking-[0.2em] text-primary/40 mb-4 border-b border-primary/5 pb-2 group-hover:text-primary/70 transition-colors">
                 {category}
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-2.5">
                 {TOOLS.filter(t => t.category === category).map((tool) => (
                   <li key={tool.id}>
                     <Link 
