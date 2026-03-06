@@ -62,7 +62,7 @@ export default function CommandMenu() {
     if (itemRefs.current[selectedIndex]) {
       itemRefs.current[selectedIndex]?.scrollIntoView({
         block: 'nearest',
-        behavior: 'smooth'
+        behavior: 'auto'
       });
     }
   }, [selectedIndex]);
@@ -265,7 +265,7 @@ export default function CommandMenu() {
           </div>
         </DialogHeader>
 
-        <ScrollArea className="max-h-[450px] w-full flex-1 [&>[data-radix-scroll-area-viewport]>div]:!block overflow-hidden">
+        <ScrollArea className="max-h-[450px] w-full flex-1 [&_[data-radix-scroll-area-viewport]]:!block [&_[data-radix-scroll-area-viewport]>div]:!block overflow-hidden">
           <div className="p-2 flex flex-col gap-1 w-full box-border">
             {filteredItems.length > 0 ? (
               filteredItems.map((item: any, index) => {
