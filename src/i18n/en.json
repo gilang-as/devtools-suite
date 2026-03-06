@@ -36,7 +36,11 @@
     "desc": "Descending",
     "wordWrap": "Word Wrap",
     "preview": "Preview",
-    "inspect": "Inspect"
+    "inspect": "Inspect",
+    "hash": "Hash",
+    "password": "Password",
+    "salt": "Salt",
+    "iterations": "Iterations"
   },
   "home": {
     "heading": "Developer Tools",
@@ -87,6 +91,38 @@
     "html_decode": {
       "name": "HTML Decode",
       "description": "Decode HTML entities back into readable text."
+    },
+    "md5": {
+      "name": "MD5 Hash",
+      "description": "Generate MD5 message digests (Not secure for passwords)."
+    },
+    "sha1": {
+      "name": "SHA-1 Hash",
+      "description": "Generate SHA-1 message digests (Legacy security)."
+    },
+    "sha256": {
+      "name": "SHA-256 Hash",
+      "description": "Generate secure SHA-256 message digests."
+    },
+    "sha512": {
+      "name": "SHA-512 Hash",
+      "description": "Generate high-security SHA-512 message digests."
+    },
+    "sha3": {
+      "name": "SHA-3 Hash",
+      "description": "Generate modern SHA-3 message digests."
+    },
+    "bcrypt": {
+      "name": "Bcrypt Hash",
+      "description": "Secure password hashing with adaptive cost factor."
+    },
+    "argon2": {
+      "name": "Argon2 Hash",
+      "description": "State-of-the-art password hashing (Memory-hard)."
+    },
+    "pbkdf2": {
+      "name": "PBKDF2 Hash",
+      "description": "Key derivation function using multiple HMAC iterations."
     },
     "json_formatter": {
       "name": "JSON Formatter",

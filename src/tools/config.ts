@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -6,7 +6,7 @@ export interface Tool {
   descriptionKey: string;
   href: string;
   icon: string;
-  category: 'Encoding' | 'Security' | 'Formatting' | 'Generators' | 'Conversion';
+  category: 'Encoding' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing';
 }
 
 export const TOOLS: Tool[] = [
@@ -89,6 +89,70 @@ export const TOOLS: Tool[] = [
     href: '/html/decode',
     icon: 'CodeXml',
     category: 'Encoding',
+  },
+  {
+    id: 'md5-hash',
+    nameKey: 'tools.md5.name',
+    descriptionKey: 'tools.md5.description',
+    href: '/hashing/md5',
+    icon: 'Fingerprint',
+    category: 'Hashing',
+  },
+  {
+    id: 'sha1-hash',
+    nameKey: 'tools.sha1.name',
+    descriptionKey: 'tools.sha1.description',
+    href: '/hashing/sha1',
+    icon: 'Fingerprint',
+    category: 'Hashing',
+  },
+  {
+    id: 'sha256-hash',
+    nameKey: 'tools.sha256.name',
+    descriptionKey: 'tools.sha256.description',
+    href: '/hashing/sha256',
+    icon: 'Fingerprint',
+    category: 'Hashing',
+  },
+  {
+    id: 'sha512-hash',
+    nameKey: 'tools.sha512.name',
+    descriptionKey: 'tools.sha512.description',
+    href: '/hashing/sha512',
+    icon: 'Fingerprint',
+    category: 'Hashing',
+  },
+  {
+    id: 'sha3-hash',
+    nameKey: 'tools.sha3.name',
+    descriptionKey: 'tools.sha3.description',
+    href: '/hashing/sha3',
+    icon: 'Fingerprint',
+    category: 'Hashing',
+  },
+  {
+    id: 'bcrypt-hash',
+    nameKey: 'tools.bcrypt.name',
+    descriptionKey: 'tools.bcrypt.description',
+    href: '/hashing/bcrypt',
+    icon: 'Lock',
+    category: 'Hashing',
+  },
+  {
+    id: 'argon2-hash',
+    nameKey: 'tools.argon2.name',
+    descriptionKey: 'tools.argon2.description',
+    href: '/hashing/argon2',
+    icon: 'Lock',
+    category: 'Hashing',
+  },
+  {
+    id: 'pbkdf2-hash',
+    nameKey: 'tools.pbkdf2.name',
+    descriptionKey: 'tools.pbkdf2.description',
+    href: '/hashing/pbkdf2',
+    icon: 'Lock',
+    category: 'Hashing',
   },
   {
     id: 'json-formatter',

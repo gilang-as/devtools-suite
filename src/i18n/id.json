@@ -35,7 +35,12 @@
     "asc": "A-Z",
     "desc": "Z-A",
     "wordWrap": "Bungkus Teks",
-    "preview": "Pratinjau"
+    "preview": "Pratinjau",
+    "inspect": "Inspeksi",
+    "hash": "Hash",
+    "password": "Kata Sandi",
+    "salt": "Salt",
+    "iterations": "Iterasi"
   },
   "home": {
     "heading": "Alat Pengembang",
@@ -87,6 +92,38 @@
       "name": "Dekode HTML",
       "description": "Dekode entitas HTML kembali menjadi teks biasa."
     },
+    "md5": {
+      "name": "Hash MD5",
+      "description": "Hasilkan digest pesan MD5 (Tidak aman untuk kata sandi)."
+    },
+    "sha1": {
+      "name": "Hash SHA-1",
+      "description": "Hasilkan digest pesan SHA-1 (Keamanan legacy)."
+    },
+    "sha256": {
+      "name": "Hash SHA-256",
+      "description": "Hasilkan digest pesan SHA-256 yang aman."
+    },
+    "sha512": {
+      "name": "Hash SHA-512",
+      "description": "Hasilkan digest pesan SHA-512 keamanan tinggi."
+    },
+    "sha3": {
+      "name": "Hash SHA-3",
+      "description": "Hasilkan digest pesan SHA-3 modern."
+    },
+    "bcrypt": {
+      "name": "Hash Bcrypt",
+      "description": "Hash kata sandi aman dengan faktor biaya adaptif."
+    },
+    "argon2": {
+      "name": "Hash Argon2",
+      "description": "Hash kata sandi mutakhir (Memory-hard)."
+    },
+    "pbkdf2": {
+      "name": "Hash PBKDF2",
+      "description": "Fungsi derivasi kunci menggunakan banyak iterasi HMAC."
+    },
     "json_formatter": {
       "name": "Format JSON",
       "description": "Bersihkan, format, dan minifikasi data JSON Anda dengan mudah."
@@ -101,7 +138,7 @@
     },
     "xml_formatter": {
       "name": "Format XML",
-      "description": "Bersihkan, format, dan minifikasi dokumen XML Anda."
+      "description": "Bersihkan, format, and minifikasi dokumen XML Anda."
     },
     "html_formatter": {
       "name": "Format HTML",
