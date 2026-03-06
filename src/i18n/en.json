@@ -70,7 +70,14 @@
     "lines": "Lines",
     "paragraphs": "Paragraphs",
     "readingTime": "Reading Time",
-    "minutes": "min"
+    "minutes": "min",
+    "network_address": "Network Address",
+    "broadcast_address": "Broadcast Address",
+    "host_range": "Host Range",
+    "total_hosts": "Total Hosts",
+    "usable_hosts": "Usable Hosts",
+    "wildcard_mask": "Wildcard Mask",
+    "binary_view": "Binary Representation"
   },
   "home": {
     "heading": "Developer Tools",
@@ -206,7 +213,9 @@
     "random_key": { "name": "Random Key Generator", "description": "Generate cryptographically secure random keys for encryption." },
     "secure_token": { "name": "Secure Token Generator", "description": "Generate high-entropy tokens for API keys or session identifiers." },
     "crc32": { "name": "CRC32 Checksum", "description": "Generate a 32-bit cyclic redundancy check for data integrity." },
-    "adler32": { "name": "Adler32 Checksum", "description": "Generate a fast Adler-32 checksum for data verification." }
+    "adler32": { "name": "Adler32 Checksum", "description": "Generate a fast Adler-32 checksum for data verification." },
+    "subnet_calculator": { "name": "Subnet Calculator", "description": "Calculate detailed network parameters based on an IP and Subnet Mask." },
+    "cidr_calculator": { "name": "CIDR Calculator", "description": "Calculate network ranges and host capacities using CIDR notation." }
   },
   "kb": {
     "aes": {

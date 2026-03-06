@@ -1,5 +1,5 @@
 
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe, SearchCode, Sparkles, Diff, Type, Link2, ListOrdered, Rows } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe, SearchCode, Sparkles, Diff, Type, Link2, ListOrdered, Rows, Network } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -7,7 +7,7 @@ export interface Tool {
   descriptionKey: string;
   href: string;
   icon: string;
-  category: 'Encoding' | 'Encryption' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing' | 'Passwords' | 'Obfuscation' | 'DateTime' | 'Programming';
+  category: 'Encoding' | 'Encryption' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing' | 'Passwords' | 'Obfuscation' | 'DateTime' | 'Programming' | 'Networking';
 }
 
 export const TOOLS: Tool[] = [
@@ -146,6 +146,22 @@ export const TOOLS: Tool[] = [
     href: '/programming/word-counter',
     icon: 'FileText',
     category: 'Programming',
+  },
+  {
+    id: 'subnet-calculator',
+    nameKey: 'tools.subnet_calculator.name',
+    descriptionKey: 'tools.subnet_calculator.description',
+    href: '/networking/subnet-calculator',
+    icon: 'Network',
+    category: 'Networking',
+  },
+  {
+    id: 'cidr-calculator',
+    nameKey: 'tools.cidr_calculator.name',
+    descriptionKey: 'tools.cidr_calculator.description',
+    href: '/networking/cidr-calculator',
+    icon: 'Network',
+    category: 'Networking',
   },
   {
     id: 'password-generator',

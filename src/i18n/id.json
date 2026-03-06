@@ -70,7 +70,14 @@
     "lines": "Baris",
     "paragraphs": "Paragraf",
     "readingTime": "Waktu Baca",
-    "minutes": "menit"
+    "minutes": "menit",
+    "network_address": "Alamat Jaringan",
+    "broadcast_address": "Alamat Broadcast",
+    "host_range": "Rentang Host",
+    "total_hosts": "Total Host",
+    "usable_hosts": "Host yang Dapat Digunakan",
+    "wildcard_mask": "Wildcard Mask",
+    "binary_view": "Representasi Biner"
   },
   "home": {
     "heading": "Alat Pengembang",
@@ -206,7 +213,9 @@
     "random_key": { "name": "Random Key Generator", "description": "Hasilkan kunci acak yang aman secara kriptografis untuk enkripsi." },
     "secure_token": { "name": "Secure Token Generator", "description": "Hasilkan token dengan entropi tinggi untuk kunci API atau pengenal sesi." },
     "crc32": { "name": "CRC32 Checksum", "description": "Hasilkan pemeriksaan redundansi siklik 32-bit untuk integritas data." },
-    "adler32": { "name": "Adler32 Checksum", "description": "Hasilkan checksum Adler-32 cepat untuk verifikasi data." }
+    "adler32": { "name": "Adler32 Checksum", "description": "Hasilkan checksum Adler-32 cepat untuk verifikasi data." },
+    "subnet_calculator": { "name": "Kalkulator Subnet", "description": "Hitung parameter jaringan detail berdasarkan IP dan Subnet Mask." },
+    "cidr_calculator": { "name": "Kalkulator CIDR", "description": "Hitung rentang jaringan dan kapasitas host menggunakan notasi CIDR." }
   },
   "kb": {
     "aes": {

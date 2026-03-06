@@ -1,13 +1,14 @@
+
 "use client"
 
 import Link from 'next/link';
 import { Tool } from '@/tools/config';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Hash, KeyRound, ChevronRight, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge, Type } from 'lucide-react';
+import { Hash, KeyRound, ChevronRight, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge, Type, Network } from 'lucide-react';
 
 const iconMap: Record<string, any> = {
-  Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge, Type
+  Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge, Type, Network
 };
 
 export default function ToolCard({ tool }: { tool: Tool }) {
