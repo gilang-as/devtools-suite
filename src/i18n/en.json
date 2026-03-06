@@ -76,6 +76,9 @@
     "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
+    "text_obfuscator": { "name": "Text Obfuscator", "description": "Scramble and hide readable text using reversible algorithms." },
+    "js_obfuscator": { "name": "JavaScript Obfuscator", "description": "Protect your source code by making it difficult to read and reverse-engineer." },
+    "rot13": { "name": "ROT13 Encode / Decode", "description": "Rotate letters by 13 places using the classic Caesar substitution cipher." },
     "password_hash": {
       "name": "Password Hash Generator",
       "description": "Securely hash passwords using modern algorithms like Bcrypt and Argon2."
@@ -152,7 +155,7 @@
     "pkcs_p12": { "name": "PKCS#12 (PFX)", "description": "Generate a PFX/P12 certificate container." },
     "pkcs_x509": { "name": "X.509 Certificate", "description": "Generate a self-signed X.509 certificate." },
     "certificate_decode": { "name": "SSL Certificate Decoder", "description": "Decode SSL/TLS certificate PEM to view Subject, Issuer, and Validity." },
-    "csr_decode": { "name": "CSR Decoder", "description": "View details of a Certificate Signing Request (CSR) PEM file." },
+    "csr_decode": { "name": "CSR Decoder", "description": "View details of a Certification Signing Request (CSR) PEM file." },
     "pem_der_converter": { "name": "PEM ↔ DER Converter", "description": "Convert security files between PEM (Base64) and DER (Binary) formats." },
     "asn1": { "name": "ASN.1 Inspector", "description": "Decode and visualize ASN.1 structures from DER or Base64." },
     "jose": { "name": "JOSE (JWT/JWK)", "description": "Generate and verify JSON Web Tokens and Keys." },

@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2 } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -6,7 +6,7 @@ export interface Tool {
   descriptionKey: string;
   href: string;
   icon: string;
-  category: 'Encoding' | 'Encryption' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing' | 'Passwords';
+  category: 'Encoding' | 'Encryption' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing' | 'Passwords' | 'Obfuscation';
 }
 
 export const TOOLS: Tool[] = [
@@ -73,6 +73,30 @@ export const TOOLS: Tool[] = [
     href: '/hashing/adler32',
     icon: 'FileSearch',
     category: 'Hashing',
+  },
+  {
+    id: 'text-obfuscator',
+    nameKey: 'tools.text_obfuscator.name',
+    descriptionKey: 'tools.text_obfuscator.description',
+    href: '/obfuscation/text',
+    icon: 'EyeOff',
+    category: 'Obfuscation',
+  },
+  {
+    id: 'js-obfuscator',
+    nameKey: 'tools.js_obfuscator.name',
+    descriptionKey: 'tools.js_obfuscator.description',
+    href: '/obfuscation/javascript',
+    icon: 'ShieldAlert',
+    category: 'Obfuscation',
+  },
+  {
+    id: 'rot13-tool',
+    nameKey: 'tools.rot13.name',
+    descriptionKey: 'tools.rot13.description',
+    href: '/obfuscation/rot13',
+    icon: 'RefreshCw',
+    category: 'Obfuscation',
   },
   {
     id: 'base64-encode',

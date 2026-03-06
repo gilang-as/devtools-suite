@@ -76,6 +76,9 @@
     "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
+    "text_obfuscator": { "name": "Text Obfuscator", "description": "Acak dan sembunyikan teks yang dapat dibaca menggunakan algoritma yang dapat dibalik." },
+    "js_obfuscator": { "name": "JavaScript Obfuscator", "description": "Lindungi kode sumber Anda dengan membuatnya sulit dibaca dan direkayasa balik." },
+    "rot13": { "name": "ROT13 Encode / Decode", "description": "Putar huruf sebanyak 13 tempat menggunakan cipher substitusi Caesar klasik." },
     "password_hash": {
       "name": "Password Hash Generator",
       "description": "Hasilkan hash kata sandi dengan aman menggunakan algoritma modern seperti Bcrypt dan Argon2."
@@ -316,7 +319,7 @@
       "title": "X.509: Sertifikat Digital",
       "desc": "Format standar untuk sertifikat kunci publik yang digunakan dalam HTTPS/TLS dan protokol lainnya.",
       "i1_label": "Self-Signed",
-      "i1_text": "Sertifikat di mana penerbit dan subjeknya sama. Digunakan untuk pengujian internal.",
+      "i1_text": "Sertifikat di mana penerbit dan subjeknya sama. Gunakan untuk pengujian internal.",
       "i2_label": "Validitas",
       "i2_text": "Menentukan rentang tanggal di mana sertifikat dianggap valid.",
       "i3_label": "Ekstensi",

@@ -1,0 +1,92 @@
+"use client"
+
+import { useState } from 'react';
+import { useTranslation } from '@/components/providers/i18n-provider';
+import { obfuscateText, deobfuscateText } from '@/lib/obfuscation';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { EyeOff, Copy, Trash2, ShieldAlert, ShieldCheck } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+
+export default function TextObfuscatorPage() {
+  const { t } = useTranslation();
+  const { toast } = useToast();
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState('');
+
+  const handleObfuscate = () => {
+    setOutput(obfuscateText(input));
+  };
+
+  const handleDeobfuscate = () => {
+    setOutput(deobfuscateText(input));
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(output);
+    toast({ title: t('common.copied') });
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto space-y-8 py-6">
+      <div className="flex items-center gap-4 mb-4">
+        <div className="bg-primary/10 p-2 rounded-xl text-primary">
+          <EyeOff className="h-8 w-8" />
+        </div>
+        <div>
+          <h1 className="text-3xl font-headline font-bold">Text Obfuscator</h1>
+          <p className="text-muted-foreground">{t('tools.text_obfuscator.description')}</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6">
+        <Card className="border-border shadow-lg">
+          <CardHeader>
+            <CardTitle>{t('common.input')}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Textarea
+              placeholder="Enter text to scramble or unscramble..."
+              className="font-code min-h-[150px] bg-secondary/30"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <div className="flex gap-2">
+              <Button onClick={handleObfuscate} className="flex-1">
+                <ShieldAlert className="h-4 w-4 mr-2" />
+                Obfuscate
+              </Button>
+              <Button onClick={handleDeobfuscate} variant="secondary" className="flex-1">
+                <ShieldCheck className="h-4 w-4 mr-2" />
+                Deobfuscate
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-border shadow-lg">
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle>{t('common.output')}</CardTitle>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={copyToClipboard} disabled={!output}>
+                <Copy className="h-4 w-4 mr-2" />
+                {t('common.copy')}
+              </Button>
+              <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => {setInput(''); setOutput('');}}>
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <Textarea
+              readOnly
+              className="font-code min-h-[150px] bg-secondary/10 break-all"
+              value={output}
+            />
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}
