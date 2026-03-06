@@ -59,7 +59,8 @@
     "sign": "Sign",
     "verify": "Verify",
     "length": "Length",
-    "options": "Options"
+    "options": "Options",
+    "swap": "Swap"
   },
   "home": {
     "heading": "Developer Tools",
@@ -81,6 +82,7 @@
     "color_palette": { "name": "Color Palette Generator", "description": "Generate professional color schemes based on color harmony logic." },
     "regex_tester": { "name": "Regex Tester", "description": "Test and debug regular expressions with live highlighting and detailed match info." },
     "regex_generator": { "name": "Regex AI Generator", "description": "Generate complex regular expressions from natural language descriptions using AI." },
+    "text_diff": { "name": "Text Diff Checker", "description": "Compare two text blocks to find differences, additions, and deletions." },
     "unix_timestamp_converter": { "name": "Unix Timestamp Converter", "description": "Convert Unix seconds/milliseconds to human-readable dates." },
     "unix_timestamp_generator": { "name": "Unix Timestamp Generator", "description": "Generate current and future Unix timestamps instantly." },
     "cron_parser": { "name": "Cron Expression Parser", "description": "Translate complex cron strings into readable human language." },

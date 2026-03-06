@@ -59,7 +59,8 @@
     "sign": "Sign",
     "verify": "Verify",
     "length": "Panjang",
-    "options": "Opsi"
+    "options": "Opsi",
+    "swap": "Tukar"
   },
   "home": {
     "heading": "Alat Pengembang",
@@ -81,6 +82,7 @@
     "color_palette": { "name": "Generator Palet Warna", "description": "Hasilkan skema warna profesional berdasarkan logika harmoni warna." },
     "regex_tester": { "name": "Regex Tester", "description": "Uji dan debug ekspresi reguler dengan penyorotan langsung dan info kecocokan mendetail." },
     "regex_generator": { "name": "Generator AI Regex", "description": "Hasilkan ekspresi reguler yang kompleks dari deskripsi bahasa alami menggunakan AI." },
+    "text_diff": { "name": "Text Diff Checker", "description": "Bandingkan dua blok teks untuk menemukan perbedaan, penambahan, dan penghapusan." },
     "unix_timestamp_converter": { "name": "Konverter Unix Timestamp", "description": "Konversi detik/milidetik Unix ke tanggal yang dapat dibaca manusia." },
     "unix_timestamp_generator": { "name": "Generator Unix Timestamp", "description": "Hasilkan timestamp Unix saat ini dan masa depan secara instan." },
     "cron_parser": { "name": "Parser Ekspresi Cron", "description": "Terjemahkan string cron yang kompleks ke dalam bahasa manusia yang mudah dibaca." },
