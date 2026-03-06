@@ -1,3 +1,4 @@
+
 {
   "common": {
     "title": "DevTools Suite",
@@ -76,6 +77,7 @@
     "spotlight_title": "DevTools Suite Spotlight"
   },
   "tools": {
+    "regex_tester": { "name": "Regex Tester", "description": "Uji dan debug ekspresi reguler dengan penyorotan langsung dan info kecocokan mendetail." },
     "unix_timestamp_converter": { "name": "Konverter Unix Timestamp", "description": "Konversi detik/milidetik Unix ke tanggal yang dapat dibaca manusia." },
     "unix_timestamp_generator": { "name": "Generator Unix Timestamp", "description": "Hasilkan timestamp Unix saat ini dan masa depan secara instan." },
     "cron_parser": { "name": "Parser Ekspresi Cron", "description": "Terjemahkan string cron yang kompleks ke dalam bahasa manusia yang mudah dibaca." },
@@ -91,7 +93,7 @@
     },
     "password_compare": {
       "name": "Password Compare",
-      "description": "Verifikasi apakah kata sandi plaintext cocok dengan hash yang dihasilkan sebelumnya."
+      "description": "Verifikasi apakah kata sandi plaintext cocok dengan hash yang diberikan sebelumnya."
     },
     "password_strength": {
       "name": "Password Strength Checker",
@@ -185,6 +187,7 @@
     "adler32": { "name": "Adler32 Checksum", "description": "Hasilkan checksum Adler-32 cepat untuk verifikasi data." }
   },
   "hints": {
+    "regex": "Masukkan pola seperti [a-z]+ untuk mencocokkan kata huruf kecil. Gunakan grup tangkapan () untuk mengisolasi bagian tertentu.",
     "bits": "Jumlah bit yang lebih tinggi menawarkan keamanan lebih tetapi pemrosesan lebih lambat. 2048 adalah standar; 4096 adalah keamanan tinggi.",
     "algorithm": "Algoritma kriptografi yang digunakan untuk menghasilkan pasangan kunci.",
     "cn": "Nama utama sertifikat yang diterbitkan (misalnya, domain atau nama server Anda).",
@@ -319,7 +322,7 @@
     "p10": {
       "title": "PKCS#10: Certification Request (CSR)",
       "desc": "Permintaan yang dikirim ke Certificate Authority (CA) untuk menandatangani kunci publik.",
-      "i1_label": "Info Subjek",
+      "i1_label": "Subject Info",
       "i1_text": "Termasuk detail identitas seperti Common Name (CN), Org (O), dan Country (C).",
       "i2_label": "Tanda Tangan",
       "i2_text": "CSR ditandatangani sendiri oleh kunci privat untuk membuktikan kepemilikan kunci publik."
@@ -357,7 +360,7 @@
       "s2_title": "2. Analitik Anonim",
       "s2_desc": "Kami mungkin menggunakan alat analitik dasar yang anonim untuk memahami alat mana yang paling populer. Data ini murni numerik dan tidak mengandung informasi pengguna yang dapat diidentifikasi.",
       "s3_title": "3. Layanan Pihak Ketiga",
-      "s3_desc": "Kami tidak menjual, menukar, atau mentransfer informasi Anda kepada pihak luar.",
+      "s3_desc": "Kami tidak menjual, mentransfer, atau sebaliknya menyerahkan informasi Anda kepada pihak luar.",
       "s4_title": "4. Keamanan",
       "s4_desc": "Dengan melakukan semua operasi secara lokal melalui JavaScript, kami menghilangkan risiko keamanan utama berupa intersepsi data selama transit ke server."
     },

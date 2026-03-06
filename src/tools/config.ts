@@ -1,4 +1,4 @@
-import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe } from 'lucide-react';
+import { Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, Activity, ShieldEllipsis, ShieldPlus, FileBadge, ShieldHalf, RefreshCw, ArrowRightLeft, FileSearch, EyeOff, Wand2, FileJson, FileText, Table2, FileSpreadsheet, Cpu, Coffee, Clock, CalendarClock, Globe, SearchCode } from 'lucide-react';
 
 export interface Tool {
   id: string;
@@ -6,7 +6,7 @@ export interface Tool {
   descriptionKey: string;
   href: string;
   icon: string;
-  category: 'Encoding' | 'Encryption' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing' | 'Passwords' | 'Obfuscation' | 'DateTime';
+  category: 'Encoding' | 'Encryption' | 'Security' | 'Formatting' | 'Generators' | 'Conversion' | 'Hashing' | 'Passwords' | 'Obfuscation' | 'DateTime' | 'Programming';
 }
 
 export const TOOLS: Tool[] = [
@@ -57,6 +57,14 @@ export const TOOLS: Tool[] = [
     href: '/datetime/iso8601',
     icon: 'FileText',
     category: 'DateTime',
+  },
+  {
+    id: 'regex-tester',
+    nameKey: 'tools.regex_tester.name',
+    descriptionKey: 'tools.regex_tester.description',
+    href: '/regex/tester',
+    icon: 'SearchCode',
+    category: 'Programming',
   },
   {
     id: 'password-generator',
