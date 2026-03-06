@@ -1,10 +1,9 @@
-
 "use client"
 
 import * as React from "react"
 
 type Theme = "dark" | "light" | "system"
-export type ColorScheme = "default" | "latte" | "frappe" | "macchiato" | "mocha"
+export type ColorScheme = "default" | "latte" | "frappe" | "macchiato" | "mocha" | "spring" | "summer" | "fall" | "winter"
 
 type ThemeProviderProps = {
   children: React.ReactNode

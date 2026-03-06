@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -30,16 +29,17 @@ export default function Footer() {
 
   const categories = Array.from(new Set(TOOLS.map(tool => tool.category))).sort();
 
-  const schemes: { id: ColorScheme; name: string }[] = [
-    { id: 'default', name: 'Default Blue' },
-    { id: 'latte', name: 'Catppuccin Latte' },
-    { id: 'frappe', name: 'Catppuccin Frappé' },
-    { id: 'macchiato', name: 'Catppuccin Macchiato' },
-    { id: 'mocha', name: 'Catppuccin Mocha' },
+  const schemes: { id: ColorScheme; name: string; group: 'standard' | 'catppuccin' | 'seasonal' }[] = [
+    { id: 'default', name: 'Default Blue', group: 'standard' },
+    { id: 'latte', name: 'Catppuccin Latte', group: 'catppuccin' },
+    { id: 'frappe', name: 'Catppuccin Frappé', group: 'catppuccin' },
+    { id: 'macchiato', name: 'Catppuccin Macchiato', group: 'catppuccin' },
+    { id: 'mocha', name: 'Catppuccin Mocha', group: 'catppuccin' },
+    { id: 'spring', name: 'Spring Blossom', group: 'seasonal' },
+    { id: 'summer', name: 'Summer Solstice', group: 'seasonal' },
+    { id: 'fall', name: 'Autumn Harvest', group: 'seasonal' },
+    { id: 'winter', name: 'Winter Frost', group: 'seasonal' },
   ];
-
-  const standardSchemes = schemes.filter(s => s.id === 'default');
-  const catppuccinFlavors = schemes.filter(s => s.id !== 'default');
 
   return (
     <footer className="w-full border-t bg-card mt-auto pt-12 pb-8">
@@ -97,12 +97,12 @@ export default function Footer() {
                     </span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuContent align="end" className="w-56 max-h-[80vh] overflow-y-auto">
                   <DropdownMenuLabel className="text-xs font-bold uppercase tracking-wider opacity-50">Choose Color</DropdownMenuLabel>
                   
                   <DropdownMenuSeparator />
-                  
-                  {standardSchemes.map((s) => (
+                  <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Standard</DropdownMenuLabel>
+                  {schemes.filter(s => s.group === 'standard').map((s) => (
                     <DropdownMenuItem 
                       key={s.id}
                       onClick={() => setColorScheme(s.id)} 
@@ -115,8 +115,20 @@ export default function Footer() {
 
                   <DropdownMenuSeparator />
                   <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Catppuccin Flavors</DropdownMenuLabel>
-                  
-                  {catppuccinFlavors.map((s) => (
+                  {schemes.filter(s => s.group === 'catppuccin').map((s) => (
+                    <DropdownMenuItem 
+                      key={s.id}
+                      onClick={() => setColorScheme(s.id)} 
+                      className="justify-between cursor-pointer"
+                    >
+                      {s.name}
+                      {colorScheme === s.id && <Check className="h-3.5 w-3.5 text-primary" />}
+                    </DropdownMenuItem>
+                  ))}
+
+                  <DropdownMenuSeparator />
+                  <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Seasonal Themes</DropdownMenuLabel>
+                  {schemes.filter(s => s.group === 'seasonal').map((s) => (
                     <DropdownMenuItem 
                       key={s.id}
                       onClick={() => setColorScheme(s.id)} 
