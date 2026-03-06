@@ -1,20 +1,23 @@
-
 "use client"
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { encodeBase64 } from '@/lib/base64';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Copy, Trash2, Hash } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
 export default function Base64EncodePage() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const pathname = usePathname();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [isLive, setIsLive] = useState(true);
@@ -51,6 +54,27 @@ export default function Base64EncodePage() {
           <h1 className="text-3xl font-headline font-bold">{t('tools.base64_encode.name')}</h1>
           <p className="text-muted-foreground">{t('tools.base64_encode.description')}</p>
         </div>
+      </div>
+
+      <div className="flex p-1 bg-muted rounded-lg w-fit">
+        <Link href="/base64/encode">
+          <Button 
+            variant={pathname === '/base64/encode' ? 'secondary' : 'ghost'} 
+            className={cn("px-8 h-8", pathname === '/base64/encode' && "bg-background shadow-sm")}
+            size="sm"
+          >
+            {t('common.encode')}
+          </Button>
+        </Link>
+        <Link href="/base64/decode">
+          <Button 
+            variant={pathname === '/base64/decode' ? 'secondary' : 'ghost'} 
+            className={cn("px-8 h-8", pathname === '/base64/decode' && "bg-background shadow-sm")}
+            size="sm"
+          >
+            {t('common.decode')}
+          </Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-6">
