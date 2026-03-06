@@ -1,3 +1,4 @@
+
 {
   "common": {
     "title": "DevTools Suite",
@@ -39,7 +40,12 @@
   },
   "home": {
     "heading": "Developer Tools",
-    "subheading": "Simple, fast, and secure tools for your development workflow."
+    "subheading": "Simple, fast, and secure tools for your development workflow.",
+    "search_placeholder": "Search tools...",
+    "all_tools": "All Tools",
+    "no_results_title": "No tools found",
+    "no_results_desc": "We couldn't find any tools matching your search or filters.",
+    "clear_all_filters": "Clear all filters"
   },
   "tools": {
     "base64_encode": {

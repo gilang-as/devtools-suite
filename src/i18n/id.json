@@ -1,3 +1,4 @@
+
 {
   "common": {
     "title": "DevTools Suite",
@@ -39,7 +40,12 @@
   },
   "home": {
     "heading": "Alat Pengembang",
-    "subheading": "Alat yang sederhana, cepat, dan aman untuk alur kerja pengembangan Anda."
+    "subheading": "Alat yang sederhana, cepat, dan aman untuk alur kerja pengembangan Anda.",
+    "search_placeholder": "Cari alat...",
+    "all_tools": "Semua Alat",
+    "no_results_title": "Alat tidak ditemukan",
+    "no_results_desc": "Kami tidak dapat menemukan alat yang cocok dengan pencarian atau filter Anda.",
+    "clear_all_filters": "Hapus semua filter"
   },
   "tools": {
     "base64_encode": {
