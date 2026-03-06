@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useRef, useMemo } from 'react';
@@ -372,28 +371,59 @@ export default function HtmlFormatterPage() {
             </div>
           </div>
           
-          <Button 
-            onClick={handleBeautify} 
-            className="flex-1 lg:flex-none lg:w-full shadow-md bg-primary hover:bg-primary/90"
-            size="lg"
-          >
-            <Check className="h-4 w-4 mr-2" />
-            {t('common.beautify')}
-          </Button>
+          <div className="flex flex-col gap-3 w-full">
+            <Button 
+              onClick={handleBeautify} 
+              className="shadow-md bg-primary hover:bg-primary/90 w-full"
+              size="lg"
+            >
+              <Check className="h-4 w-4 mr-2" />
+              {t('common.beautify')}
+            </Button>
 
-          <div className="hidden lg:flex items-center justify-center text-muted-foreground/20">
-            <ArrowRightLeft className="h-6 w-6" />
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="w-full shadow-sm"
+                  disabled={!output}
+                >
+                  <Eye className="h-4 w-4 mr-2" />
+                  {t('common.preview')}
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl h-[80vh] flex flex-col p-0 overflow-hidden">
+                <DialogHeader className="p-4 border-b">
+                  <DialogTitle className="flex items-center gap-2">
+                    <Eye className="h-5 w-5 text-primary" />
+                    {t('common.preview')}
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="flex-1 bg-white">
+                  <iframe
+                    title="HTML Preview"
+                    srcDoc={output}
+                    className="w-full h-full border-none"
+                  />
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <div className="hidden lg:flex items-center justify-center text-muted-foreground/20 py-1">
+              <ArrowRightLeft className="h-6 w-6" />
+            </div>
+
+            <Button 
+              onClick={handleMinify} 
+              variant="secondary" 
+              className="w-full shadow-sm"
+              size="lg"
+            >
+              <LayoutPanelLeft className="h-4 w-4 mr-2" />
+              {t('common.minify')}
+            </Button>
           </div>
-
-          <Button 
-            onClick={handleMinify} 
-            variant="secondary" 
-            className="flex-1 lg:flex-none lg:w-full shadow-sm"
-            size="lg"
-          >
-            <LayoutPanelLeft className="h-4 w-4 mr-2" />
-            {t('common.minify')}
-          </Button>
         </div>
 
         {/* Output Section */}
@@ -415,33 +445,6 @@ export default function HtmlFormatterPage() {
               </Tabs>
             </div>
             <div className="flex gap-2">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    disabled={!output}
-                  >
-                    <Eye className="h-4 w-4 mr-2" />
-                    {t('common.preview')}
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl h-[80vh] flex flex-col p-0 overflow-hidden">
-                  <DialogHeader className="p-4 border-b">
-                    <DialogTitle className="flex items-center gap-2">
-                      <Eye className="h-5 w-5 text-primary" />
-                      {t('common.preview')}
-                    </DialogTitle>
-                  </DialogHeader>
-                  <div className="flex-1 bg-white">
-                    <iframe
-                      title="HTML Preview"
-                      srcDoc={output}
-                      className="w-full h-full border-none"
-                    />
-                  </div>
-                </DialogContent>
-              </Dialog>
               <Button 
                 variant="outline" 
                 size="sm" 
