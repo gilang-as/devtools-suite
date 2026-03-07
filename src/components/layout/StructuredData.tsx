@@ -79,7 +79,7 @@ export function SoftwareApplicationSchema() {
   );
 }
 
-export function BreadcrumbSchema(breadcrumbs: Array<{ name: string; url: string }>) {
+export function BreadcrumbSchema({ breadcrumbs }: { breadcrumbs: Array<{ name: string; url: string }> }) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -99,11 +99,11 @@ export function BreadcrumbSchema(breadcrumbs: Array<{ name: string; url: string 
   );
 }
 
-export function FAQSchema(faqs: Array<{ question: string; answer: string }>) {
+export function FAQSchema({ items }: { items: Array<{ question: string; answer: string }> }) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: faqs.map((faq) => ({
+    mainEntity: items.map((faq) => ({
       '@type': 'Question',
       name: faq.question,
       acceptedAnswer: {

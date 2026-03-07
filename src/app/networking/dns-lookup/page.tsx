@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Globe2, Network, Lock, AlertCircle } from 'lucide-react';
+import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Network, Lock, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Turnstile } from '@marsidev/react-turnstile';
 
@@ -23,7 +23,6 @@ const GROUPS: RecordGroup[] = [
   { title: 'Security', types: ['DNSKEY', 'DS', 'RRSIG'] },
 ];
 
-// Fallback test key if env is missing
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
 
 export default function DnsLookupPage() {
@@ -83,7 +82,7 @@ export default function DnsLookupPage() {
     <div className="max-w-7xl mx-auto space-y-8 py-6">
       <div className="flex items-center gap-4 mb-4">
         <div className="bg-primary/10 p-2 rounded-xl text-primary">
-          <Globe2 className="h-8 w-8" />
+          <Globe className="h-8 w-8" />
         </div>
         <div>
           <h1 className="text-3xl font-headline font-bold">{t('tools.dns_lookup.name')}</h1>

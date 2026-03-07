@@ -1,4 +1,4 @@
-import { ImageResponse } from '@vercel/og';
+import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 
 export const runtime = 'edge';
@@ -8,7 +8,6 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const title = searchParams.get('title') || 'DevTools Suite';
     const description = searchParams.get('description') || 'Premium online developer tools';
-    const icon = searchParams.get('icon') || '🛠️';
 
     return new ImageResponse(
       (
@@ -21,7 +20,7 @@ export async function GET(request: NextRequest) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            fontFamily: 'system-ui, -apple-system, sans-serif',
+            fontFamily: 'sans-serif',
             padding: '40px',
             position: 'relative',
           }}
@@ -38,20 +37,6 @@ export async function GET(request: NextRequest) {
             }}
           />
 
-          {/* Abstract background shape */}
-          <div
-            style={{
-              position: 'absolute',
-              top: -100,
-              right: -100,
-              width: 400,
-              height: 400,
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)',
-              opacity: 0.2,
-            }}
-          />
-
           {/* Content */}
           <div
             style={{
@@ -65,7 +50,7 @@ export async function GET(request: NextRequest) {
               textAlign: 'center',
             }}
           >
-            {/* Hexagonal Branding Icon */}
+            {/* Hexagonal Branding Icon (replicated inline for OG) */}
             <div
               style={{
                 width: 140,
@@ -77,20 +62,22 @@ export async function GET(request: NextRequest) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                fontSize: 80,
+                color: '#3b82f6',
+                fontWeight: 'bold',
               }}
             >
-              <div style={{ fontSize: 80 }}>{icon}</div>
+              D
             </div>
 
             {/* Title */}
             <div
               style={{
                 fontSize: 72,
-                fontWeight: '900',
+                fontWeight: 'bold',
                 marginBottom: 20,
                 maxWidth: '90%',
                 lineHeight: 1.1,
-                letterSpacing: '-0.02em',
               }}
             >
               {title}
@@ -104,7 +91,6 @@ export async function GET(request: NextRequest) {
                   opacity: 0.7,
                   maxWidth: '80%',
                   lineHeight: 1.4,
-                  fontWeight: '500',
                 }}
               >
                 {description}
@@ -124,7 +110,7 @@ export async function GET(request: NextRequest) {
                 width: 36,
                 height: 36,
                 background: '#3b82f6',
-                clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                borderRadius: '8px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -139,13 +125,10 @@ export async function GET(request: NextRequest) {
       {
         width: 1200,
         height: 630,
-        headers: {
-          'cache-control': 'public, max-age=3600, s-maxage=86400',
-        },
       }
     );
   } catch (error) {
-    console.error('[v0] OG image generation error:', error);
+    console.error('OG image generation error:', error);
     return new Response('Failed to generate OG image', { status: 500 });
   }
 }
