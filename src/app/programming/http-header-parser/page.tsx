@@ -6,8 +6,9 @@ import { parseHttpHeaders } from '@/lib/programming';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Globe, Copy, Trash2, Braces, Terminal, ArrowRight } from 'lucide-react';
+import { Globe, Copy, Trash2, Braces, Terminal } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { ToolSEOContent } from '@/components/tools/ToolSEOContent';
 
 export default function HttpHeaderParserPage() {
   const { t } = useTranslation();
@@ -89,6 +90,28 @@ export default function HttpHeaderParserPage() {
           </Card>
         </div>
       </div>
+
+      <ToolSEOContent 
+        title="HTTP Header Parsing"
+        sections={[
+          {
+            title: "What are HTTP Headers?",
+            content: "HTTP headers allow the client and the server to pass additional information with an HTTP request or response. They consist of a case-insensitive name followed by a colon (:), then by its value. These headers define everything from content types and caching policies to authentication tokens."
+          },
+          {
+            title: "Why use an HTTP Header Parser?",
+            content: "When debugging network requests in browser DevTools (Chrome, Firefox, etc.), headers are often presented as raw text blocks. Our parser converts these messy strings into structured JSON objects, making it significantly easier to read, search, and integrate into your code or documentation."
+          },
+          {
+            title: "How to use this tool?",
+            content: "Simply copy the raw header block from your network tab and paste it into the 'Raw Headers' field. Our tool automatically splits each line, identifies keys and values, and outputs a valid JSON object. You can then use the 'Copy JSON' button to save the result."
+          },
+          {
+            title: "Privacy and Security",
+            content: "Like all tools in the DevTools Suite, processing happens entirely within your browser. Your sensitive authentication headers or API keys are never sent to our servers, ensuring your development environment remains private and secure."
+          }
+        ]}
+      />
     </div>
   );
 }

@@ -6,9 +6,10 @@ import { removeDuplicateLines } from '@/lib/programming';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Rows, Copy, Trash2, Check, Filter } from 'lucide-react';
+import { Rows, Copy, Trash2, Check } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
+import { ToolSEOContent } from '@/components/tools/ToolSEOContent';
 
 export default function DuplicateRemoverPage() {
   const { t } = useTranslation();
@@ -90,6 +91,28 @@ export default function DuplicateRemoverPage() {
           </Card>
         </div>
       </div>
+
+      <ToolSEOContent 
+        title="Duplicate Line Removal"
+        sections={[
+          {
+            title: "What is a Duplicate Remover?",
+            content: "A Duplicate Remover is a utility designed to scan a list of text and strip away any repeating lines, leaving only unique entries. This is essential for cleaning up mailing lists, processing logs, or organizing large sets of data where redundancy is not desired."
+          },
+          {
+            title: "Preserving Order",
+            content: "Our tool uses a 'stable' removal algorithm. This means that when a duplicate is found, it preserves the very first instance of that line and removes all subsequent ones, maintaining the original chronological or logical sequence of your data."
+          },
+          {
+            title: "Common Use Cases",
+            content: "Developers use this to clean up CSS selector lists, remove redundant entries from environment variable files, or filter unique IDs from a database dump. It's also great for general tasks like cleaning up a messy list of names or items copied from multiple sources."
+          },
+          {
+            title: "Performance & Privacy",
+            content: "The processing is done locally in your browser (RAM), allowing it to handle thousands of lines almost instantly without ever sending your data over the internet. This makes it safe for sensitive information like logs or internal spreadsheets."
+          }
+        ]}
+      />
     </div>
   );
 }
