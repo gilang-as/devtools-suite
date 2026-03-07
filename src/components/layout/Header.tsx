@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { useTheme } from '@/components/providers/theme-provider';
 import { 
-  Terminal, 
   Sun, 
   Moon, 
   Monitor, 
@@ -15,6 +14,7 @@ import {
   X,
   Search
 } from 'lucide-react';
+import { Logo } from '@/components/ui/logo';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -51,8 +51,8 @@ export default function Header() {
       <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
-            <div className="bg-primary p-1.5 rounded-lg">
-              <Terminal className="h-6 w-6 text-primary-foreground" />
+            <div className="bg-primary/10 p-1.5 rounded-lg">
+              <Logo size={24} className="text-primary" />
             </div>
             <span className="font-headline font-bold text-xl tracking-tight">
               DevTools Suite

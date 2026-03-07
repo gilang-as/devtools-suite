@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { TOOLS } from '@/tools/config';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { useTheme, type ColorScheme } from '@/components/providers/theme-provider';
-import { Terminal, Palette, Check } from 'lucide-react';
+import { Palette, Check } from 'lucide-react';
+import { Logo } from '@/components/ui/logo';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -71,8 +72,8 @@ export default function Footer() {
         <div className="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3">
-              <div className="bg-primary/10 p-1.5 rounded-lg text-primary">
-                <Terminal className="h-5 w-5" />
+              <div className="bg-primary/10 p-1.5 rounded-lg">
+                <Logo size={20} className="text-primary" />
               </div>
               <div>
                 <span className="font-headline font-bold text-lg tracking-tight block leading-none">

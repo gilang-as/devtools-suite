@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
       (
         <div
           style={{
-            background: 'linear-gradient(135deg, #3b82f6 0%, #1e40af 100%)',
+            background: '#0f172a',
             width: '100%',
             height: '100%',
             display: 'flex',
@@ -23,6 +23,7 @@ export async function GET(request: NextRequest) {
             justifyContent: 'center',
             fontFamily: 'system-ui, -apple-system, sans-serif',
             padding: '40px',
+            position: 'relative',
           }}
         >
           {/* Background pattern */}
@@ -32,8 +33,22 @@ export async function GET(request: NextRequest) {
               inset: 0,
               opacity: 0.1,
               backgroundImage:
-                'radial-gradient(circle at 20% 50%, #fff 1px, transparent 1px), radial-gradient(circle at 80% 80%, #fff 1px, transparent 1px)',
+                'radial-gradient(circle at 20% 50%, #3b82f6 1px, transparent 1px), radial-gradient(circle at 80% 80%, #3b82f6 1px, transparent 1px)',
               backgroundSize: '100px 100px',
+            }}
+          />
+
+          {/* Abstract background shape */}
+          <div
+            style={{
+              position: 'absolute',
+              top: -100,
+              right: -100,
+              width: 400,
+              height: 400,
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, #3b82f6 0%, transparent 70%)',
+              opacity: 0.2,
             }}
           />
 
@@ -50,27 +65,31 @@ export async function GET(request: NextRequest) {
               textAlign: 'center',
             }}
           >
-            {/* Icon */}
+            {/* Icon Wrapper */}
             <div
               style={{
-                fontSize: 80,
-                marginBottom: 30,
+                background: 'rgba(59, 130, 246, 0.1)',
+                padding: '20px',
+                borderRadius: '24px',
+                border: '2px solid rgba(59, 130, 246, 0.2)',
+                marginBottom: '30px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
             >
-              {icon}
+              <div style={{ fontSize: 80 }}>{icon}</div>
             </div>
 
             {/* Title */}
             <div
               style={{
-                fontSize: 60,
-                fontWeight: 'bold',
+                fontSize: 72,
+                fontWeight: 'black',
                 marginBottom: 20,
                 maxWidth: '90%',
-                lineHeight: 1.2,
+                lineHeight: 1.1,
+                letterSpacing: '-0.02em',
               }}
             >
               {title}
@@ -81,9 +100,10 @@ export async function GET(request: NextRequest) {
               <div
                 style={{
                   fontSize: 28,
-                  opacity: 0.9,
-                  maxWidth: '90%',
-                  lineHeight: 1.3,
+                  opacity: 0.7,
+                  maxWidth: '80%',
+                  lineHeight: 1.4,
+                  fontWeight: 'medium',
                 }}
               >
                 {description}
@@ -93,14 +113,24 @@ export async function GET(request: NextRequest) {
             {/* Footer */}
             <div
               style={{
-                marginTop: 50,
-                fontSize: 20,
-                opacity: 0.7,
+                marginTop: 60,
                 display: 'flex',
-                gap: 20,
+                alignItems: 'center',
+                gap: 15,
               }}
             >
-              <span>devtools-suite.app</span>
+              <div style={{
+                width: 30,
+                height: 30,
+                borderRadius: '8px',
+                background: '#3b82f6',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 16,
+                fontWeight: 'bold',
+              }}>D</div>
+              <span style={{ fontSize: 24, fontWeight: 'bold', opacity: 0.9 }}>devtools-suite.app</span>
             </div>
           </div>
         </div>
