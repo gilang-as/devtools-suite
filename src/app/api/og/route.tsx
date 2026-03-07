@@ -65,13 +65,14 @@ export async function GET(request: NextRequest) {
               textAlign: 'center',
             }}
           >
-            {/* Icon Wrapper */}
+            {/* Hexagonal Branding Icon */}
             <div
               style={{
+                width: 140,
+                height: 140,
                 background: 'rgba(59, 130, 246, 0.1)',
-                padding: '20px',
-                borderRadius: '24px',
-                border: '2px solid rgba(59, 130, 246, 0.2)',
+                border: '2px solid rgba(59, 130, 246, 0.3)',
+                clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
                 marginBottom: '30px',
                 display: 'flex',
                 alignItems: 'center',
@@ -85,7 +86,7 @@ export async function GET(request: NextRequest) {
             <div
               style={{
                 fontSize: 72,
-                fontWeight: 'black',
+                fontWeight: '900',
                 marginBottom: 20,
                 maxWidth: '90%',
                 lineHeight: 1.1,
@@ -103,7 +104,7 @@ export async function GET(request: NextRequest) {
                   opacity: 0.7,
                   maxWidth: '80%',
                   lineHeight: 1.4,
-                  fontWeight: 'medium',
+                  fontWeight: '500',
                 }}
               >
                 {description}
@@ -120,14 +121,14 @@ export async function GET(request: NextRequest) {
               }}
             >
               <div style={{
-                width: 30,
-                height: 30,
-                borderRadius: '8px',
+                width: 36,
+                height: 36,
                 background: '#3b82f6',
+                clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: 'bold',
               }}>D</div>
               <span style={{ fontSize: 24, fontWeight: 'bold', opacity: 0.9 }}>devtools-suite.app</span>
