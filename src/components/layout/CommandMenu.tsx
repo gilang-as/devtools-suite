@@ -47,7 +47,6 @@ export default function CommandMenu() {
   const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
   const [isKeyboard, setIsKeyboard] = React.useState(false);
   
-  // Storage for snapshots to enable restoration
   const absoluteInitialState = React.useRef<{ theme: any, colorScheme: ColorScheme } | null>(null);
   const [checkpoints, setCheckpoints] = React.useState<Record<View, { theme: any, colorScheme: ColorScheme } | null>>({
     root: null,
@@ -59,7 +58,6 @@ export default function CommandMenu() {
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
   const categoryRefs = React.useRef<(HTMLButtonElement | null)[]>([]);
 
-  // Auto-scroll logic: only scroll when user uses keyboard
   React.useEffect(() => {
     if (isKeyboard && itemRefs.current[selectedIndex]) {
       itemRefs.current[selectedIndex]?.scrollIntoView({
@@ -89,7 +87,6 @@ export default function CommandMenu() {
     { id: 'system', name: 'System Default', icon: 'Monitor' },
   ];
 
-  // Logic for filtered items before category filter
   const baseItems = React.useMemo(() => {
     if (view === 'root') {
       const tools = TOOLS.map(t => ({ ...t, isAction: false, type: 'tool' }));
@@ -152,13 +149,11 @@ export default function CommandMenu() {
     return baseItems;
   }, [baseItems, view, selectedCategory]);
 
-  // Immediate Preview Effect
   React.useEffect(() => {
     if (!open) return;
 
     const activeItem = filteredItems[selectedIndex];
     
-    // Restore to current level checkpoint if hovering "Back"
     if (!activeItem || activeItem.isBack) {
       const checkpoint = checkpoints[view];
       if (checkpoint) {
@@ -168,7 +163,6 @@ export default function CommandMenu() {
       return;
     }
 
-    // Apply previews instantly as user navigates options
     if (view === 'colors' && activeItem.type === 'color') {
       setColorScheme(activeItem.id);
     } else if (view === 'modes' && activeItem.type === 'mode') {
@@ -215,7 +209,7 @@ export default function CommandMenu() {
       setSelectedIndex(0);
     } else if (item.type === 'mode' || item.type === 'apply-all') {
       setTheme(item.id as any);
-      absoluteInitialState.current = null; // Selection confirmed
+      absoluteInitialState.current = null;
       setOpen(false);
     } else if (item.href) {
       router.push(item.href);
@@ -223,8 +217,10 @@ export default function CommandMenu() {
     }
   };
 
-  // Keyboard and Global Shortcut Management
   React.useEffect(() => {
+    const handleToggle = () => setOpen(prev => !prev);
+    window.addEventListener('toggle-spotlight', handleToggle);
+
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
@@ -241,18 +237,17 @@ export default function CommandMenu() {
     document.addEventListener('keydown', down);
     document.addEventListener('mousemove', mouseMove);
     return () => {
+      window.removeEventListener('toggle-spotlight', handleToggle);
       document.removeEventListener('keydown', down);
       document.removeEventListener('mousemove', mouseMove);
     };
   }, []);
 
-  // Modal State Management
   React.useEffect(() => {
     if (open) {
       absoluteInitialState.current = { theme, colorScheme };
       setCheckpoints(prev => ({ ...prev, root: { theme, colorScheme } }));
     } else {
-      // Revert if absoluteInitialState hasn't been cleared (meaning we closed without finalizing)
       if (absoluteInitialState.current) {
         setTheme(absoluteInitialState.current.theme);
         setColorScheme(absoluteInitialState.current.colorScheme);
@@ -304,7 +299,7 @@ export default function CommandMenu() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden flex flex-col data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:duration-300">
+      <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden flex flex-col data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-90 data-[state=open]:slide-in-from-top-[5%] data-[state=open]:duration-300">
         <DialogHeader className="p-0 border-b shrink-0">
           <DialogTitle className="sr-only">Spotlight</DialogTitle>
           <div className="flex items-center gap-4 px-6 h-16">
@@ -333,7 +328,6 @@ export default function CommandMenu() {
             />
           </div>
           
-          {/* Category Selector */}
           {view === 'root' && availableCategories.length > 0 && (
             <div className="px-6 pb-3 flex gap-2 overflow-x-auto no-scrollbar scroll-smooth">
               <Button

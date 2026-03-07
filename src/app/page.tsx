@@ -13,7 +13,6 @@ export default function Home() {
   const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  // Extract unique categories from TOOLS
   const categories = useMemo(() => {
     const cats = new Set(TOOLS.map(tool => tool.category));
     return Array.from(cats).sort();
@@ -27,7 +26,7 @@ export default function Home() {
   }, [selectedCategory]);
 
   const openSpotlight = () => {
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
+    window.dispatchEvent(new CustomEvent('toggle-spotlight'));
   };
 
   return (
@@ -42,9 +41,8 @@ export default function Home() {
       </section>
 
       <section className="max-w-4xl mx-auto space-y-8">
-        {/* Fake Search Bar Trigger */}
         <div 
-          className="relative group cursor-pointer"
+          className="relative group cursor-pointer active:scale-[0.98] transition-all"
           onClick={openSpotlight}
         >
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />

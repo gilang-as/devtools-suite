@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -40,7 +41,7 @@ export default function Header() {
   };
 
   const openSearch = () => {
-    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
+    window.dispatchEvent(new CustomEvent('toggle-spotlight'));
   };
 
   return (
@@ -74,7 +75,6 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Stabilize child order with a fixed wrapper for client-only dropdown */}
           <div className="flex items-center justify-center w-9 h-9">
             {mounted ? (
               <DropdownMenu>
@@ -105,10 +105,10 @@ export default function Header() {
             size="icon" 
             className="h-9 w-9" 
             onClick={toggleTheme}
-            title="Toggle appearance"
+            title={mounted ? "Toggle appearance" : undefined}
           >
             {!mounted ? (
-              <Monitor className="h-[1.2rem] w-[1.2rem]" />
+              <Monitor className="h-[1.2rem] w-[1.2rem] opacity-20" />
             ) : (
               <>
                 {theme === 'light' && <Sun className="h-[1.2rem] w-[1.2rem]" />}
