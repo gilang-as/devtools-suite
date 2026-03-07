@@ -13,7 +13,7 @@ export default function Icon() {
     (
       <div
         style={{
-          background: 'linear-gradient(135deg, #475569 0%, #1e293b 100%)',
+          background: 'transparent',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -24,25 +24,22 @@ export default function Icon() {
           overflow: 'hidden',
         }}
       >
-        {/* Subtle inner layering to match muted geometric style */}
+        {/* Simple geometric block matching the brand's muted aesthetic */}
         <div style={{
           position: 'absolute',
-          width: '70%',
-          height: '70%',
-          background: 'rgba(255, 255, 255, 0.05)',
-          borderRadius: '20%',
-          transform: 'rotate(10deg)',
+          width: '100%',
+          height: '100%',
+          background: 'linear-gradient(135deg, #64748b 0%, #334155 100%)',
+          clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
         }} />
         
-        {/* Core Branding Character */}
         <span style={{ 
           position: 'relative', 
           zIndex: 1, 
           color: 'white',
           fontSize: '18px',
           fontWeight: 900,
-          letterSpacing: '-0.05em',
-          opacity: 0.8
+          opacity: 0.9
         }}>D</span>
       </div>
     ),

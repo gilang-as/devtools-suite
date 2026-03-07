@@ -22,25 +22,22 @@ export default function AppleIcon() {
           padding: '20px',
         }}
       >
-        {/* Hexagon Shell with Muted Gradient matching natural integration */}
         <div
           style={{
-            width: '130px',
-            height: '130px',
-            background: 'linear-gradient(135deg, #334155 0%, #0f172a 100%)',
+            width: '140px',
+            height: '140px',
+            background: 'linear-gradient(135deg, #475569 0%, #1e293b 100%)',
             clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
           }}
         >
-          {/* Inner Core */}
           <div
             style={{
               width: '100px',
               height: '100px',
-              background: 'rgba(255, 255, 255, 0.02)',
+              background: 'rgba(255, 255, 255, 0.05)',
               clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
               display: 'flex',
               alignItems: 'center',
@@ -48,7 +45,7 @@ export default function AppleIcon() {
               color: 'white',
               fontSize: '64px',
               fontWeight: '900',
-              opacity: 0.9
+              opacity: 0.8
             }}
           >
             D

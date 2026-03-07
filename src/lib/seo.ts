@@ -115,7 +115,7 @@ export function generateBreadcrumbSchema(breadcrumbs: { name: string; path: stri
 }
 
 /**
- * Generate Tool/SoftwareApplication JSON-LD structured data
+ * Generate Tool-specific JSON-LD schema
  */
 export function generateToolSchema(tool: {
   name: string;

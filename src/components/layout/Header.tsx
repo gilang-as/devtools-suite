@@ -50,8 +50,8 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center space-x-3" onClick={() => setIsMenuOpen(false)}>
-            <Logo size={28} />
+          <Link href="/" className="flex items-center space-x-3 transition-transform active:scale-95" onClick={() => setIsMenuOpen(false)}>
+            <Logo size={32} />
             <span className="font-headline font-bold text-xl tracking-tight hidden sm:inline-block">
               DevTools Suite
             </span>
@@ -65,7 +65,7 @@ export default function Header() {
               {mounted && (
                 <Button 
                   variant="outline" 
-                  className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50 active:scale-[0.98] animate-in fade-in zoom-in-95 duration-300"
+                  className="w-full justify-start text-muted-foreground font-normal bg-muted/30 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50 active:scale-[0.98] animate-in fade-in zoom-in-95 duration-300"
                   onClick={openSearch}
                 >
                   <Search className="mr-2 h-4 w-4" />
