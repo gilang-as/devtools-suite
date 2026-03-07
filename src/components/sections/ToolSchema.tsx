@@ -22,7 +22,7 @@ export function ToolSchema({
   const schema = generateToolSchema({
     name,
     description,
-    url,
+    path: url,
     category,
     image,
     price,

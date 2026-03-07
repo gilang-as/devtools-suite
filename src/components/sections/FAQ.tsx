@@ -23,7 +23,7 @@ export function FAQSection({ title = 'Frequently Asked Questions', description, 
   return (
     <>
       {/* Structured Data */}
-      <FAQSchema(items) />
+      {FAQSchema(items)}
 
       {/* FAQ Section */}
       <section className="py-12 md:py-16 lg:py-20">

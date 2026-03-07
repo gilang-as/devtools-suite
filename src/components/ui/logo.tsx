@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 
@@ -8,7 +10,7 @@ interface LogoProps {
 
 /**
  * Reusable Logo component that displays the brand asset from /public/icon.svg.
- * This version uses a standard image tag to ensure compatibility with your manually added SVG.
+ * Ensure your asset is located at /public/icon.svg.
  */
 export const Logo = ({ className, size = 24 }: LogoProps) => {
   return (

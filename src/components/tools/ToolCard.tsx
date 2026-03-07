@@ -6,10 +6,10 @@ import { useTranslation } from '@/components/providers/i18n-provider';
 import { logEvent } from 'firebase/analytics';
 import { useAnalytics } from '@/firebase/provider';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Hash, KeyRound, ChevronRight, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge, Type, Network, Globe2 } from 'lucide-react';
+import { Hash, KeyRound, ChevronRight, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, Link as LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge, Type, Network, Globe } from 'lucide-react';
 
 const iconMap: Record<string, any> = {
-  Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge, Type, Network, Globe2
+  Hash, KeyRound, Fingerprint, Braces, Terminal, CodeXml, LayoutPanelLeft, Palette, ScrollText, Code2, LinkIcon, Binary, Hexagon, ShieldCheck, FileKey, Lock, ShieldAlert, Zap, FileBadge, Type, Network, Globe
 };
 
 export default function ToolCard({ tool }: { tool: Tool }) {
