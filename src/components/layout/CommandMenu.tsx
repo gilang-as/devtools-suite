@@ -33,6 +33,12 @@ const iconMap: Record<string, any> = {
 
 type View = 'root' | 'colors' | 'modes' | 'color-modes';
 
+interface Checkpoint {
+  theme: any;
+  colorScheme: ColorScheme;
+  index: number;
+}
+
 export default function CommandMenu() {
   const router = useRouter();
   const { t } = useTranslation();
@@ -47,7 +53,7 @@ export default function CommandMenu() {
   const [isKeyboard, setIsKeyboard] = React.useState(false);
   
   const absoluteInitialState = React.useRef<{ theme: any, colorScheme: ColorScheme } | null>(null);
-  const [checkpoints, setCheckpoints] = React.useState<Record<View, { theme: any, colorScheme: ColorScheme } | null>>({
+  const [checkpoints, setCheckpoints] = React.useState<Record<View, Checkpoint | null>>({
     root: null,
     colors: null,
     modes: null,
@@ -188,21 +194,21 @@ export default function CommandMenu() {
       if (checkpoint) {
         setTheme(checkpoint.theme);
         setColorScheme(checkpoint.colorScheme);
+        setSelectedIndex(checkpoint.index); // Restore selection position
       }
       
       setView(targetView);
       setQuery('');
-      setSelectedIndex(0);
       return;
     }
 
     if (item.type === 'nav') {
-      setCheckpoints(prev => ({ ...prev, [item.target]: { theme, colorScheme } }));
+      setCheckpoints(prev => ({ ...prev, [item.target]: { theme, colorScheme, index: selectedIndex } }));
       setView(item.target);
       setQuery('');
       setSelectedIndex(0);
     } else if (item.type === 'color') {
-      setCheckpoints(prev => ({ ...prev, 'color-modes': { theme, colorScheme } }));
+      setCheckpoints(prev => ({ ...prev, 'color-modes': { theme, colorScheme, index: selectedIndex } }));
       setColorScheme(item.id);
       setSelectedColor(item.id);
       setView('color-modes');
@@ -247,7 +253,7 @@ export default function CommandMenu() {
   React.useEffect(() => {
     if (open) {
       absoluteInitialState.current = { theme, colorScheme };
-      setCheckpoints(prev => ({ ...prev, root: { theme, colorScheme } }));
+      setCheckpoints(prev => ({ ...prev, root: { theme, colorScheme, index: 0 } }));
     } else {
       if (absoluteInitialState.current) {
         setTheme(absoluteInitialState.current.theme);

@@ -62,9 +62,7 @@ export default function Header() {
 
         {/* Search Input Container - Stable slot to prevent hydration mismatch */}
         <div className="hidden md:flex items-center flex-1 max-w-md mx-8 min-h-[40px]">
-          {!mounted ? (
-            <div className="w-full h-10" />
-          ) : !isHome ? (
+          {mounted && !isHome ? (
             <Button 
               variant="outline" 
               className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50 active:scale-[0.98] animate-in fade-in zoom-in-95 duration-300"
@@ -78,7 +76,9 @@ export default function Header() {
                 <span className="text-xs">⌘</span>K
               </kbd>
             </Button>
-          ) : null}
+          ) : (
+            <div className="w-full h-10" />
+          )}
         </div>
 
         <div className="flex items-center gap-2">
