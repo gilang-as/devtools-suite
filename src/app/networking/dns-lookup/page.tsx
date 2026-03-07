@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Globe2, Network, Lock } from 'lucide-react';
+import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Globe2, Network, Lock, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 
@@ -23,13 +23,22 @@ const GROUPS: RecordGroup[] = [
   { title: 'Security', types: ['DNSKEY', 'DS', 'RRSIG'] },
 ];
 
-// Extremely defensive sitekey selection to prevent "undefined" errors
+/**
+ * Robustly retrieves the Turnstile site key.
+ * Defaults to the 'Always Passes' test key to prevent initialization crashes.
+ */
 const getSiteKey = (): string => {
   const envKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-  if (envKey && envKey !== 'undefined' && envKey.trim() !== '') {
+  // Check if key is actually provided and not a placeholder or string 'undefined'
+  if (
+    typeof envKey === 'string' && 
+    envKey.trim() !== '' && 
+    envKey !== 'undefined' && 
+    !envKey.includes('your_')
+  ) {
     return envKey;
   }
-  return '1x00000000000000000000AA'; // Default "Always Passes" test key
+  return '1x00000000000000000000AA'; 
 };
 
 const SITE_KEY = getSiteKey();
@@ -42,7 +51,13 @@ export default function DnsLookupPage() {
   const [results, setResults] = useState<Record<string, DnsLookupResult>>({});
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaKey, setCaptchaKey] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const turnstileRef = useRef<TurnstileInstance>(null);
+
+  // Ensure Turnstile only renders on client to avoid hydration/undefined key issues
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleLookup = async () => {
     if (!domain.trim() || !captchaToken) return;
@@ -117,30 +132,42 @@ export default function DnsLookupPage() {
                 />
               </div>
 
-              <div className="flex flex-col items-center justify-center p-4 bg-secondary/10 rounded-xl border-2 border-dashed border-primary/10 min-h-[140px] overflow-visible">
+              <div className="flex flex-col items-center justify-center p-4 bg-secondary/10 rounded-xl border-2 border-dashed border-primary/10 min-h-[140px] overflow-visible relative">
                 <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-4 flex items-center gap-1.5">
                   <Lock className="h-3 w-3" />
                   Security Verification
                 </p>
                 <div className="w-full flex justify-center min-h-[65px]">
-                  <Turnstile
-                    key={captchaKey}
-                    ref={turnstileRef}
-                    sitekey={SITE_KEY}
-                    options={{
-                      size: 'normal',
-                      theme: 'auto',
-                    }}
-                    onSuccess={(token) => setCaptchaToken(token)}
-                    onError={() => {
-                      setCaptchaToken(null);
-                      setCaptchaKey(prev => prev + 1);
-                    }}
-                    onExpire={() => {
-                      setCaptchaToken(null);
-                      setCaptchaKey(prev => prev + 1);
-                    }}
-                  />
+                  {mounted ? (
+                    <Turnstile
+                      key={captchaKey}
+                      ref={turnstileRef}
+                      sitekey={SITE_KEY}
+                      options={{
+                        size: 'normal',
+                        theme: 'auto',
+                      }}
+                      onSuccess={(token) => setCaptchaToken(token)}
+                      onError={() => {
+                        setCaptchaToken(null);
+                        setCaptchaKey(prev => prev + 1);
+                        toast({
+                          variant: 'destructive',
+                          title: 'Verification Error',
+                          description: 'Failed to load security widget. Please refresh.',
+                        });
+                      }}
+                      onExpire={() => {
+                        setCaptchaToken(null);
+                        setCaptchaKey(prev => prev + 1);
+                      }}
+                    />
+                  ) : (
+                    <div className="flex items-center gap-2 text-muted-foreground animate-pulse text-xs font-medium">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Initializing security...
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
