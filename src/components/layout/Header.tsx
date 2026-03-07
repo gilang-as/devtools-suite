@@ -56,17 +56,17 @@ export default function Header() {
               <Terminal className="h-6 w-6 text-primary-foreground" />
             </div>
             <span className="font-headline font-bold text-xl tracking-tight">
-              {mounted ? t('common.title') : 'DevTools Suite'}
+              DevTools Suite
             </span>
           </Link>
         </div>
 
-        {/* Search Input - Hidden on Home Page, shown elsewhere. Only rendered if mounted to prevent hydration mismatch */}
-        {mounted && !isHome && (
-          <div className="hidden md:flex items-center flex-1 max-w-md mx-8 animate-in fade-in zoom-in-95 duration-300">
+        {/* Search Input Container - Stable slot to prevent hydration mismatch */}
+        <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
+          {mounted && !isHome && (
             <Button 
               variant="outline" 
-              className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50 active:scale-[0.98]"
+              className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50 active:scale-[0.98] animate-in fade-in zoom-in-95 duration-300"
               onClick={openSearch}
             >
               <Search className="mr-2 h-4 w-4" />
@@ -77,13 +77,13 @@ export default function Header() {
                 <span className="text-xs">⌘</span>K
               </kbd>
             </Button>
-          </div>
-        )}
+          )}
+        </div>
 
         <div className="flex items-center gap-2">
-          {mounted ? (
-            <>
-              <div className="flex items-center justify-center w-9 h-9">
+          <div className="flex items-center gap-2 min-w-[80px] justify-end">
+            {mounted ? (
+              <>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" size="icon" className="h-9 w-9">
@@ -100,24 +100,24 @@ export default function Header() {
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-              </div>
 
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="h-9 w-9" 
-                onClick={toggleTheme}
-                title={t('common.theme')}
-              >
-                {theme === 'light' && <Sun className="h-[1.2rem] w-[1.2rem]" />}
-                {theme === 'dark' && <Moon className="h-[1.2rem] w-[1.2rem]" />}
-                {theme === 'system' && <Monitor className="h-[1.2rem] w-[1.2rem]" />}
-                <span className="sr-only">Toggle theme</span>
-              </Button>
-            </>
-          ) : (
-            <div className="w-20 h-9 bg-muted/20 rounded-md animate-pulse" />
-          )}
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-9 w-9" 
+                  onClick={toggleTheme}
+                  title={t('common.theme')}
+                >
+                  {theme === 'light' && <Sun className="h-[1.2rem] w-[1.2rem]" />}
+                  {theme === 'dark' && <Moon className="h-[1.2rem] w-[1.2rem]" />}
+                  {theme === 'system' && <Monitor className="h-[1.2rem] w-[1.2rem]" />}
+                  <span className="sr-only">Toggle theme</span>
+                </Button>
+              </>
+            ) : (
+              <div className="w-20 h-9 bg-muted/20 rounded-md animate-pulse" />
+            )}
+          </div>
           
           <Button 
             variant="ghost" 
