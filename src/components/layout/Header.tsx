@@ -58,7 +58,6 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Search Input Container */}
         <div className="hidden md:flex items-center flex-1 max-w-md mx-8 h-10">
           {!isHome && (
             <div className="w-full h-10">
