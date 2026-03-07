@@ -24,7 +24,7 @@ export default function Icon() {
           overflow: 'hidden',
         }}
       >
-        {/* Subtle inner layering */}
+        {/* Subtle inner layering to match icon.svg style */}
         <div style={{
           position: 'absolute',
           width: '70%',

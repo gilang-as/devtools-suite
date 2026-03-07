@@ -17,13 +17,12 @@ export default function AppleIcon() {
           width: '100%',
           height: '100%',
           display: 'flex',
-          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           padding: '20px',
         }}
       >
-        {/* Hexagon Shell with Muted Gradient */}
+        {/* Hexagon Shell with Muted Gradient matching icon.svg */}
         <div
           style={{
             width: '130px',
