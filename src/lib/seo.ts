@@ -12,6 +12,8 @@ export interface SEOConfig {
   noindex?: boolean;
   canonical?: string;
   keywords?: string[];
+  icon?: string;
+  generateOG?: boolean;
 }
 
 /**
@@ -19,7 +21,17 @@ export interface SEOConfig {
  */
 export function generateMetadata(config: SEOConfig): Metadata {
   const fullUrl = `${SITE_URL}${config.path}`;
-  const imageUrl = config.image || `${SITE_URL}/og-image.png`;
+  
+  // Generate dynamic OG image URL if requested
+  let imageUrl = config.image || `${SITE_URL}/og-image.png`;
+  if (config.generateOG) {
+    const params = new URLSearchParams({
+      title: config.title,
+      description: config.description,
+      icon: config.icon || '🛠️',
+    });
+    imageUrl = `${SITE_URL}/api/og?${params.toString()}`;
+  }
 
   return {
     title: config.title,
@@ -75,6 +87,78 @@ export function generateBreadcrumbSchema(breadcrumbs: { name: string; path: stri
       name: item.name,
       item: `${SITE_URL}${item.path}`,
     })),
+  };
+}
+
+/**
+ * Generate FAQ JSON-LD structured data
+ */
+export function generateFAQSchema(faqs: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+}
+
+/**
+ * Generate Tool/SoftwareApplication JSON-LD structured data
+ */
+export function generateToolSchema(tool: {
+  name: string;
+  description: string;
+  url: string;
+  category?: string;
+  image?: string;
+  price?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: tool.name,
+    description: tool.description,
+    url: tool.url,
+    applicationCategory: 'Utility',
+    operatingSystem: 'Web',
+    image: tool.image || `${SITE_URL}/og-image.png`,
+    offers: {
+      '@type': 'Offer',
+      price: tool.price || '0',
+      priceCurrency: 'USD',
+    },
+  };
+}
+
+/**
+ * Generate Article JSON-LD structured data
+ */
+export function generateArticleSchema(article: {
+  headline: string;
+  description: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+  author?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.headline,
+    description: article.description,
+    image: article.image || `${SITE_URL}/og-image.png`,
+    datePublished: article.datePublished || new Date().toISOString(),
+    dateModified: article.dateModified || new Date().toISOString(),
+    author: {
+      '@type': 'Organization',
+      name: article.author || SITE_NAME,
+    },
   };
 }
 
