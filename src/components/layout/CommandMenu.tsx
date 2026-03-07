@@ -190,12 +190,13 @@ export default function CommandMenu() {
       };
       
       const targetView = prevViewMap[view];
-      const checkpoint = checkpoints[view]; 
+      const checkpoint = checkpoints[view]; // Checkpoint for the current view stores parent info
       
       if (checkpoint) {
         setTheme(checkpoint.theme);
         setColorScheme(checkpoint.colorScheme);
-        setSelectedIndex(checkpoint.index); // Restore selection position
+        // Important: Restore selection position
+        setTimeout(() => setSelectedIndex(checkpoint.index), 0);
       }
       
       setView(targetView);

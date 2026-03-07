@@ -84,7 +84,9 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2 min-w-[80px] justify-end">
-            {mounted ? (
+            {!mounted ? (
+              <div className="w-20 h-9 bg-muted/20 rounded-md animate-pulse" />
+            ) : (
               <>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -116,8 +118,6 @@ export default function Header() {
                   <span className="sr-only">Toggle theme</span>
                 </Button>
               </>
-            ) : (
-              <div className="w-20 h-9 bg-muted/20 rounded-md animate-pulse" />
             )}
           </div>
           
