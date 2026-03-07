@@ -28,7 +28,7 @@ const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x0000
 export default function DnsLookupPage() {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const [domain, setDomain] = useState('gilang.dev');
+  const [domain, setDomain] = useState('');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Record<string, DnsLookupResult>>({});
   const [turnstileStatus, setTurnstileStatus] = useState<"success" | "error" | "expired" | "required">("required");
