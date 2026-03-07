@@ -61,9 +61,9 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Search Input - Hidden on Home Page, shown elsewhere */}
-        {!isHome && (
-          <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
+        {/* Search Input - Hidden on Home Page, shown elsewhere. Only rendered if mounted to prevent hydration mismatch */}
+        {mounted && !isHome && (
+          <div className="hidden md:flex items-center flex-1 max-w-md mx-8 animate-in fade-in zoom-in-95 duration-300">
             <Button 
               variant="outline" 
               className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50 active:scale-[0.98]"
@@ -71,7 +71,7 @@ export default function Header() {
             >
               <Search className="mr-2 h-4 w-4" />
               <span className="flex-1 text-left">
-                {mounted ? t('home.search_placeholder') : 'Search tools...'}
+                {t('home.search_placeholder')}
               </span>
               <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
                 <span className="text-xs">⌘</span>K
@@ -81,49 +81,43 @@ export default function Header() {
         )}
 
         <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-9 h-9">
-            {mounted ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="h-9 w-9">
-                    <Languages className="h-[1.2rem] w-[1.2rem]" />
-                    <span className="sr-only">Toggle language</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => setLanguage('en')} className={language === 'en' ? 'bg-accent' : ''}>
-                    English
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setLanguage('id')} className={language === 'id' ? 'bg-accent' : ''}>
-                    Indonesian
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <div className="h-9 w-9 flex items-center justify-center">
-                <Languages className="h-[1.2rem] w-[1.2rem] opacity-20" />
+          {mounted ? (
+            <>
+              <div className="flex items-center justify-center w-9 h-9">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="h-9 w-9">
+                      <Languages className="h-[1.2rem] w-[1.2rem]" />
+                      <span className="sr-only">Toggle language</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem onClick={() => setLanguage('en')} className={language === 'en' ? 'bg-accent' : ''}>
+                      English
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setLanguage('id')} className={language === 'id' ? 'bg-accent' : ''}>
+                      Indonesian
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
-            )}
-          </div>
 
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="h-9 w-9" 
-            onClick={toggleTheme}
-            title={mounted ? t('common.theme') : undefined}
-          >
-            {!mounted ? (
-              <Monitor className="h-[1.2rem] w-[1.2rem] opacity-20" />
-            ) : (
-              <>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-9 w-9" 
+                onClick={toggleTheme}
+                title={t('common.theme')}
+              >
                 {theme === 'light' && <Sun className="h-[1.2rem] w-[1.2rem]" />}
                 {theme === 'dark' && <Moon className="h-[1.2rem] w-[1.2rem]" />}
                 {theme === 'system' && <Monitor className="h-[1.2rem] w-[1.2rem]" />}
-              </>
-            )}
-            <span className="sr-only">Toggle theme</span>
-          </Button>
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+            </>
+          ) : (
+            <div className="w-20 h-9 bg-muted/20 rounded-md animate-pulse" />
+          )}
           
           <Button 
             variant="ghost" 
@@ -138,7 +132,7 @@ export default function Header() {
       
       {isMenuOpen && (
         <div className="md:hidden border-t bg-background p-4 flex flex-col gap-4 animate-in slide-in-from-top-2">
-          {!isHome && (
+          {mounted && !isHome && (
             <Button 
               variant="outline" 
               className="w-full justify-start h-11"
@@ -148,7 +142,7 @@ export default function Header() {
               }}
             >
               <Search className="mr-2 h-4 w-4" />
-              {mounted ? t('home.search_placeholder') : 'Search tools...'}
+              {t('home.search_placeholder')}
             </Button>
           )}
           <Link 

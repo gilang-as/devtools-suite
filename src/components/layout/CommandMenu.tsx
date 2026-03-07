@@ -58,7 +58,7 @@ export default function CommandMenu() {
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
   const categoryRefs = React.useRef<(HTMLButtonElement | null)[]>([]);
 
-  // Auto-scroll logic for keyboard navigation
+  // Auto-scroll logic for keyboard navigation ONLY
   React.useEffect(() => {
     if (isKeyboard && itemRefs.current[selectedIndex]) {
       itemRefs.current[selectedIndex]?.scrollIntoView({
@@ -157,7 +157,6 @@ export default function CommandMenu() {
     const activeItem = filteredItems[selectedIndex];
     
     if (!activeItem || activeItem.isBack) {
-      // Revert to checkpoint if back/nothing selected
       const checkpoint = checkpoints[view];
       if (checkpoint) {
         setTheme(checkpoint.theme);
@@ -212,7 +211,7 @@ export default function CommandMenu() {
       setSelectedIndex(0);
     } else if (item.type === 'mode' || item.type === 'apply-all') {
       setTheme(item.id as any);
-      absoluteInitialState.current = null; // Mark as saved
+      absoluteInitialState.current = null;
       setOpen(false);
     } else if (item.href) {
       router.push(item.href);
@@ -369,7 +368,7 @@ export default function CommandMenu() {
           )}
         </DialogHeader>
 
-        <ScrollArea className="max-h-[450px] w-full flex-1 [&>[data-radix-scroll-area-viewport]>div]:!block overflow-auto">
+        <ScrollArea className="max-h-[450px] w-full flex-1 [&>[data-radix-scroll-area-viewport]]:!block overflow-auto">
           <div className="p-2 flex flex-col gap-1 w-full box-border">
             {filteredItems.length > 0 ? (
               filteredItems.map((item: any, index) => {
