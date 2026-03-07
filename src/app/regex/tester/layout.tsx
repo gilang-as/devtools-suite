@@ -1,13 +1,12 @@
 import { Metadata } from 'next';
+import { generateMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Regex Tester & Debugger',
-  description: 'Test and debug your regular expressions with real-time highlighting and detailed match information.',
-  openGraph: {
-    title: 'Regex Tester | DevTools Suite',
-    description: 'Visual regex testing and debugging environment.',
-  },
-};
+export const metadata: Metadata = generateMetadata({
+  title: 'Regex Tester & Debugger | DevTools Suite',
+  description: 'Test and debug regular expressions with real-time highlighting, match information, and visual pattern analysis.',
+  path: '/regex/tester',
+  keywords: ['regex tester', 'regex debugger', 'regular expression', 'pattern tester', 'regex validator'],
+});
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
