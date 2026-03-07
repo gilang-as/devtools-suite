@@ -22,17 +22,17 @@ export default function AppleIcon() {
           padding: '20px',
         }}
       >
-        {/* Hexagon Shell with Muted Gradient matching icon.svg */}
+        {/* Hexagon Shell with Muted Gradient matching natural integration */}
         <div
           style={{
             width: '130px',
             height: '130px',
-            background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+            background: 'linear-gradient(135deg, #334155 0%, #0f172a 100%)',
             clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 10px 30px rgba(59, 130, 246, 0.2)',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
           }}
         >
           {/* Inner Core */}
@@ -40,7 +40,7 @@ export default function AppleIcon() {
             style={{
               width: '100px',
               height: '100px',
-              background: 'rgba(255, 255, 255, 0.05)',
+              background: 'rgba(255, 255, 255, 0.02)',
               clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
               display: 'flex',
               alignItems: 'center',
@@ -48,6 +48,7 @@ export default function AppleIcon() {
               color: 'white',
               fontSize: '64px',
               fontWeight: '900',
+              opacity: 0.9
             }}
           >
             D

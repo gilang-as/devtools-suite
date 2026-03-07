@@ -8,8 +8,8 @@ interface LogoProps {
 }
 
 /**
- * Reusable Logo component that pulls the brand asset from /public/icon.svg.
- * The colors have been softened to look "natural" with the site's theme.
+ * Reusable Logo component that pulls the brand asset from /public/svg/icon.svg.
+ * Optimized for a natural fit within the site's theme.
  */
 export const Logo = ({ className, size = 24 }: LogoProps) => {
   return (
@@ -18,7 +18,7 @@ export const Logo = ({ className, size = 24 }: LogoProps) => {
       style={{ width: size, height: size }}
     >
       <Image
-        src="/icon.svg"
+        src="/svg/icon.svg"
         alt="DevTools Suite Logo"
         width={size}
         height={size}

@@ -13,7 +13,7 @@ export default function Icon() {
     (
       <div
         style={{
-          background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+          background: 'linear-gradient(135deg, #475569 0%, #1e293b 100%)',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -24,12 +24,12 @@ export default function Icon() {
           overflow: 'hidden',
         }}
       >
-        {/* Subtle inner layering to match icon.svg style */}
+        {/* Subtle inner layering to match muted geometric style */}
         <div style={{
           position: 'absolute',
           width: '70%',
           height: '70%',
-          background: 'rgba(255, 255, 255, 0.1)',
+          background: 'rgba(255, 255, 255, 0.05)',
           borderRadius: '20%',
           transform: 'rotate(10deg)',
         }} />
@@ -39,10 +39,10 @@ export default function Icon() {
           position: 'relative', 
           zIndex: 1, 
           color: 'white',
-          fontSize: '20px',
+          fontSize: '18px',
           fontWeight: 900,
           letterSpacing: '-0.05em',
-          opacity: 0.95
+          opacity: 0.8
         }}>D</span>
       </div>
     ),

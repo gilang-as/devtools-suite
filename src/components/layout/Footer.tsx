@@ -72,9 +72,7 @@ export default function Footer() {
         <div className="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3">
-              <div className="bg-primary/10 p-1.5 rounded-lg">
-                <Logo size={20} />
-              </div>
+              <Logo size={24} />
               <div>
                 <span className="font-headline font-bold text-lg tracking-tight block leading-none">
                   {t('common.title')}

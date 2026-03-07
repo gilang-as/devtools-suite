@@ -50,11 +50,9 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
-            <div className="bg-primary/10 p-1.5 rounded-lg flex items-center justify-center">
-              <Logo size={24} />
-            </div>
-            <span className="font-headline font-bold text-xl tracking-tight">
+          <Link href="/" className="flex items-center space-x-3" onClick={() => setIsMenuOpen(false)}>
+            <Logo size={28} />
+            <span className="font-headline font-bold text-xl tracking-tight hidden sm:inline-block">
               DevTools Suite
             </span>
           </Link>
