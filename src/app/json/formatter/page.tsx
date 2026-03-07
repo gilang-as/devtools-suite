@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useRef, useMemo } from 'react';
@@ -34,6 +33,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { ToolSEOContent } from '@/components/tools/ToolSEOContent';
 
 type SortOrder = 'none' | 'asc' | 'desc';
 type OutputView = 'code' | 'tree';
@@ -66,23 +66,11 @@ const highlightJson = (json: string) => {
   
   return tokens.map((token, i) => {
     if (!token) return null;
-    
-    if (token.endsWith(':')) {
-      return <span key={i} className="text-primary font-bold">{token}</span>;
-    }
-    if (token.startsWith('"')) {
-      return <span key={i} className="text-green-600 dark:text-green-400">{token}</span>;
-    }
-    if (/^-?\d/.test(token)) {
-      return <span key={i} className="text-blue-600 dark:text-blue-400">{token}</span>;
-    }
-    if (/^(true|false|null)$/.test(token)) {
-      return <span key={i} className="text-orange-600 dark:text-orange-400 font-semibold">{token}</span>;
-    }
-    if (/^[{}[\],]$/.test(token)) {
-      return <span key={i} className="text-muted-foreground">{token}</span>;
-    }
-    
+    if (token.endsWith(':')) return <span key={i} className="text-primary font-bold">{token}</span>;
+    if (token.startsWith('"')) return <span key={i} className="text-green-600 dark:text-green-400">{token}</span>;
+    if (/^-?\d/.test(token)) return <span key={i} className="text-blue-600 dark:text-blue-400">{token}</span>;
+    if (/^(true|false|null)$/.test(token)) return <span key={i} className="text-orange-600 dark:text-orange-400 font-semibold">{token}</span>;
+    if (/^[{}[\],]$/.test(token)) return <span key={i} className="text-muted-foreground">{token}</span>;
     return <span key={i}>{token}</span>;
   });
 };
@@ -281,7 +269,6 @@ export default function JsonFormatterPage() {
       </div>
 
       <div className="flex flex-col lg:flex-row items-stretch gap-4">
-        {/* Input Section */}
         <Card className="flex-1 border-border shadow-lg flex flex-col overflow-hidden">
           <CardHeader className="flex flex-row items-center justify-between pb-4">
             <CardTitle className="text-lg flex items-center gap-2">
@@ -343,7 +330,6 @@ export default function JsonFormatterPage() {
           </CardContent>
         </Card>
 
-        {/* Action Buttons (Middle) */}
         <div className="flex flex-row lg:flex-col justify-center items-center gap-4 py-4 lg:py-0 min-w-[200px]">
           <div className="w-full space-y-4 px-2">
             <div className="space-y-1.5">
@@ -436,7 +422,6 @@ export default function JsonFormatterPage() {
           </div>
         </div>
 
-        {/* Output Section */}
         <Card className="flex-1 border-border shadow-lg flex flex-col overflow-hidden">
           <CardHeader className="flex flex-row items-center justify-between pb-4">
             <div className="flex items-center gap-4">
@@ -490,6 +475,28 @@ export default function JsonFormatterPage() {
           </CardContent>
         </Card>
       </div>
+
+      <ToolSEOContent 
+        title="JSON Formatter & Validator"
+        sections={[
+          {
+            title: "What is JSON?",
+            content: "JSON (JavaScript Object Notation) is a lightweight data-interchange format that is easy for humans to read and write and easy for machines to parse and generate. It is based on a subset of the JavaScript Programming Language and is a standard format for APIs and web configuration files."
+          },
+          {
+            title: "Why use a JSON Formatter?",
+            content: "Raw JSON is often minified (collapsed into a single line) to save bandwidth during transmission. While efficient for computers, it is nearly impossible for developers to debug. A JSON Formatter adds indentation, line breaks, and proper spacing, making the structure instantly clear."
+          },
+          {
+            title: "How to use this tool?",
+            content: "Simply paste your minified or messy JSON string into the input area. Choose your preferred indentation (2 or 4 spaces) and click 'Beautify'. Our tool will instantly clean the code, validate the syntax, and provide a downloadable or copyable result."
+          },
+          {
+            title: "JSON Validation Features",
+            content: "If your JSON has a syntax error (like a missing comma or mismatched brace), our validator will highlight the exact location of the error. This saves hours of debugging time when dealing with large data structures from external APIs."
+          }
+        ]}
+      />
     </div>
   );
 }

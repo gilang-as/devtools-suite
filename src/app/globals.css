@@ -282,6 +282,13 @@
     --accent-foreground: 48 100% 80%;
     --border: 0 30% 15%;
   }
+  /* Seasonal & Cultural Themes */
+  [data-color-scheme="spring"] { --primary: 142 70% 45%; --accent: 330 70% 92%; }
+  [data-color-scheme="summer"] { --primary: 199 89% 48%; --accent: 48 100% 90%; }
+  [data-color-scheme="fall"] { --primary: 25 75% 45%; --accent: 40 80% 90%; }
+  [data-color-scheme="winter"] { --primary: 210 80% 45%; --accent: 180 50% 92%; }
+  [data-color-scheme="sakura"] { --primary: 330 70% 70%; --accent: 330 100% 94%; }
+  [data-color-scheme="china"] { --primary: 0 70% 45%; --accent: 48 100% 90%; }
 }
 
 @layer base {
@@ -290,6 +297,7 @@
   }
   body {
     @apply bg-background text-foreground font-body antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   a {
@@ -317,8 +325,4 @@
 
 code, pre {
   font-family: 'Source Code Pro', monospace !important;
-}
-
-* {
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }

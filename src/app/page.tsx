@@ -3,7 +3,7 @@ import HomeClient from '@/components/home/HomeClient';
 
 export const metadata: Metadata = {
   title: 'DevTools Suite - Developer Tools & Utilities',
-  description: 'Free online developer tools suite: Base64 encoder/decoder, JSON formatter, hash generators (SHA-256, MD5), UUID/GUID generator, URL encoder, color converter, and 100+ more utilities for web developers.',
+  description: '100+ free online developer tools: Base64, JSON formatter, SHA-256, UUID, and more. Secure, private, and fast utilities for modern web development.',
   keywords: 'developer tools, hash generator, base64, JSON formatter, UUID generator, regex tester, color converter, online tools, web development',
   openGraph: {
     title: 'DevTools Suite - 100+ Free Developer Tools',

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { TOOLS } from '@/tools/config';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { useTheme, type ColorScheme } from '@/components/providers/theme-provider';
-import { Palette, Check } from 'lucide-react';
+import { Palette, Check, Github } from 'lucide-react';
 import { Logo } from '@/components/ui/logo';
 import { Button } from '@/components/ui/button';
 import {
@@ -72,7 +72,7 @@ export default function Footer() {
         <div className="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3">
-              <Logo width={24} height={24} />
+              <Logo width={40} height={40} />
               <div>
                 <span className="font-headline font-bold text-lg tracking-tight block leading-none">
                   {t('common.title')}
@@ -158,14 +158,23 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center md:items-end gap-2 text-sm text-muted-foreground">
+          <div className="flex flex-col items-center md:items-end gap-3 text-sm text-muted-foreground">
             <p className="font-medium">
               © {year || '...'} {t('common.title')}. All rights reserved.
             </p>
-            <div className="flex gap-4">
+            <div className="flex items-center gap-4 flex-wrap justify-center">
               <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
               <Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
               <Link href="/cookies" className="hover:text-primary transition-colors">Cookies</Link>
+              <div className="h-4 w-px bg-border mx-1 hidden sm:block" />
+              <a 
+                href="https://github.com/gilang-as/devtools-suite" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-primary transition-all flex items-center gap-1.5 font-bold text-foreground/80"
+              >
+                <Github className="h-4 w-4" /> GitHub
+              </a>
             </div>
           </div>
         </div>

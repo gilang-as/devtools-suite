@@ -51,7 +51,7 @@ export default function Header() {
       <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center space-x-3" onClick={() => setIsMenuOpen(false)}>
-            <Logo width={24} height={24} />
+            <Logo width={32} height={32} />
             <span className="font-headline font-bold text-xl tracking-tight hidden sm:inline-block">
               DevTools Suite
             </span>

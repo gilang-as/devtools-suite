@@ -12,6 +12,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Badge } from '@/components/ui/badge';
 import { SearchCode, Info, AlertCircle, List, Settings2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ToolSEOContent } from '@/components/tools/ToolSEOContent';
 
 interface RegexMatch {
   index: number;
@@ -283,6 +284,28 @@ function RegexTesterContent() {
           </Card>
         </div>
       </div>
+
+      <ToolSEOContent 
+        title="Regex Testing & Debugging"
+        sections={[
+          {
+            title: "What is Regex?",
+            content: "Regex (Regular Expression) is a sequence of characters that forms a search pattern. It is used extensively in programming for string validation, data extraction, and search-and-replace operations across text files."
+          },
+          {
+            title: "How to use this tester?",
+            content: "Enter your regular expression in the top field (without the surrounding slashes). Then, paste your test content into the large text area. Our tool will instantly highlight all matches and break down captured groups for deeper inspection."
+          },
+          {
+            title: "Global and Case-Insensitive Flags",
+            content: "Use the 'g' (global) flag to find all matches in the text rather than just the first one. The 'i' flag makes your search case-insensitive, which is perfect for matching user-provided input like email addresses."
+          },
+          {
+            title: "Why debug your patterns?",
+            content: "Regular expressions can be notoriously difficult to read and maintain. By testing your patterns against real-world sample data, you ensure your code handles edge cases (like multi-line strings or Unicode characters) correctly before deployment."
+          }
+        ]}
+      />
     </div>
   );
 }

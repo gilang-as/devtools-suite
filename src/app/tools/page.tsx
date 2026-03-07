@@ -7,7 +7,7 @@ import { Breadcrumbs } from '@/components/layout/Breadcrumbs';
 
 export const metadata: Metadata = generateMetadata({
   title: 'All Developer Tools | DevTools Suite',
-  description: 'Browse and discover 150+ free developer tools for encoding, hashing, formatting, cryptography, and web development. Find the perfect tool for your needs.',
+  description: 'Explore 150+ free developer tools for encoding, hashing, formatting, and cryptography. Find the perfect secure utility for your web development needs.',
   path: '/tools',
   keywords: [
     'developer tools',
