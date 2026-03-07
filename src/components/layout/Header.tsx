@@ -51,7 +51,7 @@ export default function Header() {
       <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
-            <div className="bg-primary/10 p-1.5 rounded-lg">
+            <div className="bg-primary/10 p-1.5 rounded-lg flex items-center justify-center">
               <Logo size={24} />
             </div>
             <span className="font-headline font-bold text-xl tracking-tight">
@@ -60,7 +60,7 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Search Input Container - Stable height shell */}
+        {/* Search Input Container */}
         <div className="hidden md:flex items-center flex-1 max-w-md mx-8 h-10">
           {!isHome && (
             <div className="w-full h-10">

@@ -13,7 +13,7 @@ export default function Icon() {
     (
       <div
         style={{
-          background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+          background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -24,22 +24,15 @@ export default function Icon() {
           overflow: 'hidden',
         }}
       >
-        {/* Background Hex Pattern */}
+        {/* Subtle inner layering */}
         <div style={{
           position: 'absolute',
-          inset: 0,
-          opacity: 0.2,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          <div style={{
-            width: '140%',
-            height: '140%',
-            border: '2px solid white',
-            transform: 'rotate(45deg)',
-          }} />
-        </div>
+          width: '70%',
+          height: '70%',
+          background: 'rgba(255, 255, 255, 0.1)',
+          borderRadius: '20%',
+          transform: 'rotate(10deg)',
+        }} />
         
         {/* Core Branding Character */}
         <span style={{ 
@@ -48,7 +41,8 @@ export default function Icon() {
           color: 'white',
           fontSize: '20px',
           fontWeight: 900,
-          letterSpacing: '-0.05em' 
+          letterSpacing: '-0.05em',
+          opacity: 0.95
         }}>D</span>
       </div>
     ),

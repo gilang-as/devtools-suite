@@ -9,8 +9,7 @@ interface LogoProps {
 
 /**
  * Reusable Logo component that pulls the brand asset from /public/icon.svg.
- * The design is optimized to look "natural" by using theme-aware colors
- * and balanced contrast.
+ * The colors have been softened to look "natural" with the site's theme.
  */
 export const Logo = ({ className, size = 24 }: LogoProps) => {
   return (
@@ -23,7 +22,7 @@ export const Logo = ({ className, size = 24 }: LogoProps) => {
         alt="DevTools Suite Logo"
         width={size}
         height={size}
-        className="object-contain drop-shadow-sm"
+        className="object-contain"
         priority
       />
     </div>

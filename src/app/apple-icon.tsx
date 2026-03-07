@@ -23,47 +23,36 @@ export default function AppleIcon() {
           padding: '20px',
         }}
       >
-        {/* Outer Hexagon Shell */}
+        {/* Hexagon Shell with Muted Gradient */}
         <div
           style={{
             width: '130px',
             height: '130px',
-            background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
+            background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
             clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 10px 30px rgba(59, 130, 246, 0.3)',
+            boxShadow: '0 10px 30px rgba(59, 130, 246, 0.2)',
           }}
         >
-          {/* Inner Core with Brand Letter */}
+          {/* Inner Core */}
           <div
             style={{
               width: '100px',
               height: '100px',
-              background: '#1e293b',
+              background: 'rgba(255, 255, 255, 0.05)',
               clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: 'white',
-              fontSize: '60px',
+              fontSize: '64px',
               fontWeight: '900',
             }}
           >
             D
           </div>
-        </div>
-        <div style={{ 
-          marginTop: '15px', 
-          color: '#3b82f6', 
-          fontSize: '14px', 
-          fontWeight: '800', 
-          textTransform: 'uppercase',
-          letterSpacing: '0.2em',
-          opacity: 0.9
-        }}>
-          DevTools Suite
         </div>
       </div>
     ),
