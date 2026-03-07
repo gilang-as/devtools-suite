@@ -23,20 +23,20 @@ export default function AppleIcon() {
           padding: '20px',
         }}
       >
-        {/* Outer Hexagon */}
+        {/* Outer Hexagon Shell */}
         <div
           style={{
-            width: '120px',
-            height: '120px',
-            background: '#3b82f6',
+            width: '130px',
+            height: '130px',
+            background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
             clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            position: 'relative',
+            boxShadow: '0 10px 30px rgba(59, 130, 246, 0.3)',
           }}
         >
-          {/* Inner Core */}
+          {/* Inner Core with Brand Letter */}
           <div
             style={{
               width: '100px',
@@ -55,12 +55,13 @@ export default function AppleIcon() {
           </div>
         </div>
         <div style={{ 
-          marginTop: '10px', 
+          marginTop: '15px', 
           color: '#3b82f6', 
           fontSize: '14px', 
-          fontWeight: 'bold', 
+          fontWeight: '800', 
           textTransform: 'uppercase',
-          letterSpacing: '0.1em'
+          letterSpacing: '0.2em',
+          opacity: 0.9
         }}>
           DevTools Suite
         </div>

@@ -8,12 +8,14 @@ interface LogoProps {
 }
 
 /**
- * Reusable Logo component that pulls the brand asset from /public/icon.svg
+ * Reusable Logo component that pulls the brand asset from /public/icon.svg.
+ * The design is optimized to look "natural" by using theme-aware colors
+ * and balanced contrast.
  */
 export const Logo = ({ className, size = 24 }: LogoProps) => {
   return (
     <div 
-      className={cn("relative flex items-center justify-center overflow-hidden", className)} 
+      className={cn("relative flex items-center justify-center transition-opacity hover:opacity-90", className)} 
       style={{ width: size, height: size }}
     >
       <Image
@@ -21,7 +23,7 @@ export const Logo = ({ className, size = 24 }: LogoProps) => {
         alt="DevTools Suite Logo"
         width={size}
         height={size}
-        className="object-contain"
+        className="object-contain drop-shadow-sm"
         priority
       />
     </div>
