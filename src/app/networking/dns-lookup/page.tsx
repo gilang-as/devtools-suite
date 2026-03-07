@@ -1,13 +1,13 @@
 "use client"
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { dnsLookup, DnsLookupResult, DnsRecordType } from '@/lib/networking';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Globe2, Network, Lock, AlertCircle } from 'lucide-react';
+import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Globe2, Network, Lock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 
@@ -23,26 +23,6 @@ const GROUPS: RecordGroup[] = [
   { title: 'Security', types: ['DNSKEY', 'DS', 'RRSIG'] },
 ];
 
-/**
- * Robustly retrieves the Turnstile site key.
- * Defaults to the 'Always Passes' test key to prevent initialization crashes.
- */
-const getSiteKey = (): string => {
-  const envKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-  // Check if key is actually provided and not a placeholder or string 'undefined'
-  if (
-    typeof envKey === 'string' && 
-    envKey.trim() !== '' && 
-    envKey !== 'undefined' && 
-    !envKey.includes('your_')
-  ) {
-    return envKey;
-  }
-  return '1x00000000000000000000AA'; 
-};
-
-const SITE_KEY = getSiteKey();
-
 export default function DnsLookupPage() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -57,6 +37,13 @@ export default function DnsLookupPage() {
   // Ensure Turnstile only renders on client to avoid hydration/undefined key issues
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  // Determine site key inside component to ensure it picks up client-side env vars accurately
+  const siteKey = useMemo(() => {
+    const key = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+    if (key && key !== 'undefined' && key.length > 5) return key;
+    return '1x00000000000000000000AA'; // Fallback to 'Always Passes' test key
   }, []);
 
   const handleLookup = async () => {
@@ -142,7 +129,7 @@ export default function DnsLookupPage() {
                     <Turnstile
                       key={captchaKey}
                       ref={turnstileRef}
-                      sitekey={SITE_KEY}
+                      sitekey={siteKey}
                       options={{
                         size: 'normal',
                         theme: 'auto',
