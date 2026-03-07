@@ -37,7 +37,6 @@ export function generateMetadata(config: SEOConfig): Metadata {
     title: config.title,
     description: config.description,
     keywords: config.keywords,
-    canonical: config.canonical || fullUrl,
     alternates: {
       canonical: config.canonical || fullUrl,
     },
@@ -114,24 +113,31 @@ export function generateFAQSchema(faqs: { question: string; answer: string }[]) 
 export function generateToolSchema(tool: {
   name: string;
   description: string;
-  url: string;
+  path?: string;
+  url?: string;
   category?: string;
   image?: string;
   price?: string;
 }) {
+  const fullUrl = tool.url || (tool.path ? `${SITE_URL}${tool.path}` : SITE_URL);
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: tool.name,
     description: tool.description,
-    url: tool.url,
-    applicationCategory: 'Utility',
+    url: fullUrl,
+    applicationCategory: tool.category || 'DeveloperApplication',
     operatingSystem: 'Web',
     image: tool.image || `${SITE_URL}/og-image.png`,
     offers: {
       '@type': 'Offer',
       price: tool.price || '0',
       priceCurrency: 'USD',
+    },
+    creator: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      url: SITE_URL,
     },
   };
 }
@@ -158,93 +164,6 @@ export function generateArticleSchema(article: {
     author: {
       '@type': 'Organization',
       name: article.author || SITE_NAME,
-    },
-  };
-}
-
-/**
- * Generate Organization JSON-LD schema
- */
-export function generateOrganizationSchema() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: SITE_NAME,
-    url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
-    description: DEFAULT_DESCRIPTION,
-    sameAs: [
-      'https://twitter.com/devtoolssuite',
-      'https://github.com/devtools-suite',
-    ],
-  };
-}
-
-/**
- * Generate WebSite JSON-LD schema with search action
- */
-export function generateWebSiteSchema() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: SITE_NAME,
-    url: SITE_URL,
-    description: DEFAULT_DESCRIPTION,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
-  };
-}
-
-/**
- * Generate SoftwareApplication JSON-LD schema
- */
-export function generateSoftwareApplicationSchema() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: SITE_NAME,
-    applicationCategory: 'DeveloperApplication',
-    url: SITE_URL,
-    description: DEFAULT_DESCRIPTION,
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.8',
-      ratingCount: '1200',
-    },
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-    },
-  };
-}
-
-/**
- * Generate Tool-specific JSON-LD schema
- */
-export function generateToolSchema(tool: {
-  name: string;
-  description: string;
-  path: string;
-  category: string;
-}) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: tool.name,
-    applicationCategory: 'DeveloperApplication',
-    description: tool.description,
-    url: `${SITE_URL}${tool.path}`,
-    creator: {
-      '@type': 'Organization',
-      name: SITE_NAME,
-      url: SITE_URL,
     },
   };
 }

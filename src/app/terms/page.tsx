@@ -1,14 +1,3 @@
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Terms of Service | DevTools Suite',
-  description: 'Terms of service for DevTools Suite. Read our terms, conditions, and usage policies for our free developer tools.',
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
-
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -47,7 +36,7 @@ export default function TermsPage() {
                 <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold text-foreground">{t('policies.terms.p1_title')}</p>
-                  <p className="text-sm">{t('policies.terms.p1_desc')}</p>
+                  <p className="text-sm">{t('policies.privacy.card1_desc')}</p>
                 </div>
               </div>
 
@@ -55,7 +44,7 @@ export default function TermsPage() {
                 <AlertTriangle className="h-5 w-5 text-orange-500 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold text-foreground">{t('policies.terms.p2_title')}</p>
-                  <p className="text-sm">{t('policies.terms.p2_desc')}</p>
+                  <p className="text-sm">{t('policies.privacy.card2_desc')}</p>
                 </div>
               </div>
 
@@ -63,7 +52,7 @@ export default function TermsPage() {
                 <FileText className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold text-foreground">{t('policies.terms.p3_title')}</p>
-                  <p className="text-sm">{t('policies.terms.p3_desc')}</p>
+                  <p className="text-sm">{t('policies.privacy.card1_desc')}</p>
                 </div>
               </div>
             </div>
