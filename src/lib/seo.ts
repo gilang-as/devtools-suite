@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
-const SITE_URL = 'https://devtools-suite.app';
+const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://devtools-suite.app';
 const SITE_NAME = 'DevTools Suite';
-const DEFAULT_DESCRIPTION = 'Premium online developer tools for everyday encoding, encryption, formatting, and networking tasks.';
+const DEFAULT_DESCRIPTION = 'Premium online developer tools for everyday encoding, encryption, formatting, and networking tasks. Private, fast, and free.';
 
 export interface SEOConfig {
   title: string;
@@ -20,23 +20,36 @@ export interface SEOConfig {
  * Generate comprehensive metadata for a page with OpenGraph and Twitter cards
  */
 export function generateMetadata(config: SEOConfig): Metadata {
-  const fullUrl = `${SITE_URL}${config.path}`;
+  const {
+    title,
+    description,
+    path,
+    noindex = false,
+    keywords = [],
+    icon = '🛠️',
+    generateOG = true
+  } = config;
+
+  const fullUrl = `${SITE_URL}${path}`;
   
   // Generate dynamic OG image URL if requested
   let imageUrl = config.image || `${SITE_URL}/og-image.png`;
-  if (config.generateOG) {
+  if (generateOG && !config.image) {
     const params = new URLSearchParams({
-      title: config.title,
-      description: config.description,
-      icon: config.icon || '🛠️',
+      title,
+      description,
+      icon,
     });
     imageUrl = `${SITE_URL}/api/og?${params.toString()}`;
   }
 
   return {
-    title: config.title,
-    description: config.description,
-    keywords: config.keywords,
+    title,
+    description,
+    keywords: [...keywords, 'developer tools', 'online utilities', 'DevTools Suite'],
+    authors: [{ name: 'DevTools Suite Team' }],
+    creator: 'DevTools Suite',
+    metadataBase: new URL(SITE_URL),
     alternates: {
       canonical: config.canonical || fullUrl,
     },
@@ -44,31 +57,40 @@ export function generateMetadata(config: SEOConfig): Metadata {
       type: 'website',
       locale: 'en_US',
       url: fullUrl,
-      title: config.title,
-      description: config.description,
+      title,
+      description,
       siteName: SITE_NAME,
       images: [
         {
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: config.title,
+          alt: title,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: config.title,
-      description: config.description,
+      title,
+      description,
       images: [imageUrl],
+      creator: '@devtoolssuite',
     },
     robots: {
-      index: !config.noindex,
+      index: !noindex,
       follow: true,
       googleBot: {
-        index: !config.noindex,
+        index: !noindex,
         follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
       },
+    },
+    icons: {
+      icon: '/favicon.ico',
+      shortcut: '/favicon-16x16.png',
+      apple: '/apple-touch-icon.png',
     },
   };
 }
@@ -90,42 +112,22 @@ export function generateBreadcrumbSchema(breadcrumbs: { name: string; path: stri
 }
 
 /**
- * Generate FAQ JSON-LD structured data
- */
-export function generateFAQSchema(faqs: { question: string; answer: string }[]) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  };
-}
-
-/**
  * Generate Tool/SoftwareApplication JSON-LD structured data
  */
 export function generateToolSchema(tool: {
   name: string;
   description: string;
-  path?: string;
-  url?: string;
+  path: string;
   category?: string;
   image?: string;
   price?: string;
 }) {
-  const fullUrl = tool.url || (tool.path ? `${SITE_URL}${tool.path}` : SITE_URL);
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: tool.name,
     description: tool.description,
-    url: fullUrl,
+    url: `${SITE_URL}${tool.path}`,
     applicationCategory: tool.category || 'DeveloperApplication',
     operatingSystem: 'Web',
     image: tool.image || `${SITE_URL}/og-image.png`,
@@ -139,52 +141,6 @@ export function generateToolSchema(tool: {
       name: SITE_NAME,
       url: SITE_URL,
     },
-  };
-}
-
-/**
- * Generate Article JSON-LD structured data
- */
-export function generateArticleSchema(article: {
-  headline: string;
-  description: string;
-  image?: string;
-  datePublished?: string;
-  dateModified?: string;
-  author?: string;
-}) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: article.headline,
-    description: article.description,
-    image: article.image || `${SITE_URL}/og-image.png`,
-    datePublished: article.datePublished || new Date().toISOString(),
-    dateModified: article.dateModified || new Date().toISOString(),
-    author: {
-      '@type': 'Organization',
-      name: article.author || SITE_NAME,
-    },
-  };
-}
-
-/**
- * Get category-specific SEO config with default values
- */
-export function getCategoryMetadata(category: {
-  title: string;
-  description: string;
-  path: string;
-}): SEOConfig {
-  return {
-    title: category.title,
-    description: category.description,
-    path: category.path,
-    keywords: [
-      'developer tools',
-      'online tools',
-      category.title.toLowerCase(),
-    ],
   };
 }
 

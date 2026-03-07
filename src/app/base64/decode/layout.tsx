@@ -1,13 +1,13 @@
 import { Metadata } from 'next';
+import { generateMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generateMetadata({
   title: 'Base64 Decoder',
   description: 'Decode Base64 strings back into readable text instantly. All processing happens in your browser for maximum security.',
-  openGraph: {
-    title: 'Base64 Decoder | DevTools Suite',
-    description: 'Safe and fast Base64 decoding.',
-  },
-};
+  path: '/base64/decode',
+  keywords: ['base64 decoder', 'decode base64', 'base64 to text'],
+  icon: '🔓',
+});
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;

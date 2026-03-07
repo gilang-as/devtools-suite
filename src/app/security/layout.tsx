@@ -2,10 +2,11 @@ import { Metadata } from 'next';
 import { generateMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = generateMetadata({
-  title: 'Security & Cryptography Tools | DevTools Suite',
-  description: 'Professional security tools for RSA encryption, PGP messages, JWT inspection, SSL certificate decoding, and cryptographic operations.',
+  title: 'Security & Cryptography Studio',
+  description: 'Professional-grade security tools for RSA encryption, PGP messages, JWT inspection, and SSL certificate analysis.',
   path: '/security',
-  keywords: ['RSA encryption', 'JWT decoder', 'SSL certificate', 'PGP encryption', 'cryptography', 'security tools'],
+  keywords: ['encryption', 'cryptography', 'rsa', 'pgp', 'jwt', 'security tools'],
+  icon: '🛡️',
 });
 
 export default function Layout({ children }: { children: React.ReactNode }) {
