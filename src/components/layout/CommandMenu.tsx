@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from 'react';
@@ -190,17 +189,17 @@ export default function CommandMenu() {
       };
       
       const targetView = prevViewMap[view];
-      const checkpoint = checkpoints[view]; // Checkpoint for the current view stores parent info
+      const checkpoint = checkpoints[view]; 
       
       if (checkpoint) {
         setTheme(checkpoint.theme);
         setColorScheme(checkpoint.colorScheme);
-        // Important: Restore selection position
-        setTimeout(() => setSelectedIndex(checkpoint.index), 0);
+        // Important: Restore selection position exactly
+        const restoreIndex = checkpoint.index;
+        setView(targetView);
+        setQuery('');
+        setTimeout(() => setSelectedIndex(restoreIndex), 0);
       }
-      
-      setView(targetView);
-      setQuery('');
       return;
     }
 
