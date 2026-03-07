@@ -31,8 +31,6 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  const isHomePage = pathname === '/';
-
   // Defer rendering of theme icons until after hydration
   useEffect(() => {
     setMounted(true);
@@ -42,6 +40,10 @@ export default function Header() {
     if (theme === 'light') setTheme('dark');
     else if (theme === 'dark') setTheme('system');
     else setTheme('light');
+  };
+
+  const openSearch = () => {
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
   };
 
   return (
@@ -59,19 +61,17 @@ export default function Header() {
         </div>
 
         <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
-          {!isHomePage && (
-            <Button 
-              variant="outline" 
-              className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4"
-              onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))}
-            >
-              <Search className="mr-2 h-4 w-4" />
-              <span className="flex-1 text-left">{t('home.search_placeholder')}</span>
-              <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-                <span className="text-xs">⌘</span>K
-              </kbd>
-            </Button>
-          )}
+          <Button 
+            variant="outline" 
+            className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50"
+            onClick={openSearch}
+          >
+            <Search className="mr-2 h-4 w-4" />
+            <span className="flex-1 text-left">{t('home.search_placeholder')}</span>
+            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+              <span className="text-xs">⌘</span>K
+            </kbd>
+          </Button>
         </div>
 
         <div className="flex items-center gap-2">
@@ -124,19 +124,17 @@ export default function Header() {
       
       {isMenuOpen && (
         <div className="md:hidden border-t bg-background p-4 flex flex-col gap-4 animate-in slide-in-from-top-2">
-          {!isHomePage && (
-            <Button 
-              variant="outline" 
-              className="w-full justify-start h-11"
-              onClick={() => {
-                setIsMenuOpen(false);
-                window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
-              }}
-            >
-              <Search className="mr-2 h-4 w-4" />
-              {t('home.search_placeholder')}
-            </Button>
-          )}
+          <Button 
+            variant="outline" 
+            className="w-full justify-start h-11"
+            onClick={() => {
+              setIsMenuOpen(false);
+              openSearch();
+            }}
+          >
+            <Search className="mr-2 h-4 w-4" />
+            {t('home.search_placeholder')}
+          </Button>
           <Link 
             href="/" 
             className="text-sm font-medium hover:text-primary transition-colors py-2 px-2"

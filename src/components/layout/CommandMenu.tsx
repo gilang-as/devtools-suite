@@ -47,6 +47,7 @@ export default function CommandMenu() {
   const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
   const [isKeyboard, setIsKeyboard] = React.useState(false);
   
+  // Storage for snapshots to enable restoration
   const absoluteInitialState = React.useRef<{ theme: any, colorScheme: ColorScheme } | null>(null);
   const [checkpoints, setCheckpoints] = React.useState<Record<View, { theme: any, colorScheme: ColorScheme } | null>>({
     root: null,
@@ -214,7 +215,7 @@ export default function CommandMenu() {
       setSelectedIndex(0);
     } else if (item.type === 'mode' || item.type === 'apply-all') {
       setTheme(item.id as any);
-      absoluteInitialState.current = null; // Selection confirmed, don't revert on close
+      absoluteInitialState.current = null; // Selection confirmed
       setOpen(false);
     } else if (item.href) {
       router.push(item.href);
@@ -303,7 +304,7 @@ export default function CommandMenu() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden flex flex-col">
+      <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden flex flex-col data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:duration-300">
         <DialogHeader className="p-0 border-b shrink-0">
           <DialogTitle className="sr-only">Spotlight</DialogTitle>
           <div className="flex items-center gap-4 px-6 h-16">
@@ -371,7 +372,7 @@ export default function CommandMenu() {
           )}
         </DialogHeader>
 
-        <ScrollArea className="max-h-[450px] w-full flex-1 [&_[data-radix-scroll-area-viewport]>div]:!block overflow-auto">
+        <ScrollArea className="max-h-[450px] w-full flex-1 [&>[data-radix-scroll-area-viewport]>div]:!block overflow-auto">
           <div className="p-2 flex flex-col gap-1 w-full box-border">
             {filteredItems.length > 0 ? (
               filteredItems.map((item: any, index) => {
