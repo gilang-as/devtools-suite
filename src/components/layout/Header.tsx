@@ -50,7 +50,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
             <div className="bg-primary p-1.5 rounded-lg">
               <Terminal className="h-6 w-6 text-primary-foreground" />
             </div>
@@ -60,9 +60,9 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Search Input Container - Stable slot to prevent hydration mismatch */}
+        {/* Search Input Container - Fixed size slot to prevent hydration mismatch */}
         <div className="hidden md:flex items-center flex-1 max-w-md mx-8 min-h-[40px]">
-          {mounted && !isHome ? (
+          {mounted && !isHome && (
             <Button 
               variant="outline" 
               className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50 active:scale-[0.98] animate-in fade-in zoom-in-95 duration-300"
@@ -76,8 +76,6 @@ export default function Header() {
                 <span className="text-xs">⌘</span>K
               </kbd>
             </Button>
-          ) : (
-            <div className="w-full h-10" />
           )}
         </div>
 

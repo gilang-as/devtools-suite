@@ -7,6 +7,7 @@ import { useAnalytics } from '@/firebase/provider';
 
 /**
  * Component that tracks page views on route changes.
+ * This ensures data appears in the Realtime and Dashboard views.
  */
 function AnalyticsTracker() {
   const pathname = usePathname();
@@ -15,16 +16,12 @@ function AnalyticsTracker() {
 
   useEffect(() => {
     if (analytics) {
-      // Small delay to ensure document.title is updated by Next.js
-      const timer = setTimeout(() => {
-        logEvent(analytics, 'page_view', {
-          page_path: pathname,
-          page_location: window.location.href,
-          page_title: document.title,
-        });
-      }, 100);
-      
-      return () => clearTimeout(timer);
+      // Manual page view trigger for SPA navigation
+      logEvent(analytics, 'page_view', {
+        page_path: pathname,
+        page_location: window.location.href,
+        page_title: document.title,
+      });
     }
   }, [pathname, searchParams, analytics]);
 

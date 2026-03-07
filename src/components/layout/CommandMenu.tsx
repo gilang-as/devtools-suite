@@ -53,12 +53,7 @@ export default function CommandMenu() {
   const [isKeyboard, setIsKeyboard] = React.useState(false);
   
   const absoluteInitialState = React.useRef<{ theme: any, colorScheme: ColorScheme } | null>(null);
-  const [checkpoints, setCheckpoints] = React.useState<Record<View, Checkpoint | null>>({
-    root: null,
-    colors: null,
-    modes: null,
-    'color-modes': null
-  });
+  const [checkpoints, setCheckpoints] = React.useState<Record<string, Checkpoint | null>>({});
 
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
   const categoryRefs = React.useRef<(HTMLButtonElement | null)[]>([]);
@@ -181,8 +176,7 @@ export default function CommandMenu() {
 
   const handleSelect = (item: any) => {
     if (item.isBack) {
-      const prevViewMap: Record<View, View> = {
-        'root': 'root',
+      const prevViewMap: Record<string, View> = {
         'colors': 'root',
         'modes': 'root',
         'color-modes': 'colors'
@@ -194,10 +188,10 @@ export default function CommandMenu() {
       if (checkpoint) {
         setTheme(checkpoint.theme);
         setColorScheme(checkpoint.colorScheme);
-        // Important: Restore selection position exactly
         const restoreIndex = checkpoint.index;
         setView(targetView);
         setQuery('');
+        // Restore index after state update
         setTimeout(() => setSelectedIndex(restoreIndex), 0);
       }
       return;
@@ -254,7 +248,7 @@ export default function CommandMenu() {
   React.useEffect(() => {
     if (open) {
       absoluteInitialState.current = { theme, colorScheme };
-      setCheckpoints(prev => ({ ...prev, root: { theme, colorScheme, index: 0 } }));
+      setCheckpoints({ root: { theme, colorScheme, index: 0 } });
     } else {
       if (absoluteInitialState.current) {
         setTheme(absoluteInitialState.current.theme);
@@ -265,7 +259,7 @@ export default function CommandMenu() {
       setSelectedColor(null);
       setSelectedCategory(null);
       setSelectedIndex(0);
-      setCheckpoints({ root: null, colors: null, modes: null, 'color-modes': null });
+      setCheckpoints({});
     }
   }, [open]);
 
