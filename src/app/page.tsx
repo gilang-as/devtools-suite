@@ -5,9 +5,8 @@ import { useState, useMemo } from 'react';
 import { TOOLS } from '@/tools/config';
 import ToolCard from '@/components/tools/ToolCard';
 import { useTranslation } from '@/components/providers/i18n-provider';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, X } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -41,8 +40,9 @@ export default function Home() {
       </section>
 
       <section className="max-w-4xl mx-auto space-y-8">
+        {/* Search Trigger - Zooms into Spotlight */}
         <div 
-          className="relative group cursor-pointer active:scale-[0.98] transition-all"
+          className="relative group cursor-pointer active:scale-[0.98] transition-all transform hover:scale-[1.01]"
           onClick={openSpotlight}
         >
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />

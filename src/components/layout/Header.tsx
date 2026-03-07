@@ -27,6 +27,7 @@ import {
 export default function Header() {
   const { t, language, setLanguage } = useTranslation();
   const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -44,6 +45,8 @@ export default function Header() {
     window.dispatchEvent(new CustomEvent('toggle-spotlight'));
   };
 
+  const isHome = pathname === '/';
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4">
@@ -58,21 +61,24 @@ export default function Header() {
           </Link>
         </div>
 
-        <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
-          <Button 
-            variant="outline" 
-            className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50"
-            onClick={openSearch}
-          >
-            <Search className="mr-2 h-4 w-4" />
-            <span className="flex-1 text-left">
-              {mounted ? t('home.search_placeholder') : 'Search tools...'}
-            </span>
-            <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-              <span className="text-xs">⌘</span>K
-            </kbd>
-          </Button>
-        </div>
+        {/* Search Input - Hidden on Home Page */}
+        {!isHome && (
+          <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
+            <Button 
+              variant="outline" 
+              className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50"
+              onClick={openSearch}
+            >
+              <Search className="mr-2 h-4 w-4" />
+              <span className="flex-1 text-left">
+                {mounted ? t('home.search_placeholder') : 'Search tools...'}
+              </span>
+              <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                <span className="text-xs">⌘</span>K
+              </kbd>
+            </Button>
+          </div>
+        )}
 
         <div className="flex items-center gap-2">
           <div className="flex items-center justify-center w-9 h-9">
@@ -105,7 +111,7 @@ export default function Header() {
             size="icon" 
             className="h-9 w-9" 
             onClick={toggleTheme}
-            title={mounted ? "Toggle appearance" : undefined}
+            title={mounted ? t('common.theme') : undefined}
           >
             {!mounted ? (
               <Monitor className="h-[1.2rem] w-[1.2rem] opacity-20" />
@@ -132,17 +138,19 @@ export default function Header() {
       
       {isMenuOpen && (
         <div className="md:hidden border-t bg-background p-4 flex flex-col gap-4 animate-in slide-in-from-top-2">
-          <Button 
-            variant="outline" 
-            className="w-full justify-start h-11"
-            onClick={() => {
-              setIsMenuOpen(false);
-              openSearch();
-            }}
-          >
-            <Search className="mr-2 h-4 w-4" />
-            {mounted ? t('home.search_placeholder') : 'Search tools...'}
-          </Button>
+          {!isHome && (
+            <Button 
+              variant="outline" 
+              className="w-full justify-start h-11"
+              onClick={() => {
+                setIsMenuOpen(false);
+                openSearch();
+              }}
+            >
+              <Search className="mr-2 h-4 w-4" />
+              {mounted ? t('home.search_placeholder') : 'Search tools...'}
+            </Button>
+          )}
           <Link 
             href="/" 
             className="text-sm font-medium hover:text-primary transition-colors py-2 px-2"

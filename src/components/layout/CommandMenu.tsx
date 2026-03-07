@@ -58,6 +58,7 @@ export default function CommandMenu() {
   const itemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
   const categoryRefs = React.useRef<(HTMLButtonElement | null)[]>([]);
 
+  // Auto-scroll logic for keyboard navigation
   React.useEffect(() => {
     if (isKeyboard && itemRefs.current[selectedIndex]) {
       itemRefs.current[selectedIndex]?.scrollIntoView({
@@ -149,12 +150,14 @@ export default function CommandMenu() {
     return baseItems;
   }, [baseItems, view, selectedCategory]);
 
+  // Preview logic for theme/mode changes
   React.useEffect(() => {
     if (!open) return;
 
     const activeItem = filteredItems[selectedIndex];
     
     if (!activeItem || activeItem.isBack) {
+      // Revert to checkpoint if back/nothing selected
       const checkpoint = checkpoints[view];
       if (checkpoint) {
         setTheme(checkpoint.theme);
@@ -209,7 +212,7 @@ export default function CommandMenu() {
       setSelectedIndex(0);
     } else if (item.type === 'mode' || item.type === 'apply-all') {
       setTheme(item.id as any);
-      absoluteInitialState.current = null;
+      absoluteInitialState.current = null; // Mark as saved
       setOpen(false);
     } else if (item.href) {
       router.push(item.href);
@@ -299,7 +302,7 @@ export default function CommandMenu() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden flex flex-col data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-90 data-[state=open]:slide-in-from-top-[5%] data-[state=open]:duration-300">
+      <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden flex flex-col data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-90 data-[state=open]:slide-in-from-top-10 data-[state=open]:duration-300">
         <DialogHeader className="p-0 border-b shrink-0">
           <DialogTitle className="sr-only">Spotlight</DialogTitle>
           <div className="flex items-center gap-4 px-6 h-16">
@@ -437,8 +440,8 @@ export default function CommandMenu() {
             )}
           </div>
           <div className="hidden sm:flex items-center gap-2">
-            <Badge variant="outline" className="text-[9px] border-primary/20 text-primary">
-              {view.toUpperCase()} VIEW
+            <Badge variant="outline" className="text-[9px] border-primary/20 text-primary uppercase">
+              {view} view
             </Badge>
           </div>
         </div>
