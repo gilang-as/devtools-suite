@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from '@/components/providers/i18n-provider';
+import { useTheme } from '@/components/providers/theme-provider';
 import { dnsLookup, DnsLookupResult, DnsRecordType } from '@/lib/networking';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,7 +27,8 @@ const GROUPS: RecordGroup[] = [
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
 
 export default function DnsLookupPage() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+  const { theme } = useTheme();
   const { toast } = useToast();
   const [domain, setDomain] = useState('');
   const [loading, setLoading] = useState(false);
@@ -121,6 +123,12 @@ export default function DnsLookupPage() {
                   {mounted && (
                     <Turnstile
                       siteKey={TURNSTILE_SITE_KEY}
+                      options={{
+                        execution: 'render',
+                        appearance: 'always',
+                        theme: theme === 'dark' ? 'dark' : 'light',
+                        language: language as any
+                      }}
                       onSuccess={() => {
                         setTurnstileStatus("success");
                         setError(null);

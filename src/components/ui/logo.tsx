@@ -3,9 +3,8 @@
 import React from 'react';
 
 /**
- * Reusable Logo component that references the manual brand asset.
- * Uses an img tag to ensure the specific design from /icon.svg is preserved.
- * The opacity is slightly reduced to provide a more integrated, "natural" look.
+ * Reusable Logo component using strict inline SVG paths as provided.
+ * Supports standard SVG props for sizing and styling.
  */
 export const Logo = (props: any) => {
   return (
