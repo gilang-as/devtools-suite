@@ -50,15 +50,14 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto max-w-7xl flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center space-x-3 transition-transform active:scale-95" onClick={() => setIsMenuOpen(false)}>
-            <Logo size={32} />
+          <Link href="/" className="flex items-center space-x-3" onClick={() => setIsMenuOpen(false)}>
+            <Logo width={24} height={24} />
             <span className="font-headline font-bold text-xl tracking-tight hidden sm:inline-block">
               DevTools Suite
             </span>
           </Link>
         </div>
 
-        {/* Search Input Container */}
         <div className="hidden md:flex items-center flex-1 max-w-md mx-8 h-10">
           {!isHome && (
             <div className="w-full h-10">

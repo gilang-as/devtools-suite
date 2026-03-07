@@ -72,7 +72,7 @@ export default function Footer() {
         <div className="border-t pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-3">
-              <Logo size={24} />
+              <Logo width={24} height={24} />
               <div>
                 <span className="font-headline font-bold text-lg tracking-tight block leading-none">
                   {t('common.title')}
@@ -85,7 +85,6 @@ export default function Footer() {
 
             <div className="h-8 w-px bg-border hidden sm:block" />
 
-            {/* Stable container for theme dropdown to maintain layout tree */}
             <div className="flex items-center justify-center min-w-[100px]">
               {mounted ? (
                 <DropdownMenu>
