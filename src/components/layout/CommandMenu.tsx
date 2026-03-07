@@ -159,20 +159,20 @@ export default function CommandMenu() {
     if (!activeItem || activeItem.isBack) {
       const checkpoint = checkpoints[view];
       if (checkpoint) {
-        setTheme(checkpoint.theme);
-        setColorScheme(checkpoint.colorScheme);
+        if (theme !== checkpoint.theme) setTheme(checkpoint.theme);
+        if (colorScheme !== checkpoint.colorScheme) setColorScheme(checkpoint.colorScheme);
       }
       return;
     }
 
     if (view === 'colors' && activeItem.type === 'color') {
-      setColorScheme(activeItem.id);
+      if (colorScheme !== activeItem.id) setColorScheme(activeItem.id);
     } else if (view === 'modes' && activeItem.type === 'mode') {
-      setTheme(activeItem.id as any);
+      if (theme !== activeItem.id) setTheme(activeItem.id as any);
     } else if (view === 'color-modes' && activeItem.type === 'apply-all') {
-      setTheme(activeItem.id as any);
+      if (theme !== activeItem.id) setTheme(activeItem.id as any);
     }
-  }, [selectedIndex, filteredItems, view, open, setTheme, setColorScheme, checkpoints]);
+  }, [selectedIndex, filteredItems, view, open, setTheme, setColorScheme, checkpoints, theme, colorScheme]);
 
   const handleSelect = (item: any) => {
     if (item.isBack) {
@@ -368,8 +368,8 @@ export default function CommandMenu() {
           )}
         </DialogHeader>
 
-        <ScrollArea className="max-h-[450px] w-full flex-1 [&>[data-radix-scroll-area-viewport]]:!block overflow-auto">
-          <div className="p-2 flex flex-col gap-1 w-full box-border">
+        <ScrollArea className="max-h-[450px] w-full flex-1 [&>div>div]:!block overflow-auto">
+          <div className="p-2 flex flex-col gap-1 w-full box-border overflow-x-hidden">
             {filteredItems.length > 0 ? (
               filteredItems.map((item: any, index) => {
                 const Icon = iconMap[item.icon] || Terminal;

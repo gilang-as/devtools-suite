@@ -168,7 +168,7 @@ export default function DiffCheckerPage() {
           </CardHeader>
           <CardContent className="p-0">
             <div className="font-code text-sm overflow-x-auto bg-[#fafafa] dark:bg-[#0f1115]">
-              <div className="min-w-full">
+              <div className="w-full">
                 {diffLinesWithNumbers.map((row) => (
                   <div 
                     key={row.key} 
