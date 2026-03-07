@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://devtools-suite.app';
 const SITE_NAME = 'DevTools Suite';
-const DEFAULT_DESCRIPTION = 'Premium online developer tools for everyday encoding, encryption, formatting, and networking tasks. Private, fast, and free.';
+const DEFAULT_DESCRIPTION = 'Free online developer tools for encoding, encryption, formatting, and networking. Secure, fast, and private utilities for web developers.';
 
 export interface SEOConfig {
   title: string;
