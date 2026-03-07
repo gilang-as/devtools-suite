@@ -40,7 +40,7 @@ export default function Home() {
       </section>
 
       <section className="max-w-4xl mx-auto space-y-8">
-        {/* Search Trigger - Zooms into Spotlight */}
+        {/* Search Trigger - Transitions into Spotlight */}
         <div 
           className="relative group cursor-pointer active:scale-[0.98] transition-all transform hover:scale-[1.01]"
           onClick={openSpotlight}

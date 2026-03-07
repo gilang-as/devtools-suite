@@ -302,12 +302,12 @@ export default function CommandMenu() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden flex flex-col data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-90 data-[state=open]:slide-in-from-top-10 data-[state=open]:duration-300">
+      <DialogContent className="max-w-2xl p-0 gap-0 overflow-hidden border-none shadow-2xl bg-background/80 backdrop-blur-xl [&>button]:hidden flex flex-col data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-top-4 data-[state=open]:duration-300 origin-top">
         <DialogHeader className="p-0 border-b shrink-0">
           <DialogTitle className="sr-only">Spotlight</DialogTitle>
           <div className="flex items-center gap-4 px-6 h-16">
             {view !== 'root' ? (
-              <Button variant="ghost" size="icon" onClick={() => handleSelect({ isBack: true })} className="h-8 w-8">
+              <Button variant="ghost" size="icon" onClick={() => handleSelect({ isBack: true })} className="h-8 w-8 transition-transform active:scale-90">
                 <ArrowLeft className="h-4 w-4" />
               </Button>
             ) : (
@@ -338,7 +338,7 @@ export default function CommandMenu() {
                 size="sm"
                 className={cn(
                   "h-7 text-[10px] uppercase font-bold tracking-widest rounded-full px-3 transition-all",
-                  selectedCategory === null && "shadow-md"
+                  selectedCategory === null && "shadow-md scale-105"
                 )}
                 onClick={() => {
                   setSelectedCategory(null);
@@ -355,7 +355,7 @@ export default function CommandMenu() {
                   size="sm"
                   className={cn(
                     "h-7 text-[10px] uppercase font-bold tracking-widest rounded-full px-3 transition-all whitespace-nowrap",
-                    selectedCategory === cat && "shadow-md"
+                    selectedCategory === cat && "shadow-md scale-105"
                   )}
                   onClick={() => {
                     setSelectedCategory(cat);
@@ -385,7 +385,7 @@ export default function CommandMenu() {
                     ref={(el) => { itemRefs.current[index] = el; }}
                     className={cn(
                       "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer transition-all w-full overflow-hidden",
-                      isCurrentItem ? "bg-primary text-primary-foreground shadow-lg" : "hover:bg-accent hover:text-accent-foreground"
+                      isCurrentItem ? "bg-primary text-primary-foreground shadow-lg scale-[1.01]" : "hover:bg-accent hover:text-accent-foreground"
                     )}
                     onClick={() => handleSelect(item)}
                     onMouseEnter={() => {
@@ -393,7 +393,7 @@ export default function CommandMenu() {
                     }}
                   >
                     <div className={cn(
-                      "p-2 rounded-md shrink-0",
+                      "p-2 rounded-md shrink-0 transition-colors",
                       isCurrentItem ? "bg-white/20" : "bg-primary/10 text-primary"
                     )}>
                       <Icon className="h-5 w-5" />
@@ -410,9 +410,9 @@ export default function CommandMenu() {
                       )}
                     </div>
                     {item.type === 'nav' || item.type === 'color' ? (
-                      <ChevronRight className={cn("h-4 w-4 shrink-0", isCurrentItem ? "text-white" : "text-muted-foreground")} />
+                      <ChevronRight className={cn("h-4 w-4 shrink-0 transition-transform", isCurrentItem ? "text-white translate-x-1" : "text-muted-foreground")} />
                     ) : item.category && (
-                      <Badge variant="secondary" className={cn("text-[10px] uppercase font-black shrink-0", isCurrentItem && "bg-white/20 text-white")}>
+                      <Badge variant="secondary" className={cn("text-[10px] uppercase font-black shrink-0 transition-colors", isCurrentItem && "bg-white/20 text-white")}>
                         {item.category}
                       </Badge>
                     )}
@@ -430,17 +430,17 @@ export default function CommandMenu() {
         
         <div className="p-3 border-t bg-muted/20 flex items-center justify-between text-[10px] text-muted-foreground uppercase font-bold tracking-widest shrink-0">
           <div className="flex flex-wrap gap-x-4 gap-y-1">
-            <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">↑↓</kbd> {t('home.navigate')}</span>
+            <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded shadow-sm">↑↓</kbd> {t('home.navigate')}</span>
             {view === 'root' && availableCategories.length > 0 && (
-              <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">←→</kbd> Categories</span>
+              <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded shadow-sm">←→</kbd> Categories</span>
             )}
-            <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">Enter</kbd> {t('home.select')}</span>
+            <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded shadow-sm">Enter</kbd> {t('home.select')}</span>
             {view !== 'root' && (
-              <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded">BS</kbd> Back</span>
+              <span className="flex items-center gap-1"><kbd className="border bg-background px-1 rounded shadow-sm">BS</kbd> Back</span>
             )}
           </div>
           <div className="hidden sm:flex items-center gap-2">
-            <Badge variant="outline" className="text-[9px] border-primary/20 text-primary uppercase">
+            <Badge variant="outline" className="text-[9px] border-primary/20 text-primary uppercase bg-primary/5">
               {view} view
             </Badge>
           </div>

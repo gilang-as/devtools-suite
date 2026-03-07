@@ -61,12 +61,12 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Search Input - Hidden on Home Page */}
+        {/* Search Input - Hidden on Home Page, shown elsewhere */}
         {!isHome && (
           <div className="hidden md:flex items-center flex-1 max-w-md mx-8">
             <Button 
               variant="outline" 
-              className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50"
+              className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50 active:scale-[0.98]"
               onClick={openSearch}
             >
               <Search className="mr-2 h-4 w-4" />
