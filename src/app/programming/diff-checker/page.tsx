@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useMemo } from 'react';
@@ -19,6 +18,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { ToolSEOContent } from '@/components/tools/ToolSEOContent';
 
 export default function DiffCheckerPage() {
   const { t } = useTranslation();
@@ -205,6 +205,28 @@ export default function DiffCheckerPage() {
           <p>No differences found. Both texts are identical.</p>
         </div>
       )}
+
+      <ToolSEOContent 
+        title="Text Difference Checking"
+        sections={[
+          {
+            title: "What is a Diff Checker?",
+            content: "A Diff Checker is a utility that compares two blocks of text, code, or data to identify exactly what has changed between versions. It highlights 'additions' (new content) and 'deletions' (removed content), similar to the comparison tools found in version control systems like Git."
+          },
+          {
+            title: "How to use this tool?",
+            content: "Paste your 'Original Text' into the left field and your 'Modified Text' into the right field. Click 'Compare' to see a unified view. Red highlights indicate removals, while green highlights indicate additions. You can also swap the inputs or clear both fields instantly."
+          },
+          {
+            title: "Use Cases for Developers",
+            content: "This tool is perfect for comparing source code patches, identifying changes in configuration files (like JSON or YAML), checking for plagiarism, or simply seeing the edits made to a long article. It helps you verify that your changes are exactly as intended."
+          },
+          {
+            title: "Line-by-Line Analysis",
+            content: "Our implementation uses a sophisticated line-by-line algorithm that maintains line numbers for both the original and modified versions. This 'side-by-side' logic makes it easy to reference specific locations in large documents without losing context."
+          }
+        ]}
+      />
     </div>
   );
 }

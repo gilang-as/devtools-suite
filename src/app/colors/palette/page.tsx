@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useEffect, useMemo, useRef } from 'react';
@@ -21,6 +20,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Copy, Palette, Pipette, Share2, Code2, Check, LayoutGrid } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { ToolSEOContent } from '@/components/tools/ToolSEOContent';
 
 type PaletteType = 'analogous' | 'complementary' | 'triadic' | 'tetradic' | 'monochromatic';
 
@@ -194,6 +194,28 @@ export default function ColorPalettePage() {
           </Card>
         </div>
       </div>
+
+      <ToolSEOContent 
+        title="Color Palette Generation"
+        sections={[
+          {
+            title: "What is a Color Palette Generator?",
+            content: "A Color Palette Generator is a design tool that helps creators find groups of colors that work together aesthetically. Based on the Mathematical principles of Color Theory, it identifies harmonic relationships like Complementary or Triadic schemes to create professional UI designs."
+          },
+          {
+            title: "Importance of Color Harmony",
+            content: "Color harmony is the visual balance created by selecting colors that evoke specific moods or direct the user's attention. For example, 'Monochromatic' palettes are soothing and easy to read, while 'Complementary' palettes provide high contrast, perfect for call-to-action buttons."
+          },
+          {
+            title: "How to generate your palette?",
+            content: "Start by selecting a 'Base Color' that represents your brand or main theme. Then, choose a 'Harmony Logic' from the sidebar. Our tool will instantly calculate the supporting colors. You can preview how the colors look together and export them directly as CSS Variables for your project."
+          },
+          {
+            title: "Developer-Friendly Export",
+            content: "Unlike standard design tools, our generator is built for web development. You can export the entire palette as a JSON object or a series of CSS variables. This makes it easy to integrate the generated colors into Tailwind CSS configurations or standard CSS stylesheets."
+          }
+        ]}
+      />
     </div>
   );
 }

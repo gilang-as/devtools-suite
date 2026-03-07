@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useMemo, useEffect } from 'react';
@@ -11,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Network, Search, Trash2, Globe, Binary, Info, ChevronRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { ToolSEOContent } from '@/components/tools/ToolSEOContent';
 
 export default function SubnetCalculatorPage() {
   const { t } = useTranslation();
@@ -177,6 +177,28 @@ export default function SubnetCalculatorPage() {
           )}
         </div>
       </div>
+
+      <ToolSEOContent 
+        title="IPv4 Subnet Calculation"
+        sections={[
+          {
+            title: "What is an IP Subnet?",
+            content: "Subnetting is the practice of dividing a network into two or more smaller networks. It improves routing efficiency, enhances network security by isolating traffic, and helps manage IP address allocation more effectively. Each subnet has its own Network and Broadcast address."
+          },
+          {
+            title: "Understanding CIDR",
+            content: "CIDR (Classless Inter-Domain Routing) is a method for allocating IP addresses and IP routing. It uses a prefix-length notation (e.g., /24) to represent the number of fixed bits in the network mask. This replaced the older Class A, B, and C system, allowing for much more granular network sizes."
+          },
+          {
+            title: "How to use this calculator?",
+            content: "Input your starting IP address and select a subnet mask or CIDR prefix. Our calculator will instantly determine the network boundaries, the usable host range (first and last usable IP), and the total capacity of the network. We also provide binary representations for low-level debugging."
+          },
+          {
+            title: "Usable vs. Total Hosts",
+            content: "In standard IPv4 networking, two addresses in every subnet are reserved: the first address (Network Address) and the last address (Broadcast Address). Therefore, the number of usable hosts is always the total number of addresses minus two (2^n - 2)."
+          }
+        ]}
+      />
     </div>
   );
 }

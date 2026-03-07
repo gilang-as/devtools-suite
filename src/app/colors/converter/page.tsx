@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useEffect, useMemo, useRef } from 'react';
@@ -21,6 +20,7 @@ import { Slider } from '@/components/ui/slider';
 import { Copy, Palette, Hash, Trash2, RefreshCcw, Pipette, Share2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { ToolSEOContent } from '@/components/tools/ToolSEOContent';
 
 export default function ColorConverterPage() {
   const { t } = useTranslation();
@@ -203,6 +203,28 @@ export default function ColorConverterPage() {
           </Card>
         </div>
       </div>
+
+      <ToolSEOContent 
+        title="Color Conversion"
+        sections={[
+          {
+            title: "What is a Color Converter?",
+            content: "A Color Converter is a tool that allows you to translate color values between different digital formats such as HEX, RGB, and HSL. This is essential for web developers and designers who need to ensure color consistency across various CSS frameworks, design tools like Figma, and different browser rendering engines."
+          },
+          {
+            title: "Understanding Color Formats",
+            content: "HEX (Hexadecimal) uses a base-16 numbering system, common in CSS. RGB (Red, Green, Blue) represents colors as light combinations. HSL (Hue, Saturation, Lightness) is often preferred by designers because it is more intuitive for adjusting how 'vibrant' or 'bright' a color is."
+          },
+          {
+            title: "How to use this tool?",
+            content: "Simply type your color value into the 'Value' field. It automatically detects HEX, RGB, or HSL strings. You can also use the live sliders to fine-tune the Hue, Saturation, and Lightness. The large preview block updates instantly, and you can copy implementation snippets for your CSS files."
+          },
+          {
+            title: "Privacy and Accuracy",
+            content: "All calculations are performed client-side in your browser using high-precision conversion algorithms. No data is sent to a server, ensuring your project's brand colors remain private. Our converter supports the Alpha channel (opacity) for full transparency control in modern web design."
+          }
+        ]}
+      />
     </div>
   );
 }
