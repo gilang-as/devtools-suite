@@ -60,9 +60,11 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Search Input Container - Always rendered but content varies */}
+        {/* Search Input Container - Stable slot to prevent hydration mismatch */}
         <div className="hidden md:flex items-center flex-1 max-w-md mx-8 min-h-[40px]">
-          {mounted && !isHome ? (
+          {!mounted ? (
+            <div className="w-full h-10" />
+          ) : !isHome ? (
             <Button 
               variant="outline" 
               className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50 active:scale-[0.98] animate-in fade-in zoom-in-95 duration-300"
@@ -76,14 +78,14 @@ export default function Header() {
                 <span className="text-xs">⌘</span>K
               </kbd>
             </Button>
-          ) : (
-            <div className="w-full h-10" />
-          )}
+          ) : null}
         </div>
 
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2 min-w-[80px] justify-end">
-            {mounted ? (
+            {!mounted ? (
+              <div className="w-20 h-9 bg-muted/20 rounded-md animate-pulse" />
+            ) : (
               <>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -115,8 +117,6 @@ export default function Header() {
                   <span className="sr-only">Toggle theme</span>
                 </Button>
               </>
-            ) : (
-              <div className="w-20 h-9 bg-muted/20 rounded-md animate-pulse" />
             )}
           </div>
           
