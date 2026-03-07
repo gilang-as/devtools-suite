@@ -90,9 +90,9 @@ export function generateMetadata(config: SEOConfig): Metadata {
     icons: {
       icon: [
         { url: '/favicon.ico' },
-        { url: '/logo.svg', type: 'image/svg+xml' },
+        { url: '/icon.svg', type: 'image/svg+xml' },
       ],
-      shortcut: '/logo.svg',
+      shortcut: '/icon.svg',
       apple: '/apple-touch-icon.png',
     },
   };

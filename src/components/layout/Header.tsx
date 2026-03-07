@@ -52,7 +52,7 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center space-x-2" onClick={() => setIsMenuOpen(false)}>
             <div className="bg-primary/10 p-1.5 rounded-lg">
-              <Logo size={24} className="text-primary" />
+              <Logo size={24} />
             </div>
             <span className="font-headline font-bold text-xl tracking-tight">
               DevTools Suite
