@@ -456,7 +456,7 @@ export default function JsonFormatterPage() {
                   <LineNumbers text={output} />
                   <div className="flex-1 overflow-auto bg-[#fafafa] dark:bg-[#0f1115]">
                     <div className={cn(
-                      "font-code w-full min-h-full leading-6 py-2.5 px-3",
+                      "font-code min-w-full inline-block min-h-full leading-6 py-2.5 px-3",
                       wordWrap ? "whitespace-pre-wrap" : "whitespace-pre"
                     )}>
                       {highlightedOutput || <span className="text-muted-foreground/50">Formatted results will appear here...</span>}
@@ -468,7 +468,9 @@ export default function JsonFormatterPage() {
                   "flex-1 overflow-auto p-4 bg-[#fafafa] dark:bg-[#0f1115] font-code",
                   !wordWrap && "overflow-x-auto"
                 )}>
-                  {parsedOutput && <JsonTreeNode value={parsedOutput} wordWrap={wordWrap} />}
+                  <div className="inline-block min-w-full">
+                    {parsedOutput && <JsonTreeNode value={parsedOutput} wordWrap={wordWrap} />}
+                  </div>
                 </div>
               )}
             </div>
