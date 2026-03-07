@@ -1,8 +1,9 @@
-
 import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { I18nProvider } from '@/components/providers/i18n-provider';
+import { FirebaseProvider } from '@/firebase/provider';
+import { AnalyticsProvider } from '@/components/providers/analytics-provider';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import CommandMenu from '@/components/layout/CommandMenu';
@@ -33,13 +34,16 @@ export default function RootLayout({
       <body className="font-body antialiased flex flex-col min-h-screen">
         <I18nProvider>
           <ThemeProvider defaultTheme="system" storageKey="devtools-theme">
-            <Header />
-            <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
-              {children}
-            </main>
-            <Footer />
-            <CommandMenu />
-            <Toaster />
+            <FirebaseProvider>
+              <AnalyticsProvider />
+              <Header />
+              <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
+                {children}
+              </main>
+              <Footer />
+              <CommandMenu />
+              <Toaster />
+            </FirebaseProvider>
           </ThemeProvider>
         </I18nProvider>
       </body>
