@@ -159,20 +159,20 @@ export default function CommandMenu() {
     if (!activeItem || activeItem.isBack) {
       const checkpoint = checkpoints[view];
       if (checkpoint) {
-        setTheme(checkpoint.theme);
-        setColorScheme(checkpoint.colorScheme);
+        if (theme !== checkpoint.theme) setTheme(checkpoint.theme);
+        if (colorScheme !== checkpoint.colorScheme) setColorScheme(checkpoint.colorScheme);
       }
       return;
     }
 
     if (view === 'colors' && activeItem.type === 'color') {
-      setColorScheme(activeItem.id);
+      if (colorScheme !== activeItem.id) setColorScheme(activeItem.id);
     } else if (view === 'modes' && activeItem.type === 'mode') {
-      setTheme(activeItem.id as any);
+      if (theme !== activeItem.id) setTheme(activeItem.id as any);
     } else if (view === 'color-modes' && activeItem.type === 'apply-all') {
-      setTheme(activeItem.id as any);
+      if (theme !== activeItem.id) setTheme(activeItem.id as any);
     }
-  }, [selectedIndex, filteredItems, view, open, setTheme, setColorScheme, checkpoints]);
+  }, [selectedIndex, filteredItems, view, open, setTheme, setColorScheme, checkpoints, theme, colorScheme]);
 
   const handleSelect = (item: any) => {
     if (item.isBack) {
