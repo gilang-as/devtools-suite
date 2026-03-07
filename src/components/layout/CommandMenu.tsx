@@ -368,8 +368,8 @@ export default function CommandMenu() {
           )}
         </DialogHeader>
 
-        <ScrollArea className="max-h-[450px] w-full flex-1 [&_[data-radix-scroll-area-viewport]]:!block overflow-auto">
-          <div className="p-2 flex flex-col gap-1 w-full box-border">
+        <ScrollArea className="max-h-[450px] w-full flex-1 [&>div>div]:!block overflow-auto">
+          <div className="p-2 flex flex-col gap-1 w-full box-border overflow-x-hidden">
             {filteredItems.length > 0 ? (
               filteredItems.map((item: any, index) => {
                 const Icon = iconMap[item.icon] || Terminal;
