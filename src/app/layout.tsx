@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { I18nProvider } from '@/components/providers/i18n-provider';
@@ -9,13 +9,45 @@ import Footer from '@/components/layout/Footer';
 import CommandMenu from '@/components/layout/CommandMenu';
 import { Toaster } from '@/components/ui/toaster';
 
+export const viewport: Viewport = {
+  themeColor: '#3b82f6',
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
-  title: 'DevTools Suite',
-  description: 'Modern developer tools for everyday encoding, decoding, and formatting tasks.',
+  metadataBase: new URL('https://devtools-suite.app'),
+  title: {
+    default: 'DevTools Suite - Modern Developer Toolbelt',
+    template: '%s | DevTools Suite',
+  },
+  description: 'Premium online developer tools for everyday encoding, encryption, formatting, and networking tasks. Private, fast, and free.',
+  keywords: ['developer tools', 'base64 encoder', 'json formatter', 'regex tester', 'jwt decoder', 'subnet calculator', 'sha256 hash', 'unix converter'],
+  authors: [{ name: 'DevTools Suite Team' }],
+  creator: 'DevTools Suite',
   openGraph: {
-    title: 'DevTools Suite',
-    description: 'Modern developer tools for everyday encoding, decoding, and formatting tasks.',
     type: 'website',
+    locale: 'en_US',
+    url: 'https://devtools-suite.app',
+    title: 'DevTools Suite - Modern Developer Toolbelt',
+    description: 'Fast, secure, and modern developer tools for everyone.',
+    siteName: 'DevTools Suite',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'DevTools Suite',
+    description: 'Modern online developer tools.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
