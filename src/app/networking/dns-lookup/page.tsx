@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Network, Lock, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Turnstile } from '@marsidev/react-turnstile';
+import { ToolSEOContent } from '@/components/tools/ToolSEOContent';
 
 type RecordGroup = {
   title: string;
@@ -265,6 +266,28 @@ export default function DnsLookupPage() {
           )}
         </div>
       </div>
+
+      <ToolSEOContent 
+        title="DNS Lookup & Network Inspection"
+        sections={[
+          {
+            title: "What is DNS?",
+            content: "DNS (Domain Name System) is the internet's equivalent of a phone book. It translates human-readable domain names (like devtools-suite.app) into machine-readable IP addresses (like 192.0.2.1). Understanding your DNS records is crucial for website accessibility and security."
+          },
+          {
+            title: "Why use this lookup tool?",
+            content: "Standard command-line tools like 'dig' or 'nslookup' can be complex. Our tool provides a clean, visual breakdown of all record types (A, MX, TXT, etc.) using multiple global DNS providers to ensure you get the most accurate and propagated data."
+          },
+          {
+            title: "Common DNS Record Types",
+            content: "A Records map domains to IPv4; AAAA map to IPv6. MX records handle email routing. TXT records are often used for security verification (like SPF or DKIM). CNAME records act as aliases, pointing one domain name to another."
+          },
+          {
+            title: "Security & Propagation",
+            content: "We fetch results from Google, Cloudflare, and Quad9. This helps you verify if your DNS changes have propagated globally or if certain providers are serving outdated records (caching issues)."
+          }
+        ]}
+      />
     </div>
   );
 }

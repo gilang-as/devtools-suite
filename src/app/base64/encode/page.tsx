@@ -13,6 +13,7 @@ import { Switch } from '@/components/ui/switch';
 import { Copy, Trash2, Hash } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { ToolSEOContent } from '@/components/tools/ToolSEOContent';
 
 export default function Base64EncodePage() {
   const { t } = useTranslation();
@@ -134,6 +135,28 @@ export default function Base64EncodePage() {
           </CardContent>
         </Card>
       </div>
+
+      <ToolSEOContent 
+        title="Base64 Encoding"
+        sections={[
+          {
+            title: "What is Base64 Encoding?",
+            content: "Base64 is a group of binary-to-text encoding schemes that represent binary data in an ASCII string format by translating it into a radix-64 representation. This is commonly used when there is a need to encode binary data that needs to be stored and transferred over media that are designed to deal with textual data."
+          },
+          {
+            title: "When should you use Base64?",
+            content: "Base64 is essential for embedding image data within HTML or CSS files (Data URIs), sending attachments via email (MIME), or passing complex data structures in URL parameters without worrying about character escaping."
+          },
+          {
+            title: "How to use this tool?",
+            content: "Our encoder works in real-time. Simply start typing or paste your content into the input field. The 'Live Mode' toggle ensures that the Base64 result updates instantly as you type. Once finished, use the copy button to save the result to your clipboard."
+          },
+          {
+            title: "Privacy and Security",
+            content: "Unlike other online converters, our Base64 tool performs all calculations locally in your browser. Your sensitive strings or data fragments are never sent to a server, making it safe for developers working with API keys or personal tokens."
+          }
+        ]}
+      />
     </div>
   );
 }
