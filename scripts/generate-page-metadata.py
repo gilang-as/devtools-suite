@@ -301,6 +301,379 @@ TOOL_METADATA = {
         'description': 'Generate secure random tokens for authentication.',
         'keywords': ['token generator', 'secure token', 'auth token']
     },
+    
+    # Additional Hashing
+    '/hashing/adler32': {
+        'title': 'Adler-32 Checksum Generator | DevTools Suite',
+        'description': 'Generate Adler-32 checksums for data verification.',
+        'keywords': ['adler32', 'checksum', 'data integrity']
+    },
+    '/hashing/crc32': {
+        'title': 'CRC32 Checksum Generator | DevTools Suite',
+        'description': 'Generate CRC32 checksums for data verification.',
+        'keywords': ['CRC32', 'checksum', 'data verification']
+    },
+    '/hashing/pbkdf2': {
+        'title': 'PBKDF2 Password Hash | DevTools Suite',
+        'description': 'Generate secure PBKDF2 password hashes.',
+        'keywords': ['PBKDF2', 'password hash', 'key derivation']
+    },
+    '/hashing/hmac-sha1': {
+        'title': 'HMAC-SHA1 Generator | DevTools Suite',
+        'description': 'Generate HMAC-SHA1 message authentication codes.',
+        'keywords': ['HMAC', 'SHA1', 'authentication', 'MAC']
+    },
+    '/hashing/hmac-sha256': {
+        'title': 'HMAC-SHA256 Generator | DevTools Suite',
+        'description': 'Generate HMAC-SHA256 message authentication codes.',
+        'keywords': ['HMAC', 'SHA256', 'authentication', 'MAC']
+    },
+    '/hashing/hmac-sha512': {
+        'title': 'HMAC-SHA512 Generator | DevTools Suite',
+        'description': 'Generate HMAC-SHA512 message authentication codes.',
+        'keywords': ['HMAC', 'SHA512', 'authentication', 'MAC']
+    },
+    
+    # DateTime Tools
+    '/datetime/unix-converter': {
+        'title': 'Unix Timestamp Converter | DevTools Suite',
+        'description': 'Convert between Unix timestamps and readable dates.',
+        'keywords': ['unix timestamp', 'epoch converter', 'timestamp']
+    },
+    '/datetime/unix-generator': {
+        'title': 'Unix Timestamp Generator | DevTools Suite',
+        'description': 'Generate current or custom Unix timestamps.',
+        'keywords': ['unix timestamp', 'epoch', 'timestamp generator']
+    },
+    '/datetime/cron-parser': {
+        'title': 'Cron Expression Parser | DevTools Suite',
+        'description': 'Parse and understand cron expressions.',
+        'keywords': ['cron parser', 'cron expression', 'schedule']
+    },
+    '/datetime/cron-generator': {
+        'title': 'Cron Expression Generator | DevTools Suite',
+        'description': 'Generate cron expressions for task scheduling.',
+        'keywords': ['cron generator', 'cron expression', 'schedule']
+    },
+    '/datetime/timezone-converter': {
+        'title': 'Timezone Converter | DevTools Suite',
+        'description': 'Convert times between different timezones.',
+        'keywords': ['timezone converter', 'time conversion', 'UTC']
+    },
+    '/datetime/iso8601': {
+        'title': 'ISO8601 Date Formatter | DevTools Suite',
+        'description': 'Convert and format dates in ISO8601 standard.',
+        'keywords': ['ISO8601', 'date format', 'ISO format']
+    },
+    
+    # JSON Tools
+    '/json/to-csv': {
+        'title': 'JSON to CSV Converter | DevTools Suite',
+        'description': 'Convert JSON data to CSV format.',
+        'keywords': ['JSON to CSV', 'CSV converter', 'data conversion']
+    },
+    '/json/to-typescript': {
+        'title': 'JSON to TypeScript | DevTools Suite',
+        'description': 'Generate TypeScript interfaces from JSON.',
+        'keywords': ['JSON to TypeScript', 'type generation', 'interface']
+    },
+    '/json/to-java-class': {
+        'title': 'JSON to Java Class | DevTools Suite',
+        'description': 'Generate Java classes from JSON schema.',
+        'keywords': ['JSON to Java', 'class generator', 'POJO']
+    },
+    '/json/to-golang-struct': {
+        'title': 'JSON to Go Struct | DevTools Suite',
+        'description': 'Generate Go structs from JSON data.',
+        'keywords': ['JSON to Go', 'struct generator', 'golang']
+    },
+    '/json/to-rust-struct': {
+        'title': 'JSON to Rust Struct | DevTools Suite',
+        'description': 'Generate Rust structs from JSON schema.',
+        'keywords': ['JSON to Rust', 'struct generator', 'rust']
+    },
+    '/json/to-toml': {
+        'title': 'JSON to TOML Converter | DevTools Suite',
+        'description': 'Convert JSON to TOML format.',
+        'keywords': ['JSON to TOML', 'TOML converter', 'config format']
+    },
+    '/json/to-xml': {
+        'title': 'JSON to XML Converter | DevTools Suite',
+        'description': 'Convert JSON to XML format.',
+        'keywords': ['JSON to XML', 'XML converter', 'data format']
+    },
+    '/json/to-yaml': {
+        'title': 'JSON to YAML Converter | DevTools Suite',
+        'description': 'Convert JSON to YAML format.',
+        'keywords': ['JSON to YAML', 'YAML converter', 'config format']
+    },
+    
+    # Format Converters
+    '/csv/to-json': {
+        'title': 'CSV to JSON Converter | DevTools Suite',
+        'description': 'Convert CSV data to JSON format.',
+        'keywords': ['CSV to JSON', 'CSV converter', 'data conversion']
+    },
+    '/xml/formatter': {
+        'title': 'XML Formatter | DevTools Suite',
+        'description': 'Format and pretty-print XML documents.',
+        'keywords': ['XML formatter', 'XML beautifier', 'XML editor']
+    },
+    '/xml/to-json': {
+        'title': 'XML to JSON Converter | DevTools Suite',
+        'description': 'Convert XML to JSON format.',
+        'keywords': ['XML to JSON', 'JSON converter', 'data conversion']
+    },
+    '/yaml/to-json': {
+        'title': 'YAML to JSON Converter | DevTools Suite',
+        'description': 'Convert YAML to JSON format.',
+        'keywords': ['YAML to JSON', 'JSON converter', 'config format']
+    },
+    '/toml/to-json': {
+        'title': 'TOML to JSON Converter | DevTools Suite',
+        'description': 'Convert TOML to JSON format.',
+        'keywords': ['TOML to JSON', 'JSON converter', 'config format']
+    },
+    
+    # Code Formatters
+    '/javascript/formatter': {
+        'title': 'JavaScript Formatter | DevTools Suite',
+        'description': 'Format and beautify JavaScript code.',
+        'keywords': ['JavaScript formatter', 'code beautifier', 'JS formatter']
+    },
+    '/typescript/formatter': {
+        'title': 'TypeScript Formatter | DevTools Suite',
+        'description': 'Format and beautify TypeScript code.',
+        'keywords': ['TypeScript formatter', 'code beautifier', 'TS formatter']
+    },
+    '/css/formatter': {
+        'title': 'CSS Formatter | DevTools Suite',
+        'description': 'Format and beautify CSS stylesheets.',
+        'keywords': ['CSS formatter', 'code beautifier', 'CSS minifier']
+    },
+    '/html/formatter': {
+        'title': 'HTML Formatter | DevTools Suite',
+        'description': 'Format and beautify HTML documents.',
+        'keywords': ['HTML formatter', 'code beautifier', 'HTML editor']
+    },
+    
+    # Security Tools
+    '/security/jwt/decode': {
+        'title': 'JWT Decoder | DevTools Suite',
+        'description': 'Decode and verify JWT tokens.',
+        'keywords': ['JWT decoder', 'JWT validator', 'token decoder']
+    },
+    '/security/jwt/encode': {
+        'title': 'JWT Encoder | DevTools Suite',
+        'description': 'Create and sign JWT tokens.',
+        'keywords': ['JWT encoder', 'JWT creator', 'token generator']
+    },
+    '/security/jwt/verify': {
+        'title': 'JWT Verifier | DevTools Suite',
+        'description': 'Verify JWT token signatures and claims.',
+        'keywords': ['JWT verify', 'token verification', 'signature check']
+    },
+    '/security/rsa/encrypt': {
+        'title': 'RSA Encryption Tool | DevTools Suite',
+        'description': 'Encrypt data using RSA public key.',
+        'keywords': ['RSA encryption', 'public key', 'encryption']
+    },
+    '/security/rsa/decrypt': {
+        'title': 'RSA Decryption Tool | DevTools Suite',
+        'description': 'Decrypt data using RSA private key.',
+        'keywords': ['RSA decryption', 'private key', 'decryption']
+    },
+    '/security/rsa/sign': {
+        'title': 'RSA Signature Generator | DevTools Suite',
+        'description': 'Create digital signatures with RSA.',
+        'keywords': ['RSA sign', 'digital signature', 'signing']
+    },
+    '/security/rsa/verify': {
+        'title': 'RSA Signature Verifier | DevTools Suite',
+        'description': 'Verify RSA digital signatures.',
+        'keywords': ['RSA verify', 'signature verification', 'verify']
+    },
+    '/security/aes/encrypt': {
+        'title': 'AES Encryption Tool | DevTools Suite',
+        'description': 'Encrypt data using AES algorithm.',
+        'keywords': ['AES encryption', 'AES-256', 'symmetric encryption']
+    },
+    '/security/aes/decrypt': {
+        'title': 'AES Decryption Tool | DevTools Suite',
+        'description': 'Decrypt AES encrypted data.',
+        'keywords': ['AES decryption', 'AES-256', 'symmetric decryption']
+    },
+    '/security/des/encrypt': {
+        'title': 'DES Encryption Tool | DevTools Suite',
+        'description': 'Encrypt data using DES algorithm.',
+        'keywords': ['DES encryption', 'symmetric encryption']
+    },
+    '/security/des/decrypt': {
+        'title': 'DES Decryption Tool | DevTools Suite',
+        'description': 'Decrypt DES encrypted data.',
+        'keywords': ['DES decryption', 'symmetric decryption']
+    },
+    '/security/3des/encrypt': {
+        'title': 'Triple DES Encryption | DevTools Suite',
+        'description': 'Encrypt data using Triple DES algorithm.',
+        'keywords': ['3DES', 'triple DES', 'encryption']
+    },
+    '/security/3des/decrypt': {
+        'title': 'Triple DES Decryption | DevTools Suite',
+        'description': 'Decrypt Triple DES encrypted data.',
+        'keywords': ['3DES', 'triple DES', 'decryption']
+    },
+    '/security/chacha20/encrypt': {
+        'title': 'ChaCha20 Encryption | DevTools Suite',
+        'description': 'Encrypt data using ChaCha20 cipher.',
+        'keywords': ['ChaCha20', 'modern encryption', 'cipher']
+    },
+    '/security/chacha20/decrypt': {
+        'title': 'ChaCha20 Decryption | DevTools Suite',
+        'description': 'Decrypt ChaCha20 encrypted data.',
+        'keywords': ['ChaCha20', 'cipher decryption', 'decrypt']
+    },
+    '/security/pgp/encrypt': {
+        'title': 'PGP Encryption Tool | DevTools Suite',
+        'description': 'Encrypt messages using PGP/OpenPGP.',
+        'keywords': ['PGP encryption', 'GPG', 'public key encryption']
+    },
+    '/security/pgp/decrypt': {
+        'title': 'PGP Decryption Tool | DevTools Suite',
+        'description': 'Decrypt PGP encrypted messages.',
+        'keywords': ['PGP decryption', 'GPG', 'private key decryption']
+    },
+    '/security/pgp/sign': {
+        'title': 'PGP Signature Generator | DevTools Suite',
+        'description': 'Create PGP digital signatures.',
+        'keywords': ['PGP sign', 'GPG sign', 'digital signature']
+    },
+    '/security/pgp/verify': {
+        'title': 'PGP Signature Verifier | DevTools Suite',
+        'description': 'Verify PGP signatures.',
+        'keywords': ['PGP verify', 'signature verification', 'GPG']
+    },
+    '/security/certificate/decode': {
+        'title': 'SSL Certificate Decoder | DevTools Suite',
+        'description': 'Decode and analyze SSL/TLS certificates.',
+        'keywords': ['certificate decoder', 'SSL cert', 'X.509']
+    },
+    '/security/csr/decode': {
+        'title': 'CSR Decoder | DevTools Suite',
+        'description': 'Decode and analyze Certificate Signing Requests.',
+        'keywords': ['CSR decoder', 'certificate request', 'signing request']
+    },
+    '/security/pem-der-converter': {
+        'title': 'PEM/DER Converter | DevTools Suite',
+        'description': 'Convert certificates between PEM and DER formats.',
+        'keywords': ['PEM converter', 'DER converter', 'certificate format']
+    },
+    '/security/asn1': {
+        'title': 'ASN.1 Decoder | DevTools Suite',
+        'description': 'Decode and analyze ASN.1 structures.',
+        'keywords': ['ASN.1 decoder', 'DER parser', 'structure analysis']
+    },
+    '/security/x509': {
+        'title': 'X.509 Certificate Analyzer | DevTools Suite',
+        'description': 'Analyze X.509 certificate contents.',
+        'keywords': ['X.509', 'certificate analyzer', 'cert info']
+    },
+    '/security/spki': {
+        'title': 'SPKI Key Decoder | DevTools Suite',
+        'description': 'Decode SubjectPublicKeyInfo structures.',
+        'keywords': ['SPKI', 'public key', 'key format']
+    },
+    '/security/ecc': {
+        'title': 'ECC Key Generator | DevTools Suite',
+        'description': 'Generate Elliptic Curve Cryptography keys.',
+        'keywords': ['ECC', 'elliptic curve', 'key generator']
+    },
+    '/security/ecc/sign': {
+        'title': 'ECC Signature Generator | DevTools Suite',
+        'description': 'Create signatures using ECC keys.',
+        'keywords': ['ECC sign', 'elliptic curve', 'signature']
+    },
+    '/security/ecc/verify': {
+        'title': 'ECC Signature Verifier | DevTools Suite',
+        'description': 'Verify ECC digital signatures.',
+        'keywords': ['ECC verify', 'signature verification', 'elliptic curve']
+    },
+    '/security/openpgp': {
+        'title': 'OpenPGP Tool | DevTools Suite',
+        'description': 'Work with OpenPGP keys and messages.',
+        'keywords': ['OpenPGP', 'PGP', 'GPG', 'encryption']
+    },
+    '/security/jose': {
+        'title': 'JOSE Tool | DevTools Suite',
+        'description': 'Work with JSON Object Signing and Encryption.',
+        'keywords': ['JOSE', 'JWT', 'JWE', 'cryptography']
+    },
+    '/security/cose': {
+        'title': 'COSE Tool | DevTools Suite',
+        'description': 'Work with CBOR Object Signing and Encryption.',
+        'keywords': ['COSE', 'CBOR', 'signing', 'encryption']
+    },
+    
+    # PKCS Tools
+    '/pkcs/p1': {
+        'title': 'PKCS#1 RSA Key Tool | DevTools Suite',
+        'description': 'Work with PKCS#1 RSA private keys.',
+        'keywords': ['PKCS#1', 'RSA', 'private key']
+    },
+    '/pkcs/p7': {
+        'title': 'PKCS#7 Tool | DevTools Suite',
+        'description': 'Work with PKCS#7 cryptographic message syntax.',
+        'keywords': ['PKCS#7', 'CMS', 'signed data']
+    },
+    '/pkcs/p8': {
+        'title': 'PKCS#8 Key Tool | DevTools Suite',
+        'description': 'Work with PKCS#8 private keys.',
+        'keywords': ['PKCS#8', 'private key', 'key format']
+    },
+    '/pkcs/p10': {
+        'title': 'PKCS#10 CSR Tool | DevTools Suite',
+        'description': 'Work with PKCS#10 certificate requests.',
+        'keywords': ['PKCS#10', 'CSR', 'certificate request']
+    },
+    '/pkcs/p12': {
+        'title': 'PKCS#12 Certificate Tool | DevTools Suite',
+        'description': 'Work with PKCS#12 certificate bundles.',
+        'keywords': ['PKCS#12', 'PFX', 'certificate bundle']
+    },
+    '/pkcs/x509': {
+        'title': 'X.509 Certificate Generator | DevTools Suite',
+        'description': 'Generate and analyze X.509 certificates.',
+        'keywords': ['X.509', 'certificate', 'PKI']
+    },
+    
+    # Obfuscation Tools
+    '/obfuscation/rot13': {
+        'title': 'ROT13 Encoder/Decoder | DevTools Suite',
+        'description': 'Encode and decode ROT13 text obfuscation.',
+        'keywords': ['ROT13', 'text obfuscation', 'cipher']
+    },
+    '/obfuscation/text': {
+        'title': 'Text Obfuscation Tool | DevTools Suite',
+        'description': 'Obfuscate and de-obfuscate text.',
+        'keywords': ['obfuscation', 'text hiding', 'encoding']
+    },
+    '/obfuscation/javascript': {
+        'title': 'JavaScript Obfuscator | DevTools Suite',
+        'description': 'Obfuscate and minify JavaScript code.',
+        'keywords': ['JavaScript obfuscator', 'code obfuscation', 'minifier']
+    },
+    
+    # Utilities
+    '/guid': {
+        'title': 'GUID Generator | DevTools Suite',
+        'description': 'Generate Globally Unique Identifiers (GUID).',
+        'keywords': ['GUID', 'UUID', 'identifier generator']
+    },
+    '/cookies': {
+        'title': 'Cookie Parser & Generator | DevTools Suite',
+        'description': 'Parse and generate HTTP cookies.',
+        'keywords': ['cookie parser', 'cookie generator', 'HTTP headers']
+    },
 }
 
 def should_add_metadata(page_content: str) -> bool:
