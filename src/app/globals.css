@@ -89,199 +89,39 @@
 
   /* Catppuccin Latte (Light) */
   [data-color-scheme="latte"] {
-    --background: 220 23% 95%;
-    --foreground: 231 11% 35%;
-    --card: 220 23% 98%;
-    --card-foreground: 231 11% 35%;
-    --popover: 220 23% 98%;
-    --popover-foreground: 231 11% 35%;
     --primary: 220 91% 54%;
-    --primary-foreground: 220 23% 98%;
-    --secondary: 220 23% 92%;
-    --secondary-foreground: 231 11% 35%;
-    --muted: 220 23% 92%;
-    --muted-foreground: 231 10% 45%;
     --accent: 267 84% 58%;
-    --accent-foreground: 220 23% 98%;
-    --destructive: 0 68% 51%;
-    --border: 220 23% 88%;
-    --input: 220 23% 88%;
     --ring: 220 91% 54%;
   }
 
   /* Catppuccin Frappé (Dark) */
   [data-color-scheme="frappe"] {
-    --background: 229 21% 23%;
-    --foreground: 227 70% 87%;
-    --card: 229 21% 28%;
-    --card-foreground: 227 70% 87%;
-    --popover: 229 21% 28%;
-    --popover-foreground: 227 70% 87%;
     --primary: 222 74% 74%;
-    --primary-foreground: 229 21% 23%;
-    --secondary: 229 21% 33%;
-    --secondary-foreground: 227 70% 87%;
-    --muted: 229 21% 33%;
-    --muted-foreground: 228 24% 72%;
     --accent: 266 65% 77%;
-    --accent-foreground: 229 21% 23%;
-    --destructive: 0 84% 71%;
-    --border: 229 21% 38%;
-    --input: 229 21% 38%;
     --ring: 222 74% 74%;
   }
 
   /* Catppuccin Macchiato (Dark) */
   [data-color-scheme="macchiato"] {
-    --background: 233 24% 19%;
-    --foreground: 227 70% 87%;
-    --card: 233 24% 24%;
-    --card-foreground: 227 70% 87%;
-    --popover: 233 24% 24%;
-    --popover-foreground: 227 70% 87%;
     --primary: 222 74% 74%;
-    --primary-foreground: 233 24% 19%;
-    --secondary: 233 24% 29%;
-    --secondary-foreground: 227 70% 87%;
-    --muted: 233 24% 29%;
-    --muted-foreground: 228 24% 72%;
     --accent: 266 65% 77%;
-    --accent-foreground: 233 24% 19%;
-    --destructive: 0 84% 71%;
-    --border: 233 24% 34%;
-    --input: 233 24% 34%;
     --ring: 222 74% 74%;
   }
 
   /* Catppuccin Mocha (Dark) */
   [data-color-scheme="mocha"] {
-    --background: 240 21% 12%;
-    --foreground: 226 64% 88%;
-    --card: 240 21% 15%;
-    --card-foreground: 226 64% 88%;
-    --popover: 240 21% 15%;
-    --popover-foreground: 226 64% 88%;
     --primary: 217 92% 76%;
-    --primary-foreground: 240 21% 12%;
-    --secondary: 240 21% 19%;
-    --secondary-foreground: 226 64% 88%;
-    --muted: 240 21% 19%;
-    --muted-foreground: 228 24% 72%;
     --accent: 267 84% 81%;
-    --accent-foreground: 240 21% 12%;
-    --destructive: 0 84% 71%;
-    --border: 240 21% 22%;
-    --input: 240 21% 22%;
     --ring: 217 92% 76%;
   }
 
-  /* Spring Theme */
-  [data-color-scheme="spring"] {
-    --primary: 142 70% 45%;
-    --accent: 330 70% 92%;
-    --accent-foreground: 330 70% 30%;
-    --ring: 142 70% 45%;
-  }
-  .dark[data-color-scheme="spring"] {
-    --background: 142 30% 5%;
-    --foreground: 142 30% 90%;
-    --card: 142 30% 8%;
-    --primary: 142 70% 60%;
-    --accent: 330 40% 20%;
-    --accent-foreground: 330 40% 80%;
-  }
-
-  /* Summer Theme */
-  [data-color-scheme="summer"] {
-    --primary: 199 89% 48%;
-    --accent: 48 100% 90%;
-    --accent-foreground: 48 100% 25%;
-    --ring: 199 89% 48%;
-  }
-  .dark[data-color-scheme="summer"] {
-    --background: 200 50% 5%;
-    --foreground: 200 20% 95%;
-    --card: 200 50% 8%;
-    --primary: 199 89% 60%;
-    --accent: 48 100% 20%;
-    --accent-foreground: 48 100% 80%;
-  }
-
-  /* Fall Theme */
-  [data-color-scheme="fall"] {
-    --primary: 25 75% 45%;
-    --accent: 40 80% 90%;
-    --accent-foreground: 25 75% 20%;
-    --ring: 25 75% 45%;
-  }
-  .dark[data-color-scheme="fall"] {
-    --background: 25 40% 5%;
-    --foreground: 30 20% 90%;
-    --card: 25 40% 8%;
-    --primary: 25 75% 60%;
-    --accent: 40 40% 15%;
-    --accent-foreground: 40 40% 85%;
-  }
-
-  /* Winter Theme */
-  [data-color-scheme="winter"] {
-    --primary: 210 80% 45%;
-    --accent: 180 50% 92%;
-    --accent-foreground: 210 80% 20%;
-    --ring: 210 80% 45%;
-  }
-  .dark[data-color-scheme="winter"] {
-    --background: 220 30% 5%;
-    --foreground: 210 20% 95%;
-    --card: 220 30% 8%;
-    --primary: 210 80% 65%;
-    --accent: 180 30% 15%;
-    --accent-foreground: 180 30% 85%;
-  }
-
-  /* Sakura (Japanese) Theme */
-  [data-color-scheme="sakura"] {
-    --background: 330 40% 98%;
-    --foreground: 330 40% 20%;
-    --primary: 330 70% 70%;
-    --primary-foreground: 330 40% 98%;
-    --accent: 330 100% 94%;
-    --accent-foreground: 330 70% 30%;
-    --ring: 330 70% 70%;
-    --border: 330 20% 90%;
-  }
-  .dark[data-color-scheme="sakura"] {
-    --background: 330 20% 8%;
-    --foreground: 330 40% 90%;
-    --card: 330 20% 10%;
-    --primary: 330 70% 75%;
-    --primary-foreground: 330 20% 8%;
-    --accent: 330 40% 20%;
-    --accent-foreground: 330 70% 85%;
-    --border: 330 20% 20%;
-  }
-
-  /* China Theme */
-  [data-color-scheme="china"] {
-    --background: 0 0% 98%;
-    --foreground: 0 70% 10%;
-    --primary: 0 70% 45%;
-    --primary-foreground: 48 100% 90%;
-    --accent: 48 100% 90%;
-    --accent-foreground: 0 70% 30%;
-    --ring: 0 70% 45%;
-    --border: 0 20% 90%;
-  }
-  .dark[data-color-scheme="china"] {
-    --background: 0 30% 5%;
-    --foreground: 0 30% 95%;
-    --card: 0 30% 8%;
-    --primary: 0 70% 55%;
-    --primary-foreground: 48 100% 90%;
-    --accent: 48 100% 15%;
-    --accent-foreground: 48 100% 80%;
-    --border: 0 30% 15%;
-  }
+  /* Seasonal & Cultural Themes */
+  [data-color-scheme="spring"] { --primary: 142 70% 45%; --accent: 330 70% 92%; }
+  [data-color-scheme="summer"] { --primary: 199 89% 48%; --accent: 48 100% 90%; }
+  [data-color-scheme="fall"] { --primary: 25 75% 45%; --accent: 40 80% 90%; }
+  [data-color-scheme="winter"] { --primary: 210 80% 45%; --accent: 180 50% 92%; }
+  [data-color-scheme="sakura"] { --primary: 330 70% 70%; --accent: 330 100% 94%; }
+  [data-color-scheme="china"] { --primary: 0 70% 45%; --accent: 48 100% 90%; }
 }
 
 @layer base {
@@ -290,6 +130,7 @@
   }
   body {
     @apply bg-background text-foreground font-body antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   a {
@@ -317,8 +158,4 @@
 
 code, pre {
   font-family: 'Source Code Pro', monospace !important;
-}
-
-* {
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }

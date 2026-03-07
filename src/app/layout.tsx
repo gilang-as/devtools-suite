@@ -8,6 +8,7 @@ import { AnalyticsProvider } from '@/components/providers/analytics-provider';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import CommandMenu from '@/components/layout/CommandMenu';
+import ProgressBar from '@/components/layout/ProgressBar';
 import { Toaster } from '@/components/ui/toaster';
 import { OrganizationSchema, WebsiteSchema, SoftwareApplicationSchema } from '@/components/layout/StructuredData';
 import { SITE_CONFIG } from '@/lib/seo';
@@ -36,14 +37,14 @@ export const metadata: Metadata = {
     default: `${SITE_CONFIG.name} - Modern Developer Toolbelt`,
     template: `%s | ${SITE_CONFIG.name}`,
   },
-  description: SITE_CONFIG.description,
+  description: "Free online developer tools: Base64, JSON formatter, SHA-256, and more. Secure, private, and fast utilities.",
   keywords: ['developer tools', 'base64 encoder', 'json formatter', 'regex tester', 'jwt decoder', 'subnet calculator', 'sha256 hash', 'unix converter'],
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: SITE_CONFIG.url,
     title: SITE_CONFIG.name,
-    description: SITE_CONFIG.description,
+    description: "100+ free online developer tools for modern web development.",
     siteName: SITE_CONFIG.name,
     images: [
       {
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: SITE_CONFIG.name,
-    description: SITE_CONFIG.description,
+    description: "Premium online developer tools for web development tasks.",
     images: [`${SITE_CONFIG.url}/og-image.png`],
     creator: '@devtoolssuite',
   },
@@ -82,6 +83,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${sourceCodePro.variable}`} suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://challenges.cloudflare.com" />
+      </head>
       <body className="font-body antialiased flex flex-col min-h-screen">
         <OrganizationSchema />
         <WebsiteSchema />
@@ -90,6 +96,7 @@ export default function RootLayout({
           <ThemeProvider defaultTheme="system" storageKey="devtools-theme">
             <FirebaseProvider>
               <AnalyticsProvider />
+              <ProgressBar />
               <Header />
               <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
                 {children}

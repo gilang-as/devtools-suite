@@ -166,16 +166,6 @@ export default function DnsLookupPage() {
               )}
               {loading ? 'Inspecting...' : `${t('common.inspect')} DNS`}
             </Button>
-            
-            <div className="bg-primary/5 p-4 rounded-lg border border-primary/10 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-widest">
-                <ShieldCheck className="h-3 w-3" />
-                Reliability Engine
-              </div>
-              <p className="text-[10px] text-muted-foreground leading-relaxed">
-                Uses a multi-provider fallback system (Google → Cloudflare → Quad9) to ensure resolution.
-              </p>
-            </div>
           </CardContent>
         </Card>
 
@@ -194,9 +184,7 @@ export default function DnsLookupPage() {
             <div className="space-y-8 animate-in fade-in duration-500">
               {GROUPS.map((group) => {
                 const hasVisibleTypes = group.types.some(type => results[type]?.Answer && results[type].Answer!.length > 0);
-                
                 if (!hasVisibleTypes) return null;
-
                 return (
                   <section key={group.title} className="space-y-4">
                     <div className="flex items-center gap-2 px-1">
@@ -205,12 +193,10 @@ export default function DnsLookupPage() {
                         {group.title} Records
                       </h2>
                     </div>
-                    
                     <div className="grid grid-cols-1 gap-4">
                       {group.types.map((type) => {
                         const res = results[type];
                         if (!res || !res.Answer || res.Answer.length === 0) return null;
-                        
                         return (
                           <Card key={type} className="border-border shadow-md overflow-hidden group">
                             <CardHeader className="py-3 px-4 bg-muted/30 border-b flex flex-row items-center justify-between">
@@ -221,10 +207,6 @@ export default function DnsLookupPage() {
                                 <span className="text-[10px] font-bold text-muted-foreground uppercase">
                                   Resolved via {res.provider}
                                 </span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                {res.AD && <Badge variant="secondary" className="text-[9px] bg-green-500/10 text-green-600 border-green-500/20">DNSSEC</Badge>}
-                                <Badge variant="outline" className="text-[9px] font-mono">TTL: {res.Answer?.[0]?.TTL || 'N/A'}</Badge>
                               </div>
                             </CardHeader>
                             <CardContent className="p-0">
@@ -248,20 +230,6 @@ export default function DnsLookupPage() {
                   </section>
                 );
               })}
-
-              <Card className="border-border shadow-lg bg-secondary/5 overflow-hidden">
-                <CardHeader className="bg-background border-b py-3">
-                  <div className="flex items-center gap-2">
-                    <Braces className="h-4 w-4 text-primary" />
-                    <CardTitle className="text-sm font-bold uppercase tracking-widest">Advanced Inspection (Raw JSON)</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="p-0">
-                  <pre className="font-code text-[10px] p-6 max-h-[400px] overflow-auto leading-relaxed bg-[#fafafa] dark:bg-[#0f1115]">
-                    {JSON.stringify(results, null, 2)}
-                  </pre>
-                </CardContent>
-              </Card>
             </div>
           )}
         </div>
@@ -272,19 +240,11 @@ export default function DnsLookupPage() {
         sections={[
           {
             title: "What is DNS?",
-            content: "DNS (Domain Name System) is the internet's equivalent of a phone book. It translates human-readable domain names (like devtools-suite.app) into machine-readable IP addresses (like 192.0.2.1). Understanding your DNS records is crucial for website accessibility and security."
+            content: "DNS (Domain Name System) is the internet's equivalent of a phone book. It translates human-readable domain names into machine-readable IP addresses."
           },
           {
             title: "Why use this lookup tool?",
-            content: "Standard command-line tools like 'dig' or 'nslookup' can be complex. Our tool provides a clean, visual breakdown of all record types (A, MX, TXT, etc.) using multiple global DNS providers to ensure you get the most accurate and propagated data."
-          },
-          {
-            title: "Common DNS Record Types",
-            content: "A Records map domains to IPv4; AAAA map to IPv6. MX records handle email routing. TXT records are often used for security verification (like SPF or DKIM). CNAME records act as aliases, pointing one domain name to another."
-          },
-          {
-            title: "Security & Propagation",
-            content: "We fetch results from Google, Cloudflare, and Quad9. This helps you verify if your DNS changes have propagated globally or if certain providers are serving outdated records (caching issues)."
+            content: "Standard tools can be complex. Our tool provides a visual breakdown of records using multiple providers like Google and Cloudflare to ensure accurate data."
           }
         ]}
       />
