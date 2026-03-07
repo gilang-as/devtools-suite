@@ -6,13 +6,16 @@ import { firebaseConfig } from './config';
 
 /**
  * Validates if the firebase config is present and not a placeholder.
- * This prevents the "400 INVALID_ARGUMENT" errors when keys are missing in .env
+ * Stricter check to prevent "400 INVALID_ARGUMENT" from backend calls.
  */
 export const isConfigValid = () => {
+  const key = firebaseConfig.apiKey;
   return (
-    !!firebaseConfig.apiKey && 
-    firebaseConfig.apiKey !== "AIzaSy..." && 
-    !firebaseConfig.apiKey.includes("your-")
+    !!key && 
+    key.length > 20 && 
+    !key.includes('YOUR_') && 
+    !key.includes('PLACEHOLDER') &&
+    key !== 'undefined'
   );
 };
 
@@ -21,7 +24,6 @@ export const isConfigValid = () => {
  */
 export function getFirebaseApp(): FirebaseApp | null {
   if (!isConfigValid()) {
-    console.warn("Firebase: Skipping initialization. Missing valid API Key in .env");
     return null;
   }
   return getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
@@ -35,6 +37,7 @@ export async function getFirebaseAnalytics(app: FirebaseApp): Promise<Analytics 
   
   try {
     const supported = await isSupported();
+    // Only attempt to get analytics if config is genuinely valid
     if (supported && isConfigValid()) {
       return getAnalytics(app);
     }

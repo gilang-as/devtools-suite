@@ -60,8 +60,8 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Search Input Container - Fixed size slot to prevent hydration mismatch */}
-        <div className="hidden md:flex items-center flex-1 max-w-md mx-8 min-h-[40px]">
+        {/* Search Input Container - Uses a stable height shell to prevent hydration mismatch */}
+        <div className="hidden md:flex items-center flex-1 max-w-md mx-8 h-10">
           {mounted && !isHome && (
             <Button 
               variant="outline" 
