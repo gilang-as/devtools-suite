@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   images: {
+    // Enable image optimization for SEO and performance
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -30,6 +32,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Optimize for search engines
+  compress: true,
+  // Enable trailing slashes for consistency
+  trailingSlash: false,
+  // Optimize performance
+  poweredByHeader: false,
+  productionBrowserSourceMaps: false,
+  reactStrictMode: true,
+  swcMinify: true,
 };
 
 export default nextConfig;

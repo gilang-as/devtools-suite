@@ -8,6 +8,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import CommandMenu from '@/components/layout/CommandMenu';
 import { Toaster } from '@/components/ui/toaster';
+import { OrganizationSchema, WebsiteSchema, SoftwareApplicationSchema } from '@/components/layout/StructuredData';
 
 export const viewport: Viewport = {
   themeColor: '#3b82f6',
@@ -32,15 +33,31 @@ export const metadata: Metadata = {
     title: 'DevTools Suite - Modern Developer Toolbelt',
     description: 'Fast, secure, and modern developer tools for everyone.',
     siteName: 'DevTools Suite',
+    images: [
+      {
+        url: 'https://devtools-suite.app/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'DevTools Suite',
+        type: 'image/png',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'DevTools Suite',
     description: 'Modern online developer tools.',
+    creator: '@devtoolssuite',
   },
   robots: {
     index: true,
     follow: true,
+    'max-image-preview': 'large',
+    'max-snippet': -1,
+    'max-video-preview': -1,
+  },
+  alternates: {
+    canonical: 'https://devtools-suite.app',
   },
 };
 
@@ -55,6 +72,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet" />
+        <link rel="canonical" href="https://devtools-suite.app" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+        <OrganizationSchema />
+        <WebsiteSchema />
+        <SoftwareApplicationSchema />
       </head>
       <body className="font-body antialiased flex flex-col min-h-screen">
         <I18nProvider>
