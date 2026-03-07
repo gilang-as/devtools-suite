@@ -1,3 +1,4 @@
+
 "use client"
 
 import React from 'react';
@@ -9,35 +10,21 @@ interface LogoProps {
 }
 
 /**
- * Reusable Logo component using inline SVG for high performance and reliability.
- * This represents the DevTools Suite brand identity.
+ * Reusable Logo component that references the brand asset at /icon.svg.
+ * This ensures consistency across the application.
  */
 export const Logo = ({ className, size = 24 }: LogoProps) => {
   return (
-    <svg 
-      width={size} 
-      height={size} 
-      viewBox="0 0 32 32" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-      className={cn("text-primary", className)}
-      aria-hidden="true"
+    <div 
+      className={cn("relative flex items-center justify-center overflow-hidden", className)}
+      style={{ width: size, height: size }}
     >
-      {/* Hexagonal Background Shell */}
-      <path 
-        d="M16 2L28.1244 9V23L16 30L3.87564 23V9L16 2Z" 
-        fill="currentColor" 
-        fillOpacity="0.1" 
-        stroke="currentColor" 
-        strokeWidth="1.5"
+      <img 
+        src="/icon.svg" 
+        alt="DevTools Suite Logo" 
+        className="w-full h-full object-contain"
+        style={{ width: '100%', height: '100%' }}
       />
-      {/* Stylized 'D' for DevTools */}
-      <path 
-        d="M11 10V22H16C19.3137 22 22 19.3137 22 16C22 12.6863 19.3137 10 16 10H11ZM13.5 12.5H16C17.933 12.5 19.5 14.067 19.5 16C19.5 17.933 17.933 19.5 16 19.5H13.5V12.5Z" 
-        fill="currentColor"
-      />
-      {/* Accent Detail */}
-      <circle cx="16" cy="16" r="1.5" fill="currentColor" />
-    </svg>
+    </div>
   );
 };
