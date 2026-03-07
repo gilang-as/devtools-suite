@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState, useEffect } from 'react';
@@ -27,11 +26,9 @@ import {
 export default function Header() {
   const { t, language, setLanguage } = useTranslation();
   const { theme, setTheme } = useTheme();
-  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Defer rendering of theme icons and dynamic content until after hydration
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -55,7 +52,7 @@ export default function Header() {
               <Terminal className="h-6 w-6 text-primary-foreground" />
             </div>
             <span className="font-headline font-bold text-xl tracking-tight">
-              {t('common.title')}
+              {mounted ? t('common.title') : 'DevTools Suite'}
             </span>
           </Link>
         </div>
@@ -77,31 +74,38 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-2">
-          {mounted && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-9 w-9">
-                  <Languages className="h-[1.2rem] w-[1.2rem]" />
-                  <span className="sr-only">Toggle language</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setLanguage('en')} className={language === 'en' ? 'bg-accent' : ''}>
-                  English
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage('id')} className={language === 'id' ? 'bg-accent' : ''}>
-                  Indonesian
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
+          {/* Stabilize child order with a fixed wrapper for client-only dropdown */}
+          <div className="flex items-center justify-center w-9 h-9">
+            {mounted ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="h-9 w-9">
+                    <Languages className="h-[1.2rem] w-[1.2rem]" />
+                    <span className="sr-only">Toggle language</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => setLanguage('en')} className={language === 'en' ? 'bg-accent' : ''}>
+                    English
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setLanguage('id')} className={language === 'id' ? 'bg-accent' : ''}>
+                    Indonesian
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="h-9 w-9 flex items-center justify-center">
+                <Languages className="h-[1.2rem] w-[1.2rem] opacity-20" />
+              </div>
+            )}
+          </div>
 
           <Button 
             variant="ghost" 
             size="icon" 
             className="h-9 w-9" 
             onClick={toggleTheme}
-            title={mounted ? `Current: ${theme.charAt(0).toUpperCase() + theme.slice(1)}` : 'Toggle theme'}
+            title="Toggle appearance"
           >
             {!mounted ? (
               <Monitor className="h-[1.2rem] w-[1.2rem]" />
@@ -137,7 +141,7 @@ export default function Header() {
             }}
           >
             <Search className="mr-2 h-4 w-4" />
-            {t('home.search_placeholder')}
+            {mounted ? t('home.search_placeholder') : 'Search tools...'}
           </Button>
           <Link 
             href="/" 

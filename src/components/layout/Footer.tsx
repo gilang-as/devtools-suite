@@ -84,77 +84,80 @@ export default function Footer() {
               </div>
             </div>
 
-            {mounted && (
-              <div className="h-8 w-px bg-border hidden sm:block" />
-            )}
+            <div className="h-8 w-px bg-border hidden sm:block" />
 
-            {mounted && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="h-8 gap-2 rounded-full border-dashed px-4">
-                    <Palette className="h-3.5 w-3.5" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest">
-                      {schemes.find(s => s.id === colorScheme)?.name || 'Theme'}
-                    </span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 max-h-[80vh] overflow-y-auto">
-                  <DropdownMenuLabel className="text-xs font-bold uppercase tracking-wider opacity-50">Choose Color</DropdownMenuLabel>
-                  
-                  <DropdownMenuSeparator />
-                  <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Standard</DropdownMenuLabel>
-                  {schemes.filter(s => s.group === 'standard').map((s) => (
-                    <DropdownMenuItem 
-                      key={s.id}
-                      onClick={() => setColorScheme(s.id)} 
-                      className="justify-between cursor-pointer"
-                    >
-                      {s.name}
-                      {colorScheme === s.id && <Check className="h-3.5 w-3.5 text-primary" />}
-                    </DropdownMenuItem>
-                  ))}
+            {/* Stable container for theme dropdown to maintain layout tree */}
+            <div className="flex items-center justify-center min-w-[100px]">
+              {mounted ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-8 gap-2 rounded-full border-dashed px-4">
+                      <Palette className="h-3.5 w-3.5" />
+                      <span className="text-[10px] font-bold uppercase tracking-widest">
+                        {schemes.find(s => s.id === colorScheme)?.name || 'Theme'}
+                      </span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56 max-h-[80vh] overflow-y-auto">
+                    <DropdownMenuLabel className="text-xs font-bold uppercase tracking-wider opacity-50">Choose Color</DropdownMenuLabel>
+                    
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Standard</DropdownMenuLabel>
+                    {schemes.filter(s => s.group === 'standard').map((s) => (
+                      <DropdownMenuItem 
+                        key={s.id}
+                        onClick={() => setColorScheme(s.id)} 
+                        className="justify-between cursor-pointer"
+                      >
+                        {s.name}
+                        {colorScheme === s.id && <Check className="h-3.5 w-3.5 text-primary" />}
+                      </DropdownMenuItem>
+                    ))}
 
-                  <DropdownMenuSeparator />
-                  <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Catppuccin Flavors</DropdownMenuLabel>
-                  {schemes.filter(s => s.group === 'catppuccin').map((s) => (
-                    <DropdownMenuItem 
-                      key={s.id}
-                      onClick={() => setColorScheme(s.id)} 
-                      className="justify-between cursor-pointer"
-                    >
-                      {s.name}
-                      {colorScheme === s.id && <Check className="h-3.5 w-3.5 text-primary" />}
-                    </DropdownMenuItem>
-                  ))}
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Catppuccin Flavors</DropdownMenuLabel>
+                    {schemes.filter(s => s.group === 'catppuccin').map((s) => (
+                      <DropdownMenuItem 
+                        key={s.id}
+                        onClick={() => setColorScheme(s.id)} 
+                        className="justify-between cursor-pointer"
+                      >
+                        {s.name}
+                        {colorScheme === s.id && <Check className="h-3.5 w-3.5 text-primary" />}
+                      </DropdownMenuItem>
+                    ))}
 
-                  <DropdownMenuSeparator />
-                  <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Seasonal Themes</DropdownMenuLabel>
-                  {schemes.filter(s => s.group === 'seasonal').map((s) => (
-                    <DropdownMenuItem 
-                      key={s.id}
-                      onClick={() => setColorScheme(s.id)} 
-                      className="justify-between cursor-pointer"
-                    >
-                      {s.name}
-                      {colorScheme === s.id && <Check className="h-3.5 w-3.5 text-primary" />}
-                    </DropdownMenuItem>
-                  ))}
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Seasonal Themes</DropdownMenuLabel>
+                    {schemes.filter(s => s.group === 'seasonal').map((s) => (
+                      <DropdownMenuItem 
+                        key={s.id}
+                        onClick={() => setColorScheme(s.id)} 
+                        className="justify-between cursor-pointer"
+                      >
+                        {s.name}
+                        {colorScheme === s.id && <Check className="h-3.5 w-3.5 text-primary" />}
+                      </DropdownMenuItem>
+                    ))}
 
-                  <DropdownMenuSeparator />
-                  <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Cultural Themes</DropdownMenuLabel>
-                  {schemes.filter(s => s.group === 'cultural').map((s) => (
-                    <DropdownMenuItem 
-                      key={s.id}
-                      onClick={() => setColorScheme(s.id)} 
-                      className="justify-between cursor-pointer"
-                    >
-                      {s.name}
-                      {colorScheme === s.id && <Check className="h-3.5 w-3.5 text-primary" />}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
+                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="text-[10px] font-black uppercase tracking-widest opacity-30 px-2 py-1">Cultural Themes</DropdownMenuLabel>
+                    {schemes.filter(s => s.group === 'cultural').map((s) => (
+                      <DropdownMenuItem 
+                        key={s.id}
+                        onClick={() => setColorScheme(s.id)} 
+                        className="justify-between cursor-pointer"
+                      >
+                        {s.name}
+                        {colorScheme === s.id && <Check className="h-3.5 w-3.5 text-primary" />}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <div className="h-8 w-24 bg-muted/50 rounded-full animate-pulse" />
+              )}
+            </div>
           </div>
 
           <div className="flex flex-col items-center md:items-end gap-2 text-sm text-muted-foreground">
