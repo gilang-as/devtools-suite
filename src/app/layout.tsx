@@ -16,14 +16,12 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
-  preload: true,
 });
 
 const sourceCodePro = Source_Code_Pro({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-code',
-  preload: true,
 });
 
 export const viewport: Viewport = {
@@ -38,14 +36,14 @@ export const metadata: Metadata = {
     default: `${SITE_CONFIG.name} - Modern Developer Toolbelt`,
     template: `%s | ${SITE_CONFIG.name}`,
   },
-  description: "Free online developer tools: Base64, JSON formatter, SHA-256, and more. Secure, private, and fast utilities for modern web development.",
-  keywords: ['developer tools', 'base64 encoder', 'json formatter', 'regex tester', 'jwt decoder', 'sha256 hash'],
+  description: SITE_CONFIG.description,
+  keywords: ['developer tools', 'base64 encoder', 'json formatter', 'regex tester', 'jwt decoder', 'subnet calculator', 'sha256 hash', 'unix converter'],
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: SITE_CONFIG.url,
     title: SITE_CONFIG.name,
-    description: "Secure and fast online tools for developers.",
+    description: SITE_CONFIG.description,
     siteName: SITE_CONFIG.name,
     images: [
       {
@@ -59,7 +57,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: SITE_CONFIG.name,
-    description: "Secure and fast online tools for developers.",
+    description: SITE_CONFIG.description,
     images: [`${SITE_CONFIG.url}/og-image.png`],
     creator: '@devtoolssuite',
   },
@@ -84,11 +82,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${sourceCodePro.variable}`} suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://challenges.cloudflare.com" />
-      </head>
       <body className="font-body antialiased flex flex-col min-h-screen">
         <OrganizationSchema />
         <WebsiteSchema />
