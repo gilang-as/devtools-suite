@@ -7,7 +7,6 @@ import { useAnalytics } from '@/firebase/provider';
 
 /**
  * Component that tracks page views on route changes.
- * Wrapped in Suspense because useSearchParams() requires it in the App Router.
  */
 function AnalyticsTracker() {
   const pathname = usePathname();
@@ -16,12 +15,16 @@ function AnalyticsTracker() {
 
   useEffect(() => {
     if (analytics) {
-      // Log page_view event manually for SPA transitions
-      logEvent(analytics, 'page_view', {
-        page_path: pathname,
-        page_location: window.location.href,
-        page_title: document.title,
-      });
+      // Small delay to ensure document.title is updated by Next.js
+      const timer = setTimeout(() => {
+        logEvent(analytics, 'page_view', {
+          page_path: pathname,
+          page_location: window.location.href,
+          page_title: document.title,
+        });
+      }, 100);
+      
+      return () => clearTimeout(timer);
     }
   }, [pathname, searchParams, analytics]);
 

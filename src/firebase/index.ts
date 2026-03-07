@@ -6,8 +6,9 @@ import { firebaseConfig } from './config';
 
 /**
  * Validates if the firebase config is real or just placeholders.
+ * This prevents the "400 INVALID_ARGUMENT" errors in the console.
  */
-const isConfigValid = () => {
+export const isConfigValid = () => {
   return (
     firebaseConfig.apiKey && 
     firebaseConfig.apiKey !== "AIzaSy..." && 
@@ -16,26 +17,22 @@ const isConfigValid = () => {
 };
 
 /**
- * Initializes the Firebase App and Analytics.
+ * Initializes the Firebase App.
  */
-export function initializeFirebase() {
-  // If config is placeholder, return nulls to avoid console errors
-  if (!isConfigValid()) {
-    return { app: null, analytics: null };
-  }
+export function getFirebaseApp(): FirebaseApp | null {
+  if (!isConfigValid()) return null;
+  return getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+}
 
-  const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+/**
+ * Initializes Firebase Analytics asynchronously.
+ */
+export async function getFirebaseAnalytics(app: FirebaseApp): Promise<Analytics | null> {
+  if (typeof window === 'undefined') return null;
   
-  let analytics: Analytics | undefined;
-  
-  // Analytics only runs on the client and if supported by the browser
-  if (typeof window !== 'undefined') {
-    isSupported().then((supported) => {
-      if (supported && isConfigValid()) {
-        analytics = getAnalytics(app);
-      }
-    });
+  const supported = await isSupported();
+  if (supported && isConfigValid()) {
+    return getAnalytics(app);
   }
-
-  return { app, analytics };
+  return null;
 }
