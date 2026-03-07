@@ -88,8 +88,11 @@ export function generateMetadata(config: SEOConfig): Metadata {
       },
     },
     icons: {
-      icon: '/favicon.ico',
-      shortcut: '/favicon-16x16.png',
+      icon: [
+        { url: '/favicon.ico' },
+        { url: '/logo.svg', type: 'image/svg+xml' },
+      ],
+      shortcut: '/logo.svg',
       apple: '/apple-touch-icon.png',
     },
   };
