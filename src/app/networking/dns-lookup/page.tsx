@@ -1,15 +1,15 @@
 "use client"
 
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { dnsLookup, DnsLookupResult, DnsRecordType } from '@/lib/networking';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Globe2, Network, Lock } from 'lucide-react';
+import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Globe2, Network, Lock, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 type RecordGroup = {
   title: string;
@@ -23,33 +23,34 @@ const GROUPS: RecordGroup[] = [
   { title: 'Security', types: ['DNSKEY', 'DS', 'RRSIG'] },
 ];
 
+// Fallback test key if env is missing
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
+
 export default function DnsLookupPage() {
   const { t } = useTranslation();
   const { toast } = useToast();
   const [domain, setDomain] = useState('gilang.dev');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Record<string, DnsLookupResult>>({});
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaKey, setCaptchaKey] = useState(0);
+  const [turnstileStatus, setTurnstileStatus] = useState<"success" | "error" | "expired" | "required">("required");
+  const [error, setError] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
-  const turnstileRef = useRef<TurnstileInstance>(null);
 
-  // Ensure Turnstile only renders on client to avoid hydration/undefined key issues
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Determine site key inside component to ensure it picks up client-side env vars accurately
-  const siteKey = useMemo(() => {
-    const key = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
-    if (key && key !== 'undefined' && key.length > 5) return key;
-    return '1x00000000000000000000AA'; // Fallback to 'Always Passes' test key
-  }, []);
-
   const handleLookup = async () => {
-    if (!domain.trim() || !captchaToken) return;
+    if (!domain.trim()) return;
+    
+    if (turnstileStatus !== "success") {
+      setError("Please verify you are not a robot");
+      return;
+    }
+
     setLoading(true);
     setResults({});
+    setError(null);
     
     const allTypes = GROUPS.flatMap(g => g.types);
     const promises = allTypes.map(async (type) => {
@@ -71,10 +72,6 @@ export default function DnsLookupPage() {
 
     setResults(newResults);
     setLoading(false);
-    
-    // Reset captcha for next request
-    setCaptchaToken(null);
-    setCaptchaKey(prev => prev + 1);
   };
 
   const copyToClipboard = (text: string) => {
@@ -108,61 +105,51 @@ export default function DnsLookupPage() {
                   value={domain}
                   onChange={(e) => {
                     setDomain(e.target.value);
-                    if (captchaToken) {
-                      setCaptchaToken(null);
-                      setCaptchaKey(prev => prev + 1);
-                    }
+                    setError(null);
                   }}
                   placeholder="example.com"
                   className="pl-10 h-12 text-lg font-code"
-                  onKeyDown={(e) => e.key === 'Enter' && captchaToken && !loading && handleLookup()}
+                  onKeyDown={(e) => e.key === 'Enter' && turnstileStatus === 'success' && !loading && handleLookup()}
                 />
               </div>
 
-              <div className="flex flex-col items-center justify-center p-4 bg-secondary/10 rounded-xl border-2 border-dashed border-primary/10 min-h-[140px] overflow-visible relative">
+              <div className="flex flex-col items-center justify-center p-4 bg-secondary/10 rounded-xl border-2 border-dashed border-primary/10 min-h-[140px] overflow-hidden relative">
                 <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-4 flex items-center gap-1.5">
                   <Lock className="h-3 w-3" />
                   Security Verification
                 </p>
                 <div className="w-full flex justify-center min-h-[65px]">
-                  {mounted ? (
+                  {mounted && (
                     <Turnstile
-                      key={captchaKey}
-                      ref={turnstileRef}
-                      sitekey={siteKey}
-                      options={{
-                        size: 'normal',
-                        theme: 'auto',
+                      siteKey={TURNSTILE_SITE_KEY}
+                      onSuccess={() => {
+                        setTurnstileStatus("success");
+                        setError(null);
                       }}
-                      onSuccess={(token) => setCaptchaToken(token)}
                       onError={() => {
-                        setCaptchaToken(null);
-                        setCaptchaKey(prev => prev + 1);
-                        toast({
-                          variant: 'destructive',
-                          title: 'Verification Error',
-                          description: 'Failed to load security widget. Please refresh.',
-                        });
+                        setTurnstileStatus("error");
+                        setError("Security check failed. Please try again.");
                       }}
                       onExpire={() => {
-                        setCaptchaToken(null);
-                        setCaptchaKey(prev => prev + 1);
+                        setTurnstileStatus("expired");
+                        setError("Security check expired. Please verify again.");
                       }}
                     />
-                  ) : (
-                    <div className="flex items-center gap-2 text-muted-foreground animate-pulse text-xs font-medium">
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      Initializing security...
-                    </div>
                   )}
                 </div>
+                {error && (
+                  <div className="mt-4 flex items-center gap-2 text-destructive text-xs animate-in fade-in slide-in-from-top-1">
+                    <AlertCircle className="h-3 w-3" />
+                    <span>{error}</span>
+                  </div>
+                )}
               </div>
             </div>
 
             <Button 
               onClick={handleLookup} 
               className="w-full h-12 shadow-md transition-all active:scale-95" 
-              disabled={loading || !captchaToken || !domain.trim()}
+              disabled={loading || turnstileStatus !== 'success' || !domain.trim()}
             >
               {loading ? (
                 <Loader2 className="h-5 w-5 mr-2 animate-spin" />

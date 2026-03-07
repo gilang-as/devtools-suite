@@ -13,6 +13,7 @@ export const isConfigValid = () => {
   return (
     !!key && 
     key.length > 20 && 
+    key.startsWith('AIza') && // Real Firebase API keys always start with AIza
     !key.includes('YOUR_') && 
     !key.includes('PLACEHOLDER') &&
     key !== 'undefined'

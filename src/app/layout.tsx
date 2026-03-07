@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { Inter, Source_Code_Pro } from 'next/font/google';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { I18nProvider } from '@/components/providers/i18n-provider';
 import { FirebaseProvider } from '@/firebase/provider';
@@ -10,6 +11,18 @@ import CommandMenu from '@/components/layout/CommandMenu';
 import { Toaster } from '@/components/ui/toaster';
 import { OrganizationSchema, WebsiteSchema, SoftwareApplicationSchema } from '@/components/layout/StructuredData';
 import { SITE_CONFIG } from '@/lib/seo';
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+const sourceCodePro = Source_Code_Pro({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-code',
+});
 
 export const viewport: Viewport = {
   themeColor: '#3b82f6',
@@ -60,16 +73,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet" />
+    <html lang="en" className={`${inter.variable} ${sourceCodePro.variable}`} suppressHydrationWarning>
+      <body className="font-body antialiased flex flex-col min-h-screen">
         <OrganizationSchema />
         <WebsiteSchema />
         <SoftwareApplicationSchema />
-      </head>
-      <body className="font-body antialiased flex flex-col min-h-screen">
         <I18nProvider>
           <ThemeProvider defaultTheme="system" storageKey="devtools-theme">
             <FirebaseProvider>

@@ -60,22 +60,26 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Search Input Container - Uses a stable height shell to prevent hydration mismatch */}
+        {/* Search Input Container - Stable height shell */}
         <div className="hidden md:flex items-center flex-1 max-w-md mx-8 h-10">
-          {mounted && !isHome && (
-            <Button 
-              variant="outline" 
-              className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50 active:scale-[0.98] animate-in fade-in zoom-in-95 duration-300"
-              onClick={openSearch}
-            >
-              <Search className="mr-2 h-4 w-4" />
-              <span className="flex-1 text-left">
-                {t('home.search_placeholder')}
-              </span>
-              <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-                <span className="text-xs">⌘</span>K
-              </kbd>
-            </Button>
+          {!isHome && (
+            <div className="w-full h-10">
+              {mounted && (
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start text-muted-foreground font-normal bg-muted/50 hover:bg-muted border-dashed rounded-xl h-10 px-4 transition-all hover:border-primary/50 active:scale-[0.98] animate-in fade-in zoom-in-95 duration-300"
+                  onClick={openSearch}
+                >
+                  <Search className="mr-2 h-4 w-4" />
+                  <span className="flex-1 text-left">
+                    {t('home.search_placeholder')}
+                  </span>
+                  <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-background px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                    <span className="text-xs">⌘</span>K
+                  </kbd>
+                </Button>
+              )}
+            </div>
           )}
         </div>
 
