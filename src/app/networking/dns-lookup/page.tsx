@@ -34,6 +34,7 @@ export default function DnsLookupPage() {
   const turnstileRef = useRef<TurnstileInstance>(null);
   
   const [domain, setDomain] = useState('');
+  const [searchedDomain, setSearchedDomain] = useState('');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Record<string, DnsLookupResult>>({});
   const [turnstileStatus, setTurnstileStatus] = useState<"success" | "error" | "expired" | "required">("required");
@@ -53,11 +54,10 @@ export default function DnsLookupPage() {
     }
 
     setLoading(true);
+    setSearchedDomain(domain.trim());
     setResults({});
     setError(null);
     
-    // Reset turnstile status so it must be re-verified for the next lookup
-    // This solves the issue of having to refresh the page manually.
     const allTypes = GROUPS.flatMap(g => g.types);
     const promises = allTypes.map(async (type) => {
       try {
@@ -194,6 +194,13 @@ export default function DnsLookupPage() {
             </div>
           ) : (
             <div className="space-y-8 animate-in fade-in duration-500">
+              <div className="flex flex-col gap-2 pb-4 border-b border-primary/10">
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/60">Results for</span>
+                <h2 className="text-3xl md:text-4xl font-headline font-black text-foreground break-all tracking-tight">
+                  {searchedDomain}
+                </h2>
+              </div>
+
               {GROUPS.map((group) => {
                 const hasVisibleTypes = group.types.some(type => results[type]?.Answer && results[type].Answer!.length > 0);
                 if (!hasVisibleTypes) return null;
