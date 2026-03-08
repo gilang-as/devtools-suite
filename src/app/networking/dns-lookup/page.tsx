@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { useTheme } from '@/components/providers/theme-provider';
 import { dnsLookup, DnsLookupResult, DnsRecordType } from '@/lib/networking';
@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Network, Lock, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Turnstile } from '@marsidev/react-turnstile';
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 import { ToolSEOContent } from '@/components/tools/ToolSEOContent';
 
 type RecordGroup = {
@@ -31,6 +31,8 @@ export default function DnsLookupPage() {
   const { t, language } = useTranslation();
   const { theme } = useTheme();
   const { toast } = useToast();
+  const turnstileRef = useRef<TurnstileInstance>(null);
+  
   const [domain, setDomain] = useState('');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Record<string, DnsLookupResult>>({});
@@ -54,6 +56,8 @@ export default function DnsLookupPage() {
     setResults({});
     setError(null);
     
+    // Reset turnstile status so it must be re-verified for the next lookup
+    // This solves the issue of having to refresh the page manually.
     const allTypes = GROUPS.flatMap(g => g.types);
     const promises = allTypes.map(async (type) => {
       try {
@@ -64,16 +68,23 @@ export default function DnsLookupPage() {
       }
     });
 
-    const settled = await Promise.all(promises);
-    const newResults: Record<string, DnsLookupResult> = {};
-    settled.forEach(({ type, res }) => {
-      if (res && res.Answer && res.Answer.length > 0) {
-        newResults[type] = res;
-      }
-    });
-
-    setResults(newResults);
-    setLoading(false);
+    try {
+      const settled = await Promise.all(promises);
+      const newResults: Record<string, DnsLookupResult> = {};
+      settled.forEach(({ type, res }) => {
+        if (res && res.Answer && res.Answer.length > 0) {
+          newResults[type] = res;
+        }
+      });
+      setResults(newResults);
+    } catch (e) {
+      setError("An unexpected error occurred during lookup.");
+    } finally {
+      setLoading(false);
+      // Reset the turnstile widget to allow another lookup without a page refresh
+      setTurnstileStatus("required");
+      turnstileRef.current?.reset();
+    }
   };
 
   const copyToClipboard = (text: string) => {
@@ -123,6 +134,7 @@ export default function DnsLookupPage() {
                 <div className="w-full flex justify-center min-h-[65px]">
                   {mounted && (
                     <Turnstile
+                      ref={turnstileRef}
                       siteKey={TURNSTILE_SITE_KEY}
                       options={{
                         execution: 'render',
