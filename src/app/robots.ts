@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
+import { SITE_CONFIG } from '@/lib/seo';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://devtools-suite.app';
+  const baseUrl = SITE_CONFIG.url;
   
   return {
     rules: [
