@@ -1,11 +1,13 @@
+import { SITE_CONFIG } from '@/lib/seo';
+
 export function OrganizationSchema() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'DevTools Suite',
-    url: 'https://devtools-suite.app',
-    logo: 'https://devtools-suite.app/logo.png',
-    description: 'Premium online developer tools for encoding, encryption, formatting, and networking tasks.',
+    name: SITE_CONFIG.name,
+    url: SITE_CONFIG.url,
+    logo: `${SITE_CONFIG.url}/logo.png`,
+    description: SITE_CONFIG.description,
     sameAs: [
       'https://twitter.com/devtoolssuite',
       'https://github.com/devtools-suite',
@@ -29,14 +31,14 @@ export function WebsiteSchema() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'DevTools Suite',
-    url: 'https://devtools-suite.app',
+    name: SITE_CONFIG.name,
+    url: SITE_CONFIG.url,
     description: 'Free online developer tools and utilities',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://devtools-suite.app?search={search_term_string}',
+        urlTemplate: `${SITE_CONFIG.url}?search={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
@@ -54,10 +56,10 @@ export function SoftwareApplicationSchema() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'DevTools Suite',
+    name: SITE_CONFIG.name,
     applicationCategory: 'DeveloperApplication',
-    url: 'https://devtools-suite.app',
-    description: 'Comprehensive suite of online developer tools for web development, encoding, cryptography, and data transformation.',
+    url: SITE_CONFIG.url,
+    description: SITE_CONFIG.description,
     offers: {
       '@type': 'Offer',
       price: '0',

@@ -1,12 +1,13 @@
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
+import { SITE_CONFIG } from '@/lib/seo';
 
 export const runtime = 'edge';
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const title = searchParams.get('title') || 'DevTools Suite';
+    const title = searchParams.get('title') || SITE_CONFIG.name;
     const description = searchParams.get('description') || 'Premium online developer tools';
 
     return new ImageResponse(
@@ -117,7 +118,7 @@ export async function GET(request: NextRequest) {
                 fontSize: 18,
                 fontWeight: 'bold',
               }}>D</div>
-              <span style={{ fontSize: 24, fontWeight: 'bold', opacity: 0.9 }}>devtools-suite.app</span>
+              <span style={{ fontSize: 24, fontWeight: 'bold', opacity: 0.9 }}>{SITE_CONFIG.url.replace(/^https?:\/\//, '')}</span>
             </div>
           </div>
         </div>

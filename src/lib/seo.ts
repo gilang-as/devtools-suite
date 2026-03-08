@@ -17,6 +17,16 @@ export interface SEOConfig {
 }
 
 /**
+ * SITE_CONFIG is the master configuration for the application URL and name.
+ * Change the fallback URL here to update it globally.
+ */
+export const SITE_CONFIG = {
+  url: SITE_URL,
+  name: SITE_NAME,
+  description: DEFAULT_DESCRIPTION,
+};
+
+/**
  * Generate comprehensive metadata for a page with OpenGraph and Twitter cards
  */
 export function generateMetadata(config: SEOConfig): Metadata {
@@ -30,17 +40,17 @@ export function generateMetadata(config: SEOConfig): Metadata {
     generateOG = true
   } = config;
 
-  const fullUrl = `${SITE_URL}${path}`;
+  const fullUrl = `${SITE_CONFIG.url}${path}`;
   
   // Generate dynamic OG image URL if requested
-  let imageUrl = config.image || `${SITE_URL}/og-image.png`;
+  let imageUrl = config.image || `${SITE_CONFIG.url}/og-image.png`;
   if (generateOG && !config.image) {
     const params = new URLSearchParams({
       title,
       description,
       icon,
     });
-    imageUrl = `${SITE_URL}/api/og?${params.toString()}`;
+    imageUrl = `${SITE_CONFIG.url}/api/og?${params.toString()}`;
   }
 
   return {
@@ -49,7 +59,7 @@ export function generateMetadata(config: SEOConfig): Metadata {
     keywords: [...keywords, 'developer tools', 'online utilities', 'DevTools Suite'],
     authors: [{ name: 'DevTools Suite Team' }],
     creator: 'DevTools Suite',
-    metadataBase: new URL(SITE_URL),
+    metadataBase: new URL(SITE_CONFIG.url),
     alternates: {
       canonical: config.canonical || fullUrl,
     },
@@ -109,7 +119,7 @@ export function generateBreadcrumbSchema(breadcrumbs: { name: string; path: stri
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: `${SITE_URL}${item.path}`,
+      item: `${SITE_CONFIG.url}${item.path}`,
     })),
   };
 }
@@ -130,10 +140,10 @@ export function generateToolSchema(tool: {
     '@type': 'SoftwareApplication',
     name: tool.name,
     description: tool.description,
-    url: `${SITE_URL}${tool.path}`,
+    url: `${SITE_CONFIG.url}${tool.path}`,
     applicationCategory: tool.category || 'DeveloperApplication',
     operatingSystem: 'Web',
-    image: tool.image || `${SITE_URL}/og-image.png`,
+    image: tool.image || `${SITE_CONFIG.url}/og-image.png`,
     offers: {
       '@type': 'Offer',
       price: tool.price || '0',
@@ -142,13 +152,7 @@ export function generateToolSchema(tool: {
     creator: {
       '@type': 'Organization',
       name: SITE_NAME,
-      url: SITE_URL,
+      url: SITE_CONFIG.url,
     },
   };
 }
-
-export const SITE_CONFIG = {
-  url: SITE_URL,
-  name: SITE_NAME,
-  description: DEFAULT_DESCRIPTION,
-};

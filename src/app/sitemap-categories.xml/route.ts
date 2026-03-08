@@ -1,7 +1,8 @@
 import { TOOLS } from '@/tools/config';
+import { SITE_CONFIG } from '@/lib/seo';
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://devtools-suite.app';
+  const baseUrl = SITE_CONFIG.url;
 
   // Extract unique categories
   const categories = Array.from(new Set(TOOLS.map((tool) => tool.category)));
