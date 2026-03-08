@@ -12,6 +12,7 @@ import ProgressBar from '@/components/layout/ProgressBar';
 import { Toaster } from '@/components/ui/toaster';
 import { OrganizationSchema, WebsiteSchema, SoftwareApplicationSchema } from '@/components/layout/StructuredData';
 import { SITE_CONFIG } from '@/lib/seo';
+import { Suspense } from 'react';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -96,7 +97,9 @@ export default function RootLayout({
           <ThemeProvider defaultTheme="system" storageKey="devtools-theme">
             <FirebaseProvider>
               <AnalyticsProvider />
-              <ProgressBar />
+              <Suspense fallback={null}>
+                <ProgressBar />
+              </Suspense>
               <Header />
               <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
                 {children}

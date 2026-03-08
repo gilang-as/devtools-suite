@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from '@/components/providers/i18n-provider';
 import { useTheme } from '@/components/providers/theme-provider';
 import { dnsLookup, DnsLookupResult, DnsRecordType } from '@/lib/networking';
@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Search, Globe, ShieldCheck, Loader2, Braces, Copy, Network, Lock, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Turnstile } from '@marsidev/react-turnstile';
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile';
 import { ToolSEOContent } from '@/components/tools/ToolSEOContent';
 
 type RecordGroup = {
@@ -31,7 +31,10 @@ export default function DnsLookupPage() {
   const { t, language } = useTranslation();
   const { theme } = useTheme();
   const { toast } = useToast();
+  const turnstileRef = useRef<TurnstileInstance>(null);
+  
   const [domain, setDomain] = useState('');
+  const [searchedDomain, setSearchedDomain] = useState('');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Record<string, DnsLookupResult>>({});
   const [turnstileStatus, setTurnstileStatus] = useState<"success" | "error" | "expired" | "required">("required");
@@ -51,6 +54,7 @@ export default function DnsLookupPage() {
     }
 
     setLoading(true);
+    setSearchedDomain(domain.trim());
     setResults({});
     setError(null);
     
@@ -64,16 +68,23 @@ export default function DnsLookupPage() {
       }
     });
 
-    const settled = await Promise.all(promises);
-    const newResults: Record<string, DnsLookupResult> = {};
-    settled.forEach(({ type, res }) => {
-      if (res && res.Answer && res.Answer.length > 0) {
-        newResults[type] = res;
-      }
-    });
-
-    setResults(newResults);
-    setLoading(false);
+    try {
+      const settled = await Promise.all(promises);
+      const newResults: Record<string, DnsLookupResult> = {};
+      settled.forEach(({ type, res }) => {
+        if (res && res.Answer && res.Answer.length > 0) {
+          newResults[type] = res;
+        }
+      });
+      setResults(newResults);
+    } catch (e) {
+      setError("An unexpected error occurred during lookup.");
+    } finally {
+      setLoading(false);
+      // Reset the turnstile widget to allow another lookup without a page refresh
+      setTurnstileStatus("required");
+      turnstileRef.current?.reset();
+    }
   };
 
   const copyToClipboard = (text: string) => {
@@ -123,6 +134,7 @@ export default function DnsLookupPage() {
                 <div className="w-full flex justify-center min-h-[65px]">
                   {mounted && (
                     <Turnstile
+                      ref={turnstileRef}
                       siteKey={TURNSTILE_SITE_KEY}
                       options={{
                         execution: 'render',
@@ -182,6 +194,13 @@ export default function DnsLookupPage() {
             </div>
           ) : (
             <div className="space-y-8 animate-in fade-in duration-500">
+              <div className="flex flex-col gap-2 pb-4 border-b border-primary/10">
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/60">Results for</span>
+                <h2 className="text-3xl md:text-4xl font-headline font-black text-foreground break-all tracking-tight">
+                  {searchedDomain}
+                </h2>
+              </div>
+
               {GROUPS.map((group) => {
                 const hasVisibleTypes = group.types.some(type => results[type]?.Answer && results[type].Answer!.length > 0);
                 if (!hasVisibleTypes) return null;
